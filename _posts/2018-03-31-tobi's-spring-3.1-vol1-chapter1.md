@@ -46,8 +46,7 @@ tags:
 > - 빈 팩토리(Bean Factory) : 빈의 등록, 생성, 조회 그리고 관계설정같은 제어를 담당하는 IoC 컨테이너. 보통 직접 사용되지 않고 빈 팩토리를 확장한 어플리케이션 컨텍스트를 이용한다.
 > - 어플리케이션 컨텍스트(Application Context) : 빈 팩토리를 확장한 IoC 컨테이너. 빈 팩토리의 기본적인 기능과 스프링이 제공하는 각종 부가 서비스를 추가로 제공한다.
 > - 설정정보/설정 메타정보(Configuration Metadata)  : 어플리케이션 컨텍스트 또는 빈 팩토리가 IoC를 적용하기 위해 사용하는 메타정보.
-> - 컨테이너/IoC 컨테이너(Container) : 
-> - 스프링 프레임워크
+> - 컨테이너/IoC 컨테이너(Container) : IoC 방식으로 빈을 관리한다는 의미로 어플리케이션 컨텍스트나 빈 팩토리를 컨테이너 또는 IoC 컨테이너로 지칭하기도 한다.
 
 ![spring_application_context_flow](https://user-images.githubusercontent.com/18159012/38172390-8381a3ba-35e6-11e8-90f6-4adb18a58a6f.png)
 
