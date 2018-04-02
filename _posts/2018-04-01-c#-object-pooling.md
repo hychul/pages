@@ -51,11 +51,11 @@ public class ObjectPool<T> where T : class
 	private readonly Action<T> onGet;
 	private readonly Action<T> onPut;
 	
-	public ObjectPool(CreateElement createMethod, Action<T> onGet = null, Action<T> onPut = null)
+    public ObjectPool(CreateElement createMethod, Action<T> onGet = null, Action<T> onPut = null)
     {
-    	this.createMethod = createMethod;
-    	this.onGet = onGet;
-    	this.onPut = onPut;
+        this.createMethod = createMethod;
+        this.onGet = onGet;
+        this.onPut = onPut;
     }
     
     public T Get()
@@ -63,11 +63,11 @@ public class ObjectPool<T> where T : class
     	T element;
     	if (stack.Count == 0) 
         {
-        	element = createMethod.Invoke();
+            element = createMethod.Invoke();
             CountAll++;
         }
         else {
-        	element = stack.Pop();
+            element = stack.Pop();
         }
         
         onGet?.Invoke(element);
