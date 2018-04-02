@@ -2,10 +2,10 @@
 title: 오브젝트 풀링
 date: 2018-04-01
 categories:
-- Unity
+- Game
 tags:
 - Development
-- Unity
+- Game
 - C#
 ---
 
