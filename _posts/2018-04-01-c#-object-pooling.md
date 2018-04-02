@@ -47,13 +47,13 @@ public class ObjectPool<T> where T : class
 	
     private readonly Stack<T> stack = new Stack<T>();
     
-	private readonly CreateElement createMethod;
+	private readonly CreateElement factoryMethod;
 	private readonly Action<T> onGet;
 	private readonly Action<T> onPut;
 	
-    public ObjectPool(CreateElement createMethod, Action<T> onGet = null, Action<T> onPut = null)
+    public ObjectPool(CreateElement factoryMethod, Action<T> onGet = null, Action<T> onPut = null)
     {
-        this.createMethod = createMethod;
+        this.factoryMethod = factoryMethod;
         this.onGet = onGet;
         this.onPut = onPut;
     }
@@ -63,7 +63,7 @@ public class ObjectPool<T> where T : class
     	T element;
     	if (stack.Count == 0) 
         {
-            element = createMethod.Invoke();
+            element = factoryMethod.Invoke();
             CountAll++;
         }
         else {
