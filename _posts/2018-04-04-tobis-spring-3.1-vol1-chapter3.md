@@ -317,7 +317,7 @@ public User get(String id) {
 
  SQL 문, PreparedStatementCreator, ResultSetExtractor 그리고 RowMapper 등을 파라메터로 받아 SQL 쿼리를 실행하는 기능을 제공한다.
 
-```Java
+```java
 public void int getCount() {
     return this.jdbcTemplate.query(new PrepareStatementCreator() {
         public PreparedStatement createPreparedStatement(Connection c) throws SQLException {
@@ -336,7 +336,7 @@ public void int getCount() {
 }
 ```
 
-```Java
+```java
 public List<User> getAll() {
     return this.jdbcTemplate.query("select * from users order by id",
                                    new RowMapper<User>() {
