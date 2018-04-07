@@ -224,7 +224,7 @@ public void deleteAll() throws SQLException {
 
  전략 클래스에서 변하는 부분은 SQL 문장 뿐이다. SQL 문장을 제외한 템플릿/콜백 코드는 예로든 deleteAll() 메서드 뿐만 아니라 다른 DAO 메서드에서 반복될 가능성이 높다. 때문에 SQL 문장만 파라메터로 받아 바꿀 수 있게하고 메서드 전체를 분리하여 별도의 메서드로 만들 수 있다.
 
-```Java
+```java
 public void deleteAll() throws SQLException {
     executeSql("delete from uses");
 }
