@@ -1,5 +1,5 @@
 ---
-title: Git text color 설정
+title: Git Text Color 설정
 date: 2018-04-08
 categories:
 - Git
