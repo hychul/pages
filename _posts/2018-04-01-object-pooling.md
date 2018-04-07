@@ -47,9 +47,9 @@ public class ObjectPool<T> where T : class
 	
     private readonly Stack<T> stack = new Stack<T>();
     
-	private readonly CreateElement factoryMethod;
-	private readonly Action<T> onGet;
-	private readonly Action<T> onPut;
+    private readonly CreateElement factoryMethod;
+    private readonly Action<T> onGet;
+    private readonly Action<T> onPut;
 	
     public ObjectPool(CreateElement factoryMethod, Action<T> onGet = null, Action<T> onPut = null)
     {
