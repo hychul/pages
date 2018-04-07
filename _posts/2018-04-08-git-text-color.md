@@ -23,30 +23,30 @@ git config --global color.status.header "yellow normal"
  색상을 설정하는 파라메터의 정규형은 다음과 같다.
 
 ```
-"{텍스트 색상 값} {텍스트 배경 색상 값} {강조 표시:옵션}"
+"{텍스트 색상 값} {텍스트 배경 색상 값} {강조 표시:옵션} ..."
 ```
 
-색상 값
+> 색상 값
+>
+> ```
+> normal
+> black
+> red
+> green
+> yellow
+> blue
+> magenta
+> cyan
+> white
+> ```
 
-```
-normal
-black
-red
-green
-yellow
-blue
-magenta
-cyan
-white
-```
-
-강조 표시
-
-```
-bold
-dim
-ul
-blink
-reverse
-```
+> 강조 표시
+>
+> ```
+> bold
+> dim
+> ul
+> blink
+> reverse
+> ```
 
