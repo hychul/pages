@@ -1,5 +1,5 @@
 ---
-title: 토비의 스프링 3.1 vol.1 3장 - 탬플릿
+title: 토비의 스프링 3.1 vol.1 3장 - 템플릿
 date: 2018-04-04
 categories:
 - Spring
