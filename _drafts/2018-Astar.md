@@ -17,15 +17,41 @@ tags:
 
 [^Heuristic-Function]: 휴리스틱 함수(Heuristic Function) : 가용한 정보를 기반으로 각 분기 단계에서 어느 한 분기를 선택하기 위해 사용하는 다양한 탐색 알고리즘의 대안 함수이다.
 
--휴리스틱 함수
+# A* 알고리즘
 
--Open List
+ A* 알고리즘을 이해하기 위해선 
 
--Close List
+## -휴리스틱 함수
 
--탐색 우선 순위
+## -Open List
 
--예시
+## -Close List
+
+## -탐색 우선 순위
+
+## 탐색 과정
+
+![astar-0](https://user-images.githubusercontent.com/18159012/38462570-6850a3a0-3b24-11e8-8bc8-9513b1ccfc74.png)
+
+![astar-1](https://user-images.githubusercontent.com/18159012/38462574-748d2116-3b24-11e8-8bd9-e9060a714cc1.png)
+
+![astar-2](https://user-images.githubusercontent.com/18159012/38462575-7cb1c932-3b24-11e8-802e-80140d2ade2b.png)
+
+![astar-3](https://user-images.githubusercontent.com/18159012/38462577-83709a1e-3b24-11e8-9297-38346867375c.png)
+
+![astar-4](https://user-images.githubusercontent.com/18159012/38462580-8b912b1e-3b24-11e8-8868-4ca62110d15c.png)
+
+![astar-5](https://user-images.githubusercontent.com/18159012/38462584-98e1e862-3b24-11e8-9d16-ed8894fb41fa.png)
+
+![astar-6](https://user-images.githubusercontent.com/18159012/38462586-a2141810-3b24-11e8-9bca-e89e998650a7.png)
+
+![astar-7](https://user-images.githubusercontent.com/18159012/38462588-aa9010b6-3b24-11e8-9a3b-927278b456a9.png)
+
+![astar-8](https://user-images.githubusercontent.com/18159012/38462655-c80c7390-3b25-11e8-8746-61b718b2865f.png)
+
+![astar-9](https://user-images.githubusercontent.com/18159012/38462662-dc7fef32-3b25-11e8-85f0-0aad2390fc03.png)
+
+
 
 -코드
 
