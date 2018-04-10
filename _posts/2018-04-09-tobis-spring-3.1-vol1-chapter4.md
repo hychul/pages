@@ -9,7 +9,7 @@ tags:
 - Book
 ---
 
- 4장에선...
+ 4장에선 엔터프라이즈 어플리케이션에서 사용할 수 있는 데이터 엑세스 기술을 사용할 때 발생하는 예외들에 대한 특징과 이를 바람직하게 사용할 수 있는 방법이 무엇인지에 대해 알아본다. 또한 스프링에서 제공해주는 효과적인 데이터 엑세스 기술의 전략과 기능에 대해서도 살펴본다.
 
 ## 예외 블랙홀
 
@@ -29,29 +29,29 @@ public void method() throw Exception {
 
  API 등에서 발생하는 예외를 일일이 catch하기도 귀찮고, 매번 정확하게 예외의 이름을 적어서 선언하기도 귀찮으니, 모든 예외를 무조건 던져버리는 선언을 넣는 것이다. 이런 무책임한 throws 선언의 문제점은 적절한 처리를 통해 복구될 수 있는 예외상황도 제대로 다룰 수 있는 기회를 박탈당한다는 것이다. 예외를 try/catch 블록으로 무시해버리는 것보단 낫지만, 매우 안좋은 예외처리 방법이다.
 
-## 예외의 종류와 특징
+# 예외의 종류와 특징
 
  자바에서 throw를 통해 발생시킬 수 있는 예외는 크게 세가지가 있다.
 
-### Error
+## Error
 
  java.lang.Error 클래스의 서브클래스들이다. 주로 자바 VM에서 발생시키는 것이기 때문에 어플리케이션 코드에서 잡으려고 하면 안된다. OutOfMemoryError나 ThreadDeath같은 에러는 catch 블록으로 잡아봤자 아무런 대응 방법이 없기 때문이다.
 
-### Exception과 체크 예외<sup>Checked Exception</sup>
+## Exception과 체크 예외<sup>Checked Exception</sup>
 
  java.lang.Exception 클래스의 서브 클래스면서 RuntimeException 클래스를 상속하지 않는 클래스들이다. 일반적으로 말하는 예외라고 생각하면 된다. 명시적인 예외처리가 필요하기 때문에 체크 예외라고 하며, 체크 예외가 발생발생할 수 있는 메소드를 사용할 경우 반드시 예외를 처리하는 코드를 함께 작성해야 한다. 그렇지 않으면 컴파일 에러가 발생한다.
 
-### RuntimeException과 언체크 예외<sup>Unchecked Exception</sup>
+## RuntimeException과 언체크 예외<sup>Unchecked Exception</sup>
 
  Java.lang.RuntimeException 클래스를 상속한 클래스들이다. 이 예외 클래스들은 명시적인 예외처리를 강제하지 않기 때문에 언체크 예외라고 불리며 클래스 이름을 따서 런타임 에러라고도 한다. 런타임 에러를 catch 문으로 잡거나 throws로 선언하지 않아도 된다. 주로 프로그램 오류가 있을 때 발생하도록 의도된, NullPointerException 같은 것들이다. 이런 예외는 미리 조건을 체크하도록 주의 깊게 만든다면 피할 수 있다.
 
  그런데 자바 언어를 설계하고 JDK를 개발한 이런 설계 의도는 현실과 잘 맞지 않았고, 체크 예외의 불필요성을 주장하는 사람들이 늘어갔다. 최근의 자바 표준 스펙 API들은 예상 가능한 예외상황을 다루는 체크 예외를 만들지 않는 경향이 있다.
 
-## 예외처리 방법
+# 예외처리 방법
 
  예외를 처리하는 일반적인 세가지 방법을 설명한다.
 
-### 예외 복구
+## 예외 복구
 
  예외상황을 파악하고 문제를 해결해서 정상 상태로 돌려놓는 처리 방법이다. 기본 작업이 예외로 인해 수행이 불가능 할 경우 사용자에게 다른 작업으로 자연스럽게 유도해주거나, 정해진 횟수만큼 반복적으로 시도함으로써 예외상황에서 복구되게 하는 방법이다.
 
@@ -73,7 +73,7 @@ public void method() {
 }
 ```
 
-### 예외처리 회피
+## 예외처리 회피
 
  예외처리를 직접하지 않고 자신을 호출한 쪽으로 던지는 것이다. 드물지만 템플릿/콜백 패턴에서 콜백 오브젝트의 메소드에서 템플릿에서 건네준 파라메터에서 예외가 발생하는 경우엔 예외를 처리하는 것은 콜백의 역할이 아니라고 볼 수 있다. 때문에 템플릿 레벨에서 처리될 수 있도록 특별한 목적을 갖기 때문에 발생한 예외를 그냥 던져버리는 무책임한 throws 와는 차이가 있다.
 
@@ -92,7 +92,7 @@ public void method1() throws SomeException {
 }
 ```
 
-### 예외 전환
+## 예외 전환
 
   예외를 복구해서 정상적인 상태로 만들 수 없기 때문에 예외를 메소드 밖으로 던지는 것이다. 하지만 예외처리 회피와 달리 발생한 예외를 그대로 던지는 것이 아니라 호출한 코드에서 처리될 수 있도록 적절한 예외로 변환을 해서 던진다.
 
@@ -118,11 +118,11 @@ public void add(User user) throws DuplicateUserIdException, SQLException {
 
  체크 예외를 계속 throws를 사용해 넘기는 건 무의미하다. 어차피 복구가 불가능한 예외라면 가능한 빨리 런타임 예외로 포장해 다른 계층의 메소드들을 작성할 때 throws 선언이 들어가지 않게 해줘야한다.
 
-## 예외처리 전략
+# 예외처리 전략
 
  자바의 예외를 사용하는 것은 간단하지만, 예외를 효과적으로 사용하고 예외가 발생하는 코드를 깔끔하게 정리하는 데는 여러 가지 신경쓸 것들이 많다.
 
-### 낙관적 예외처리
+## 낙관적 예외처리
 
  낙관적 예외처리란, 복구할 수 있는 예외가 없다고 가정하고 예외가 생겨도 어차피 런타임 예외이므로 시스템 레벨에서 알아서 처리해줄 것이고, 꼭 필요한 경우에는 런타임 예외라도 잡아서 복구하거나 대응해줄 수 있으니 문제 될 것이 없다는 낙관적인 태도를 기반으로 하는 예외처리를 말한다.
 
@@ -130,7 +130,7 @@ public void add(User user) throws DuplicateUserIdException, SQLException {
 
  하지만 자바 엔터프라이즈 서버환경은 다르다. 서버의 특정 계층에서 예외가 발생했을 때 작업을 일시 중지 시키고 사용자와 커뮤니케이션하면서 예외상황을 복구할 수 있는 방법이 없다. 그저 예외가 발생한 해당 작업만 중단시키면 그만이다. 차라리 어플리케이션에서 예외상황을 미리 파악하고, 예외가 발생하지 않도록 차단하는 게 좋다. 또는 예외가 발생한 해당 요청 작업을 빨리 취소하고 서버 관리자나 개발자에게 통보하는 편이 좋다. 때문에 대응이 불가능한 예외라면 런타임 예외로 전환해서 던지는 것이 보편화 되고 있다.
 
-### 어플리케이션 예외
+## 어플리케이션 예외
 
  비관적 예외처리 기법은 일단 잡고 보도록 강제하는 체크 예외의 비관적인 접근 방법을 말한다.
 
@@ -172,4 +172,89 @@ public void add(User user) throws DuplicateUserIdException, SQLException {
 
  스프링은 SQLException을 대체할 수 있는 DataAccessException이라는 런타임 예외를 정의하고 있을 뿐 아니라, DataAccessException의 서브 클래스로 세분화된 예외 클래스들을 정의하고 있다. 그리고 DB별 에러 코드를 분류해서 스프링이 정의한 예외 클래스와 매핑해놓은 코드 매핑정보 테이블을 만들어주고 이를 이용한다.
 
- 전환된 JdbcTemplate에서 던지는 예외는 모두 DataAccessExeption의 서브 클래스 타입이다. 때문에 JdbcTemplate를 사용한다면 JDBC에서 발생한 DB 관련 예외는 거의 신경 쓰지 않아도 된다. 하지만 어플리케이션에서 정의한 ...
+ 전환된 JdbcTemplate에서 던지는 예외는 모두 DataAccessExeption의 서브 클래스 타입이다. 때문에 JdbcTemplate를 사용한다면 JDBC에서 발생한 DB 관련 예외는 거의 신경 쓰지 않아도 된다. 하지만 어플리케이션에서 직접 정의한 예외를 발생시키고 싶을 수 있다. 그런 경우엔 스프링의 런타임 예외를 어플리케이션 예외로 전환해 주는 코드를 DAO 안에 넣으면 된다.
+
+```java
+public void add(User user) throws DuplicateUserIdException {
+    try {
+        // JdbcTemplate을 이용해 User를 add 하는 코드
+    } catch (DuplicateKeyException e) {
+        // 로그를 남기는 등의 필요한 작업
+        throw new DuplicateUserIdException(e);
+    }
+}
+```
+
+# DAO 인터페이스와 DataAccessException 계층구조
+
+ DAO를 굳이 따로 만들어서 사용하는 가장 큰 이유는 데이터 엑세스 로직을 담은 코드를 성격이 다른 코드에서 분리해놓기 위해서다. DAO를 사용하는 쪽에서는 DAO가 내부에서 어떤 데이터 엑세스 기술을 사용하는지 신경 쓰지 않아도 된다. 그런 면에서 DAO는 인터페이스를 사용해 구체적인 클래스 정보와 구현을 감추고, DI를 통해 제공되도록 만드는 편이 바람직하다.
+
+ 하지만 무작정 DAO를 인터페이스로 정의할 수 없다. 데이터 엑세스 기술의 API는 자신만의 독자적인 예외를 던지기 때문에 SQLException을 던지도록 선언한 인터페이스 메소드를 사용할 수 없다. 결국 인터페이스로 메소드의 구현은 추상화했지만 구현 기술마다 전지는 예외가 다르기 때문에 메소드의 선언이 달라진다는 문제가 발생한다.
+
+ 가장 단순하면서 무책임한 방법은 throws Exception으로 선언하는 것이다.
+
+ 다행히 JDBC보다 늦게 등장한 JDO, Hibernate, JPA 등의 기술은 체크 예외를 사용하기 때문에 throws 선언을 하지 않아도 된다. 문제가 되는 것은 체크 예외를 던지는 JDBC API를 사용하는 DAO인데, 이 경우 DAO의 메소드 안에서 런타임 예외로 전환해준다면 throws 선언을 하지 않아도 된다.
+
+ 대부분의 데이터 엑세스 예외는 어플리케이션에서는 복구 불가능하거나 할 필요가 없는 것들이지만, 중복 키 에러처럼 비즈니스 로직에서 의미있게 처리할 수 있는 예외도 있다. 때문에 단지 인터페이스로 추상화하고, 일부 기술에서 발생하는 체크 예외를 런타임 예외로 전환하는 것만으론 불충분하다.
+
+## 데이터 예외 엑세스 추상화
+
+ 스프링은 이러한 문제를 해결하기 위해 다양한 데이터 엑세스 기술을 사용할 때 발생하는 대부분의 예외들을 추상화해서 DataAccessException 계층구조 안에 정리해놓았다.
+
+ JDO, JPA, Hibernate처럼 오브젝트/엔티티 단위로 정보를 업데이트하는 경우에는 낙관적인 락킹<sup>Optimistic Locking[^Optimistic Locking]</sup>이 발생할 수 있다. 낙관적인 락킹은 같은 정보를 두 명 이상의 사용자가 동시에 조회하고 순차적으로 업데이트를 할 때, 뒤늦게 업데이트한 것이 먼저 업데이트한 것을 덮어쓰지 않도록 막아주는 데 쓸 수 있는 편리한 기능이다. 역시 JDO, JPA, Hibernate마다 다른 종류의 낙관적인 락킹 예외를 발생시킨다. 그런데 스프링의 예외 전환을 이용하면 기술에 상관없이 DataAccessException의 서브 클래스인 ObjectOptimisticLockingFailureException으로 통일 시킬 수 있다.
+
+ 이처럼 JbdcTemplate 같은 스프링 데이터 엑세스 지원 기술을 이용해 DAO를 만들면 사용 기술에 독립적인 일관성 있는 예외를 던질 수 있다.
+
+## 기술 독립적 UserDao 만들기
+
+ 분리하려는 UserDao 인터페이스에는 기존 UserDao 클래스에서 DAO의 기능을 사용하려는 클라이언트들이 필요한 것만 추출해내면 된다.
+
+```java
+public interface UserDao {
+    void add(User user);
+    User get(String id);
+    List<User> getAll();
+    void deleteAll();
+    int getCount();
+}
+```
+
+ public 메소드긴 하지만 UserDao의 setDataSource() 메소드는 인터페이스에 추가하면 안 된다는 사실에 주의하자. UserDao의 구현에 따라 변경될 수 있고, UserDao를 사용하는 클라이언트가 알고 있을 필요도 없다.
+
+ 이제 JDBC를 사용하는 UserDao를 상속하는 클래스를 선언한다. 또한 설정파일의 userDao 빈 클래스 이름 또한 클래스의 이름으로 변경해준다.
+
+```java
+public class UserDaoJdbc implements UserDao {
+    ...
+}
+```
+
+```xml
+<bean id="userDao" class="projectname.dao.UserDaoJdbc">
+    <property name="dataSource" ref="dataSource" />
+</bean>
+```
+
+ 그 후에 테스트에서 DataAccessException이 발생하는 알아보기 위해 테스트를 추가한다. UserDao 클래스의 테스트 코드에서 구현 기술에 상관 없이 DAO가 제대로 작동하는지 확인하려면 UserDao 인터페이스로 받아서 테스트 하는 편이 낫다.
+
+![tobis-spring-3 1-vol1-chapter4-0](https://user-images.githubusercontent.com/18159012/38562001-7c6f506a-3d14-11e8-865c-ef8065d627c5.png)
+
+```java
+public class UserDaoTest {
+    
+    @Autowired
+    private UserDao dao;
+    
+    @Test(expected=DataAccessException.class)
+    public void duplicateKey() {
+        dao.deleteAll();
+        
+        dao.add(user1);
+        dao.add(user1);
+    }   
+}
+```
+
+## DataAccessException 활용 시 주의사항
+
+ 스프링을 활용하면 DB 종류나 데이터 엑세스 기술에 상관없이 키 값이 중복되면 동일한 예외가 발생할 것이라고 기대할 것이다. 하지만 안타깝게도 DuplicateKeyException은 아직까진 JDBC를 이용하는 경우에만 발생한다. 이처럼 DataAccessException이 기술에 상관없이 어느 정도 추상화된 공통 예외로 전환해주지만 에러 코드 매핑정보 테이블을 사용한다는 근본적인 한계 때문에 완벽하다고 기대할 순 없다. 따라서 미리 학습 테스트를 만들어 실제 전환되는 예외의 종류를 확인해 줄 필요가 있다.
