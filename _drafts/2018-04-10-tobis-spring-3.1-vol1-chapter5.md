@@ -140,3 +140,44 @@ public void upgradeLevels() throws Exception {
  JTA 설명...문제점...
 
 ## 스프링의 트랜잭션 서비스 추상화
+
+스프링은 트랜잭션 기술의 공통점을 담은 트랜잭션 추상화 기술을 제공하고 있다. 이를 통해 어플리케이션에서 직접 각 기술의 트랜잭션 API를 이용하지 않고도, 일관된 트랜잭션 경계설정 작업이 가능해진다.
+
+[그림 5-6]
+
+스프링이 제공하는 트랜잭션 추상화 방법을  UserService에 적용하면 다음과 같은 코드로 만들 수 있다.
+
+```java
+public void upgradeLevels() {
+    PlatformTransactionManager transactionManager = new DataSourceTransactionManager(dataSource);
+    TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+    try {
+        List<User> users = userDao.getAll();
+        for (User user : users) {
+            if (canUpgradeLevel(user)) {
+                upgradeLevel(user);
+            }
+        }
+        transactionManager.commit(status);
+    } catch (RuntimeException e) {
+        transactionManager.rollback(status);
+        throw e;
+    }
+}
+```
+
+ 스프링이 제공하는 트랜잭션 경계설정을 위한 추상 인터페이스는 PlatformTransactionManager다. JDBC의 로컬 트랜잭션을 사용하려면 PlatformTransactionManager을 구현한 DataSourceTransactionManager를 사용하면 된다.
+
+ JDBC를 사용하는 경우에 먼저 Connection을 생성하여 사용했지만,  PlatformTransactionManager에서는 트랜잭션을 가져오는 요청인 getTransaction() 메소드를 호출하기만 하면 된다. 메소드가 호출되면 트랜잭션 매니저가 필요에 따라 DB 커넥션을 가져오는 작업도 같이 수행해준다.
+
+ 파라메터로 넘기는 DefualtTransactionDefinition 오브젝트는 트랜잭션에 대한 속성을 담고 있다.
+
+ getTransation() 메소드 호출로 시작된 트랜잭션은  TransactionStatus  타입의 변수에 저장된다. 때문에 트랜잭션의 조작이 필요한 경우 PlatformTransactionManager 메소드의 파라메터로 전달해주면 된다. DataSourceTransactionManager오브젝트에서  JdbcTemplate에서 사용될 수 있는 방식으로 트랜잭션을 관리해주기 때문에 시작된 트랜잭션은 UserDao의 JdbcTemplate 안에서 사용된다.
+
+ 트랜잭션 작업을 모두 수행한 후에는 트랜잭션을 만들 때 돌려받은 TransactionStatus 오브젝트를 파라미터로 해서 commit() 메소드를 호출하면된다. 예외가 발생한 경우엔 rollback() 메소드르 트랜잭션 작업을 취소한다.
+
+##### 트랜잭션 기술 설정의 분리
+
+
+
+ 
