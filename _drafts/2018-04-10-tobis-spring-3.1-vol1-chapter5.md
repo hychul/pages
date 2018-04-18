@@ -11,8 +11,6 @@ tags:
 
  5장에선 엔터프라이즈 어플리케이션의 트랜젝션에 대해 설명한다. 또한 자바에서 사용되는 다양한 트랜젝션을 편리하게 사용하기 위한 스프링이 제공하는 트랜젝션 서비스 추상화에 대해 소개하고 서비스 추상화의 중요성과 그 가치와 의미에 대해서도 설명한다.
 
-…
-
 ## 트랜젝션 경계설정
 
 하나의 SQL 명령을 처리하는 경우엔 DB는 그 자체로 완벽한 트랜젝션을 지원한다. 하지만 여러 개의 SQL이 사용되는 작업을 하나의 트랜잭션으로 취급해야 하는 경우도 있다. 첫번째 SQL을 성공적으로 실행했지만 두 번째 SQL이 성공하기 전에 장애가 생겨 작업이 중단된 경우 문제가 발생한다. 이때 두 가지 작업이 하나의 트랜잭션이 되기 위해 트랜잭션 롤백<sup>Transaction Rollback</sup>을 통해 이전 작업도 취소시켜야한다. 반대로 모든 SQL 수행 작업이 다 성공적으로 마무이 된 경우 트랜잭션 커밋<sup>Transaction Commit</sup>을 통해 SQL 수행 작업이 성공적으로 마무리 되었다고 DB에 알려 작업을 확정시켜야 한다.
@@ -31,7 +29,7 @@ tags:
 
  updateLevels()에서 세 번에 걸쳐 UserDao의 update()를 호출할 때, 첫번째 update() 작업이 성공했다면 이미 트랜잭션이 종료되면서 커밋됐기 때문에 두 번째 update()가 실패하더라도 첫 번째 커밋한 트랜잭션의 결과는 DB에 그대로 남는다.
 
-[그림 5-2]
+![tobis-spring-3 1-vol1-chapter5-0](https://user-images.githubusercontent.com/18159012/38912557-e6062006-4310-11e8-9e16-19680bc94bfc.png)
 
  어떤 일련의 작업이 하나의 트랜잭션으로 묶이려면 그 작업이 진행되는 동안 DB 커넥션도 하나만 사용돼야 한다. 앞에서 설명한 것처럼 트랜잭션은 Connection 오브젝트 안에서 만들어지기 때문이다.
 
@@ -59,8 +57,31 @@ public void upgradeLevels() throws Exception {
 
  트랜잭션 때문에 DB 커넥션과 트랜잭션 관련 코드는 어쩔 수 없이 UserService로 가져왔지만, 순수한 데이터 액세스 로직은 UserDao에 둬야 하기 때문에 생성된 Connection을 UserDao에게 파라메터로 전달해줘야 한다. 또한 UserDao의 update() 메소드를 사용하는 메소드는 upgradeLevels() 메소드가 아니라 upgradeLevel() 메소드이기 때문에, UserService의 메소드 사이에서도 같은 Connection 오브젝트를 파라메터로 넘겨줘야한다.
 
+```java
+class UserService {
+    public void upgradeLevels() throw Exception {
+        Connection c = ...;
+        ...
+        try {
+            ...
+            upgradeLevel(c, user);
+            ...
+        }
+        ...
+    }
+    
+    protected void upgradeLevel(Connection c, User user) {
+        user.upgradeLevel();
+        userDao.update(c, user);
+    }
+}
 ```
-5-40
+
+```java
+interface UserDao {
+    public update(Connection c, User user);
+    ...
+}
 ```
 
 ## UserService 트랜잭션 경계설정의 문제점
@@ -176,8 +197,75 @@ public void upgradeLevels() {
 
  트랜잭션 작업을 모두 수행한 후에는 트랜잭션을 만들 때 돌려받은 TransactionStatus 오브젝트를 파라미터로 해서 commit() 메소드를 호출하면된다. 예외가 발생한 경우엔 rollback() 메소드르 트랜잭션 작업을 취소한다.
 
-##### 트랜잭션 기술 설정의 분리
+## 트랜잭션 기술 설정의 분리
 
+ 트랜잭션 추상화를 적용한 UserService 코드를 JTA를 이용하는 클로벌 트랜잭션으로 변경하려면, PlatformTransactionManager을 구현한 DataSourceTransactionManager를 JTATransactionManager로 바꿔주기만 하면 된다.
 
+ 만약 Hibernate로 UserDao를 구현했다면 HibernateTransactionManager를, JPA로 구현했다면 JPATransactionManager를 사용하면 된다. 모두 PlatformTransactionManager를 구현한 것이니 트랜잭션 경계설정을 위한 getTransaction(), commit(), rollback() 메소드를 사용한 코드는 전혀 손댈 필요가 없다.
 
- 
+ 하지만 어떤 트랜잭션 매니저 구현 클래스를 사용하는지 UserService가 알고있는 것은 DI 원칙에 위배되므로, PlatformTransactionManager 구현 클래스를 스프링 빈으로 등록하고 UserService가 DI 방식으로 사용하게 해야한다. 스프링이 제공하는 PlatformTransactionManager 구현 클래스들은 스레드 세이프하기 때문에 싱글톤 빈으로 등록이 가능하다.
+
+```xml
+<bean id="userService" class="user.service.UserService">
+    <property name="userDao" ref="userDao" />
+    <property name="transactionManager" ref="transactionManager" />
+</bean>
+
+<bean id="transactionManager" class="org.springframwork.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource" />
+</bean>
+```
+
+```java
+public class UserService {
+    ...
+    private PlatformTransactionManager transactionManager;
+    
+    public void setTransactionManager(PlatformTransactionManager transactionManager) {
+        this.transactionManager = transactionManager;
+    }
+    
+    public void upgradeLevels() {
+        TransactionStatus status = this.transactionManager.getTransaction(new DefaultTransactionDefinition());
+        try {
+            List<User> users = userDao.getAll();
+            for (User user : users) {
+                if (canUpgradeLevel(user)) {
+                    upgradeLevel(user);
+                }
+            }
+            this.transactionManager.commit();
+        } catch (RuntimeException e) {
+            this.transactionManager.rollback();
+            throw e;
+        }
+    }
+    ...
+}
+```
+
+ JTATransactionManager는 어플리케이션 서버의 트랜잭션 서비스를 이용하기 때문에 직접 DataSource와 연동할 필요는 없지만, JTA를 사용하는 경우엔 DataSource도 서버가 제공하는 것을 사용해야한다.
+
+ DAO를 Hibernate나 JPA, JDO 등을 사용하도록 수정했다면 UserService 코드의 수정 없이 transactionManager 클래스만 변경해주면 된다.
+
+# 서비스 추상화와 단일 책임 원칙
+
+ 기술과 서비스에 대한 추상화 기법을 이용하면 특정 기술 환경에 종속되지 않는 코드를 만들 수 있다. UserDao와 UserService는 같은 어플리케이션 로직을 담았지만 각각 담당하는 기능에 따라 분리되었다. 같은 계층에서의 수평적인 분리라고 볼 수 있다.
+
+ 트랜잭션의 추상화는 이와 좀 다르다. 어플리케이션의 비즈니스 로직과 그 하위에서 동작하는 로우레벨의 트랜잭션 기술이라는 아예 다른 계층을 특성을 갖는 코드를 분리한 것이기 때문이다.
+
+[그림 5-7]
+
+ 위와같이 어플리케이션 로직의 종류에 따른 수평적인 구분이든, 로직과 기술이라는 수직적인 구분이든 모두 결합도가 낮으며, 서로 영향을 주지 않고 자유롭게 확장될 수 있는 구조를 만들 수 있는 데는 스프링의 DI가 중요한 역할을 하고 있다. **DI의 가치는 이렇게 관심, 책임, 성격이 다른 코드를 깔끔하게 분리하는 데 있다.**
+
+## 단일 책임 원칙
+
+ 적절한 분리가 가져오는 특징은 객체지향 설계 원칙 중 하나인 단일 책임 원칙<sup>Single Responsibility Principle</sup>으로 설명할 수 있다. 단일 책임 원칙은 하나의 모듈은 한 가지 책임을 가져야 한다는 의미다.
+
+ 트랜잭션 서비스의 추상화 방식을 통해 DI한다면, UserService가 바뀔 이유는 사용자 관리 로직이 변경되는 한가지 뿐이다. 설령 트랜잭션 기술이 바뀌거나 서버환경이 바뀌더라도 UserService를 변경할 이유가 없다.
+
+ 이렇게 단일 책임 원칙을 지키는 코드를 작성하면, 어떤 변경이 필요할 때 수정 대상이 명확해지는 장점이 있다. 의존성이 존재하는 코드라면 의존 수 만큼 엄청난 코드를 수정해야 한다. 많은 코드를 수정하는 작업에선 그만큼 실수가 일어날 확률이 높다.
+
+ 때문에 적절히 책임과 관심이 다른 코드를 분리하고, 서로 영향을 주지 않도록 하는 작업은 갈수록 복잡해지는 엔터프라이즈 어플리케이션에는 반드시 필요하다. 좋은 코드를 설계하고 만들려면 꾸준한 노력이 필요하다. 그저 기능이 동작한다고 해서 코드에 쉽게 만족하지 말고 계속 다듬고 개선하려는 자세도 필요하다. DI 또한 좋은 코드를 만들려고 고민했던 시간을 통해 만들어진 것이다.
+
+ 스프링의 의존관계 주입 기술인 DI는 모든 스프링 기술의 기반이 되는 핵심이다.
