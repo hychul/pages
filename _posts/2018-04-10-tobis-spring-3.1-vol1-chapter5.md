@@ -21,7 +21,7 @@ tags:
 
  JDBC의 트랜잭션은 하나의 Connection을 가져와 사용하다가 닫는 사이에서 일어난다. 트랜잭션의 시작과 종료는 Connection 오브젝트를 통해 이뤄지기 때문이다. JDBC에서 트랜잭션을 시작하려면 Connection의 setAutoCommit() 메소드를 통해 자동커밋 옵션을 false로 만들어 주면 된다. 트랜잭션이 한 번 시작되면 commit() 또는 rollbak() 메소드가 호출 될 때까지의 작업이 하나의 트랜잭션으로 묶인다.
 
- 이렇게 setAutoCommit(false)로 트랜잭션의 시작을 선언하고 commit() 또는 rollback()으로 트랜잭션을 종료하는 작업을 트랜잭션의 경계설정<sup>Transaction Demarcation</sup>이라고 한다. 이렇게 하나의 DB 커넥션 안에서 만들어지는 트랜잭션을 로컬 트랜잭션<sup>Local Tranaction</sup>이라고도 한다.
+ 이렇게 **setAutoCommit(false)로 트랜잭션의 시작을 선언하고 commit() 또는 rollback()으로 트랜잭션을 종료하는 작업을 트랜잭션의 경계설정<sup>Transaction Demarcation</sup>이라고 한다.** 이렇게 하나의 DB 커넥션 안에서 만들어지는 트랜잭션을 **로컬 트랜잭션<sup>Local Tranaction</sup>**이라고도 한다.
 
 ## UserDao의 문제
 
@@ -31,7 +31,7 @@ tags:
 
 ![tobis-spring-3 1-vol1-chapter5-0](https://user-images.githubusercontent.com/18159012/38912557-e6062006-4310-11e8-9e16-19680bc94bfc.png)
 
- 어떤 일련의 작업이 하나의 트랜잭션으로 묶이려면 그 작업이 진행되는 동안 DB 커넥션도 하나만 사용돼야 한다. 앞에서 설명한 것처럼 트랜잭션은 Connection 오브젝트 안에서 만들어지기 때문이다.
+ **어떤 일련의 작업이 하나의 트랜잭션으로 묶이려면 그 작업이 진행되는 동안 DB 커넥션도 하나만 사용돼야 한다.** 앞에서 설명한 것처럼 트랜잭션은 Connection 오브젝트 안에서 만들어지기 때문이다.
 
 ## 비즈니스 로직 내의 트랜잭션 경계설정
 
@@ -97,7 +97,7 @@ interface UserDao {
 
 스프링은 위에서의 딜레마를 해결하기 위해 독립적인 트랜잭션 동기화<sup>Transaction Synchronization</sup>방식을 제공한다. **트랜젝션 동기화란 UserService에서 트랜잭션을 시작하기 위해 만든 Connection을 특별한 저장소에 보관해주고, 이후에 호출되는 DAO의 메소드에서는 저장된 Connection을 가져다가 사용하게 하는 것이다.** 정확하게는 JdbcTemplate이 트랜잭션 동기화를 이용하게 하는 것이다.
 
-[그림 5-3]
+![tobis-spring-3 1-vol1-chapter5-1](https://user-images.githubusercontent.com/18159012/38935320-07336f7a-4359-11e8-92fb-679c1c74d25d.png)
 
 어느 작업 중에라도 UserService는 Connection의 rollback()을 호출하여 트랜잭션을 종료할 수 있다. 물론 이때도 트랜잭션 저장소에 저장된 동기화된 Connection 오브젝트는 제거해줘야한다.
 
@@ -138,13 +138,9 @@ public void upgradeLevels() throws Exception {
 }
 ```
 
-...
+ **스프링이 제공하는 트랜잭션 동기화 관리 클래스는 TransactionSynchrinizationManager다.** initSynchronization() 메소드를 통해 트랜잭션 동기화 작업을 초기화한 후, DataSourceUtils에서 제공하는 getConnection() 메소드를 통해 트랜잭션 동기화를 위해 저장소에 바인딩하며 DB 커넥션을 생성한다. 동기화 준비가 되었으면 setAutoCommit() 메소드로 트랜잭션을 시작하고 작업이 정상적으로 마치면 commit() 메소드를, 예외가 발생한 경우 rollback() 메소드를 호출한다.
 
  JDBC의 트랜잭션 경계설정 메소드를 사용해 트랜잭션을 이용하는 전형적인 코드에 간단한 트랜잭션 동기화 작업만 붙여줌으로써,  지저분한 Connection 파라메터 문제를 해결할 수 있다.
-
-## 트랜잭션 테스트 보완
-
-...
 
 ## JdbcTemplate 트랜잭션 동기화
 
@@ -156,15 +152,36 @@ public void upgradeLevels() throws Exception {
 
 #  트랜잭션 서비스 추상화
 
- 하나의 DB를 사용하고 있는 경우엔 위의 방법으로 충분하지만, 하나의 트랜잭션 안에서 여러 개의 DB에 데이터를 넣는 작업을 해야 할 경우 로컬 트랜잭션으로는 불가능 하다. 로컬 트랜잭션은 하나의 DB 커넥션에 종속적이기 때문이다. 따라서  각 DB와 독립적으로 만들어지는 Connectionㅇㄹ 통해서가 아니라, 별도의 트랜잭션 관리자를 통해 여러개의 DB가 참여하는 작업을 트랜잭션으로 관리하는 글로벌 트랜잭션<sup>Global Transaction</sup> 방식을 사용해야한다. 이를 통해 여러 DB에 대한 트랜젝션 뿐만 아니라 JMS(Java Message Service)와 같이 트랜잭션 기능을 제공하는 서비스도 트랜잭션에 참여 시킬 수 있다.
+ 하나의 DB를 사용하고 있는 경우엔 위의 방법으로 충분하지만, 하나의 트랜잭션 안에서 여러 개의 DB에 데이터를 넣는 작업을 해야 할 경우 로컬 트랜잭션으로는 불가능 하다. 로컬 트랜잭션은 하나의 DB 커넥션에 종속적이기 때문이다. 따라서  각 DB와 독립적으로 만들어지는 Connection을 통해서가 아니라, 별도의 트랜잭션 관리자를 통해 여러개의 DB가 참여하는 작업을 트랜잭션으로 관리하는 **글로벌 트랜잭션<sup>Global Transaction</sup>** 방식을 사용해야한다. 이를 통해 여러 DB에 대한 트랜젝션 뿐만 아니라 JMS(Java Message Service)와 같이 트랜잭션 기능을 제공하는 서비스도 트랜잭션에 참여 시킬 수 있다.
 
- JTA 설명...문제점...
+ 자바는 글로벌 트랜잭션을 지원하는 트랜잭션 매니저를 지원하기 위해 JTA<sup>Java Transaction API</sup>를 제공한다. 어플리케이션에서는 기존의 방법대로 DB는 JDBC, 메시징 서버라면 JMS 같은 API를 사용해 작업을 수행하고, 트랜잭션은 직접 제어하지 않고 JTA를 통해 트랜잭션 매니저가 관리하도록 위임한다.
+
+![tobis-spring-3 1-vol1-chapter5-3](https://user-images.githubusercontent.com/18159012/38938108-c3e5b9c4-435f-11e8-87e3-2cfc86fc95b4.png)
+
+```java
+InitialContext ctx = new InitailContext();
+UserTransaction tx = (UserTransaction) ctx.lookup(USER_TX_JNDI_NAME);
+
+tx.begin();
+Connection c = dataSource.getConnection();
+try {
+    // 데이터 엑세스 코드
+    tx.commit();
+} catch (Exception e) {
+    tx.rollback();
+    throw e;
+} finally {
+    c.close();
+}
+```
+
+ JTA를 사용한 트랜잭션 경계설정 구조는 JDBC를 사용했을 때와 비슷하다. 하지만 로컬 트랜잭션을 위한 코드에 JDBC를 이용한 트랜잭션을, 글로벌 트랜잭션을 위해 JTA를 사용해서 코드를 작성하면, UserService의 로직이 바뀌지 않더라도 기술 환경에 따라 코드가 바뀌게 되는 문제가 생긴다.
 
 ## 스프링의 트랜잭션 서비스 추상화
 
 스프링은 트랜잭션 기술의 공통점을 담은 트랜잭션 추상화 기술을 제공하고 있다. 이를 통해 어플리케이션에서 직접 각 기술의 트랜잭션 API를 이용하지 않고도, 일관된 트랜잭션 경계설정 작업이 가능해진다.
 
-[그림 5-6]
+![tobis-spring-3 1-vol1-chapter5-4](https://user-images.githubusercontent.com/18159012/38938547-bb4f44b4-4360-11e8-9d06-2a99d7d4e2e6.png)
 
 스프링이 제공하는 트랜잭션 추상화 방법을  UserService에 적용하면 다음과 같은 코드로 만들 수 있다.
 
@@ -254,7 +271,7 @@ public class UserService {
 
  트랜잭션의 추상화는 이와 좀 다르다. 어플리케이션의 비즈니스 로직과 그 하위에서 동작하는 로우레벨의 트랜잭션 기술이라는 아예 다른 계층을 특성을 갖는 코드를 분리한 것이기 때문이다.
 
-[그림 5-7]
+![tobis-spring-3 1-vol1-chapter5-2](https://user-images.githubusercontent.com/18159012/38937634-9b28516e-435e-11e8-9a7a-07e52cf48423.png)
 
  위와같이 어플리케이션 로직의 종류에 따른 수평적인 구분이든, 로직과 기술이라는 수직적인 구분이든 모두 결합도가 낮으며, 서로 영향을 주지 않고 자유롭게 확장될 수 있는 구조를 만들 수 있는 데는 스프링의 DI가 중요한 역할을 하고 있다. **DI의 가치는 이렇게 관심, 책임, 성격이 다른 코드를 깔끔하게 분리하는 데 있다.**
 
@@ -266,6 +283,4 @@ public class UserService {
 
  이렇게 단일 책임 원칙을 지키는 코드를 작성하면, 어떤 변경이 필요할 때 수정 대상이 명확해지는 장점이 있다. 의존성이 존재하는 코드라면 의존 수 만큼 엄청난 코드를 수정해야 한다. 많은 코드를 수정하는 작업에선 그만큼 실수가 일어날 확률이 높다.
 
- 때문에 적절히 책임과 관심이 다른 코드를 분리하고, 서로 영향을 주지 않도록 하는 작업은 갈수록 복잡해지는 엔터프라이즈 어플리케이션에는 반드시 필요하다. 좋은 코드를 설계하고 만들려면 꾸준한 노력이 필요하다. 그저 기능이 동작한다고 해서 코드에 쉽게 만족하지 말고 계속 다듬고 개선하려는 자세도 필요하다. DI 또한 좋은 코드를 만들려고 고민했던 시간을 통해 만들어진 것이다.
-
- 스프링의 의존관계 주입 기술인 DI는 모든 스프링 기술의 기반이 되는 핵심이다.
+ 때문에 적절히 책임과 관심이 다른 코드를 분리하고, 서로 영향을 주지 않도록 하는 작업은 갈수록 복잡해지는 엔터프라이즈 어플리케이션에는 반드시 필요하다. 좋은 코드를 설계하고 만들려면 꾸준한 노력이 필요하다. 그저 기능이 동작한다고 해서 코드에 쉽게 만족하지 말고 계속 다듬고 개선하려는 자세도 필요하다. DI 또한 좋은 코드를 만들려고 고민했던 시간을 통해 만들어진 것이다. 스프링의 의존관계 주입 기술인 DI는 좋은 설계와 코드를 만드는 모든 스프링 기술의 기반이 되는 핵심 기술이다.
