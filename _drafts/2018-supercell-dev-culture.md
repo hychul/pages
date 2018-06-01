@@ -9,7 +9,7 @@ tags:
 - Inspiration
 ---
 
-
+# 기사
 
 #### 가볍게 접하고 즐기지만, 숙련되기는 어려운 게임
 
@@ -41,7 +41,7 @@ PvP 게임의 스트레스를 최소화하기 위한 또 다른 핵심 조건은
 
 
 
-GDC 2018 
+# GDC 2018 
 
 Supercell - How Supercell Turned the Traditional Org-Chart Upside Down
 
@@ -168,3 +168,14 @@ Supercell - How Supercell Turned the Traditional Org-Chart Upside Down
 감사합니다. 
 
  
+
+# 계속하게 되는 이유
+
+1. 완성도가 높음
+2. 밸런스
+3. PVP 활성화를 통한 무한 콘텐츠
+4. 결제 시 확실한 리워드
+5. 클라이언트 / 서버 최적화
+6. 데이터를 서버에 저장
+7. 한 판당 플레이 시간
+8. 중독 요소를 모두 지님 : 수집, 육성, 경쟁
