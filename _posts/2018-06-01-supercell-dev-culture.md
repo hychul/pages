@@ -63,4 +63,4 @@ tags:
 
  슈퍼셀은 어떤 경우에도 제안서를 작성할 필요가 없는 문화를 가지고 있다. 결과가 좋을때도 있고 그렇지 않을때도 있지만 결과가 나쁘더라고 괜찮다. 팀을 전폭적으로 신뢰하지만 실패도 많이한다. 앞서 언급했듯이 실패는 크리에이티브 프로세스에서 필수적이다. 실패나 실수를 했을 때 인간은 본능적으로 "다시는 재발되지 않도록 규칙을 만들자"하는 태도를 취하게되지만 슈퍼셀은 항상 규칙보다 사람에 대한 신뢰를 우선시하려 노력한다.
 
-출처: [GDC 2018 - Supercell : How supercell turned the traditional org-chart upside down](https://www.gdcvault.com/browse/gdc-18/play/1025004/The-Cell-Structure-How-Supercell)
+[GDC 2018 - Supercell : How supercell turned the traditional org-chart upside down](https://www.gdcvault.com/browse/gdc-18/play/1025004/The-Cell-Structure-How-Supercell)
