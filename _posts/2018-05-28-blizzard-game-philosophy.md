@@ -9,7 +9,7 @@ tags:
 - Inspiration
 ---
 
-![blizzard-game-philosophy-01](https://user-images.githubusercontent.com/18159012/41012095-f783151a-697a-11e8-89c5-3643ca50b7f1.png)
+![blizzard-game-philoshphy-01](https://user-images.githubusercontent.com/18159012/41012515-d40446a2-697c-11e8-8c20-e7058b6b1751.png)
 
  \<월드 오브 워크래프트>의 수석 기획자였고, 2010년 블리자드 게임 기획 부서의 부사장(Executive Vice President)를 맡은 롭 팔도(Rob Pardo)가 GDC 2010 강연에서 'Making a Standard(and Trying to Stick to it!): Bizzard Design Philosophies'라는 주제로 강연한 내용을 정리한 글이다.
 

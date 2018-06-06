@@ -9,7 +9,7 @@ tags:
 - Inspiration
 ---
 
-![zelda-breaking-convention-01](https://user-images.githubusercontent.com/18159012/41011861-cb5243c2-6979-11e8-84d8-a0602ee1e02f.jpg)
+![zelda-breaking-convention-01](https://user-images.githubusercontent.com/18159012/41012524-e2bf7c7a-697c-11e8-8d4b-8783ace331fa.jpg)
 
  젤다의 전설은 1986년 부터 현재까지 많은 팬을 보유하고 있는 액션 어드벤처 게임 시리즈다. 닌텐도 콘솔을 사면 마리오와 젤다를 사야된다는 것은 이제 흔한 말이 되어 있을 정도로 닌텐도의 게임 시리즈에서 마리오 다음으로 높은 인기를 자랑하는 시리즈이며, 역으로 마리오와 젤다를 하기 위해 닌텐도 콘솔을 사는 것이라는 말도 있다.
 

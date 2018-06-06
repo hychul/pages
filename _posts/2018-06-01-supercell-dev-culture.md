@@ -9,7 +9,7 @@ tags:
 - Inspiration
 ---
 
-![supercell-dev-culture-01](https://user-images.githubusercontent.com/18159012/41012008-9226da62-697a-11e8-95ab-d186114bc6e6.png)
+![supercell-dev-culture-01](https://user-images.githubusercontent.com/18159012/41012520-dcc3374e-697c-11e8-8c71-dfaad6e6cc61.png)
 
  슈퍼셀의 게임들을 보면 모든 것들이, 디자인, 아트 그리고 소프트웨어 엔지니어링까지 모든 요소가 조화를 이루어져 있다. 이런 결과물이 나올 수 있는 것은 각 파트가 많은 대화를 하고 그 대화를 통해 조율을 한 것이라는 예상을 하는 것은 어려운 일이 아니지만 '회사'에서 그런 대화를 할 수 있다는 것은 정말 어려운 일이다.
 
