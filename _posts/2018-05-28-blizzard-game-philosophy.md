@@ -9,6 +9,8 @@ tags:
 - Inspiration
 ---
 
+![blizzard-game-philosophy-01](https://user-images.githubusercontent.com/18159012/41012095-f783151a-697a-11e8-89c5-3643ca50b7f1.png)
+
  \<월드 오브 워크래프트>의 수석 기획자였고, 2010년 블리자드 게임 기획 부서의 부사장(Executive Vice President)를 맡은 롭 팔도(Rob Pardo)가 GDC 2010 강연에서 'Making a Standard(and Trying to Stick to it!): Bizzard Design Philosophies'라는 주제로 강연한 내용을 정리한 글이다.
 
  강연에 앞서 롭 팔도는 “우리의 게임 디자인 가치관이 여러분 스튜디오에 맞지 않을 수 있다. 게임 디자인의 가치관은 여러분 스스로 무엇이 여러분 게임에 중요하고, 필요한지 판단하여 각자 적합한 규칙을 만들어야 한다. 특히 규모가 큰 스튜디오나 부서의 경우 구성원 모두가 현재 어떤 작업이 진행 중인지 아는 것이 무엇보다 중요하므로 이런 작업이 더욱 필요하다. 여러분 게임이 성공하기 위해서 필요한 것은 블리자드의 가치관이 아니라 여러분만의 가치관이 필요하다”는 전제를 두었다.
