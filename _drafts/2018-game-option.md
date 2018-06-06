@@ -1,5 +1,5 @@
 ---
-title:  게임 옵션
+title: 게임 옵션
 date: 2018-04-12
 categories:
 - Game
