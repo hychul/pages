@@ -1,5 +1,5 @@
 ---
-title:  게임 그리고 MVC
+title: 게임 그리고 MVC
 date: 2018-04-11
 categories:
 - Game
