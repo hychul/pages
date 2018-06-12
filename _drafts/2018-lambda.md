@@ -170,7 +170,7 @@ final class Main$$Lambda$1 implements Functional {
 
 # 람다와 클로저<sup>Closure</sup>
 
- 자바를 주로 사용하였다면 클로저라는 개념을 잘 모를 수 있다. 하지만 클로저가 람다로부터 파생된 개념이기 때문에 람다를 사용한다면 이 개념에 익숙해질 필요가 있다.
+ 자바를 주로 사용하였다면 클로저라는 개념을 잘 모를 수 있다. 하지만 클로저가 람다로부터 파생된 개념이기 때문에 람다를 사용한다면 이 클로저를 알아두면 좋다.
 
  람다는 순수 함수말고도 외부 변수를 참조하도록 할 수 있다. 앞서 레퍼런스를 확인하는 코드를 외부변수를 참조하도록 수정하면 다음과 같다.
 
@@ -184,15 +184,16 @@ public class Main {
 
     public void main() {
         Object externObj = this;
-        Functional functional = () -> {
-            System.out.println("main this : " + externObj);
+        Functional functional = (paramObj) -> {
+            System.out.println("external this : " + externObj);
+            System.out.println("param this : " + paramObj);
             System.out.println("lambda this : " + this);
         };
-        functional.doSomething();
+        functional.doSomething(this);
     }
 
     interface Functional {
-        void doSomething();
+        void doSomething(Object paramObj);
     }
 }
 ```
@@ -216,31 +217,20 @@ final class Main$$Lambda$1 implements Functional {
     }
 
     @Hidden
-    public void doSomething() {
-        this.arg$1.lambda$main$0(this.arg$2);
+    public void doSomething(Object var1) {
+        this.arg$1.lambda$main$0(this.arg$2, var1);
     }
 }
 ```
 
- 자동 정의된 동적 클래스를 확인하면 외부변수를 final 멤버 변수로 갖는 것을 알 수 있다. 
+ 자동 정의된 동적 클래스를 확인하면 외부 변수를 final 멤버 변수로 갖는 것을 알 수 있다. 그리고 람다가 사용될 때, 매개변수와 외부변수를 람다 바디에 전달한다. 하지만 람다 바디 입장에서 파라메터는 해당 스코프에 갇혀있지만, 외부변수는 어디서 와서 사용되는지 알 수가 없다. 이때의 외부변수는 *자유변수<sup>Free Variable</sup>*, 매개변수를 *묶인 변수<sup>Bound Variable</sup>*라고 부른다.
 
+ 위의 람다식에서는 자유 변수와 묶인 변수를 하나씩 사용하고 있다. 람다식은 사용하는 변수의 종류에 따라 두 종류로 나눌 수 있다. 바로 *닫힌 람다식< sup>Closed expression</sup>*과 *열린 람다식<sup>Open expression</sup>*이다.
 
+람다 표현식에서 사용하는 변수들이 모두 묶인 변수일 때 *닫힌 람다식*이라고 부른다. 그리고 람다 표현식에서 사용하는 변수들 중 하나라도 자유 변수가 있을 때 *열린 람다식*이라고 부른다.
 
-```javascript
-function adder(a) {
-  return function(b) {
-    return a + b;
-  }
-}
+ 위의 설명을 이해했다면 클로저를 아주 간단하게 설명할 수 있다. 클로저는 바로 열린 람다식을 닫힌 람다식으로 만드는 것이다. 클로저의 이름이 어떻게 유래되었는지도 예상이 될 것이다. 클로저는 람다식 내의 모든 자유 변수를 스코프 내로 가져와 묶는다. 그렇기 때문에 함수를 1급 객체로 사용하는 함수형 언어의 클로저는 만들어진 환경을 기억하는 것처럼 보인다.
 
-var add5 = adder(5);
-add5(10); // 15
-```
+# 람다의 장점
 
-`add5`라는 함수의 입장에서 생각해볼 때, 자신의 스코프 내에 있는 `b`라는 변수는 인자로 받은 변수이고 해당 스코프 내에 갇혀있지만, `a`라는 변수는 대체 어디서 와서 사용되고 있는지 알 수가 없다. 이때의 `a`를 *자유 변수(Free variable)*, `b`를 *묶인 변수(Bound variable)* 라고 부른다.
-
-위의 람다식에서는 자유 변수와 묶인 변수를 하나씩 사용하고 있다. 람다식은 사용하는 변수의 종류에 따라 두 종류로 나눌 수 있다. 바로 *닫힌 람다식(Closed expression)* 과 *열린 람다식(Open expression)* 이다.
-
-람다 표현식에서 사용하는 변수들이 모두 **묶인 변수**일 때 닫힌 람다식이라고 부른다. 그리고 람다 표현식에서 사용하는 변수들 중 하나라도 **자유 변수**가 있을 때 열린 람다식이라고 부른다.
-
-자, 이제 클로저를 아주 간단하게 설명할 수 있다. 클로저는 바로 열린 람다식을 닫힌 람다식으로 만드는 것이다. 클로저의 이름이 어떻게 유래되었는지도 예상이 될 것이다. 클로저는 람다식 내의 모든 자유 변수를 스코프 내로 가져와 묶는다. 그렇기 때문에 클로저는 만들어진 환경을 기억하는 것처럼 보인다.
+ 앞에서 람다가 JVM에서 어떻게 작동되는지, 그리고 외부변수와 매개변수를 어떻게 다루는지 알아보았다. 그럼에도 아직 한가지 의문이 남는다. 람다를 사용함으로써 얻는 이득이 간결한 코드 작성 외에 무엇이냐는 것이다.
