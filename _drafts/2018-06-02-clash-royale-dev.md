@@ -1,5 +1,12 @@
 ---
-
+title: 클래시 로얄 개발 문화
+date: 2018-06-02
+categories:
+- Game
+tags:
+- Development
+- Game
+- Inspiration
 ---
 
 
