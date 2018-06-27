@@ -143,7 +143,7 @@ lambda this : Main$1@1540e19d
 main this : Main@677327b6
 ```
 
- 위의 코드를 보면 Main$1이라는 자동생성된 함수 인터페이스를 확인할 수 있다. `-Djdk.internal.lambda.dumpProxyClasses` VM 옵션과 함께 코드를 실행하면 람다식으로 자동으로 정의된 동적 클래스를 파일로 저장하여 직접 확인할 수도 있다.
+ 위의 로그를 보면 Main$1이라는 자동생성된 함수 인터페이스를 확인할 수 있다. `-Djdk.internal.lambda.dumpProxyClasses` VM 옵션과 함께 코드를 실행하면 람다식으로 자동으로 정의된 동적 클래스를 파일로 저장하여 직접 확인할 수도 있다.
 
 ```java
 import Main.Functional;
