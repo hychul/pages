@@ -15,3 +15,5 @@ tags:
 
 https://developers.line.me/en/docs/messaging-api/building-bot/
 
+https://github.com/line/line-bot-sdk-java/blob/master/sample-spring-boot-echo/README.md
+
