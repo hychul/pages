@@ -1,3 +1,15 @@
+---
+title: REST API
+date: 2018-07-16
+categories:
+- Network
+tags:
+- Development
+- Network
+---
+
+
+
 # REST 구성
 
 자원 Resource - URI
