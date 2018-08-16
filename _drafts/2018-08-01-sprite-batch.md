@@ -2,7 +2,7 @@
 title: Sprite Batch
 date: 2018-08-01
 categories:
-- Game
+- Graphics
 tags:
 - Development
 - Graphics
@@ -29,7 +29,7 @@ Batch로 인해 GPU가 처리하는 속도 저하를 걱정할 수 있지만 [Nv
 
 그렇다면 2D Sprite Batch 처리를 어떻게 구현할 수 있는지 OpenGL를 사용하여 알아보자.
 
-## OpenGL의 Draw
+## OpenGL의 Batch Draw
 
 OpenGL에서 랜더링을 위해선 Primitive 타입을 지정해야한다. 각 타입에 따라 랜더링을 위해 건네주는 버텍스의 정보들이 화면에 그려지는 방식을 정할 수 있다.
 
@@ -42,14 +42,16 @@ OpenGL에서 랜더링을 위해선 Primitive 타입을 지정해야한다. 각 
 Sprite 랜더링을 위해 삼각형 두개를 합쳐 사각형을 만들어야한다. 각 점을 나타내는 버텍스와 버텍스의 순서를 나타내는 인덱스를 통해 사각형을 그린다.
 
 ```java
-public void setVerticesAndIndices() {
+public void setVertices() {
     vertices = new float[] { // x, y, z
         -0.5f, -0.5f, 0.0f,
         0.5f, -0.5f, 0.0f,
         0.5f, 0.5f, 0.0f,
         -0.5f, 0.5f, 0.0f
     }
-    
+}
+
+public void setIndices() {}
     indices = new short[] {
         0, 1, 2, 2, 3, 0
     }
@@ -59,14 +61,16 @@ public void setVerticesAndIndices() {
 사각형을 만들었다면 이제 텍스처를 사용하여 Sprite를 랜더링해야한다. 이를 위해 텍스처 위의 좌표값을 나타내는 UV를 추가하여 텍스처를 Sprite로 랜더링한다. 
 
 ```java
-public void setVerticesAndIndices() {
+public void setVertices() {
     vertices = new float[] { // x, y, z, u, v
         -0.5f, -0.5f, 0.0f, 0.0f, 1.0f,
         0.5f, -0.5f, 0.0f, 1.0f, 1.0f,
         0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
         -0.5f, 0.5f, 0.0f, 0.0f, 0.0f,
     }
-    
+}
+
+public void setIndices() {}
     indices = new short[] {
         0, 1, 2, 2, 3, 0
     }
@@ -79,4 +83,70 @@ Primitive 타입 지정을 통해 떨어진 위치에 있는 사각형, 즉 Spri
 
 이를 해결하기 위해 Batch 처리가 필요한 텍스처들을 하나로 묶은 Sprite 아틀라스를 만들어야한다. 랜더링 되는 텍스처가 하나로 묶여있다면 바인딩된 텍스처를 UV를 통해 한 Sprite에 대한 텍스처 영역을 랜더링할 수 있다.
 
-[예]
+```java
+public class SpriteBatcher {
+    ...
+    public SpriteBatcher(int maxSprite) {
+        ...
+        short[] indices = new short[maxSprites * 6];
+        int len = indices.length;
+        short j = 0;
+        for (int i = 0; i < len; i += 6, j += 4) {
+            indices[i + 0] = (short) (j + 0);
+            indices[i + 1] = (short) (j + 1);
+            indices[i + 2] = (short) (j + 2);
+            indices[i + 3] = (short) (j + 2);
+            indices[i + 4] = (short) (j + 3);
+            indices[i + 5] = (short) (j + 0);
+        }
+    }
+    
+    public void beginBatch(Texture texture) {
+        ...
+        texture.bind();
+    }
+    
+    public void draw(Sprite sprite, float width, float height, float x, float y, float z) {
+        float halfWidth = width / 2;
+        float halfHeight = height / 2;
+
+        float x1 = x - halfWidth;
+        float y1 = y - halfHeight;
+        float x2 = x + halfWidth;
+        float y2 = y + halfHeight;
+
+        verticesBuffer[bufferIndex++] = x1;
+        verticesBuffer[bufferIndex++] = y1;
+        verticesBuffer[bufferIndex++] = z;
+        verticesBuffer[bufferIndex++] = sprite.u1;
+        verticesBuffer[bufferIndex++] = sprite.v2;
+
+        verticesBuffer[bufferIndex++] = x2;
+        verticesBuffer[bufferIndex++] = y1;
+        verticesBuffer[bufferIndex++] = z;
+        verticesBuffer[bufferIndex++] = sprite.u2;
+        verticesBuffer[bufferIndex++] = sprite.v2;
+
+        verticesBuffer[bufferIndex++] = x2;
+        verticesBuffer[bufferIndex++] = y2;
+        verticesBuffer[bufferIndex++] = z;
+        verticesBuffer[bufferIndex++] = sprite.u2;
+        verticesBuffer[bufferIndex++] = sprite.v1;
+
+        verticesBuffer[bufferIndex++] = x1;
+        verticesBuffer[bufferIndex++] = y2;
+        verticesBuffer[bufferIndex++] = z;
+        verticesBuffer[bufferIndex++] = sprite.u1;
+        verticesBuffer[bufferIndex++] = sprite.v1;
+
+        numSprites++;
+    }
+    
+    public void endBatch() {
+        ...
+        gl.glDrawArrays(primitiveType, offset, numSprite * 6);
+        ...
+    }
+}
+```
+
