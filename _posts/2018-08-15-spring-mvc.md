@@ -112,7 +112,7 @@ Servlet은 Servlet Container에 의해 관리된다. 어플리케이션이 클�
 6. 처리 결과가 포함된 View를 DispatcherServlet에 전달한다.
 7. 요청에 대한 응답을 클라이언트에게 전달한다.
 
-### static  파일 처리
+### 정적 리소스 처리
 
 DispatcherServlet이 모든 요청을 처리하면 이미지나 정적 html 파일을 불러오는 요청마저 컨트롤러로 전달하게 된다. 이런 경우 자원을 제대로 불러오지 못하는 문제가 동반된다.
 
