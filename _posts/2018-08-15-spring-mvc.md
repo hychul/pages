@@ -6,7 +6,6 @@ categories:
 tags:
 - Development
 - Spring
-- Network
 - Server
 - Java
 ---
