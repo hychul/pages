@@ -1,5 +1,5 @@
 ---
-title: MVC
+title: 스프링과 MVC
 date: 2018-08-15
 categories:
 - Spring
