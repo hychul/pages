@@ -43,14 +43,14 @@ Sprite 랜더링을 위해 삼각형 두개를 합쳐 사각형을 만들어야�
 
 ```java
 public void setVerticesAndIndices() {
-    vertices[] = new float[] {
+    vertices = new float[] { // x, y, z
         -0.5f, -0.5f, 0.0f,
         0.5f, -0.5f, 0.0f,
         0.5f, 0.5f, 0.0f,
         -0.5f, 0.5f, 0.0f
     }
     
-    indices[] = new int[] {
+    indices = new short[] {
         0, 1, 2, 2, 3, 0
     }
 }
@@ -58,12 +58,25 @@ public void setVerticesAndIndices() {
 
 사각형을 만들었다면 이제 텍스처를 사용하여 Sprite를 랜더링해야한다. 이를 위해 텍스처 위의 좌표값을 나타내는 UV를 추가하여 텍스처를 Sprite로 랜더링한다. 
 
-[예]
-
-[코드]
+```java
+public void setVerticesAndIndices() {
+    vertices = new float[] { // x, y, z, u, v
+        -0.5f, -0.5f, 0.0f, 0.0f, 1.0f,
+        0.5f, -0.5f, 0.0f, 1.0f, 1.0f,
+        0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
+        -0.5f, 0.5f, 0.0f, 0.0f, 0.0f,
+    }
+    
+    indices = new short[] {
+        0, 1, 2, 2, 3, 0
+    }
+}
+```
 
 ### 텍스처 아틀라스
 
 Primitive 타입 지정을 통해 떨어진 위치에 있는 사각형, 즉 Sprite를 화면에 랜더링할 수 있다. 하지만 각 스프라이트가 다른 텍스처를 사용한다면 Batch 처리를 할 수 없다. Batch 처리를 위해 버텍스, UV 그리고 인덱스를 한번에 전달해야 하는데, UV는 텍스처에 대한 정보를 갖지 않고 GL 메서드에 의해 바인딩된 텍스처를 사용하기 때문이다.
 
 이를 해결하기 위해 Batch 처리가 필요한 텍스처들을 하나로 묶은 Sprite 아틀라스를 만들어야한다. 랜더링 되는 텍스처가 하나로 묶여있다면 바인딩된 텍스처를 UV를 통해 한 Sprite에 대한 텍스처 영역을 랜더링할 수 있다.
+
+[예]
