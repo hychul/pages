@@ -23,3 +23,6 @@ tags:
 
 # Batch, Batch, Batch!
 
+
+
+[참조: https://www.nvidia.com/docs/IO/8228/BatchBatchBatch.pdf]
