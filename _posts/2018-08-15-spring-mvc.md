@@ -84,6 +84,81 @@ Servlet은 Servlet Container에 의해 관리된다. 어플리케이션이 클�
 
 변환된 Servlet 파일(.java)엔 JSP에서 작성된 자바 코드가 service() 메서드안에 존재하기 때문에 자바로 작성된 로직을 수행가능하다. 또한 html 코드들은  String으로 변환되어 페이지에 출력되게 된다.
 
+### JSP의 변환
+
+```jsp
+<% response.addDateHeader("Expires", 0); %>
+<html>
+<head>
+<title>JSP</title>
+</head>
+<body>
+<h1>Hello World!</h1>
+<%! private int hits = 0; %>
+You are visitor number : <% synchronized(this) { out.println(++hits); } %>
+</body>
+</html>
+```
+
+```java
+package org.apache.jsp;
+import javax.servlet.*;import javax.servlet.http.*;
+import javax.servlet.jsp.*;
+import org.apache.jasper.runtime.*;
+
+public class HelloWorld1$jsp extends HttpJspBase {
+    private int hits = 0;
+
+    private static boolean _jspx_inited = false;
+
+    public void _jspService(HttpServletRequest request, HttpServletResponse response) 
+        throws java.io.IOException, ServletException 
+    {
+        JspFactory _jspxFactory = null;
+        PageContext pageContext = null;
+        HttpSession session = null;
+        ServletContext application = null;
+        ServletConfig config = null;
+        JspWriter out = null;
+        Object page = this;
+        String _value = null;
+        try {
+            if (_jspx_inited == false)
+                synchronized (this) {
+                    if (_jspx_inited == false) {
+                        _jspx_init();
+                        _jspx_inited = true;
+                    }
+                }
+            _jspxFactory = JspFactory.getDefaultFactory();
+            response.setContentType("text/html;charset=ISO-8859-1");
+            pageContext = _jspxFactory.getPageContext(this, request, response, "", true, 8192, true);
+            application = pageContext.getServletContext();
+            config = pageContext.getServletConfig();
+            session = pageContext.getSession();
+            out = pageContext.getOut();
+            response.addDateHeader("Expires", 0);
+            out.write("\r\n<html><head>");
+            out.write("\r\n<title>JSP</title>");
+            out.write("\r\n</head>");
+            out.write("\r\n<body>");
+            out.write("\r\n<h1>Hello World!</h1>");
+            out.write("\r\n\r\nYou are visitor number : ");
+            synchronized (this) {
+                out.println(++hits);
+            }
+            out.write("\r\n</body>");
+            out.write("\r\n</html>");
+        } catch (Throwable t) {
+            if (out != null && out.getBufferSize() != 0) out.clearBuffer();
+            if (pageContext != null) pageContext.handlePageException(t);
+        } finally {
+            if (_jspxFactory != null) _jspxFactory.releasePageContext(pageContext);
+        }
+    }
+}
+```
+
 ### 동작
 
 1. JSP 페이지로 부터 요청을 받는다.
