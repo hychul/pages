@@ -2,7 +2,7 @@
 title: LINE 챗봇 만들기
 date: 2018-07-03
 categories:
-- Server
+- Toy Project
 tags:
 - Development
 - Java
