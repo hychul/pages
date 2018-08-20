@@ -1,6 +1,6 @@
 ---
 title: Sprite Batch
-date: 2018-08-01
+date: 2018-08-14
 categories:
 - Graphics
 tags:
