@@ -1,5 +1,5 @@
 ---
-title: 트랜잭션
+title: 스프링 트랜잭션
 date: 2018-08-17
 categories:
 - Spring

@@ -7,6 +7,7 @@ tags:
 - Development
 - Java
 - Spring
+- Heroku
 ---
 
 라인 Message API 를 통해 라인 챗봇 만들기
@@ -28,4 +29,10 @@ https://github.com/line/line-bot-sdk-java/blob/master/sample-spring-boot-echo/RE
 빌드
 
 
+
+스프링으로 혼자서 만들어 볼게 없을까 하다가 간단한 챗봇을 하나 만들었다. 점심시간의 메뉴를 랜덤하게 추천해주는 챗봇인데, 회사에서 사용하는 LINE 메신저에 챗봇을 위한 Messaging API를 지원하고 있기 때문에 간편하게 만들 수 있었다.
+
+준비
+
+https://developers.line.me/en/docs/messaging-api/building-bot/
 
