@@ -10,7 +10,7 @@ tags:
 - Java
 ---
 
- 앞서 올렸던 "DI와 AOP"에서 AOP의 목적과 주요 개념에 대해 알아보았다. 스프링을 통해 사용하여 직접 Custom Aspect를 구현하여 AOP를 적용할 수 있다.
+ 앞서 올렸던 "[DI와 AOP](https://hychul.github.io/spring/2018/08/16/di-and-aop/)"에서 AOP의 목적과 주요 개념에 대해 알아보았다. 스프링을 통해 사용하여 직접 Custom Aspect를 구현하여 AOP를 적용할 수 있다.
 
 ## AOP의 적용
 
