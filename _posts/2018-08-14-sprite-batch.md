@@ -83,6 +83,8 @@ Primitive 타입 지정을 통해 떨어진 위치에 있는 사각형, 즉 Spri
 
 이를 해결하기 위해 Batch 처리가 필요한 텍스처들을 하나로 묶은 Sprite 아틀라스를 만들어야한다. 랜더링 되는 텍스처가 하나로 묶여있다면 바인딩된 텍스처를 UV를 통해 한 Sprite에 대한 텍스처 영역을 랜더링할 수 있다.
 
+### 예시
+
 ```java
 public class SpriteBatcher {
     ...
