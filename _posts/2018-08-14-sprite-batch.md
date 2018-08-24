@@ -25,7 +25,7 @@ tags:
 
 Batch는 일괄적으로 어떤 데이터들을 처리하는 것을 의미한다. 랜더링에선 Batch를 통해 여러 버텍스를 GPU가 한번에 처리하도록 하여 랜더링으로 인한 프레임 드랍을 피할 수 있다.
 
-Batch로 인해 GPU가 처리하는 속도 저하를 걱정할 수 있지만 [Nvidia의 Batch에 관한 문서](https://www.nvidia.com/docs/IO/8228/BatchBatchBatch.pdf)를 참고한다면 그런 걱정은 기우라는 것을 알 수 있다. 요약해서 설명하자면 Batch 처리되는 버택스의 수 보다 한 프레임당 불리는 Batch 콜(드로우 콜)의 수가 프레임 레이트에 더 큰 영향을 미친다.
+Batch로 인해 GPU 처리 속도 저하를 걱정할 수 있지만 [Nvidia의 Batch에 관한 문서](https://www.nvidia.com/docs/IO/8228/BatchBatchBatch.pdf)를 참고한다면 그런 걱정은 기우라는 것을 알 수 있다. 요약해서 설명하자면 Batch 처리되는 버택스의 수 보다 한 프레임당 불리는 Batch 콜(드로우 콜)의 수가 프레임 레이트에 더 큰 영향을 미친다.
 
 그렇다면 2D Sprite Batch 처리를 어떻게 구현할 수 있는지 OpenGL를 사용하여 알아보자.
 
