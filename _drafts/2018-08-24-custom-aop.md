@@ -22,6 +22,8 @@ tags:
 
 메서드 어노테이션 관호 안에는 포인트 컷에 대한 내용을 기술하여 Advise가 실행될 지 필터링을 할 수 있다.
 
+https://blog.outsider.ne.kr/843
+
 https://www.baeldung.com/spring-aop
 
 https://www.baeldung.com/spring-aop-pointcut-tutorial
