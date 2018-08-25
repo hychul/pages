@@ -69,12 +69,12 @@ Servlet은 Servlet Container에 의해 관리된다. 어플리케이션이 클�
 ### 동작 순서
 
 1. 웹서버로 부터 요청이 들어오면 제일 먼저 컨테이너가 이를 전달 받는다.
-2. 컨테이너는 배포서술자(web.xml)를 참조하여 해당 서블릿을 찾는다.
+2. 컨테이너는 배포서술자(`web.xml`)를 참조하여 해당 서블릿을 찾는다.
 3. 서블릿이 존재하면 스레드 풀을 사용하여 서블릿을 위한 스레드를 생성하다.
-4. httpServletRequest(요청)과 httpServeletResponse(응답) 객체를 생성하여 서블릿에 전달한다.
-5. 다음으로 컨테이너는 서블릿의 service() 메서드를 호출하고, service() 메서드에서 요청에 따라 doPost() 또는 doGet()을 호출한다.
-6. 호출된 doPost() 또는 doGet() 메소드는 생성된 동적페이지를 httpServeletResponse객체에 실어서 컨테이너에 전달한다. 
-7. 컨테이너는 전달받은 httpServeletResponse객체를 HTTPResponse형태로 전환하여 웹서버에 전달하고 생성되었던 스레드를 종료하고 httpServletRequest 및 httpServeletResponse 객체를 소멸시킨다. 
+4. `httpServletRequest`(요청)과 `httpServeletResponse`(응답) 객체를 생성하여 서블릿에 전달한다.
+5. 다음으로 컨테이너는 서블릿의 `service()` 메서드를 호출하고, `service()` 메서드에서 요청에 따라 `doPost()` 또는 `doGet()`을 호출한다.
+6. 호출된 `doPost()` 또는 `doGet()` 메소드는 생성된 동적페이지를 `httpServeletResponse`객체에 실어서 컨테이너에 전달한다. 
+7. 컨테이너는 전달받은 `httpServeletResponse`객체를 HTTPResponse형태로 전환하여 웹서버에 전달하고 생성되었던 스레드를 종료하고 `httpServletRequest` 및 `httpServeletResponse` 객체를 소멸시킨다. 
 
 ## JSP
 
@@ -82,7 +82,7 @@ Servlet은 Servlet Container에 의해 관리된다. 어플리케이션이 클�
 
 ![mvc-05](https://user-images.githubusercontent.com/18159012/44197419-7c1a1900-a179-11e8-8b2e-80f571b2e99a.png)
 
-변환된 Servlet 파일(.java)엔 JSP에서 작성된 자바 코드가 service() 메서드안에 존재하기 때문에 자바로 작성된 로직을 수행가능하다. 또한 html 코드들은  String으로 변환되어 페이지에 출력되게 된다.
+변환된 Servlet 파일(.java)엔 JSP에서 작성된 자바 코드가 `service()` 메서드안에 존재하기 때문에 자바로 작성된 로직을 수행가능하다. 또한 html 코드들은  String으로 변환되어 페이지에 출력되게 된다.
 
 ### JSP의 변환
 
@@ -165,11 +165,11 @@ public class HelloWorld1$jsp extends HttpJspBase {
 2. JSP 엔진에 의해 JSP 파일이 파싱된다.
 3. JSP에 대응하는 Servlet이 존재하지 않는 경우 Servlet 파일(.java)로 변환된다.
 4. 변환된 Servlet 파일이 자바 컴파일러에 의해 클래스 파일(.class)로 컴파일된다.
-5. 컴파일 된 후 Servlet 클래스의 service() 메서드를 호출하고 요청을 처리한다.
+5. 컴파일 된 후 Servlet 클래스의 `service()` 메서드를 호출하고 요청을 처리한다.
 
 # 스프링의 MVC
 
-서블릿을 통한 웹 어플리케이션 개발에서 모든 서블릿에 대해 URL 매핑을 위해 배포 서술자인 web.xml에 모두 등록해주어야 했다. 하지만 스프링에서는 DispatcherServlet을 통해 배포 서술자의 역할을 축소시켰다. DispatcherServlet에서 어플리케이션의 요청을 적절한 Controller에게 전달하기 때문이다.
+서블릿을 통한 웹 어플리케이션 개발에서 모든 서블릿에 대해 URL 매핑을 위해 배포 서술자인 `web.xml`에 모두 등록해주어야 했다. 하지만 스프링에서는 DispatcherServlet을 통해 배포 서술자의 역할을 축소시켰다. DispatcherServlet에서 어플리케이션의 요청을 적절한 Controller에게 전달하기 때문이다.
 
 ## DispatcherServlet
 
@@ -191,4 +191,4 @@ public class HelloWorld1$jsp extends HttpJspBase {
 
 DispatcherServlet이 모든 요청을 처리하면 이미지나 정적 html 파일을 불러오는 요청마저 컨트롤러로 전달하게 된다. 이런 경우 자원을 제대로 불러오지 못하는 문제가 동반된다.
 
-스프링에선 이러한 상황을 피하기 위해 \<mvc:resources> 태그를 사용해 web.xml에 정적 파일에 대한 정보를 2차적으로 기술하도록 하였다. DispatcherServlet에 요청에 대한 Controller를 찾지 못하는 경우 2차적으로 설정된 경로를 검색하여 해당 자원을 찾도록 한다.
+스프링에선 이러한 상황을 피하기 위해 `<mvc:resources>` 태그를 사용해 web.xml에 정적 파일에 대한 정보를 2차적으로 기술하도록 하였다. DispatcherServlet에 요청에 대한 Controller를 찾지 못하는 경우 2차적으로 설정된 경로를 검색하여 해당 자원을 찾도록 한다.
