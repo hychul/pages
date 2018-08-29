@@ -17,10 +17,12 @@ git remote add upstream [target repository]
 ```
 git remote -v
 git pull upstream
+git checkout [branch]
 ```
 
 ```console
-git checkout [branch]
+git pull upstream [branch]
+git push origin [branch]
 git pull upstream [branch] && git push origin [branch]
 ```
 
