@@ -16,6 +16,7 @@ git remote add upstream [target repository]
 
 ```
 git remote -v
+git pull upstream
 ```
 
 ```console
