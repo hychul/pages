@@ -109,9 +109,51 @@ Optional은 Nullable한 객체를 담을 수 있는 Container 오브젝트이다
 
 ## Optional의 사용
 
- Optional은 제네릭을 제공하기 때문에 변수를 선언할 때 명시한 타입에 따라 담을 수 있는 객체의 타입이 결정된다.
+ -변수 선언
+
+Optional은 제네릭을 제공하기 때문에 변수를 선언할 때 명시한 타입에 따라 담을 수 있는 객체의 타입이 결정된다.
 
 ```java
 Optional<Location> location;
+Optional<Continent> optContinent;
+Optional<Country> maybeCountry;
 ```
+
+~~변수를 선언할 때 'opt' 또는 'maybe' 접두사를 붙이기도 한다.~~
+
+-객체 생성
+
+Optional 객체는 클래스에서 제공하는 3가지 정적 팩토리 메서드를 통해 생성할 수 있다.
+
+`Optional.empty()`
+
+`Optional.of(value)`
+
+`Optional.ofNullable(value)`
+
+-객체의 접근
+
+`opt.get()`
+
+`opt.orElse(T other)`
+
+`opt.orElseGet(Supplier<? extends T> other)`
+
+`opt.orElseThrow(Supplier<? extends X> exceptionSupplier)`
+
+-잘못된 사용
+
+`opt.isPresent()`
+
+-컨테이너로 사용하기
+
+`opt.map()`
+
+`opt.flatMap()`
+
+`opt.filter()`
+
+-특별한 상황
+
+`opt.ifPresent(Comsumer<? super T> comsumer)`
 
