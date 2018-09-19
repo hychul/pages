@@ -1,5 +1,5 @@
 ---
-title: 람다 (Lambda)
+title: 자바 람다 (Lambda)
 date: 2018-06-14
 categories:
 - Development
