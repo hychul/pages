@@ -8,9 +8,7 @@ tags:
 - Java
 ---
 
- 
-
-자바를 사용해서 개발을 할 때 개발자들이 가장 흔하게 겪는 예외는 NPE<sup>Null Pointer Exception</sup>일 것이다. NPE는 컴파일 타임에서 확인 할 수 없어, 조심하지 않으면 갑자기 런타임에 등장한 NPE에 속수무책으로 당할 수 밖에 없다. null의 개념을 처음으로 고안한 영국의 컴퓨터 과학자인 Tony Hoare도 나중에 자신의 생각이 10억불 짜리 큰 실수[^1]였고,  null 참조를 만든 것을 후회한다고 했다.
+ 자바를 사용해서 개발을 할 때 개발자들이 가장 흔하게 겪는 예외는 NPE<sup>Null Pointer Exception</sup>일 것이다. NPE는 컴파일 타임에서 확인 할 수 없어, 조심하지 않으면 갑자기 런타임에 등장한 NPE에 속수무책으로 당할 수 밖에 없다. null의 개념을 처음으로 고안한 영국의 컴퓨터 과학자인 Tony Hoare도 나중에 자신의 생각이 10억불 짜리 큰 실수[^1]였고,  null 참조를 만든 것을 후회한다고 했다.
 
 [^1]: https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare 
 
@@ -48,7 +46,7 @@ public String getCityFromLocation(Location location) {
 
  자바에 익숙한 개발자라면 NPE 위험에 얼마나 많이 노출되어있는지 알 수 있다. 위의 코드를 NPE 발생을 회피하기 위해서 다음과 같이 수정할 수 있다.
 
-## null 방어 코드
+## NPE 방어 코드
 
 ```java
 public String getCiryFromLocation(Location location) {
@@ -75,22 +73,22 @@ public String getCiryFromLocation(Location location) {
     if (location == null) {
         return "Seoul";
     }
-    
+
     Continent continent = location.getContinent();
     if (continent == null) {
         return "Seoul";
     }
-    
+
     Country country = continent.getCountry();
     if (country == null) {
         return "Seoul";
     }
-    
+
     String city = country.getCity();
     if (city == null) {
         return "Seoul";
     }
-    
+
     return city;
 }
 ```
@@ -109,7 +107,7 @@ Optional은 Nullable한 객체를 담을 수 있는 Container 오브젝트이다
 
 ## Optional의 사용
 
- -변수 선언
+## 변수 선언
 
 Optional은 제네릭을 제공하기 때문에 변수를 선언할 때 명시한 타입에 따라 담을 수 있는 객체의 타입이 결정된다.
 
@@ -121,39 +119,106 @@ Optional<Country> maybeCountry;
 
 ~~변수를 선언할 때 'opt' 또는 'maybe' 접두사를 붙이기도 한다.~~
 
--객체 생성
+## 객체 생성
 
-Optional 객체는 클래스에서 제공하는 3가지 정적 팩토리 메서드를 통해 생성할 수 있다.
+Optional은 public 생성자를 제공하지 않기 때문에 객체 생성을 위해 클래스에서 제공하는 3가지 정적 팩토리 메서드를 사용해야 한다.
 
-`Optional.empty()`
+- `Optional.empty()`
 
-`Optional.of(value)`
+ null을 담고있는, 비어있는 Optional을리턴한다. 이 비어있는 Optional 객체는 클래스 내부에 선언된 static 변수다.
 
-`Optional.ofNullable(value)`
+- `Optional.of(value)`
 
--객체의 접근
+ null이 아닌 객체를 담는 Optional 객체를 리턴한다. null을 파라메터로 넘기는 경우 NPE를 발생시킨다.
 
-`opt.get()`
+- `Optional.ofNullable(value)`
 
-`opt.orElse(T other)`
+ nullable한 객체를 담는 Optional 객체를 리턴한다. 내부적으로 null이 파라메터로 넘어오는 경우 `Optional.emtpy()`에서 사용된 static 변수를 리턴한다.
 
-`opt.orElseGet(Supplier<? extends T> other)`
+## 객체의 접근
 
-`opt.orElseThrow(Supplier<? extends X> exceptionSupplier)`
+ 담고있는 객체를 직접 사용하기 위해선, Optional이 제공하는 메서드를 사용하여 담고있는 객체를 가져와야한다.
 
--잘못된 사용
+- `opt.get()`
 
-`opt.isPresent()`
+ 담는 객체를 반환하는 메서드로 null을 담고있는 경우 `java.util.NoSuchElementException`을 던진다. 때문에 nullable한 객체를 담고 있는 경우, Optional이 비어있는지 확인하기 위해 `opt.isPresent()` 메서드를 사용하여 확인 후 사용해야 한다.
 
--컨테이너로 사용하기
+- `opt.orElse(T other)`
 
-`opt.map()`
+  담는 객체를 반환하는 메서드로 null을 담고있는 경우 파라메터로 넘겨준 값을 대신 반환한다.
 
-`opt.flatMap()`
+- `opt.orElseGet(Supplier<? extends T> other)`
 
-`opt.filter()`
+  담는 객체를 반환하는 메서드로 null을 담고있는 경우 파라메터로 넘겨준 함수형 인터페이스를 통해 얻은 값을 대신 반환한다. `opt.orElse(T other)` 메서드와 차이점이 없어 보일 수 있지만, 대신 반환하는 `other`가 new 키워드를 통해 새로 객체를 생성하는 경우엔 조금 다르게 동작한다.
 
--특별한 상황
+```java
+public final class Optional<T> {
+    ...
+    public T orElse(T other) {
+        return value != null ? value : other;
+    }
+
+    public T orElseGet(Supplier<? extends T> other) {
+        return value != null ? value : other.get();
+    }
+    ...
+}
+```
+
+ 내부 구현을 보면 알 수 있듯이, `orElse()`의 경우 미리 객체를 생성한 후 null을 담는지 확인하지만 `orElseGet()`은 null을 담는 것을 확인한 이후에 함수형 인터페이스를 통해 null을 대신할 객체를 생성한다. 때문에 new 키워드를 사용하는 경우 `orElseGet()` 메서드를 사용하는 편이 좋다.
+
+- `opt.orElseThrow(Supplier<? extends X> exceptionSupplier)`
+
+ 담는 객체를 반환하는 메서드로 null을 담고있는 경우 파라메터로 넘겨준 함수형 인터페이스를 통해 얻은 예외를 발생시킨다.
+
+## 잘못된 사용
+
+ 앞서 설명한 객체를 반환하기 위한 메서드를 사용하여 앞서 구현했던 `getCiryFromLocation(Location location)`을 단순하게 구현하면 다음과 같을 것이다.
+
+```java
+public String getCiryFromLocation(Location location) {
+    Optional<Location> optLocation = Optional.ofNullable(location);
+    if (optLocation.isPresent()) {
+        Optional<Continent> optContinent = Optional.ofNullable(optLocation.get().getContinent());
+        if (optContinent.isPresent()) {
+            Optional<Country> optCountry = Optional.ofNullable(continent.get().getCountry());
+            if (optCountry.isPresent()) {
+                Optional<String> optCity = Optional.ofNullable(optCountry.get().getCity());
+                return optCity.orElse("Seoul");
+            }
+        }
+    }
+    return "Seoul";
+}
+```
+
+ 우리가 원했던 대로 더이상 null을 사용하지 않고 코드를 작성할 수 있게 되었다. 하지만 이것은 Optional을 제대로 사용하는 방법이 아니다. 앞서 null을 사용했던 코드만큼 혹은 보다 더 복잡하기 때문에 Optional을 굳이 사용할 이유가 없다. Optional을 좀 더 제대로 사용하기 위해선 앞서 언급한 함수형 언어를 사용한 사고가 필요하다.
+
+## 제대로 사용하기
+
+ Optional은 nullable한 객체를 담는 컨테이너라고 했다. 더 직관적으로 표현하자면 최대 1개의 원소를 갖는 특수한 Stream과 같다고 할 수 있다. 때문에 Stream이 갖는 `map()`, `flatMap()` 그리고 `filter()`등의 메서드를 동일하게 갖는다. 다른점이 있다면 각 메서드가 내부적으로 null 체크를 해준다는 것이다.
+
+- `opt.map()`
+
+- `opt.flatMap()`
+
+- `opt.filter()`
+
+ 이러한 메서드를 사용하여 `getCiryFromLocation(Location location)`을 다시 구현하면 다음과 같이 깔끔하게 표현할 수 있다.
+
+```java
+public String getCiryFromLocation(Location location) {
+    return Optional.ofNullable(location)
+                   .map(Location::getContinent)
+                   .map(Continent::getCountry)
+                   .map(Country::getCity)
+                   .orElse("Seoul");
+}
+```
+
+ 기존에 null 체크를 위한 조건문들을 Optional이 제공하는 메서드 내부에서 처리 되도록 하여 코드상에서 null에 대한 표현이 없으면서도 메서드 체이닝을 통해 과장한다면 단 한 줄로 간결하게 표현할 수 있다.
+
+## 특별한 상황
 
 `opt.ifPresent(Comsumer<? super T> comsumer)`
 
