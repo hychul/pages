@@ -205,11 +205,11 @@ public String getCiryFromLocation(Location location) {
 }
 ```
 
- 우리가 원했던 대로 더이상 null을 사용하지 않고 코드를 작성할 수 있게 되었다. 하지만 이것은 Optional을 제대로 사용하는 방법이 아니다. 앞서 null을 사용했던 코드만큼 혹은 보다 더 복잡하기 때문에 Optional을 굳이 사용할 이유가 없다. Optional을 좀 더 제대로 사용하기 위해선 앞서 언급한 함수형 언어를 사용한 사고가 필요하다.
+ 우리가 원했던 대로 더이상 null을 사용하지 않고 코드를 작성할 수 있게 되었다. 하지만 이것은 Optional을 제대로 사용하는 방법이 아니다. 앞서 null을 사용했던 코드만큼, 혹은 보다 더 복잡하기 때문에 Optional을 굳이 사용할 이유가 없다. Optional을 좀 더 제대로 사용하기 위해선 앞서 언급한 함수형 언어를 사용한 사고가 필요하다.
 
 ## 제대로 사용하기
 
- Optional은 nullable한 객체를 담는 컨테이너라고 했다. 더 직관적으로 표현하자면 최대 1개의 원소를 갖는 특수한 Stream과 같다고 할 수 있다. 때문에 Stream이 갖는 `map()`, `flatMap()` 그리고 `filter()`등의 메서드를 동일하게 갖는다. 다른점이 있다면 각 메서드가 내부적으로 null 체크를 해준다는 것이다.
+ Optional은 nullable한 객체를 담는 컨테이너라고 했다. 더 직관적으로 표현하자면 최대 1개의 원소를 갖는 특수한 Stream과 같다. 또한 Stream이 갖는 `map()`, `flatMap()` 그리고 `filter()`등의 메서드를 동일하게 갖는다. Stream의 메서드들과 다른점이 있다면 각 메서드가 내부적으로 null 체크를 해준다는 것이다.
 
 - `opt.map(Function<? super T, ? extends U> mapper)`
 
@@ -261,7 +261,7 @@ optLocation.map(location -> {
 optLocation.filter(location -> {
     // Logic
     return true;
-})
+});
 ```
 
  위의 두가지 방법 모두 Optional이 담고있는 객체가 null이 아닌경우 로직을 수행한다. 하지만 두 방법 모두 불필요한 결과값을 리턴한다는 것이 어색하다. 거기에 `map()`의 경우 내부 구현을 보면 리턴하는 값을 `Optional.ofNullabe()`를 통해 Optional 인스턴스를 생성하기 때문에 map을 사용하여 위와같은 표현을 남발할 경우 쓸데없는 인스턴스를 계속해서 생성한다. 이러한 경우를 위해 Optinal에선 `ifPresent()`라는 메서드를 제공한다.
@@ -275,7 +275,7 @@ optLocation.filter(location -> {
 ```java
 optLocation.ifPresent(location -> {
     // Logic
-})
+});
 ```
 
  앞서 작성한 코드보다 엄청나게 개선되었다고 할 수는 없지만, 불필요한 리턴이 없고 메서드 이름부터 표현하는 바가 확실하다.
