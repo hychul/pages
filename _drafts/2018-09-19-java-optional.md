@@ -93,9 +93,24 @@ public String getCiryFromLocation(Location location) {
 }
 ```
 
- null 체크할 때마다 기본값을 리턴하며 중첩을 피할 수 있지만 기본값을 리턴하는 문장이 반복되어 유지보수가 어렵다. 
+ 개인적으로 그나마 선호하는 방법으로 내부 레퍼런스에 대해 null 체크할 때마다 기본값을 리턴하며 중첩을 피하는 방법이다. 중첩 조건문을 피할 수 있지만 기본값을 리턴하는 문장이 반복되어 유지보수가 어렵다. 
 
- 두가지 방법 모두 객체의 메서드나 필드에 접근하기 전에 null 체크를 하여 NPE를 방지하고 있다. 하지만 NPE 방어를 하지 않는 처음의 메서드보다 코드가 상당히 지저분한 것을 볼 수 있다.
+```java
+public String getCiryFromLocation(Location location) {
+    if (location != null && 
+        location.getContinent() != null && 
+        location.getContinent().getCountry() != null && 
+        location.getContinent().getCountry().getCity() != null) {
+        return location.getContinent().getCountry().getCity();
+    }
+
+    return "Seoul";
+}
+```
+
+ 조건문을 하나만 사용해서 메서드를 작성했다. 조건문의 중첩과 반복은 해결했지만, 미리 받아올 수 있는 객체를 `&&`가 통과할 때마다 반복하여 호출하게된다.
+
+ 위의 방법들 모두 객체의 메서드나 필드에 접근하기 전에 null 체크를 하여 NPE를 방지하고 있다. 하지만 NPE 방어를 하지 않는 처음의 메서드보다 코드가 상당히 지저분한 것을 볼 수 있다.
 
 # Java8과 Optional
 
@@ -198,13 +213,19 @@ public String getCiryFromLocation(Location location) {
 
  Optional은 nullable한 객체를 담는 컨테이너라고 했다. 더 직관적으로 표현하자면 최대 1개의 원소를 갖는 특수한 Stream과 같다고 할 수 있다. 때문에 Stream이 갖는 `map()`, `flatMap()` 그리고 `filter()`등의 메서드를 동일하게 갖는다. 다른점이 있다면 각 메서드가 내부적으로 null 체크를 해준다는 것이다.
 
-- `opt.map()`
+- `opt.map(Function<? super T, ? extends U> mapper)`
 
-- `opt.flatMap()`
+ 담는 객체가 null이 아닌경우 함수형 인터페이스를 통해 작업을 수행한 후 리턴값을 Optional에 담아 반환한다. null인 경우 빈 Optional을 반환한다.
 
-- `opt.filter()`
+- `opt.flatMap(Function<? super T, Optional<U>> mapper)`
 
- 이러한 메서드를 사용하여 `getCiryFromLocation(Location location)`을 다시 구현하면 다음과 같이 깔끔하게 표현할 수 있다.
+ `map()` 메서드와 비슷하지만 파라메터로 넘기는 함수형 인터페이스가 Optional 자체를 반환한다. 마찬가지로 담는 객체가 null인 경우 빈 Optional을 반환한다.
+
+- `opt.filter(Predicate<? super T> predicate)`
+
+ 담고있는 객체가 함수형 인터페이스의 조건에 따라 `true`를 리턴하면 해당 Optional 객체를 반환하고, `false`를 리턴하거나 비어있는 경우 빈 Optional 객체를 반환한다.
+
+ 이렇게 내부적으로 null을 체크해주는 메서드를 사용하여 `getCiryFromLocation(Location location)`을 다시 구현하면 다음과 같이 깔끔하게 표현할 수 있다.
 
 ```java
 public String getCiryFromLocation(Location location) {
@@ -216,9 +237,51 @@ public String getCiryFromLocation(Location location) {
 }
 ```
 
- 기존에 null 체크를 위한 조건문들을 Optional이 제공하는 메서드 내부에서 처리 되도록 하여 코드상에서 null에 대한 표현이 없으면서도 메서드 체이닝을 통해 과장한다면 단 한 줄로 간결하게 표현할 수 있다.
+ 기존에 null 체크를 위한 조건문들을 Optional이 제공하는 메서드 내부에서 처리 되도록 하여 코드상에서 null에 대한 표현이 없으면서도 메서드 체이닝을 통해, 과장한다면 단 한 줄로 간결하게 표현할 수 있다.
 
-## 특별한 상황
+## 좀 더 제대로 사용하기
 
-`opt.ifPresent(Comsumer<? super T> comsumer)`
+ 위에서 가정한 상황들은 모두 Optional이 담고있는 객체를 반환하여 직접적으로 접근하여 사용하는 경우이다. 만약 담고있는 객체가 null이 아닌 경우 특정 로직이 수행되도록 하고 싶다면 다음과 같이 구현해야한다.
 
+```java
+if (optLocation.isPresent()) {
+    Location location = optLocation.get();
+    // Logic
+}
+```
+
+ 이러한 조건문을 사용하지 않기 위해 앞서 설명한 것 처럼 `map()` 또는 `filter()` 통해 표현하면 다음처럼 구현할 수 있다.
+
+```java
+// map() 
+optLocation.map(location -> {
+    // Logic
+    return location;
+});
+
+// filter()
+optLocation.filter(location -> {
+    // Logic
+    return true;
+})
+```
+
+ 위의 두가지 방법 모두 Optional이 담고있는 객체가 null이 아닌경우 로직을 수행한다. 하지만 두 방법 모두 불필요한 결과값을 리턴한다는 것이 어색하다. 거기에 `map()`의 경우 내부 구현을 보면 리턴하는 값을 `Optional.ofNullabe()`를 통해 Optional 인스턴스를 생성하기 때문에 map을 사용하여 위와같은 표현을 남발할 경우 쓸데없는 인스턴스를 계속해서 생성한다. 이러한 경우를 위해 Optinal에선 `ifPresent()`라는 메서드를 제공한다.
+
+- `opt.ifPresent(Comsumer<? super T> comsumer)`
+
+ 담고있는 객체가 null이 아닌 경우 파라메터로 전달하는 함수형 인터페이스가 수행된다. 한가지 주의할 점은 전달하는 파라메터가 null인 경우 NPE를 발생시킨다는 것이다.
+
+  `ifPresent()`를 사용해서 Optional이 담는 객체가 null이 아닐 때 특정 로직이 수행되게 하면 다음과 같이 표현할 수 있다.
+
+```java
+optLocation.ifPresent(location -> {
+    // Logic
+})
+```
+
+ 앞서 작성한 코드보다 엄청나게 개선되었다고 할 수는 없지만, 불필요한 리턴이 없고 메서드 이름부터 표현하는 바가 확실하다.
+
+# 마무리
+
+ Optional은 NPE에 대한 안정성을 확보하면서도 보다 깔끔한 코드를 작성할 수 있도록 도와준다. 문장으로 설명한 글이기 때문에 모든 상황에 대한 구현에 대해선 부족하다고 생각한다. Optional 내부 구현이 크게 어렵지 않기 때문에 직접 구현을 살펴보고 기능을 정확히 알고 사용한다면, null로 인한 스트레스로 부터 벗어날 수 있을 것이다.
