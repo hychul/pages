@@ -122,7 +122,7 @@ Optional은 Nullable한 객체를 담을 수 있는 Container 오브젝트이다
 
 ## Optional의 사용
 
-## 변수 선언
+### 변수 선언
 
 Optional은 제네릭을 제공하기 때문에 변수를 선언할 때 명시한 타입에 따라 담을 수 있는 객체의 타입이 결정된다. ~~변수를 선언할 때 'opt' 또는 'maybe' 접두사를 붙이기도 한다.~~
 
@@ -132,7 +132,7 @@ Optional<Continent> optContinent;
 Optional<Country> maybeCountry;
 ```
 
-## 객체 생성
+### 객체 생성
 
 Optional은 public 생성자를 제공하지 않기 때문에 객체 생성을 위해 클래스에서 제공하는 3가지 정적 팩토리 메서드를 사용해야 한다.
 
@@ -148,7 +148,7 @@ Optional은 public 생성자를 제공하지 않기 때문에 객체 생성을 �
 
  nullable한 객체를 담는 Optional 객체를 리턴한다. 내부적으로 null이 파라메터로 넘어오는 경우 `Optional.emtpy()`에서 사용된 static 변수를 리턴한다.
 
-## 객체의 접근
+### 객체의 접근
 
  담고있는 객체를 직접 사용하기 위해선, Optional이 제공하는 메서드를 사용하여 담고있는 객체를 가져와야한다.
 
@@ -184,7 +184,7 @@ public final class Optional<T> {
 
  담는 객체를 반환하는 메서드로 null을 담고있는 경우 파라메터로 넘겨준 함수형 인터페이스를 통해 얻은 예외를 발생시킨다.
 
-## 잘못된 사용
+### 잘못된 사용
 
  앞서 설명한 객체를 반환하기 위한 메서드를 사용하여 앞서 구현했던 `getCiryFromLocation(Location location)`을 단순하게 구현하면 다음과 같을 것이다.
 
@@ -207,7 +207,7 @@ public String getCiryFromLocation(Location location) {
 
  우리가 원했던 대로 더이상 null을 사용하지 않고 코드를 작성할 수 있게 되었다. 하지만 이것은 Optional을 제대로 사용하는 방법이 아니다. 앞서 null을 사용했던 코드만큼, 혹은 보다 더 복잡하기 때문에 Optional을 굳이 사용할 이유가 없다. Optional을 좀 더 제대로 사용하기 위해선 앞서 언급한 함수형 언어를 사용한 사고가 필요하다.
 
-## 제대로 사용하기
+### 제대로 사용하기
 
  Optional은 nullable한 객체를 담는 컨테이너라고 했다. 더 직관적으로 표현하자면 최대 1개의 원소를 갖는 특수한 Stream과 같다. 또한 Stream이 갖는 `map()`, `flatMap()` 그리고 `filter()`등의 메서드를 동일하게 갖는다. Stream의 메서드들과 다른점이 있다면 각 메서드가 내부적으로 null 체크를 해준다는 것이다.
 
@@ -237,7 +237,7 @@ public String getCiryFromLocation(Location location) {
 
  기존에 null 체크를 위한 조건문들을 Optional이 제공하는 메서드 내부에서 처리 되도록 하여 코드상에서 null에 대한 표현이 없으면서도 메서드 체이닝을 통해, 과장한다면 단 한 줄로 간결하게 표현할 수 있다.
 
-## 좀 더 제대로 사용하기
+### 반환하지 않는 Optional
 
  위에서 가정한 상황들은 모두 Optional이 담고있는 객체를 반환하여 직접적으로 접근하여 사용하는 경우이다. 만약 담고있는 객체가 null이 아닌 경우 특정 로직이 수행되도록 하고 싶다면 다음과 같이 구현해야한다.
 
