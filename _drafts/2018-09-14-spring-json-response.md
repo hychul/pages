@@ -12,7 +12,9 @@
 
 @ResponseBody 사용하기
 
-컨트롤러 메소드에 `@RequestMapping`과 함께 `@ResponseBody` 로 어노테이션을 붙이면 메소드에서 리턴되는 값은 View 를 통해서 출력되지 않고, `MessageConverter`에 의해 데이터 타입에 따라 변환이 이뤄진 후 HTTP Response Body 에 직접 쓰여지게 된다. 
+ 컨트롤러 메소드에 `@RequestMapping`과 함께 스프링 3.0에 추가된 `@ResponseBody` 로 어노테이션을 붙이면 메소드에서 리턴되는 값은 View 를 통해서 출력되지 않고, `MessageConverter`에 의해 데이터 타입에 따라 변환이 이뤄진 후 HTTP Response Body 에 직접 쓰여지게 된다.
+
+오브젝트를 받을 땐 `@RequestBody` 어노테이션을 파라메터에 사용해 객체 형태로 요청을 받을 수 있다.
 
 MessageConverter 의 종류
 
@@ -34,7 +36,17 @@ http://ismydream.tistory.com/140
 
  스프링 4.0부터 추가된 `RestController` 어노테이션을 컨트롤러 클래스에 사용하면  `@ResponseBody`를 사용하지 않고 객체를  Json 형식으로 자동으로 파싱해준다. 4.0에서 Jackson 라이브러리가 기본적으로 포함되기 때문에 Jackson 라이브러리도 따로 추가해줄 필요가 없다.
 
+요청은 `@ResponseBody`와 같이 `@RequestBody` 어노테이션을 통해 객체 형식으로 받을 수 있다.
+
 https://blog.naver.com/writer0713/220699582907
+
+
+
+http://highcode.tistory.com/24
+
+
+
+
 
 
 
