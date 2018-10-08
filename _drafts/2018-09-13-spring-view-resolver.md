@@ -1,1 +1,7 @@
-스프링  ViewResolver가 어떻게 페이지 또는 JSON을 통해 응답하는가
+---
+
+---
+
+
+
+https://www.baeldung.com/spring-mvc-view-resolver-tutorial
