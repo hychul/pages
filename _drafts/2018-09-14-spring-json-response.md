@@ -30,6 +30,14 @@ http://ismydream.tistory.com/140
 
 
 
+@RestController 사용하기
+
+ 스프링 4.0부터 추가된 `RestController` 어노테이션을 컨트롤러 클래스에 사용하면  `@ResponseBody`를 사용하지 않고 객체를  Json 형식으로 자동으로 파싱해준다. 4.0에서 Jackson 라이브러리가 기본적으로 포함되기 때문에 Jackson 라이브러리도 따로 추가해줄 필요가 없다.
+
+https://blog.naver.com/writer0713/220699582907
+
+
+
 참조 : 
 
 https://www.baeldung.com/servlet-json-response
