@@ -59,9 +59,15 @@ https://wckhg89.github.io/archivers/understanding_jackson
 1. WebMvcConfigurationSupport.mvcUriComponentsContributer()
    - `@Bean`을 사용하는 메서드로 
 2. WebMvcConfigurationSupport.requestMappingHandlerAdapter()
-   - `@Bean`을 사용하는 메서드로 `@Requestbody`와 `@ResponseBody` 어노테이션을 사용하는 메서드에 사용되는 어드바이스에 `JsonViewRequestBodyAdvice`와 `JsonViewResponseBodyAdvice`를 
+   - `@Bean`을 사용하는 메서드로 `@Requestbody`와 `@ResponseBody` 어노테이션을 사용하는 메서드에 사용되는 어드바이스에 `JsonViewRequestBodyAdvice`와 `JsonViewResponseBodyAdvice`를 추가한다.
 3. RequestMappingHandlerAdapter.setRequestBodyAdvice(List\<RequestBodyAdvice>)
 4. RequestMappingHandlerAdapter.setResponseBodyAdvice(List<ResponseBodyAdvice<?>>
+5. RequestMappingHanlderAdapter.afterPropertiesSet()
+   - 프로퍼티가 설정되고 호출되며 `initControllerAdviceCache()`와 `getDefaultArgumentResolvers()` 메서드를 호출한다.
+6. RequestMappingHanlderAdapter.initControllerAdviceCache()
+   - RequestBodyAdvice와 ResponseBodyAdvice 빈을 검색하여 requestResponseBodyAdvice에 추가한다.
+7. RequestMappingHanlderAdapter.getDefaultArgumentResolvers()
+   - requestResponseBodyAdvice에 대해 메세지 컨버터를 적용한 리졸버를 생성한다.
 
 
 
