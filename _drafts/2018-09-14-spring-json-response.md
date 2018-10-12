@@ -83,7 +83,7 @@ public class TestController {
         return testModel; // MessageConverter를 통해 Json으로 변환된다
     }
     
-    // @RequestBody 어노테이션도 @ResponseBody와 함께 3.0 버전부터 추가되었다.
+    // @RequestBody 어노테이션도 @ResponseBody와 함께 3.0 버전에 추가되었다.
     @RequestMapping(value = "/json", method = RequestMethod.POST)
     @ResponseBody
     public TestModel getJson(@RequestBody TestModel testModel) {
@@ -120,7 +120,7 @@ public class TestController {
 
 # 스프링의 Request Handle
 
- @ResponseBody 메서드를 통해 Json 데이터를 Response 값으로 통신하는 컨트롤러 클래스의 메서드를 호출할때 Stack Trace를 통해 호출 메서드 로그를 출력하면 다음과 같다.
+ @ResponseBody 메서드를 통해 Json 데이터를 Response 값으로 통신하는 컨트롤러 클래스의 메서드 호출 스택을 출력하면 다음과 같다.
 
 ```term
 - DispatcherServlet(FraneworkServlet).processRequest(HttpServletRequest, HttpServletResponse)
