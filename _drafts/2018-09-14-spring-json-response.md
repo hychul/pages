@@ -2,23 +2,24 @@
 
 ---
 
- 
-
  스프링 MVC를 통해 웹 어플리케이션을 구현하여 request를 받은 경우 Service를 통해 로직을 수행한 후 컨트롤러<sup>Controller</sup>에서  뷰 리졸버<sup>View Resolver</sup>를 통해 이에 해당하는 뷰<sup>View</sup>를 찾아 프론트엔드에 전달한다. 하지만 restful한 어플리케이션의 경우 뷰가 아닌 Json 포맷의 데이터를 response 값으로 사용할 수 있다. 스프링에서 Json 포맷을 response로 사용하기 위한 방법을 알아본다.
 
 # Json 데이터 response로 사용하기
 
 ## response 객체에 Json 문자열 담기
 
+ 가장 직관적인 방법은 HttpServletResponse를 핸들러 메서드의 파라메터로 받아 직접 Json 문자열을 response 객체에 세팅하는 것이다.
+
 ```java
 @Controller
 @RequestMapping("/test")
 public class TestController {
-    @RequestMapping(value = "/json-string", method = RequestMethod.GET)
+    @RequestMapping(value = "/json", method = RequestMethod.GET)
     public void getStringJson(HttpServletResponse response)  {
         String testJson;
+        TestModel testModel = new TestModel("Success");
 
-        testJson = "{\"message\":\"Success\"}"
+        testJson = "{\"message\":\"" + testModel.getMessage() + ""\"}"
             
         try {
             response.getWriter().print(personJson);
@@ -26,8 +27,16 @@ public class TestController {
             e.printStackTrace();
         }   
     }
-    
-    @RequestMapping(value = "/json-mapper", method = RequestMethod.GET)
+}
+```
+
+ 직접 response에 Json 데이터를 설정하면 직관적으로 알 수 있지만 직접 json으로 파싱하는 구문을 작성해야하는 번거로움이 있다. 자동으로 Json을 파싱하기 위해 `ObjectMapper` 클래스를 사용할 수 있다.
+
+```java
+@Controller
+@RequestMapping("/test")
+public class TestController {
+    @RequestMapping(value = "/json", method = RequestMethod.GET)
     public void getStringJson(HttpServletResponse response)  {
         ObjectMapper mapper = new ObjectMapper();
         
@@ -42,11 +51,13 @@ public class TestController {
 }
 ```
 
-
+ 직접 Json으로 변환하는 번거로움은 줄었지만 Json를 리턴하는 핸들러 메서드가 많을 경우 중복된 코드가 많아지게 된다.
 
 ## @ResponseBody 사용하기
 
- 컨트롤러 메소드에 `@RequestMapping`과 함께 스프링 3.0에 추가된 `@ResponseBody` 로 어노테이션을 붙이면 메소드에서 리턴되는 값은 뷰 리졸버가 아닌, `MessageConverter`에 의해 데이터 타입에 따라 변환이 이뤄진 후 HTTP Response Body 에 직접 쓰여지게 된다.
+ `ObjectMapper` 클래스의 사용을 AOP를 통해서 제거할 수 있지만 스프링 3.0 부터 Json 데이터 포맷을 response로 지원하기 위해 `@ResponseBody` 어노테이션이 추가되었다.
+
+ 컨트롤러 메소드에 `@RequestMapping`과 함께 `@ResponseBody` 어노테이션을 붙이면 메소드에서 리턴되는 값은 뷰 리졸버가 아닌, `MessageConverter`에 의해 데이터 타입에 따라 변환이 이뤄진 후 HTTP Response Body 에 직접 쓰여지게 된다.
 
 > MessageConverter 의 종류
 >
