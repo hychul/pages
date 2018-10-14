@@ -239,10 +239,6 @@ public @interface RestController {
 
 
 
-https://wckhg89.github.io/archivers/understanding_jackson
-
-http://highcode.tistory.com/24
-
 참조 : 
 
 [@RequestBody와 @ReponseBody 어노테이션의 사용](http://devbox.tistory.com/entry/Spring-RequestBody-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EA%B3%BC-ReponseBody-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%98-%EC%82%AC%EC%9A%A9)
