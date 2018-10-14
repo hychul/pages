@@ -127,11 +127,11 @@ public class TestController {
 
  Json을 response로 사용하기 위해 스프링에서 제공하는 방법은 앞에서 본 것과 같이 아주 간단하다. 일반적으로 스프링 MVC에서 컨트롤러의 핸들러 메서드를 통해 request를 처리하는 방식은 아래 그림과 같이 뷰 리졸버를 사용하여 뷰를 리턴하는 방식으로 작동한다.
 
-[그림]
+![spring-json-response-0](https://user-images.githubusercontent.com/18159012/46917394-b0874580-d001-11e8-888d-8882c1c39c38.png)
 
  하지만 핸들러 메소드에 `@RequestMapping`과 함께 `@ResponseBody` 어노테이션을 붙이면 메소드에서 리턴되는 값은 뷰 리졸버가 아닌, `MessageConverter`에 의해 데이터 타입에 따라 변환이 이뤄진 후 HTTP Response Body 에 직접 쓰여지게 된다.
 
-[그림]
+![spring-json-response-1](https://user-images.githubusercontent.com/18159012/46917399-b8df8080-d001-11e8-9018-782246324813.png)
 
 > MessageConverter 의 종류
 >
