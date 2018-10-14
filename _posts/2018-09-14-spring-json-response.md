@@ -1,5 +1,13 @@
 ---
-
+title: 스프링 Json Response
+date: 2018-09-14
+categories:
+- Spring
+tags:
+- Development
+- Spring
+- Server
+- Java
 ---
 
  스프링 MVC를 통해 웹 어플리케이션을 구현하여 request를 받은 경우 Service를 통해 로직을 수행한 후 컨트롤러<sup>Controller</sup>에서  뷰 리졸버<sup>View Resolver</sup>를 통해 이에 해당하는 뷰<sup>View</sup>를 찾아 프론트엔드에 전달한다. 하지만 restful한 어플리케이션의 경우 뷰가 아닌 Json 포맷의 데이터를 response 값으로 사용할 수 있다. 스프링에서 Json 포맷을 response로 사용하기 위한 방법을 알아본다.
@@ -57,20 +65,6 @@ public class TestController {
 
  `ObjectMapper` 클래스의 사용을 AOP를 통해서 제거할 수 있지만 스프링 3.0 부터 Json 데이터 포맷을 response로 지원하기 위해 `@ResponseBody` 어노테이션이 추가되었다.
 
- 컨트롤러 메소드에 `@RequestMapping`과 함께 `@ResponseBody` 어노테이션을 붙이면 메소드에서 리턴되는 값은 뷰 리졸버가 아닌, `MessageConverter`에 의해 데이터 타입에 따라 변환이 이뤄진 후 HTTP Response Body 에 직접 쓰여지게 된다.
-
-> MessageConverter 의 종류
->
-> \- StringHttpMessageConverter
->
-> \- FormHttpMessageConverter
->
-> \- ByteArrayMessageConverter
->
-> \- MarshallingHttpMessageConverter
->
-> \- MappingJacksonHttpMessageConverter
-
  다음은 뷰와 Json을 각각 response로 사용하는 컨트롤러의 예제이다.
 
 ```java
@@ -83,7 +77,7 @@ public class TestController {
         
         model.addAttribute("model", testModel);
         
-        return "test"; // 뷰 리졸버를 통해 test.jsp를 출력한다
+        return "test";
     }
     
     @RequestMapping(value = "/json", method = RequestMethod.GET)
@@ -91,7 +85,7 @@ public class TestController {
     public TestModel getJson() {
         TestModel testModel = new TestModel("Success");
         
-        return testModel; // MessageConverter를 통해 Json으로 변환된다
+        return testModel;
     }
     
     // @RequestBody 어노테이션도 @ResponseBody와 함께 3.0 버전에 추가되었다.
@@ -100,7 +94,7 @@ public class TestController {
     public TestModel getJson(@RequestBody TestModel testModel) {
         TestModel testModel = new TestModel(testModel.getMessage());
         
-        return testModel; // MessageConverter를 통해 Json으로 변환된다
+        return testModel;
     }
 }
 ```
@@ -117,19 +111,41 @@ public class TestController {
     public TestModel getJson() {
         TestModel testModel = new TestModel("Success");
         
-        return testModel; // MessageConverter를 통해 Json으로 변환된다
+        return testModel;
     }
     
     @RequestMapping(value = "/json", method = RequestMethod.POST)
     public TestModel getJson(@RequestBody TestModel testModel) {
         TestModel testModel = new TestModel(testModel.getMessage());
         
-        return testModel; // MessageConverter를 통해 Json으로 변환된다
+        return testModel;
     }
 }
 ```
 
-# 스프링의 Request Handle
+# 스프링의 Json response
+
+ Json을 response로 사용하기 위해 스프링에서 제공하는 방법은 앞에서 본 것과 같이 아주 간단하다. 일반적으로 스프링 MVC에서 컨트롤러의 핸들러 메서드를 통해 request를 처리하는 방식은 아래 그림과 같이 뷰 리졸버를 사용하여 뷰를 리턴하는 방식으로 작동한다.
+
+[그림]
+
+ 하지만 핸들러 메소드에 `@RequestMapping`과 함께 `@ResponseBody` 어노테이션을 붙이면 메소드에서 리턴되는 값은 뷰 리졸버가 아닌, `MessageConverter`에 의해 데이터 타입에 따라 변환이 이뤄진 후 HTTP Response Body 에 직접 쓰여지게 된다.
+
+[그림]
+
+> MessageConverter 의 종류
+>
+> \- StringHttpMessageConverter
+>
+> \- FormHttpMessageConverter
+>
+> \- ByteArrayMessageConverter
+>
+> \- MarshallingHttpMessageConverter
+>
+> \- MappingJacksonHttpMessageConverter
+
+## Request 핸들링
 
  @ResponseBody 메서드를 통해 Json 데이터를 Response 값으로 통신하는 컨트롤러 클래스의 메서드 호출 스택을 출력하면 다음과 같다.
 
