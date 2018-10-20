@@ -13,6 +13,8 @@ tags:
 
 # 행렬과 피보나치
 
+ 피보나치가 재귀문을 배울 때 가장 많이 쓰이는 이유는 점화식이 간단하기 때문이다.
+
 ![big-fibonacci-0](https://user-images.githubusercontent.com/18159012/44535577-4ce54800-a735-11e8-976e-f4d236bb00e7.jpg)
 
 ![big-fibonacci-1](https://user-images.githubusercontent.com/18159012/44535608-5a9acd80-a735-11e8-83af-a7bcb497978a.jpg)
