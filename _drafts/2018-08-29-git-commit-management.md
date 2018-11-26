@@ -11,18 +11,18 @@ tags:
 fork target branch
 
 ~~~console
-git remote add upstream [target repository]
+git remote add [upstream] [target repository]
 ~~~
 
 ```
 git remote -v
-git pull upstream
+git pull [upstream]
 git checkout [branch]
 ```
 
 ```console
-git pull upstream [branch]
+git pull [upstream] [branch]
 git push origin [branch]
-git pull upstream [branch] && git push origin [branch]
+git pull [upstream] [branch] && git push origin [branch]
 ```
 
