@@ -12,7 +12,11 @@ tags:
 
 ![unity-vs-code-integration](https://user-images.githubusercontent.com/18159012/42456572-396bab94-83d0-11e8-8a35-b42c4968c50b.png)
 
-유니티를 통해 게임을 개발하기 위해선 C#을 지원하는 IDE를 선택해야한다. 현재 2018.1 버전 기준 유니티에서 Visual Studio의 사용을 권장하고 있다. Visual Studio가 유니티 디버깅에 대한 강력한 기능들을 제공해주지만 프로그램이 너무 무겁게 느껴진다.
+> 유니티가 4버전대의 .NET을 지원하면서 OmniSharp 플러그인에서 디버깅을 위한 .NET Framework 4.5를 못찾는 버그가 있습니다. 따로 4 버전대의 .NET Framework SDK를 깔아도 해결이 안되고, 해결하기 위해선 VS Studio를 깔아야하기 때문에 vs code를 따로 깔아서 쓸 이유가 없어졌네요. 
+
+
+
+ 유니티를 통해 게임을 개발하기 위해선 C#을 지원하는 IDE를 선택해야한다. 현재 2018.1 버전 기준 유니티에서 Visual Studio의 사용을 권장하고 있다. Visual Studio가 유니티 디버깅에 대한 강력한 기능들을 제공해주지만 프로그램이 너무 무겁게 느껴진다.
 
 개인적으로 Jetbrain 사의 Rider를 좋아하는데, IntelliJ와 같은 커뮤니티 버전이 없어 사용하기 위해선 돈을 내고 구독을 해야한다. 띄엄띄엄 취미로 하는 게임 개발을 정기적인 구독을 하면서 하기엔 부담이 되어 가벼운 무료 IDE를 찾다가 MS의 VS Code를 알게 되었다.
 
