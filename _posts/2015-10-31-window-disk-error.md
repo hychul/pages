@@ -1,5 +1,5 @@
 ---
-title: 윈도우 설치 레어: gpt 디스크에만 Windows를 설치할 수 있습니다.
+title: 윈도우 설치 에러: gpt 디스크에만 Windows를 설치할 수 있습니다.
 date: 2015-10-31
 categories:
 - Tip
