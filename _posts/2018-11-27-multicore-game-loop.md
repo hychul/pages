@@ -2,7 +2,7 @@
 title: 멀티 코어 게임 루프
 date: 2018-11-27
 categories:
-- Development
+- Game
 tags:
 - Development
 - Game
