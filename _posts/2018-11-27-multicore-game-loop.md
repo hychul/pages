@@ -1,5 +1,5 @@
 ---
-title: 멀티 코어 게임 루프
+title: 게임 엔진 이해 - 멀티 코어 게임 루프
 date: 2018-11-27
 categories:
 - Game
