@@ -1,5 +1,5 @@
 ---
-title: 게임 엔진 이해 - 멀티 코어 게임 루프
+title: 코딩 없는 게임 엔진 이야기 - 멀티 코어 게임 루프
 date: 2018-11-27
 categories:
 - Game
@@ -9,6 +9,12 @@ tags:
 - GameEngine
 ---
 
+> 코딩 없는 게임 엔진 이야기
+>
+> 1. [게임 루프](https://hychul.github.io/game/2018/10/20/game-loop/)
+> 2. 멀티코어 게임 루프
+> 3. [효율적인 렌더링](https://hychul.github.io/game/2018/11/29/rendering-optimization/)
+
  단일코어를 넘어 듀얼코어, 쿼드코어 CPU가 생산되고, 현재는 그보다 더 많은 수의 코어를 지원하는 CPU도 개발되었다. 멀티 코어의 시대가 찾아온 것이다. 이런 시대의 흐름에 따라 다수의 유저들은 멀티코어 CPU를 택하기 시작했다. 게임이 효율적으로 동작하기 위해선 싱글 스레드로 하나의 코어만 사용하는 것이 아니라 멀티 스레딩을 통해 존재하는 모든 코어를 효율적으로 사용해야한다.
 
  멀티 스레딩을 적용할 때 가장 주의해야 하는 것은 한 자원에 동시에 접근하는 것이다. 스레드를 나눠서 동작을 하면 각 스레드는 순서를 보장하지 않는다. 한 자원을 수정할 땐 자원의 값을 읽고, 수정하고, 값을 쓰는 동작이 필요하다. 
@@ -17,7 +23,7 @@ tags:
 
 ![img](https://lh6.googleusercontent.com/PUWRCXFAojwepqo-hSAXE8jOaVPfq-CWEDyNWye8U8KnEzFGZZqLHziOeNFE5LVsNp6WRUIYz6UxOzHwh75HZM99ntq46iHxIsvw4hBeso5-uoqRWwiiO_4FoKtUreygDAMyGjzt)
 
-의도대로라면 모든 동작이 끝난후 2가 되어야 하지만 1이 된다
+<center>의도대로라면 모든 동작이 끝난후 2가 되어야 하지만 1이 된다.</center><br/>
 
  동시에 한 자원에 접근을 할 때는 수정하는 스레드가 하나 이상이면 안된다. 즉 한 스레드가 수정을 하고 나머지는 읽기만 한다면 멀티 스레딩을 적용 하더라도 문제가 되지 않는다.
 
