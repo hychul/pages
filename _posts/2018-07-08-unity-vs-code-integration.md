@@ -63,3 +63,6 @@ http://www.mono-project.com/download/stable/
 
 ![unity-vs-code-integration-2](https://user-images.githubusercontent.com/18159012/42458507-f3a29046-83d4-11e8-8a55-7a95eabde89a.png)
 
+> # 연관글
+>
+> [Unity VSCode 연동 후 'The reference assemblies for framework ".NETFramework,Version=v4.5" were not found.' 이슈 해결 방법](https://hychul.github.io/game/2018/12/08/unity-vscode-error-fix/)
