@@ -14,7 +14,7 @@ tags:
 
 ![unity-vs-code-integration-3](https://user-images.githubusercontent.com/18159012/49001893-51d8ee00-f1a1-11e8-9c70-b3b0f6e9f1ea.PNG)
 
- VS Code C# 플러그인이 로드될때 4.5버전의 .NET Framework을 찾지 못해서 인데, 비주얼 스튜디오 SDK 사이트에는 4.5버전의 SDK를 지원하지 않는다. 때문에 4.X 버전 대의 SDK 중 하나를 골라 다운로드 받은 후 설정 파일에 적용해 주어야 한다.
+ VS Code C# 플러그인이 로드될때 4.5버전의 .NET Framework을 찾지 못해서 이기 때문에 4.5버전의 .NET Framework SDK를 다운 받으면 된다.
 
 # .NET Framework SDK 다운로드
 
@@ -24,6 +24,6 @@ tags:
 
 <center>자동으로 4.5 버전의 .NET Framework를 선택한다.</center><br />
 
- 하지만 .NET Framework를 다운 받기 위해 https://www.microsoft.com/net/download/visual-studio-sdks 에 접속하면 4.5 버전이 아닌 4.5.2 버전만 존재한다. 프로젝트 파일을 열어 `TargetFrameworkVersion`을 수정할 수 있지만 Unity가 로드될 때 마다 버전을 4.5로 수정하기 때문에 상당히 귀찮다.
+ 하지만 .NET Framework를 다운 받기 위해 https://www.microsoft.com/net/download/visual-studio-sdks 에 접속하면 4.5 버전이 아닌 4.5.2 버전만 존재한다. 프로젝트 파일을 열어 `TargetFrameworkVersion`을 수정할 수 있지만 Unity가 로드될 때 마다 버전을 4.5.2로 수정해야하기 때문에 상당히 귀찮다.
 
- 이를 해결하는 방법은 아주 간단하다. 4.5.2 버전의 .NET Framework를 설치하고 SDK가 설치된 `C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework`  폴더로 이동한다. 앞서 우리가 설치한 .NET Framework인 v4.5.2 폴더가 존재하는 것을 확인할 수 있는데, 폴더의 이름을 v4.5.2에서 v4.5로 변경해주면 된다. 이후엔 C# 플러그인이 제대로 로드되게 된다.
+ 이를 해결하는 방법은 아주 간단하다. 4.5.2 버전의 .NET Framework를 설치하고 SDK가 설치된 `C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework`  폴더로 이동한다. 앞서 우리가 설치한 .NET Framework인 v4.5.2 폴더가 존재하는 것을 확인할 수 있는데, SDK 폴더의 이름을 v4.5.2에서 v4.5로 변경해주면 된다. 이후엔 C# 플러그인이 제대로 로드되게 된다.
