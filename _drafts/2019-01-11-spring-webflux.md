@@ -121,14 +121,49 @@ HandlerMapping을 통해 RouterFunction, RequestMapping, 리소스 맵핑 중 �
 
 ServerSentEventHttpMessageWriter 클래스에서 write() 메서드를 HandlerResultAdapter 로 부터 호출받아 SSE에 대한 response를 작성한다. (SSE가 아닌 경우엔 EncoderHttpMessageWriter로 처리 된다 ServerResponse를 생성할 때 사용되는 Bodyinserter에서 정해진다)
 
-```
-`public class ServerSentEventHttpMessageWriter implements HttpMessageWriter<Object> { 	... 	@Override 	public Mono<Void> write(Publisher<?> input, ResolvableType actualType, ResolvableType elementType, 		@Nullable MediaType mediaType, ServerHttpRequest request, ServerHttpResponse response, 		Map<String, Object> hints) {  		Map<String, Object> allHints = Hints.merge(hints, 		getEncodeHints(actualType, elementType, mediaType, request, response));  		return write(input, elementType, mediaType, response, allHints); 	} 	... 	@Override 	public Mono<Void> write(Publisher<?> input, ResolvableType elementType, @Nullable MediaType mediaType, 		ReactiveHttpOutputMessage message, Map<String, Object> hints) { 		 		mediaType = (mediaType != null && mediaType.getCharset() != null ? mediaType : DEFAULT_MEDIA_TYPE); 		DataBufferFactory bufferFactory = message.bufferFactory(); 		 		message.getHeaders().setContentType(mediaType); 		return message.writeAndFlushWith(encode(input, elementType, mediaType, bufferFactory, hints)); 	} }`
+```java
+public class ServerSentEventHttpMessageWriter implements HttpMessageWriter<Object> {
+	//... 	
+	@Override
+	public Mono<Void> write(Publisher<?> input,
+							ResolvableType actualType,
+							ResolvableType elementType,
+							@Nullable MediaType mediaType,
+							ServerHttpRequest request,
+							ServerHttpResponse response,
+							Map<String, Object> hints) {
+		Map<String, Object> allHints = Hints.merge(hints,getEncodeHints(actualType, elementType, mediaType, request, response));
+		return write(input, elementType, mediaType, response, allHints);
+	}
+	//...
+	@Override
+	public Mono<Void> write(Publisher<?> input,
+							ResolvableType elementType,
+							@Nullable MediaType mediaType,
+                            ReactiveHttpOutputMessage message,
+                            Map<String, Object> hints) {
+		mediaType = (mediaType != null && mediaType.getCharset() != null ?
+					mediaType :
+					DEFAULT_MEDIA_TYPE);
+		DataBufferFactory bufferFactory = message.bufferFactory();
+		message.getHeaders().setContentType(mediaType);
+		return message.writeAndFlushWith(encode(input, elementType, mediaType, bufferFactory, hints));
+	}
+}
 ```
 
 ReactorClientHttpRequest 클래스에서 writeAndFlushWith() 메서드를 통해 netty outbound를 통해 Publisher 타입의 body를 ByteBufs로 변환하여 내보내는데, SSE의 경우 body가 onComplete 시그널을 발생하지 않고 계속 onNext 시그널을 통해 데이터를 전달하여 연결이 끊어지지 않고 클라이언트에게 이벤트를 전달할 수 있다.
 
-```
-`class ReactorClientHttpRequest extends AbstractClientHttpRequest implements ZeroCopyHttpOutputMessage { 	... 	@Override 	public Mono<Void> writeAndFlushWith(Publisher<? extends Publisher<? extends DataBuffer>> body) { 		Publisher<Publisher<ByteBuf>> byteBufs = Flux.from(body).map(ReactorClientHttpRequest::toByteBufs); 		return doCommit(() -> this.outbound.sendGroups(byteBufs).then()); 	} 	... }`
+```java
+class ReactorClientHttpRequest extends AbstractClientHttpRequest implements ZeroCopyHttpOutputMessage {
+    // ...
+    @Override
+    public Mono<Void> writeAndFlushWith(Publisher<? extends Publisher<? extends DataBuffer>> body) {
+        Publisher<Publisher<ByteBuf>> byteBufs = Flux.from(body).map(ReactorClientHttpRequest::toByteBufs);
+        return doCommit(() -> this.outbound.sendGroups(byteBufs).then());
+    }
+    //...
+}
 ```
 
 # WebFlux WebSocket 연결
@@ -139,6 +174,37 @@ WebSocket의 경우 사용하기 위해선 `WebSocketHandlerAdapter`와 웹소�
 
 HttpServerOperation 클래스를 보면 NettyChannel에서 핸드 쉐이크 이후 `sendWebsocket()` 메서드를 통해 발생하는 시그널에 대해서 컨디션 체크 후 `WebsocketHandler` 에 넘겨주고 웹소켓 연결이 끊어지거나 에러 시그널의 경우에만 처리를 하는 `WebSocketSubscriber`를 할당하여 웹 소켓 커뮤니케이션을 처리한다.
 
+```java
+class HttpServerOperations extends HttpOperations<HttpServerRequest, HttpServerResponse> implements HttpServerRequest, HttpServerResponse {
+    //...
+    @Override
+    public Mono<Void> sendWebsocket(@Nullable String protocols,
+                                    int maxFramePayloadLength,
+                                    BiFunction<? super WebsocketInbound, ? super WebsocketOutbound, ? extends Publisher<Void>> websocketHandler) {
+        return withWebsocketSupport(uri(), protocols, maxFramePayloadLength, websocketHandler);
+    }
+    //...
+    final Mono<Void> withWebsocketSupport(String url,
+                                          @Nullable String protocols,
+                                          int maxFramePayloadLength,
+                                          BiFunction<? super WebsocketInbound, ? super WebsocketOutbound, ? extends Publisher<Void>> websocketHandler) {
+        Objects.requireNonNull(websocketHandler, "websocketHandler");
+        if (markSentHeaders()) {
+            WebsocketServerOperations ops = new WebsocketServerOperations(url, protocols, maxFramePayloadLength, this);
+            if (rebind(ops)) {
+                return FutureMono.from(ops.handshakerResult)
+                    			 .doOnEach(signal -> {
+                                     if(!signal.hasError() && (protocols == null || ops.selectedSubprotocol() != null)) {
+                                         websocketHandler.apply(ops, ops).subscribe(new WebsocketSubscriber(ops, signal.getContext()));
+                                     }
+                                 });
+            }
+        }
+        else {
+            log.error(format(channel(), "Cannot enable websocket if headers have already been sent"));
+        }
+        return Mono.error(new IllegalStateException("Failed to upgrade to websocket"));
+    }
+}
 ```
-`class HttpServerOperations extends HttpOperations<HttpServerRequest, HttpServerResponse> implements HttpServerRequest, HttpServerResponse { 	... 	@Override 	public Mono<Void> sendWebsocket(@Nullable String protocols, 		int maxFramePayloadLength, 		BiFunction<? super WebsocketInbound, ? super WebsocketOutbound, ? extends Publisher<Void>> websocketHandler) { 		return withWebsocketSupport(uri(), protocols, maxFramePayloadLength, websocketHandler); 	} 	... 	final Mono<Void> withWebsocketSupport(String url, @Nullable String protocols, int maxFramePayloadLength, BiFunction<? super WebsocketInbound, ? super WebsocketOutbound, ? extends Publisher<Void>> websocketHandler) { 		Objects.requireNonNull(websocketHandler, "websocketHandler"); 		if (markSentHeaders()) { 			WebsocketServerOperations ops = new WebsocketServerOperations(url, protocols, maxFramePayloadLength, this); 			if (rebind(ops)) { 				return FutureMono.from(ops.handshakerResult) 								 .doOnEach(signal -> { 								 	if(!signal.hasError() && (protocols == null || ops.selectedSubprotocol() != null)) { 								 		websocketHandler.apply(ops, ops).subscribe(new WebsocketSubscriber(ops, signal.getContext())); 								 	} 								 });       		} 		} 		else { 			log.error(format(channel(), "Cannot enable websocket if headers have already been sent")); 		} 		return Mono.error(new IllegalStateException("Failed to upgrade to websocket")); 	} }`
-```
+
