@@ -1,3 +1,15 @@
+---
+title: Multi Flex Server
+date: 2019-03-23
+categories:
+- Development
+tags:
+- Development
+- Java
+- NIO
+- Reactor
+---
+
  소켓은 네트워크 상에서 서버와 클라이언트가 특정 포트를 통해 양방향 통신이 가능하도록 만들어주는 추상화된 리소스다.  하나의 소켓은 하나의 연결을 담당하기 때문에 다중 접속을 지원하기 위해선 연결 요청이 올 때 소켓을 새로운 프로세스 또는 스레드에 할당하여 데이터 송수신을 가능하게 하였다. 이렇게 소켓을 프로세스에 할당하는 방식을 **멀티 프로세스 기반 서버**, 스레드에 할당하는 방식을 **멀티 스레드 기반 서버**라고 한다. 하지만 이 두 방식은 컨텍스트 스위칭<sup>Context Switching</sup>의 오버헤드가 존재한다. 
 
 ![multiflex](https://user-images.githubusercontent.com/18159012/54667814-afb68a80-4b30-11e9-8e72-1ba65dbdfa21.png)
