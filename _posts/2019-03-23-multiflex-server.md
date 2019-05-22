@@ -40,14 +40,9 @@ Java NIO에선 이런 논블록처리를 지원한다. 이를 이해하기 위�
 
 네트워크 통신을 위해 `java.nio`에서 구현되어 있는 클래스는 다음과 같다.
 
-- DatagramChannel
-
-  : UDP를 이용해 데이터를 읽고 쓴다.
-
-- SocketChannel
-  : TCP를 이용해 데이터를 읽고 쓴다.
-- ServerSocketChannel
-  : 들어오는 TCP 연결을 수신<sup>listening</sup>할 수 있다. 들어오는 연결마다 `SocketChannel`이 만들어진다.
+- DatagramChannel : UDP를 이용해 데이터를 읽고 쓴다.
+- SocketChannel : TCP를 이용해 데이터를 읽고 쓴다.
+- ServerSocketChannel : 들어오는 TCP 연결을 수신<sup>listening</sup>할 수 있다. 들어오는 연결마다 `SocketChannel`이 만들어진다.
 
 ### Buffer
 
