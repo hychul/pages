@@ -1,3 +1,7 @@
+기존에 myBatis를 사용하다가 JPA로 넘어가면서 굳이 엔티티를 만들어서 persistence 관리를 하도록 해야되는가에 대한 생각이 많았는데, insert 쿼리를 실행하면서 persistence의 소중함을 깨닫게 되었다.
+
+어떤 엔티티의 아이디가 auto increment 를 사용해서 DB에서 아이디를 생성하도록 하는 경우 JPA의 경우 persistence가 존재하기 때문에 id가 엔티티 클래스에 세팅이 된다. 하지만 myBatis에 경우엔 그렇지 않는데, 이를 처리하기 위한 태그를 정리해 보았다.
+
 # SelectKey 태그 사용하기
 
 ## insert 전에 특정 값을 이용해 처리하는 방법
