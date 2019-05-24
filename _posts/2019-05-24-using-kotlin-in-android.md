@@ -1,4 +1,14 @@
-# Kotlin 코드 추가
+---
+title: Using Kotlin in Android
+date: 2019-05-24
+categories:
+- Development
+tags:
+- Development
+- Java
+- Kotlin
+- Android
+---
 
 Android Studio 3.0 이상부터 완벽한 Kotlin 지원을 제공하므로, 손쉽게 기존 프로젝트에 Kotlin 파일을 추가하고 Java 언어 코드를 Kotlin으로 변환할 수 있습니다. 그런 다음, 자동완성, lint 검사기, 리팩터링, 디버깅 등, Kotlin 코드와 함께 Android Studio의 기존 도구를 전부 사용할 수 있습니다. 새 프로젝트를 시작하면서 Kotlin을 사용하려면 프로젝트 생성을 참조하세요.
 
