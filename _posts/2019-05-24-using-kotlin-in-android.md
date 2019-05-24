@@ -12,6 +12,48 @@ tags:
 
 Android Studio 3.0 이상부터 완벽한 Kotlin 지원을 제공하므로, 손쉽게 기존 프로젝트에 Kotlin 파일을 추가하고 Java 언어 코드를 Kotlin으로 변환할 수 있습니다. 그런 다음, 자동완성, lint 검사기, 리팩터링, 디버깅 등, Kotlin 코드와 함께 Android Studio의 기존 도구를 전부 사용할 수 있습니다. 새 프로젝트를 시작하면서 Kotlin을 사용하려면 프로젝트 생성을 참조하세요.
 
+# Kotlin을 프로젝트에서 사용할 준비
+
+먼저 Kotlin 플러그인을 다운받아야 합니다. **Android Studio > Preferences**을 클릭하고 **Plugins** 탭에서 Kotlin을 검색해 Kotlin 플러그인을 설치합니다.
+
+## 프로젝트 Gradle 설정
+
+프로젝트 `build.gradle` 파일에 다음과 같이 Kotlin 버전과 Kotlin Gradle 플러그인을 추가합니다.
+
+```gradle
+buildscript {
+    ext.kotlin_version = "1.3.31" // 설치한 Kotlin 플러그인 버전
+    repositories {
+        google()
+        jcenter()
+        
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:3.4.1"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" // Kotlin Gradle 플러그인 추가
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+```
+
+## 앱 모듈 Gradle 설정
+
+앱 모듈 `build.gradle` 파일에 다음과 같이 Kotlin 관련 설정을 추가합니다.
+
+```gradle
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android' // Kotlin Android 플러그인 적용
+apply plugin: 'kotlin-android-extensions' // Kotlin Android Extension 플러그인 적용
+
+...
+
+dependencies {
+    ...
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version" // Kotlin JDK 버전 설정
+}
+```
+
 # 기존 프로젝트에 Kotlin 추가
 
 ## 새로운 Kotlin 코드 생성
@@ -30,7 +72,7 @@ Java 파일을 열고 **Code > Convert Java File to Kotlin File**을 선택합�
 
 ## Kotlin 코드 소스 디렉토리 나누기
 
-기본적으로, 새 Kotlin 파일은 `src/main/java/`에 저장되고 소스 디렉토리로 지정되어 있다면 Java 코드와 호환되어 동작합니다. 만약 Kotlin 파일과 Java 파일을 따로 저장하고 싶다면 Kotlin 파일을 `src/main/kotlin/`에 저장하고 다음과 같이 [sourceSets](https://developer.android.com/studio/build/index.html?hl=ko#sourcesets) 구성에 이 디렉토리를 포함해야 합니다.
+기본적으로, 새 Kotlin 파일은 `src/main/java/`에 저장되고 소스 디렉토리로 지정되어 있다면 Java 코드와 호환되어 동작합니다. 만약 Kotlin 파일과 Java 파일을 따로 저장하고 싶다면 Kotlin 파일을 `src/main/kotlin/`에 저장하고 다음과 같이 앱 모듈의 `build.gradle` 파일의 [sourceSets](https://developer.android.com/studio/build/index.html?hl=ko#sourcesets) 구성에 이 디렉토리를 포함해야 합니다.
 
 ```gradle
 android {
