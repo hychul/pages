@@ -208,3 +208,5 @@ public class AuditorAwareImpl implements AuditorAware<String> {
     }
 }
 ```
+
+[원글 링크](https://www.baeldung.com/database-auditing-jpa)
