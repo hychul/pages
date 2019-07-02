@@ -8,14 +8,24 @@ Git을 사용할때 프로젝트의 기능, 스펙 등에 따라 브랜치를 �
 
 ```shell
 function git-branch() {
-    branch=""
-    branches=`git branch --list`
-    while read -r branch; do
-    clean_branch_name=${branch//\*\ /}
-    description=`git config branch.$clean_branch_name.description`
-    printf "%-15s %s\n" "$branch" "$description"
-    done <<< "$branches"
+    if [ $# -lt 1 ]; then
+        branch=""
+        branches=`git branch --list`
+        while read -r branch; do
+            clean_branch_name=${branch//\*\ /}
+            description=`git config branch.$clean_branch_name.description`
+            printf "%-15s %s\n" "$branch" "$description"
+        done <<< "$branches"
+    elif [ $# -lt 2 ]; then
+        branch_name=$1
+        git config branch.${branch_name}.description
+    else
+        branch_name=$1
+        desc=$2
+        git config branch.${branch_name}.description "${desc}"
+    fi
 }
+
 ```
 
 위 코드를 alias 파일에 추가하는 것으로 `git-branch` 명령어를 통해 브랜치 명과 설명이 동시에 보여질 수 있습니다.
