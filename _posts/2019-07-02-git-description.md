@@ -39,3 +39,13 @@ function git-branch() {
 ```
 
 위 코드를 alias 파일에 추가하는 것으로 `git-branch` 명령어를 통해 브랜치 명과 설명이 동시에 보여질 수 있습니다. 또한 추가적으로 해당 명령어에 브랜치명 아규먼트를 추가하여 브랜치에 설명을 추가하거나 설명을 출력할 수 있습니다.
+
+```terminal
+$ git-branch develop "Test desc"
+$ git-branch develop
+Test desc
+$ git-branch
+* develop Test desc
+master
+$ 
+```
