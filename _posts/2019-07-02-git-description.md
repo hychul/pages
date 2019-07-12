@@ -20,32 +20,52 @@ Git을 사용할때 프로젝트의 기능, 스펙 등에 따라 브랜치를 �
 ```shell
 function git-branch() {
     if [ $# -eq 0 ]; then
-        branch="" 
+        branch=""
         branches=`git branch --list`
         while read -r branch; do
             clean_branch_name=${branch//\*\ /}
             description=`git config branch.$clean_branch_name.description`
-            printf "%-15s %s\n" "$branch" "$description"
+            if [[ "$branch" =~ "*" ]]; then
+                printf "\e[0;33m%-15s %s\e[m\n" "$branch" "$description"
+            else
+                printf "%-15s %s\n" "$branch" "$description"
+            fi
         done <<< "$branches"
     elif [ $# -eq 1 ]; then
-        branch_name=$1 
+        branch_name=$1
         git config branch.${branch_name}.description
     elif [ $# -eq 2 ]; then
-        branch_name=$1
-        desc=$2
-        git config branch.${branch_name}.description "${desc}"
-    fi  
-}   
+        opt=$1
+        if [ "$opt" = "-c" ]; then
+            branch_name=`git branch | grep \* | cut -d ' ' -f2`
+            desc=$2
+            git config branch.${branch_name}.description "${desc}"
+        fi
+    elif [ $# -eq 3 ]; then
+        opt=$1
+        if [ "$opt" = "-b" ]; then
+            branch_name=$2
+            desc=$3
+            git config branch.${branch_name}.description "${desc}"
+        fi
+    fi
+}
 ```
 
 위 코드를 alias 파일에 추가하는 것으로 `git-branch` 명령어를 통해 브랜치 명과 설명이 동시에 보여질 수 있습니다. 또한 추가적으로 해당 명령어에 브랜치명 아규먼트를 추가하여 브랜치에 설명을 추가하거나 설명을 출력할 수 있습니다.
 
 ```terminal
-$ git-branch develop "Test desc"
-$ git-branch develop
-Test desc
+$ git-branch -c "Test 1"
 $ git-branch
-* develop Test desc
+* develop Test 1
 master
+$
+$ git-branch -b develop "Test 2"
+$ git-branch
+* develop Test 2
+master
+$
+$ git-branch develop
+Test 2
 $ 
 ```
