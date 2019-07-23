@@ -1,3 +1,14 @@
+---
+title: Reactor Stream Transform
+date: 2019-07-23
+categories:
+- Development
+tags:
+- Development
+- Java
+- Reactor
+---
+
 리액터 스트림은 스레드 전환을 쉽게 해준다.
 
 리액터 스트림은 자신이 동작하는 스레드에서 동기적으로 동작한다.
