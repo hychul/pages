@@ -1,3 +1,13 @@
+---
+title: 마크다운 문법
+date: 2019-07-19
+categories:
+- Development
+tags:
+- Development
+- Markdown
+---
+
 <a name="top"></a>
 # Header
 | Markdown | Result      |
@@ -125,7 +135,7 @@ output:
 | Markdown | Result |
 | -        | -      |
 | [Google\](http://www.google.co.kr "구글") | [Google](http://www.google.co.kr "구글") |
-| [Google][1]<br><br>\[1]: http://www.google.co.kr "구글" | [Google][1]<br><br> |
+| [Google\][1\]<br><br>\[1]: http://www.google.co.kr "구글" | [Google][1]<br><br> |
 
 [1]: http://www.google.co.kr "구글"
 
