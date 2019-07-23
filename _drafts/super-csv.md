@@ -2,5 +2,11 @@
 
 DB에서 데이터들은 테이블로 관리 되기 때문에 데이터를 다룰 때 많이 사용하는 엑셀로 대량의 데이터를 전달하는 경우가 많다.
 
+# Bean으로 사용하는 방법
+
+# 리스트로 사용하는 방법
+
+# 맵으로 사용하는 방법
+
 https://super-csv.github.io/super-csv/examples_reading.html  
 https://super-csv.github.io/super-csv/examples_writing.html
