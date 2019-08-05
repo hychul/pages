@@ -51,7 +51,6 @@ Swagger 라이브러리에 정의된 `Swagger2Controller`를 보면 API document
 
 ![swagger-api-document-file](https://user-images.githubusercontent.com/18159012/62447656-cfc5ae00-b7a0-11e9-9afb-b493c02439af.png)
 
-
 # Swagger Annotation
 
 Swagger에서 API Document를 생성할 때 기본적으로 작성되는 설명에 Swagger annotation을 사용하여 추가적인 설명을 덧붙일 수 있습니다. 
