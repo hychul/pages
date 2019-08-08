@@ -20,20 +20,20 @@ Git을 사용할때 프로젝트의 기능, 스펙 등에 따라 브랜치를 �
 ```shell
 function git-branch() {
     if [ $# -eq 0 ]; then
-        branch=""
         branches=`git branch --list`
-        while read -r branch; do
-            clean_branch_name=${branch//\*\ /}
-            description=`git config branch.$clean_branch_name.description`
-            if [[ "$branch" =~ "*" ]]; then
-                printf "\e[0;33m%-15s %s\e[m\n" "$branch" "$description"
+        item=""
+        while read -r item; do
+            branch=${item//\*\ /}
+            description=`git config branch.$branch.description`
+            if [[ "$item" =~ "*" ]]; then
+                printf "* \e[0;33m%-15s %s\e[m\n" "$branch" "$description"
             else
-                printf "%-15s %s\n" "$branch" "$description"
+                printf "  %-15s %s\n" "$branch" "$description"
             fi
         done <<< "$branches"
     elif [ $# -eq 1 ]; then
-        branch_name=$1
-        git config branch.${branch_name}.description
+        branch=$1
+        git config branch.${branch}.description
     elif [ $# -eq 2 ]; then
         opt=$1
         if [ "$opt" = "-c" ]; then
