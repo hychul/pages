@@ -55,7 +55,7 @@ Swagger 라이브러리에 정의된 `Swagger2Controller`를 보면 API document
 
 Swagger에서 API Document를 생성할 때 기본적으로 작성되는 설명에 Swagger annotation을 사용하여 추가적인 설명을 덧붙일 수 있습니다. 
 
-|Name | Description |
+| Name | Description |
 | -        | -      |
 | `@Api` | Marks a class as a Swagger resource. |
 | `@ApiImplicitParam` | Represents a single parameter in an API Operation. |

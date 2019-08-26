@@ -58,12 +58,12 @@ function git-branch() {
 $ git-branch -c "Test 1"
 $ git-branch
 * develop Test 1
-master
+  master
 $
 $ git-branch -b develop "Test 2"
 $ git-branch
 * develop Test 2
-master
+  master
 $
 $ git-branch develop
 Test 2
