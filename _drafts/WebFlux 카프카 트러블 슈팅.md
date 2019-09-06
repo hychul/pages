@@ -13,3 +13,25 @@ rector-kafka의 동작과 한계
 다른 서비스와의 throughput 한계
 
 GG
+
+# create ldbasic.repo
+$ sudoedit /etc/yum.repos.d/ldbasic.repo
+i[ldbasic]
+name=CentOS - ldbasic
+baseurl=http://oishisoo:QEoAuJ6n@dev3-yum-local.linecorp-beta.com/yum/livedoor/centos$releasever/$basearch/
+gpgcheck=0
+enabled=0
+priority=1
+exclude=openssh*
+
+[ldnoarch]
+name=CentOS - ldnoarch
+baseurl=http://oishisoo:QEoAuJ6n@dev3-yum-local.linecorp-beta.com/yum/livedoor/centos$releasever/noarch/
+gpgcheck=0
+enabled=0
+priority=1
+$ sudo yum --enablerepo=ldbasic install line-fluentd
+$ sudo /etc/init.d/line-fluentd start
+
+
+8245
