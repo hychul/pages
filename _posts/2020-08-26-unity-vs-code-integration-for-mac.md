@@ -12,8 +12,8 @@ tags:
 
 이전에 Windows 환경에서 VsCode를 유니티에서 사용하기 위한 세팅 글을 쓴적이 있었다.
 
-메인 개발 PC를 Mac으로 변경하고 다시 게임 개발을 취미로 해볼까 해서 Unity를 설치하고 [vscode 홈페이지에서 설명하는 유니티 세팅 방법](https://code.visualstudio.com/docs/other/unity)으로 세팅한 후 VsCode를 켰는데 `Error : The reference assemblies for .NETFramework, Version = v4.7.1 were not found` 에러가 반겨주었다.  
-이상태로는 VsCode 자체를 사용 못하는 건 아니지만, .Net 지원이 되지 않아 Intelli Sense 등이 동작하지 않아, 그냥 기본 메모장에서 개발하는 기분을 즐길 수 있다.
+메인 개발 PC를 Mac으로 변경하고 다시 게임 개발을 취미로 해볼까 해서 Unity를 설치하고 [vscode 홈페이지에서 설명하는 유니티 세팅 방법](https://code.visualstudio.com/docs/other/unity)으로 세팅한 후 VSCode를 켰는데 `Error : The reference assemblies for .NETFramework, Version = v4.7.1 were not found` 에러가 반겨주었다. 
+이상태로는 VsCode 자체를 사용 못하는 건 아니지만, .Net 지원이 되지 않아 Intelli Sense 등이 동작하지 않아, 기본 메모장에서 개발하는 것과 다를게 없다.
 
 여러 삽질을 하다가 찾은 그 해결 방법을 적어 보았다.
 
