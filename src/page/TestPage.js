@@ -21,7 +21,7 @@ function TestPage() {
   }
   items.push(<div style={{ textAlign: 'center' }}>space for scroll end</div>);
 
-  console.log(markdown);
+  fetch(markdown).then(it => it.text()).then(it => console.log(it));
 
   return (
     <div>
