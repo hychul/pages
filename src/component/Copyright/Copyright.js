@@ -5,9 +5,11 @@ function Copyright() {
     <Fragment>
       <hr
         style={{
-          color: 'red',
-          backgroundColor: 'green',
-          height: '5'
+          border:'solid 0px',
+          marginLeft: '2vmin',
+          marginRight: '2vmin',
+          height: '1px',
+          backgroundColor: 'black'
         }}
       />
       <div 
