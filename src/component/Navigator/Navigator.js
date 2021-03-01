@@ -51,7 +51,6 @@ function Navigator() {
           justifyContent: 'center',
           alignItems: 'center',
           // 
-          height: '100%',
           backgroundColor: 'green',
           marginLeft: '0.25rem',
           marginRight: '0.25rem',
@@ -68,6 +67,10 @@ function Navigator() {
         display: 'flex',
       }}>
         <div style={{
+          // center
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
           width: '3.5rem',
           backgroundColor: 'yellow',
           textAlign: 'center',
