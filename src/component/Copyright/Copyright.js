@@ -3,19 +3,14 @@ import React, { Fragment } from 'react';
 function Copyright() {
   return (
     <Fragment>
-      <hr
-        style={{
-          border:'solid 0px',
-          marginLeft: '2vmin',
-          marginRight: '2vmin',
-          height: '1px',
-          backgroundColor: 'black'
-        }}
-      />
       <div 
         style={{
-          marginTop:'30px',
-          marginBottom:'30px',
+          borderTop: 'solid 1px black',
+          marginTop: '15px',
+          marginLeft: '2vmin',
+          marginRight: '2vmin',
+          paddingTop:'30px',
+          paddingBottom:'30px',
           textAlign:'center'
         }}
       >
