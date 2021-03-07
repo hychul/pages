@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 function PostPage({match}) {
   const [post, setPost] = useState();
@@ -15,7 +16,7 @@ function PostPage({match}) {
   return (
     <div>
       <div>post page</div>
-      <div>${post}</div>
+      <ReactMarkdown source={post} />
     </div>
   )
 }
