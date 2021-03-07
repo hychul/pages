@@ -1,5 +1,4 @@
 import React from 'react';
-import markdown from 'static/../../_posts/2015-08-29-window-hard-disk-analyze.md';
 
 const showFile = async (e) => {
   e.preventDefault()
@@ -21,7 +20,10 @@ function TestPage() {
   }
   items.push(<div style={{ textAlign: 'center' }}>space for scroll end</div>);
 
-  fetch(markdown).then(it => it.text()).then(it => console.log(it));
+  var filename = 'test.md';
+  var data = require('static/post/' + filename);
+
+  fetch(data.default).then(it => it.text()).then(it => console.log("test : " + it));
 
   return (
     <div>
