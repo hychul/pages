@@ -15,7 +15,7 @@ function Copyright() {
         © 2021. Hychul all rights reserved.
       </div>
     </Fragment>
-  )
+  );
 }
 
 export default Copyright;

@@ -18,7 +18,7 @@ function PostPage({match}) {
       <div>post page</div>
       <ReactMarkdown source={post} />
     </div>
-  )
+  );
 }
 
 export default PostPage;
