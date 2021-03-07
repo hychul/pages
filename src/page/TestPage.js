@@ -21,7 +21,7 @@ function TestPage() {
   items.push(<div style={{ textAlign: 'center' }}>space for scroll end</div>);
 
   var filename = 'test.md';
-  var data = require('static/post/' + filename);
+  var data = require(`static/post/${filename}`);
 
   fetch(data.default).then(it => it.text()).then(it => console.log("test : " + it));
 
