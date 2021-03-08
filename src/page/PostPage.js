@@ -16,8 +16,48 @@ function PostPage({match}) {
   return (
     <div>
       <div>post page</div>
-      <ReactMarkdown source={post} />
+      <ReactMarkdown source={post} escapeHtml={false} renderers={markdownRenderers} />
     </div>
+  );
+}
+
+const markdownRenderers = {
+
+  code: (props) => 
+  <pre style={{
+    border: 'solid 1px black',
+    borderRadius: '0.5em',
+    padding: '1em',
+    backgroundColor: 'grey'
+  }}>
+    <code>
+      {props.value}
+    </code>
+  </pre>,
+  inlineCode: (props) => <code style={{backgroundColor: 'yellow'}}>{props.value}</code>,
+  tableCell: tableCell
+}
+
+function tableCell(props) {
+  let style = {
+    textAlign: props.align ? props.align : 'center',
+    padding: '1em'
+  }
+
+  console.log(`table`);
+  if (props.isHeader) {
+    style.backgroundColor = 'yellow';
+    style.border = '1px solid black';
+    style.borderLeft = '0px';
+    style.borderRight = '0px';
+  } else {
+    style.borderBottom = '1px solid black';
+  }
+
+  return (
+    <td style={style}>
+      {props.children}
+    </td>
   );
 }
 
