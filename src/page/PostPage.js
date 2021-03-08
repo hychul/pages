@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
 
 function PostPage({match}) {
   const [post, setPost] = useState();
@@ -16,7 +17,7 @@ function PostPage({match}) {
   return (
     <div>
       <div>post page</div>
-      <ReactMarkdown source={post} escapeHtml={false} renderers={markdownRenderers} />
+      <ReactMarkdown plugins={[[gfm, {singleTilde: false}]]} source={post} escapeHtml={false} renderers={markdownRenderers} />
     </div>
   );
 }
