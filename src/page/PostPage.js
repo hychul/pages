@@ -17,7 +17,12 @@ function PostPage({match}) {
   return (
     <div>
       <div>post page</div>
-      <ReactMarkdown plugins={[[gfm, {singleTilde: false}]]} source={post} escapeHtml={false} renderers={markdownRenderers} />
+      <ReactMarkdown 
+        plugins={[[gfm, {singleTilde: false}]]} 
+        source={post} 
+        escapeHtml={false} 
+        renderers={markdownRenderers} 
+      />
     </div>
   );
 }
@@ -45,7 +50,6 @@ function tableCell(props) {
     padding: '1em'
   }
 
-  console.log(`table`);
   if (props.isHeader) {
     style.backgroundColor = 'yellow';
     style.border = '1px solid black';
