@@ -46,9 +46,6 @@ const markdownRenderers = {
 }
 
 function heading(props) {
-  console.log(props);
-  console.log(props.children);
-
   let style = {
     margin:'15px 0 10px',
     lineHeight:'1.75',
