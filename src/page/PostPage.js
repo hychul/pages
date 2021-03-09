@@ -24,6 +24,7 @@ function PostPage({match}) {
       backgroundColor:'white',
       fontFamily: 'Helvetica, arial, sans-serif',
       lineHeight:'1.6',
+      fontSmooth:'auto',
       fontSize:'14px',
       color:'#242A2D'
     }}>
