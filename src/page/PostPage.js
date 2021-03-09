@@ -74,6 +74,9 @@ function heading(props) {
       style.fontSize='14px';
       style.color='#6A737D';
       break;
+    default:
+      // Do nothing
+      break;
   }
 
   return (
