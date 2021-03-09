@@ -38,46 +38,84 @@ function PostPage({match}) {
 }
 
 const markdownRenderers = {
-  code: (props) => { //F6F8FA
-    return (
-        <SyntaxHighlighter 
-          language={props.language} 
-          // showLineNumbers
-          style={githubGist} 
-          customStyle={{
-            backgroundColor:'#F6F8FA',
-            borderRadius:'4px',
-            padding:'16px',
-            lineHeight:'1.5',
-            fontSize:'0.85em'
-          }}
-          children={props.value}
-        />
-    );
-  },
-  inlineCode: (props) => {
-    return (
-      <code style={{
-        backgroundColor: '#F6F8FA',
-        padding:'4px',
-        fontSize:'12px'
-      }}>
-        {props.value}
-      </code>
-    );
-  },
+  heading: heading,
+  code: code,
+  inlineCode: inlineCode,
   tableCell: tableCell,
-  blockquote: (props) => {
-    return (
-      <div style={{
-        borderLeft:'solid 3px #DFE2E5',
-        paddingLeft:'14px',
-        color:'#6A737D'
-      }}>
-        {props.children}
-      </div>
-    );
+  blockquote: blockquote
+}
+
+function heading(props) {
+  console.log(props);
+  console.log(props.children);
+
+  let style = {
+    margin:'15px 0 10px',
+    lineHeight:'1.75',
+    fontWeight:'bold'
   }
+
+  switch (props.level) {
+    case 1:
+      style.fontSize='28px';
+      style.borderBottom='solid 1px #EAECEF'
+      break;
+    case 2:
+      style.fontSize='24px';
+      style.borderBottom='solid 1px #EAECEF'
+      break;
+    case 3:
+      style.fontSize='18px';
+      break;
+    case 4:
+      style.fontSize='16px';
+      break;
+    case 5:
+      style.fontSize='14px';
+      break;
+    case 6:
+      style.fontSize='14px';
+      style.color='#6A737D';
+      break;
+  }
+
+  return (
+    <div style={
+      style
+    }>
+      {props.children}
+    </div>
+  );
+}
+
+function code(props) {
+  return (
+    <SyntaxHighlighter 
+      language={props.language} 
+      // showLineNumbers
+      style={githubGist} 
+      customStyle={{
+        backgroundColor:'#F6F8FA',
+        borderRadius:'4px',
+        padding:'16px',
+        lineHeight:'1.5',
+        fontSize:'0.85em'
+      }}
+      children={props.value}
+    />
+  );
+}
+
+function inlineCode(props) {
+  return (
+    <code style={{
+      backgroundColor: '#F6F8FA',
+      padding:'4px',
+      fontSize:'12px'
+    }}>
+      {props.children}
+    </code>
+  );
 }
 
 function tableCell(props) {
@@ -96,6 +134,18 @@ function tableCell(props) {
     <td style={style}>
       {props.children}
     </td>
+  );
+}
+
+function blockquote(props) {
+  return (
+    <div style={{
+      borderLeft:'solid 3px #DFE2E5',
+      paddingLeft:'14px',
+      color:'#6A737D'
+    }}>
+      {props.children}
+    </div>
   );
 }
 
