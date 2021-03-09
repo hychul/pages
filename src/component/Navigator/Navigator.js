@@ -3,12 +3,12 @@ import React from 'react';
 const nav = {
   display: 'flex',
   justifyContent: 'space-between',
-  width: '100%',
   position: 'sticky',
-  height: '3.5rem',
   top: '-3.5rem',
   marginTop: '0px',
-  backgroundColor: 'red'
+  width: '100%',
+  height: '4rem',
+  backgroundColor: '#242A2D'
 }
 
 function Navigator() {
@@ -17,13 +17,19 @@ function Navigator() {
       {/* Left */}
       <div style={{
         display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}>
         <div style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          width: '3.5rem', 
-          backgroundColor: 'orange',
+          margin:'0.5em',
+          marginLeft:'1rem',
+          marginRight:'0rem',
+          width: '2rem', 
+          height: '2rem',
+          backgroundColor: 'cyan',
         }}
         onMouseOver={() => {
           console.log("over");
@@ -34,32 +40,20 @@ function Navigator() {
         onClick={() => {
           console.log("click");
         }}>
-          A
-        </div>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '3.5rem', 
-          backgroundColor: 'blue',
-        }}>
-          LOGO
+          H
         </div>
         <div style={{
           // center
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          // 
-          backgroundColor: 'green',
-          marginLeft: '0.25rem',
-          marginRight: '0.25rem',
+          padding:'0.5em',
           // font
           color: 'white',
-          fontSize: '1.2em',
+          fontSize: '16px',
           fontWeight: '700'
         }}>
-          Hychul's Page
+          hychul.io
         </div>
       </div>
       {/* Right */}

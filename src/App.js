@@ -12,7 +12,11 @@ function App() {
   return (
     <Fragment>
       <Navigator />
-      <div>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        backgroundColor: '#11D999',
+      }}>
         <HashRouter>
           <Switch>
             <Route exact path='/' component={ReactPage} />
