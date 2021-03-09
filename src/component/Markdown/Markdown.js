@@ -24,7 +24,7 @@ function Markdown(props) {
       fontFamily: 'Helvetica, arial, sans-serif',
       lineHeight:'1.6',
       fontSmooth:'auto',
-      fontSize:'14px',
+      fontSize:'16px',
       color:'#242A2D',
     }}>
       <ReactMarkdown 
@@ -54,24 +54,24 @@ function heading(props) {
 
   switch (props.level) {
     case 1:
-      style.fontSize='28px';
+      style.fontSize='2em';
       style.borderBottom='solid 1px #EAECEF';
       break;
     case 2:
-      style.fontSize='24px';
+      style.fontSize='1.5em';
       style.borderBottom='solid 1px #EAECEF';
       break;
     case 3:
-      style.fontSize='18px';
+      style.fontSize='1.125em';
       break;
     case 4:
-      style.fontSize='16px';
+      style.fontSize='1em';
       break;
     case 5:
-      style.fontSize='14px';
+      style.fontSize='0.875em';
       break;
     case 6:
-      style.fontSize='14px';
+      style.fontSize='0.875em';
       style.color='#6A737D';
       break;
     default:
@@ -95,7 +95,7 @@ function code(props) {
       // showLineNumbers
       style={githubGist} 
       customStyle={{
-        backgroundColor:'#F6F8FA',
+        backgroundColor:'#F5F7F9',
         borderRadius:'4px',
         padding:'16px',
         lineHeight:'1.5',
@@ -109,9 +109,9 @@ function code(props) {
 function inlineCode(props) {
   return (
     <code style={{
-      backgroundColor: '#F6F8FA',
+      backgroundColor: '#F1F2F2',
       padding:'4px',
-      fontSize:'12px',
+      fontSize:'0.875em',
     }}>
       {props.children}
     </code>
@@ -126,7 +126,7 @@ function tableCell(props) {
   if (props.isHeader) {
     style.borderTop = 'solid 1px #DFE2E5';
     style.borderBottom = 'solid 1px #DFE2E5';
-    style.backgroundColor = '#F6F8FA';
+    style.backgroundColor = '#F5F7F9';
     style.fontWeight = 'bold';
     style.textAlign = props.align ? props.align : 'center';
   } else {
@@ -144,7 +144,7 @@ function tableCell(props) {
 function blockquote(props) {
   return (
     <div style={{
-      borderLeft:'solid 3px #DFE2E5',
+      borderLeft:'solid 3px #DBDEE1',
       paddingLeft:'14px',
       color:'#6A737D',
     }}>
