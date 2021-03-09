@@ -22,7 +22,7 @@ function Markdown(props) {
       padding:'0px',
       backgroundColor:'white',
       fontFamily: 'Helvetica, arial, sans-serif',
-      lineHeight:'1.5',
+      lineHeight:'1.45',
       fontSmooth:'auto',
       fontSize:'16px',
       color:'#242A2D',

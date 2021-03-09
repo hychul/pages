@@ -11,7 +11,6 @@ function PostPage({match}) {
       rowGap: '15px',
       justifyContent:'center',
       width:'100%',
-      // maxWidth: '1080px',
       padding:'32px'
     }}>
       <div style={{
@@ -21,8 +20,8 @@ function PostPage({match}) {
         border:'solid 1px #DDE0E4',
         borderRadius:'0.5em',
         padding:'32px',
-        paddingTop:'12px',
-        paddingBottom:'12px',
+        paddingTop:'14px',
+        paddingBottom:'14px',
         backgroundColor:'white',
         fontFamily: 'Helvetica, arial, sans-serif',
         lineHeight:'1.6',
