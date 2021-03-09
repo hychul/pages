@@ -7,10 +7,8 @@ import { githubGist } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 function Markdown(props) {
   const [post, setPost] = useState();
 
-  const filename = props.filename;
-
   try {
-    const data = require(`static/post/${filename}`);
+    const data = require(`static/post/${props.filename}`);
     fetch(data.default).then(it => it.text()).then(it => setPost(it));
   } catch (e) {
     setPost("The file you are looking for does not exist.");
