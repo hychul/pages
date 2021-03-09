@@ -28,7 +28,7 @@ function PostPage({match}) {
       color:'#242A2D'
     }}>
       <ReactMarkdown 
-        plugins={[[gfm, {singleTilde: false}]]} 
+        plugins={[[gfm]]} 
         source={post} 
         escapeHtml={false} 
         renderers={markdownRenderers} 
@@ -120,15 +120,19 @@ function inlineCode(props) {
 
 function tableCell(props) {
   let style = {
-    textAlign: props.align ? props.align : 'center',
-    padding: '0.5rem'
+    padding: '6px 13px',
   }
 
   if (props.isHeader) {
+    style.borderTop = 'solid 1px #DFE2E5';
+    style.borderBottom = 'solid 1px #DFE2E5';
+    style.backgroundColor = '#F6F8FA';
     style.fontWeight = 'bold';
+    style.textAlign = props.align ? props.align : 'center';
+  } else {
+    style.borderBottom = 'solid 1px #DFE2E5';
+    style.textAlign = props.align ? props.align : 'left'
   }
-
-  style.border = '1px solid #DFE2E5';
 
   return (
     <td style={style}>

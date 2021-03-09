@@ -25,6 +25,7 @@ This is table
 |column1|column2|
 |---|---|
 |row1|row2|
+|row1|row2|
 
 ```java
 public class Test {
@@ -43,4 +44,3 @@ List
 Number List
 1. one
 2. two
-
