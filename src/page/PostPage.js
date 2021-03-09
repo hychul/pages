@@ -66,7 +66,18 @@ const markdownRenderers = {
       </code>
     );
   },
-  tableCell: tableCell
+  tableCell: tableCell,
+  blockquote: (props) => {
+    return (
+      <div style={{
+        borderLeft:'solid 3px #DFE2E5',
+        paddingLeft:'14px',
+        color:'#6A737D'
+      }}>
+        {props.children}
+      </div>
+    );
+  }
 }
 
 function tableCell(props) {
