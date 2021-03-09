@@ -5,13 +5,13 @@ import SyntaxHighlighter from 'react-syntax-highlighter'
 import { githubGist } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 
 function Markdown(props) {
-  const [post, setPost] = useState();
+  const [source, setSource] = useState();
 
   try {
     const data = require(`static/post/${props.filename}`);
-    fetch(data.default).then(it => it.text()).then(it => setPost(it));
+    fetch(data.default).then(it => it.text()).then(it => setSource(it));
   } catch (e) {
-    setPost("The file you are looking for does not exist.");
+    setSource("The file you are looking for does not exist.");
   }
 
   return (
@@ -29,7 +29,7 @@ function Markdown(props) {
     }}>
       <ReactMarkdown 
         plugins={[[gfm]]} 
-        source={post} 
+        source={source} 
         escapeHtml={false} 
         renderers={markdownRenderers} 
       />
