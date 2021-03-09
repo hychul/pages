@@ -4,7 +4,7 @@ const nav = {
   display: 'flex',
   justifyContent: 'space-between',
   position: 'sticky',
-  top: '-3.5rem',
+  top: '-4rem',
   marginTop: '0px',
   width: '100%',
   height: '4rem',
