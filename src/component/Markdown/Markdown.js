@@ -16,6 +16,7 @@ function Markdown(props) {
 
   return (
     <div style={{
+      width:'100%',
       padding:'30px',
       paddingTop:'10px',
       paddingBottom:'10px',
@@ -24,7 +25,7 @@ function Markdown(props) {
       lineHeight:'1.6',
       fontSmooth:'auto',
       fontSize:'14px',
-      color:'#242A2D'
+      color:'#242A2D',
     }}>
       <ReactMarkdown 
         plugins={[[gfm]]} 
@@ -48,17 +49,17 @@ function heading(props) {
   let style = {
     margin:'15px 0 10px',
     lineHeight:'1.75',
-    fontWeight:'bold'
+    fontWeight:'bold',
   }
 
   switch (props.level) {
     case 1:
       style.fontSize='28px';
-      style.borderBottom='solid 1px #EAECEF'
+      style.borderBottom='solid 1px #EAECEF';
       break;
     case 2:
       style.fontSize='24px';
-      style.borderBottom='solid 1px #EAECEF'
+      style.borderBottom='solid 1px #EAECEF';
       break;
     case 3:
       style.fontSize='18px';
@@ -98,7 +99,7 @@ function code(props) {
         borderRadius:'4px',
         padding:'16px',
         lineHeight:'1.5',
-        fontSize:'0.85em'
+        fontSize:'0.85em',
       }}
       children={props.value}
     />
@@ -110,7 +111,7 @@ function inlineCode(props) {
     <code style={{
       backgroundColor: '#F6F8FA',
       padding:'4px',
-      fontSize:'12px'
+      fontSize:'12px',
     }}>
       {props.children}
     </code>
@@ -130,7 +131,7 @@ function tableCell(props) {
     style.textAlign = props.align ? props.align : 'center';
   } else {
     style.borderBottom = 'solid 1px #DFE2E5';
-    style.textAlign = props.align ? props.align : 'left'
+    style.textAlign = props.align ? props.align : 'left';
   }
 
   return (
@@ -145,7 +146,7 @@ function blockquote(props) {
     <div style={{
       borderLeft:'solid 3px #DFE2E5',
       paddingLeft:'14px',
-      color:'#6A737D'
+      color:'#6A737D',
     }}>
       {props.children}
     </div>

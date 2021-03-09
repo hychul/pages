@@ -5,7 +5,22 @@ function PostPage({match}) {
   const filename = `${match.params.id}.md`;
 
   return (
-    <Markdown filename={filename}/>
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      width: '100%',
+      backgroundColor: '#11D999',
+    }}>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        width: '100%',
+        maxWidth: '1080px',
+        backgroundColor: 'red',
+      }}>
+        <Markdown filename={filename}/>
+      </div>
+    </div>
   );
 }
 
