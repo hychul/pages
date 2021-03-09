@@ -18,9 +18,14 @@ function PostPage({match}) {
 
   return (
     <div style={{
-      padding:'1rem',
-      lineHeight:'1.2rem',
-      fontSize:'0.9rem'
+      padding:'30px',
+      paddingTop:'10px',
+      paddingBottom:'10px',
+      backgroundColor:'white',
+      fontFamily: 'Helvetica, arial, sans-serif',
+      lineHeight:'1.6',
+      fontSize:'14px',
+      color:'#242A2D'
     }}>
       <ReactMarkdown 
         plugins={[[gfm, {singleTilde: false}]]} 
@@ -71,7 +76,7 @@ function tableCell(props) {
   }
 
   if (props.isHeader) {
-    style.fontWeight = '700';
+    style.fontWeight = 'bold';
   }
 
   style.border = '1px solid #DFE2E5';
