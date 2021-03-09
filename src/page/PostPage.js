@@ -17,8 +17,11 @@ function PostPage({match}) {
   }
 
   return (
-    <div>
-      <div>post page</div>
+    <div style={{
+      padding:'1rem',
+      lineHeight:'1.2rem',
+      fontSize:'0.9rem'
+    }}>
       <ReactMarkdown 
         plugins={[[gfm, {singleTilde: false}]]} 
         source={post} 
@@ -30,27 +33,48 @@ function PostPage({match}) {
 }
 
 const markdownRenderers = {
-  code: (props) => {
-    return <SyntaxHighlighter style={githubGist} language={props.language} children={props.value} />
+  code: (props) => { //F6F8FA
+    return (
+        <SyntaxHighlighter 
+          language={props.language} 
+          // showLineNumbers
+          style={githubGist} 
+          customStyle={{
+            backgroundColor:'#F6F8FA',
+            borderRadius:'0.25rem',
+            padding:'1rem',
+            lineHeight:'1.1rem',
+            fontSize:'0.85em'
+          }}
+          children={props.value}
+        />
+    );
   },
-  inlineCode: (props) => <code style={{backgroundColor: 'yellow'}}>{props.value}</code>,
+  inlineCode: (props) => {
+    return (
+      <code style={{
+        backgroundColor: '#F6F8FA',
+        padding:'0.25rem',
+        fontSize:'0.85em'
+      }}>
+        {props.value}
+      </code>
+    );
+  },
   tableCell: tableCell
 }
 
 function tableCell(props) {
   let style = {
     textAlign: props.align ? props.align : 'center',
-    padding: '1em'
+    padding: '0.5rem'
   }
 
   if (props.isHeader) {
-    style.backgroundColor = 'yellow';
-    style.border = '1px solid black';
-    style.borderLeft = '0px';
-    style.borderRight = '0px';
-  } else {
-    style.borderBottom = '1px solid black';
+    style.fontWeight = '700';
   }
+
+  style.border = '1px solid #DFE2E5';
 
   return (
     <td style={style}>
