@@ -15,7 +15,6 @@ function App() {
       <div style={{
         display: 'flex',
         justifyContent: 'center',
-        backgroundColor: '#11D999',
       }}>
         <HashRouter>
           <Switch>

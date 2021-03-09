@@ -17,6 +17,9 @@ function Markdown(props) {
   return (
     <div style={{
       width:'100%',
+      margin:'15px',
+      border:'solid 1px #DDE0E4',
+      borderRadius:'0.5em',
       padding:'30px',
       paddingTop:'10px',
       paddingBottom:'10px',
@@ -96,7 +99,7 @@ function code(props) {
       style={githubGist} 
       customStyle={{
         backgroundColor:'#F5F7F9',
-        borderRadius:'4px',
+        borderRadius:'0.25em',
         padding:'16px',
         lineHeight:'1.5',
         fontSize:'0.85em',
