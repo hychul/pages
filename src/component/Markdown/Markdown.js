@@ -88,6 +88,7 @@ function heading(props) {
   );
 }
 
+// TODO: Check horizontal scroll bar on change browser width
 function code(props) {
   return (
     <SyntaxHighlighter 
