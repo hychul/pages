@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
-import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
-import {dark} from 'react-syntax-highlighter/dist/esm/styles/prism'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { githubGist } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 
 function PostPage({match}) {
   const [post, setPost] = useState();
@@ -31,7 +31,7 @@ function PostPage({match}) {
 
 const markdownRenderers = {
   code: (props) => {
-    return <SyntaxHighlighter style={dark} language={props.language} children={props.value} />
+    return <SyntaxHighlighter style={githubGist} language={props.language} children={props.value} />
   },
   inlineCode: (props) => <code style={{backgroundColor: 'yellow'}}>{props.value}</code>,
   tableCell: tableCell
