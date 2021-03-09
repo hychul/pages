@@ -26,12 +26,12 @@ function App() {
         </HashRouter>
       </div>
       <div style={{
-        marginTop: '30px',
+        marginTop: '10px',
         marginLeft: '2vmin',
         marginRight: '2vmin',
         borderTop: 'solid 1px #EAECEF',
-        paddingTop:'30px',
-        paddingBottom:'30px',
+        paddingTop:'50px',
+        paddingBottom:'50px',
         textAlign:'center',
         fontSize:'12px',
         color:'#242A2D',
