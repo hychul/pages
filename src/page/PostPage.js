@@ -46,9 +46,9 @@ const markdownRenderers = {
           style={githubGist} 
           customStyle={{
             backgroundColor:'#F6F8FA',
-            borderRadius:'0.25rem',
-            padding:'1rem',
-            lineHeight:'1.1rem',
+            borderRadius:'4px',
+            padding:'16px',
+            lineHeight:'1.5',
             fontSize:'0.85em'
           }}
           children={props.value}
@@ -59,8 +59,8 @@ const markdownRenderers = {
     return (
       <code style={{
         backgroundColor: '#F6F8FA',
-        padding:'0.25rem',
-        fontSize:'0.85em'
+        padding:'4px',
+        fontSize:'12px'
       }}>
         {props.value}
       </code>
