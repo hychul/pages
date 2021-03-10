@@ -4,28 +4,27 @@ function PostListPage() {
   const pagingSize = 3;
   const [pagingNum, setPagingNum] = useState(1);
   const [totalList, setTotalList] = useState([]);
-  const [curList, setCurList] = useState([]);
+  const [viewList, setViewList] = useState([]);
   
   const loadPageList = useCallback(() => {
     const data = require(`static/post/post.meta`);
     fetch(data.default).then(it => it.text()).then(it => {
       it.split('\n')
-        .map((it) => <div key={it}>{it}</div>)
         .forEach((it) => totalList.push(it));
 
-      setCurList(getCurList(totalList, 1, pagingSize));
+      setViewList(getViewList(totalList, 1, pagingSize));
       setTotalList(() => totalList);
     });
   }, [totalList]);
   
-  const getCurList = (pageList, pagingNum, pagingSize) => {
+  const getViewList = (totalList, pagingNum, pagingSize) => {
     let ret = [];
   
-    for (let i = (pagingNum - 1) * pagingSize; i < pagingNum * pagingSize && i < pageList.length; i++) {
-      ret.push(pageList[i]);
+    for (let i = (pagingNum - 1) * pagingSize; i < pagingNum * pagingSize && i < totalList.length; i++) {
+      ret.push(totalList[i]);
     }
-  
-    return ret;
+
+    return ret.map((it) => <div key={it}>{it}</div>);
   };
   
   useEffect(() => {
@@ -33,7 +32,7 @@ function PostListPage() {
   }, [loadPageList]);
 
   useEffect(() => {
-    setCurList(getCurList(totalList, pagingNum, pagingSize));
+    setViewList(getViewList(totalList, pagingNum, pagingSize));
   }, [totalList, pagingNum]);
 
   return (
@@ -55,7 +54,7 @@ function PostListPage() {
         display: 'grid',
         justifyContent: 'center',
       }}>
-        {curList}
+        {viewList}
       </div>
       <div style={{
         display: 'flex',
