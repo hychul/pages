@@ -2,19 +2,21 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 function PostListPage() {
   const pagingSize = 3;
-  const [pageList, setPageList] = useState([]);
   const [pagingNum, setPagingNum] = useState(1);
+  const [totalList, setTotalList] = useState([]);
   const [curList, setCurList] = useState([]);
-
+  
   const loadPageList = useCallback(() => {
     const data = require(`static/post/post.meta`);
     fetch(data.default).then(it => it.text()).then(it => {
-      it.split('\n').map((it) => <div key={it}>{it}</div>).forEach((it) => pageList.push(it));
+      it.split('\n')
+        .map((it) => <div key={it}>{it}</div>)
+        .forEach((it) => totalList.push(it));
 
-      setCurList(getCurList(pageList, 1, pagingSize));
-      setPageList(() => pageList);
+      setCurList(getCurList(totalList, 1, pagingSize));
+      setTotalList(() => totalList);
     });
-  }, [pageList]);
+  }, [totalList]);
   
   const getCurList = (pageList, pagingNum, pagingSize) => {
     let ret = [];
@@ -24,15 +26,15 @@ function PostListPage() {
     }
   
     return ret;
-  }
-    
+  };
+  
   useEffect(() => {
     loadPageList();
   }, [loadPageList]);
 
   useEffect(() => {
-    setCurList(getCurList(pageList, pagingNum, pagingSize));
-  }, [pageList, pagingNum]);
+    setCurList(getCurList(totalList, pagingNum, pagingSize));
+  }, [totalList, pagingNum]);
 
   return (
     <div style={{
