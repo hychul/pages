@@ -2,13 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function PostListPage() {
-  const pagingSize = 3;
+  const pagingSize = 10;
   const [pagingNum, setPagingNum] = useState(1);
   const [totalList, setTotalList] = useState([]);
   const [viewList, setViewList] = useState([]);
   
   const loadPageList = useCallback(() => {
-    const data = require(`static/post/post.meta`);
+    const data = require(`static/post.meta`);
     fetch(data.default).then(it => it.text()).then(it => {
       it.split('\n')
         .forEach((it) => totalList.push(it));
