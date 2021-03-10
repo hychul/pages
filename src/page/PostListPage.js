@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
 
 function PostListPage() {
-  const pagingSize = 2;
-  const [pageList, setPageList] = useState();
+  const pagingSize = 3;
+  const [pageList, setPageList] = useState([]);
   const [pagingNum, setPagingNum] = useState(1);
+  const [curList, setCurList] = useState([]);
 
   useEffect(() => {
     const data = require(`static/post/post.meta`);
     fetch(data.default).then(it => it.text()).then(it => {
-      let pageList = it.split('\n');
+      it.split('\n').map((it) => <div key={it}>{it}</div>).forEach((it) => pageList.push(it));
 
-      pageList = pageList.map((it) => <div key={it}>{it}</div>);
-
-      // let ret = getPagingList(pageList, 1, pagingSize);
-
-      setPageList(pageList);
+      setCurList(getPagingList(pageList, 1, pagingSize));
+      setPageList(() => pageList);
     });
-  }, []);
+  }, [pageList]);
+
+  useEffect(() => {
+    setCurList(getPagingList(pageList, pagingNum, pagingSize));
+  }, [pageList, pagingNum]);
 
   return (
     <div style={{
@@ -37,7 +39,7 @@ function PostListPage() {
         display: 'grid',
         justifyContent: 'center',
       }}>
-        {pageList}
+        {curList}
       </div>
       <div style={{
         display: 'flex',
@@ -45,6 +47,11 @@ function PostListPage() {
       }}>
         {pagingNum} 2 3 4 5 6 7 8
       </div>
+      <button onClick={() => {
+        setPagingNum(() => pagingNum + 1);
+      }}>
+        increase
+      </button>
     </div>
   )
 }
