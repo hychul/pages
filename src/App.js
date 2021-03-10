@@ -4,6 +4,7 @@ import { HashRouter, Switch, Route } from 'react-router-dom';
 import ReactPage from 'page/ReactPage';
 import Navigator from 'component/Navigator/Navigator';
 import MainPage from 'page/MainPage';
+import PostListPage from 'page/PostListPage';
 import PostPage from 'page/PostPage';
 import TestPage from 'page/TestPage';
 import Copyright from 'component/Copyright/Copyright';
@@ -20,6 +21,7 @@ function App() {
           <Switch>
             <Route exact path='/' component={ReactPage} />
             <Route exact path='/main' component={MainPage} />
+            <Route exact path='/posts' component={PostListPage} />
             <Route exact path='/posts/:id' component={PostPage} />
             <Route exact path='/test' component={TestPage} />
           </Switch>
