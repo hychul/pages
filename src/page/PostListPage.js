@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function PostListPage() {
   const pagingSize = 3;
@@ -24,7 +25,18 @@ function PostListPage() {
       ret.push(totalList[i]);
     }
 
-    return ret.map((it) => <div key={it}>{it}</div>);
+    return ret.map((it) => (
+      <Link 
+        key={it}
+        to={`/posts/${it}`} 
+        style={{
+          textDecoration: 'none',
+          color: 'red'
+        }}
+      >
+        {it}
+      </Link>
+    ));
   };
   
   useEffect(() => {
