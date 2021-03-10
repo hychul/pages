@@ -29,9 +29,9 @@ function Markdown(props) {
     }}>
       <ReactMarkdown 
         plugins={[[gfm]]} 
-        source={source} 
         escapeHtml={false} 
         renderers={markdownRenderers} 
+        source={source} 
       />
     </div>
   );
