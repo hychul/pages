@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 function PostListPage() {
   const pagingSize = 3;
@@ -6,18 +6,32 @@ function PostListPage() {
   const [pagingNum, setPagingNum] = useState(1);
   const [curList, setCurList] = useState([]);
 
-  useEffect(() => {
+  const loadPageList = useCallback(() => {
     const data = require(`static/post/post.meta`);
     fetch(data.default).then(it => it.text()).then(it => {
       it.split('\n').map((it) => <div key={it}>{it}</div>).forEach((it) => pageList.push(it));
 
-      setCurList(getPagingList(pageList, 1, pagingSize));
+      setCurList(getCurList(pageList, 1, pagingSize));
       setPageList(() => pageList);
     });
   }, [pageList]);
+  
+  const getCurList = (pageList, pagingNum, pagingSize) => {
+    let ret = [];
+  
+    for (let i = (pagingNum - 1) * pagingSize; i < pagingNum * pagingSize && i < pageList.length; i++) {
+      ret.push(pageList[i]);
+    }
+  
+    return ret;
+  }
+    
+  useEffect(() => {
+    loadPageList();
+  }, [loadPageList]);
 
   useEffect(() => {
-    setCurList(getPagingList(pageList, pagingNum, pagingSize));
+    setCurList(getCurList(pageList, pagingNum, pagingSize));
   }, [pageList, pagingNum]);
 
   return (
@@ -54,16 +68,6 @@ function PostListPage() {
       </button>
     </div>
   )
-}
-
-function getPagingList(pageList, pagingNum, pagingSize) {
-  let ret = [];
-
-  for (let i = (pagingNum - 1) * pagingSize; i < pagingNum * pagingSize && i < pageList.length; i++) {
-    ret.push(pageList[i]);
-  }
-
-  return ret;
 }
 
 export default PostListPage;
