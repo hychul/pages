@@ -30,11 +30,11 @@ function App() {
         marginLeft: '2vmin',
         marginRight: '2vmin',
         borderTop: 'solid 1px #EAECEF',
-        paddingTop:'42px',
-        paddingBottom:'56px',
-        textAlign:'center',
-        fontSize:'12px',
-        color:'#242A2D',
+        paddingTop: '42px',
+        paddingBottom: '56px',
+        textAlign: 'center',
+        fontSize: '12px',
+        color: '#242A2D',
       }}>
         <Copyright/>
       </div>

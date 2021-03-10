@@ -16,16 +16,16 @@ function Markdown(props) {
 
   return (
     <div style={{
-      width:'100%',
-      maxWidth:'1010px',
-      margin:'0px',
-      padding:'0px',
-      backgroundColor:'white',
+      width: '100%',
+      maxWidth: '1010px',
+      margin: '0px',
+      padding: '0px',
+      backgroundColor: 'white',
       fontFamily: 'Helvetica, arial, sans-serif',
-      lineHeight:'1.45',
-      fontSmooth:'auto',
-      fontSize:'16px',
-      color:'#242A2D',
+      lineHeight: '1.45',
+      fontSmooth: 'auto',
+      fontSize: '16px',
+      color: '#242A2D',
     }}>
       <ReactMarkdown 
         plugins={[[gfm]]} 
@@ -47,9 +47,9 @@ const markdownRenderers = {
 
 function heading(props) {
   let style = {
-    margin:'15px 0 10px',
-    lineHeight:'1.75',
-    fontWeight:'bold',
+    margin: '15px 0 10px',
+    lineHeight: '1.75',
+    fontWeight: 'bold',
   }
 
   switch (props.level) {
@@ -96,11 +96,11 @@ function code(props) {
       // showLineNumbers
       style={githubGist} 
       customStyle={{
-        backgroundColor:'#F5F7F9',
-        borderRadius:'0.25em',
-        padding:'16px',
-        lineHeight:'1.5',
-        fontSize:'0.85em',
+        backgroundColor: '#F5F7F9',
+        borderRadius: '0.25em',
+        padding: '16px',
+        lineHeight: '1.5',
+        fontSize: '0.85em',
       }}
       children={props.value}
     />
@@ -111,8 +111,8 @@ function inlineCode(props) {
   return (
     <code style={{
       backgroundColor: '#F1F2F2',
-      padding:'4px',
-      fontSize:'0.875em',
+      padding: '4px',
+      fontSize: '0.875em',
     }}>
       {props.children}
     </code>
@@ -145,9 +145,9 @@ function tableCell(props) {
 function blockquote(props) {
   return (
     <div style={{
-      borderLeft:'solid 3px #DBDEE1',
-      paddingLeft:'14px',
-      color:'#6A737D',
+      borderLeft: 'solid 3px #DBDEE1',
+      paddingLeft: '14px',
+      color: '#6A737D',
     }}>
       {props.children}
     </div>

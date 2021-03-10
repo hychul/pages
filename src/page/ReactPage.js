@@ -20,19 +20,19 @@ const Img = styled.img`
 function ReactPage() {
   return (
     <div style={{
-      width:'100%',
-      textAlign:'center',
+      width: '100%',
+      textAlign: 'center',
     }}>
       <header 
         style={{
-          minHeight:'100vh',
-          display:'flex',
-          flexDirection:'column',
-          alignItems:'center',
-          justifyContent:'center',
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
           backgroundColor: '#282C34',
           fontSize: 'calc(10px + 2vmin)',
-          color:'white',
+          color: 'white',
         }}
       >
         <Img 
@@ -44,7 +44,7 @@ function ReactPage() {
         </p>
         <a
           style={{
-            color:'#61DAFB'
+            color: '#61DAFB'
           }}
           href="https://reactjs.org"
           target="_blank"
