@@ -1,6 +1,21 @@
 import React from 'react';
 import logo from 'static/logo.svg';
-import 'App.css';
+import styled, { keyframes } from 'styled-components';
+
+const spin = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`
+
+const Img = styled.img`
+  height: 40vmin;
+  pointer-events: none;
+  animation: ${spin} infinite 20s linear;
+`
 
 function ReactPage() {
   return (
@@ -20,9 +35,8 @@ function ReactPage() {
           color:'white',
         }}
       >
-        <img 
+        <Img 
           src={logo} 
-          className="App-logo"
           alt="logo" 
         />
         <p>
