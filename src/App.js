@@ -19,10 +19,10 @@ function App() {
       }}>
         <HashRouter>
           <Switch>
-            <Route exact path='/' component={ReactPage} />
-            <Route exact path='/main' component={MainPage} />
+            <Route exact path='/' component={MainPage} />
             <Route exact path='/posts' component={PostListPage} />
             <Route exact path='/posts/:id' component={PostPage} />
+            <Route exact path='/react' component={ReactPage} />
             <Route exact path='/test' component={TestPage} />
           </Switch>
         </HashRouter>

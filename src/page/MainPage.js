@@ -3,7 +3,7 @@ import React from 'react';
 function MainPage() {
   return (
     <div>
-      HELLO
+      This blog is in building progress.
     </div>
   );
 }
