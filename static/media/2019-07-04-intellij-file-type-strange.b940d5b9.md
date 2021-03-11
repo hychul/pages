@@ -1,0 +1,1 @@
+IntelliJ를 사용하다보면 가끔 파일의 확장자와 다른 파일 형식으로 인식되어 불편을 겪을 떄가 있습니다. 그럴 땐 `Preferences > Editor > Code Style > File Types`에 설정된 Registeres Patterns 를 수정하면 됩니다.
