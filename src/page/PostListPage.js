@@ -11,21 +11,14 @@ function PostListPage() {
     const data = require(`static/post.meta`);
     fetch(data.default).then(it => it.text()).then(it => {
       it.split('\n')
-        .map((it) => {
-          let parsed = it.split(' :: ');
-
-          if (parsed.length < 3) {
-            return null;
-          }
-
-          return {
-            filename: parsed[0],
-            date: parsed[1],
-            title: parsed[2],
-            tag: ['test1', 'test2']
-          };
-        })
-        .filter((it) => it != null)
+        .map((it) => it.split(' :: '))
+        .filter((it) => it.length >= 3)
+        .map((it) => ({
+          filename: it[0],
+          date: it[1],
+          title: it[2],
+          tag: it[3]?.split(', ')
+        }))
         .map((it) => {
           console.log(it);
           return it.filename;
