@@ -1,4 +1,5 @@
 import React from 'react';
+import dduggy from 'static/image/dduggy.jpg';
 
 const nav = {
   display: 'flex',
@@ -20,28 +21,30 @@ function Navigator() {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          margin: '0.5em',
-          marginLeft: '1rem',
-          marginRight: '0rem',
-          width: '2rem', 
-          height: '2rem',
-          backgroundColor: 'cyan',
-        }}
-        onMouseOver={() => {
-          console.log("over");
-        }}
-        onMouseOut={() => {
-          console.log("out");
-        }}
-        onClick={() => {
-          console.log("click");
-        }}>
-          H
-        </div>
+        <img 
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: '0.5em',
+            marginLeft: '1rem',
+            marginRight: '0.5rem',
+            width: '2rem', 
+            height: '2rem',
+            backgroundColor: 'cyan',
+          }}
+          onMouseOver={() => {
+            console.log("over");
+          }}
+          onMouseOut={() => {
+            console.log("out");
+          }}
+          onClick={() => {
+            console.log("click");
+          }}
+          src={dduggy}
+          alt="home"
+        />
         <div style={{
           // center
           display: 'flex',
