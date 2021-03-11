@@ -1,5 +1,3 @@
-ref : https://css-tricks.com/full-width-containers-limited-width-parents/
-
 리액트로 블로그를 만들던 중 윈도우 리사이징을 처리하던 중 parent 컴포넌트가 child 컴포넌트 되는 상황이 발생했다.
 
 child 컴포넌트의 코드 블록 또는 이미지의 폭이 parent 컴포넌트의 폭보다 큰 경우, %로 child의 width 값을 지정하는 경우 parent의 폭의 100%로 맞춰지는 것이 아니라 parent의 폭이 child의 코드 블록 혹은 이미지 사이즈보다 작아지지않고 윈도우 사이즈만 작아져 전체 웹뷰에 스크롤이 생기고 말았다.
