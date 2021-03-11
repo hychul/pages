@@ -47,6 +47,7 @@ const markdownRenderers = {
   image: image,
   inlineCode: inlineCode,
   table: table,
+  link: link,
   blockquote: blockquote
 }
 
@@ -208,6 +209,19 @@ function table(props) {
         {bodyRows}
       </tbody>
     </table>
+  )
+}
+
+function link(props) {
+  return (
+    <a 
+      style={{
+        wordBreak: 'break-all',
+      }}
+      href={props.href}
+    >
+      {props.children[0].props.children}
+    </a>
   )
 }
 
