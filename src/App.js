@@ -16,7 +16,7 @@ function App() {
       <div style={{
         display: 'flex',
         justifyContent: 'center',
-        // overflow: 'hidden'
+        overflow: 'hidden'
       }}>
         <HashRouter>
           <Switch>
