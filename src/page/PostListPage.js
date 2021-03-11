@@ -11,6 +11,25 @@ function PostListPage() {
     const data = require(`static/post.meta`);
     fetch(data.default).then(it => it.text()).then(it => {
       it.split('\n')
+        .map((it) => {
+          let parsed = it.split(' :: ');
+
+          if (parsed.length < 3) {
+            return null;
+          }
+
+          return {
+            filename: parsed[0],
+            date: parsed[1],
+            title: parsed[2],
+            tag: ['test1', 'test2']
+          };
+        })
+        .filter((it) => it != null)
+        .map((it) => {
+          console.log(it);
+          return it.filename;
+        })
         .forEach((it) => totalList.push(it));
 
       setViewList(getViewList(totalList, 1, pagingSize));
