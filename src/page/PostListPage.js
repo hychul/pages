@@ -19,10 +19,6 @@ function PostListPage() {
           title: it[2],
           tag: it[3]?.split(', ')
         }))
-        .map((it) => {
-          console.log(it);
-          return it.filename;
-        })
         .forEach((it) => totalList.push(it));
 
       setViewList(getViewList(totalList, 1, pagingSize));
@@ -39,14 +35,14 @@ function PostListPage() {
 
     return ret.map((it) => (
       <Link 
-        key={it}
-        to={`/posts/${it}`} 
+        key={it.filename}
+        to={`/posts/${it.filename}`} 
         style={{
           textDecoration: 'none',
           color: 'red'
         }}
       >
-        {it}
+        {it.title} {it.date} {it.tag}
       </Link>
     ));
   };
