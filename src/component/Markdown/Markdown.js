@@ -20,6 +20,7 @@ function Markdown(props) {
     <div style={{
       width: '100%',
       maxWidth: '1010px',
+      border: '0px',
       margin: '0px',
       padding: '0px',
       backgroundColor: 'white',
@@ -96,11 +97,15 @@ function code(props) {
     <SyntaxHighlighter 
       language={props.language} 
       // showLineNumbers
+      wrapLines={false} 
+      lineProps={{style: {wordBreak: 'keep-all', whiteSpace: 'pre-wrap'}}}
       style={githubGist} 
       customStyle={{
-        backgroundColor: '#F5F7F9',
+        width: 'calc(100% - 32px)',
+        marginRight: '-100000vw',
         borderRadius: '0.25em',
         padding: '16px',
+        backgroundColor: '#F5F7F9',
         lineHeight: '1.5',
         fontSize: '0.85em',
       }}
