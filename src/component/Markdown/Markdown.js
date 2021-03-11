@@ -27,8 +27,10 @@ function Markdown(props) {
       fontFamily: 'Helvetica, arial, sans-serif',
       lineHeight: '1.45',
       wordBreak: 'keep-all',
-      fontSmooth: 'auto',
-      fontSize: '16px',
+      fontSmooth: 'always',
+      WebkitFontSmoothing: 'antialiased',
+      MozOsxFontSmoothing: 'grayscal',
+      fontSize: '15px',
       color: '#242A2D',
     }}>
       <ReactMarkdown 
@@ -217,6 +219,8 @@ function link(props) {
     <a 
       style={{
         wordBreak: 'break-all',
+        textDecoration: 'none',
+        color: '#115dcb'
       }}
       href={props.href}
     >
