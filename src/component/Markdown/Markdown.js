@@ -44,6 +44,7 @@ function Markdown(props) {
 const markdownRenderers = {
   heading: heading,
   code: code,
+  image: image,
   inlineCode: inlineCode,
   tableCell: tableCell,
   blockquote: blockquote
@@ -92,7 +93,6 @@ function heading(props) {
   );
 }
 
-// TODO: Check horizontal scroll bar on change browser width
 function code(props) {
   return (
     <SyntaxHighlighter 
@@ -113,6 +113,19 @@ function code(props) {
       children={props.value}
     />
   );
+}
+
+function image(props) {
+  return (
+    <img 
+      style={{
+        width: '100%',
+        marginRight: '-10000vw',
+      }}
+      src={props.src} 
+    />
+
+  )
 }
 
 function inlineCode(props) {
