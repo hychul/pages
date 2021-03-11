@@ -26,6 +26,7 @@ function Markdown(props) {
       backgroundColor: 'white',
       fontFamily: 'Helvetica, arial, sans-serif',
       lineHeight: '1.45',
+      wordBreak: 'keep-all',
       fontSmooth: 'auto',
       fontSize: '16px',
       color: '#242A2D',
