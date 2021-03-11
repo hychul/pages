@@ -122,6 +122,7 @@ function image(props) {
         width: '100%',
         marginRight: '-10000vw',
       }}
+      alt={props.alt}
       src={props.src} 
     />
 
