@@ -22,10 +22,10 @@ This is HTML<sup>html</sup>
 
 This is table
 
-|column1|column2|
-|---|---|
-|row1|row2|
-|row1|row2|
+|column1|column2|column3|column4|
+|:---|:---:|---:|---|
+|row11|row21|row31|row41|
+|row12|row22|row32|row42|
 
 ```java
 public class Test {

@@ -46,7 +46,7 @@ const markdownRenderers = {
   code: code,
   image: image,
   inlineCode: inlineCode,
-  tableCell: tableCell,
+  table: table,
   blockquote: blockquote
 }
 
@@ -141,27 +141,72 @@ function inlineCode(props) {
   );
 }
 
-function tableCell(props) {
-  let style = {
-    padding: '6px 13px',
+function table(props) {
+  let head = props.children[0];
+  const headRows = [];
+  if (typeof head != 'undefined') {
+    head.props.children[0].props.children.forEach((it) => {
+      headRows.push((
+        <th
+          key={it.key}
+          style={{
+          border: '1px solid #DFE2E5',
+          padding: '0.3em 0.75em 0.3em 0.75em',
+          textAlign: it.props.align,
+          fontWeight: 'bold'
+          }}
+        >
+          {it.props.children[0].props.value}
+        </th>
+      ))
+    });
   }
 
-  if (props.isHeader) {
-    style.borderTop = 'solid 1px #DFE2E5';
-    style.borderBottom = 'solid 1px #DFE2E5';
-    style.backgroundColor = '#F5F7F9';
-    style.fontWeight = 'bold';
-    style.textAlign = props.align ? props.align : 'center';
-  } else {
-    style.borderBottom = 'solid 1px #DFE2E5';
-    style.textAlign = props.align ? props.align : 'left';
+
+  let body = props.children[1];
+  const bodyRows = [];
+  if (typeof body != 'undefined') {
+    body.props.children.forEach((it) => {
+      const row = [];
+      it.props.children.forEach((it) =>{
+        row.push((
+          <td
+            key={it.key}
+            style={{
+            border: '1px solid #DFE2E5',
+            padding: '0.3em 0.75em 0.3em 0.75em',
+            textAlign: it.props.align
+            }}
+          >
+            {it.props.children[0].props.value}
+          </td>
+        ))
+      })
+
+      bodyRows.push((
+        <tr key={it.key}>
+          {row}
+        </tr>
+      ))
+    });
   }
 
   return (
-    <td style={style}>
-      {props.children}
-    </td>
-  );
+    <div>
+      <table style={{
+        borderCollapse: 'collapse'
+      }}>
+        <thead>
+          <tr>
+            {headRows}
+          </tr>
+        </thead>
+        <tbody>
+          {bodyRows}
+        </tbody>
+      </table>
+    </div>
+  )
 }
 
 function blockquote(props) {
