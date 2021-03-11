@@ -102,7 +102,7 @@ function code(props) {
       style={githubGist} 
       customStyle={{
         width: 'calc(100% - 32px)',
-        marginRight: '-100000vw',
+        marginRight: '-10000vw',
         borderRadius: '0.25em',
         padding: '16px',
         backgroundColor: '#F5F7F9',
