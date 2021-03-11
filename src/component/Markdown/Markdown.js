@@ -177,7 +177,7 @@ function table(props) {
             border: '1px solid #DFE2E5',
             padding: '0.3em 0.75em 0.3em 0.75em',
             textAlign: it.props.align,
-            backgroundColor: index % 2 == 0 ? 'white' : '#F5F7F9'
+            backgroundColor: index % 2 === 0 ? 'white' : '#F5F7F9'
             }}
           >
             {it.props.children[0].props.value}
@@ -196,20 +196,18 @@ function table(props) {
   }
 
   return (
-    <div>
-      <table style={{
-        borderCollapse: 'collapse'
-      }}>
-        <thead>
-          <tr>
-            {headRows}
-          </tr>
-        </thead>
-        <tbody>
-          {bodyRows}
-        </tbody>
-      </table>
-    </div>
+    <table style={{
+      borderCollapse: 'collapse'
+    }}>
+      <thead>
+        <tr>
+          {headRows}
+        </tr>
+      </thead>
+      <tbody>
+        {bodyRows}
+      </tbody>
+    </table>
   )
 }
 
