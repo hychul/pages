@@ -1,13 +1,3 @@
----
-title: 마크다운 문법
-date: 2019-07-19
-categories:
-- Development
-tags:
-- Development
-- Markdown
----
-
 <a name="top"></a>
 # Header
 | Markdown | Result      |

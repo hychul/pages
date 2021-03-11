@@ -1,13 +1,3 @@
----
-title: Git 계정 재설정
-date: 2017-09-01
-categories:
-- Git
-tags:
-- Development
-- Git
----
-
 ```
 ~/ProjectName (master)
 remote: Invalid username or passwrod.

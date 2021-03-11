@@ -1,15 +1,3 @@
----
-title: Swagger 도큐먼트 파일로 저장하기
-date: 2019-08-01
-categories:
-- Development
-tags:
-- Development
-- Spring
-- Swagger
-- Markdown
----
-
 # Quick Usage
 
 [Homebrea](https://brew.sh/)를 통해 필요한 모듈을 설치할 수 있습니다.

@@ -1,16 +1,3 @@
----
-title: Sprite Batch
-date: 2018-08-14
-categories:
-- Graphics
-tags:
-- Development
-- Graphics
-- OpenGL
-- Game
-- Java
----
-
 그래픽스 라이브러리들은 엔지니어가 랜더링을 편리하게 해주는 고마운 존재다. 하지만 일반적으로 랜더링을 위한 메서드 호출을 의미하는 드로우 콜은 줄이면 줄일 수록 좋다고 말한다. 많은 드로우 콜은 프레임 레이트에 치명적인 영향을 줄 수 있기 때문이다.
 
 # 드로우 콜의 비용이 비싼가?

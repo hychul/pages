@@ -1,16 +1,4 @@
----
-title: 스프링 Json Response
-date: 2018-10-14
-categories:
-- Spring
-tags:
-- Development
-- Spring
-- Server
-- Java
----
-
- 스프링 MVC를 통해 웹 어플리케이션을 구현하여 request를 받은 경우 Service를 통해 로직을 수행한 후 컨트롤러<sup>Controller</sup>에서  뷰 리졸버<sup>View Resolver</sup>를 통해 이에 해당하는 뷰<sup>View</sup>를 찾아 프론트엔드에 전달한다. 하지만 restful한 어플리케이션의 경우 뷰가 아닌 Json 포맷의 데이터를 response 값으로 사용할 수 있다. 스프링에서 Json 포맷을 response로 사용하기 위한 방법을 알아본다.
+스프링 MVC를 통해 웹 어플리케이션을 구현하여 request를 받은 경우 Service를 통해 로직을 수행한 후 컨트롤러<sup>Controller</sup>에서  뷰 리졸버<sup>View Resolver</sup>를 통해 이에 해당하는 뷰<sup>View</sup>를 찾아 프론트엔드에 전달한다. 하지만 restful한 어플리케이션의 경우 뷰가 아닌 Json 포맷의 데이터를 response 값으로 사용할 수 있다. 스프링에서 Json 포맷을 response로 사용하기 위한 방법을 알아본다.
 
 # Json 데이터 response로 사용하기
 

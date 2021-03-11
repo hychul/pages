@@ -1,14 +1,3 @@
----
-title: 슈퍼셀의 개발 문화
-date: 2018-06-01
-categories:
-- Game
-tags:
-- Development
-- Game
-- Inspiration
----
-
 ![supercell-dev-culture-01](https://user-images.githubusercontent.com/18159012/41012520-dcc3374e-697c-11e8-8c71-dfaad6e6cc61.png)
 
  슈퍼셀의 게임들을 보면 모든 것들이, 디자인, 아트 그리고 소프트웨어 엔지니어링까지 모든 요소가 조화를 이루고 있다. 이런 결과물이 나올 수 있는 것은 각 파트가 많은 대화를 통해 의견을 조율하고 목표를 통일했을 것이라고 예상을 하는 것은 어려운 일이 아니지만 '회사'에서 그런 대화를 할 수 있다는 것은 정말 어려운 일이다.

@@ -1,16 +1,3 @@
----
-stitle: WebFlux Swagger
-date: 2019-02-18
-categories:
-- Development
-tags:
-- Development
-- Java
-- Spring
-- Webflux
-- Swagger
----
-
 아쉽게도 현재<sup>2019-02-18</sup>로선 Functional Endpoint를 사용하여 개발할 경우 WebFlux 프로젝트에서 Swagger를 사용할 방법이 없습니다. 기본 MVC 프로젝트와 같이 `@RequestMapping` 어노테이션을 사용해야 합니다.
 
 먼저 Swagger 관련 모듈을 프로젝트에 추가합니다.

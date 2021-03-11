@@ -1,14 +1,3 @@
----
-title: 자바 람다 (Lambda)
-date: 2018-06-14
-categories:
-- Development
-tags:
-- Development
-- Java
-- Spring
----
-
 ![java-lambda-01](https://user-images.githubusercontent.com/18159012/41402138-7e7a2af4-6ffc-11e8-88e4-6bf056870d35.jpg)
 
  람다 대수는 1936년 아로존 처치<sub>앨런 튜링의 스승</sub>에 의해 고안되었으며, 함수형 언어의 계산 모델이다. 현재 사용되고 있는 람다의 근간은 수학과 기초 컴퓨터과학 분야에서의 **람다 대수**이다. 람다 대수는 간단히 말하자면 수학에서 사용하는 함수를 보다 단순하게 표현하는 방법으로 다음과 같은 특징이 있다.

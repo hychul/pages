@@ -1,16 +1,4 @@
----
-title: Unity VSCode 연동 후 'The reference assemblies for framework ".NETFramework,Version=v4.5" were not found.' 이슈 해결 방법
-date: 2018-12-08
-categories:
-- Game
-tags:
-- Development
-- Game
-- Unity
-- VSCode
----
-
- Unity가 2018 버전으로 넘어가면서 .NET을 4.X 버전을 기본으로 제공하면서 OmniSharp 콘솔에 다음과 같은 에러 로그가 출력되며 제대로 프로젝트가 로드되지 않을 수 있다. 
+Unity가 2018 버전으로 넘어가면서 .NET을 4.X 버전을 기본으로 제공하면서 OmniSharp 콘솔에 다음과 같은 에러 로그가 출력되며 제대로 프로젝트가 로드되지 않을 수 있다. 
 
 ![unity-vs-code-integration-3](https://user-images.githubusercontent.com/18159012/49001893-51d8ee00-f1a1-11e8-9c70-b3b0f6e9f1ea.PNG)
 

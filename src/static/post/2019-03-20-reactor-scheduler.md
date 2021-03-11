@@ -1,16 +1,3 @@
----
-title: Reactor Stream Scheduler
-date: 2019-03-20
-categories:
-- Development
-tags:
-- Development
-- Java
-- Reactor
----
-
-
-
 # 리액티브 스트림 스케줄러
 
 리액티브 스트림은 비동기로 이벤트 스트림을 처리하기 위한 특수한 스트림이지만 따로 설정을 하지 않는다면 동기적으로 수행된다. 때문에 자신의 목적에 맞는 적정한 스케줄러(스레드)를 스트림에게 알려주어야 한다.

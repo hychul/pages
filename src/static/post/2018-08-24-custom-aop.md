@@ -1,16 +1,4 @@
----
-title: Custom AOP
-date: 2018-08-24
-categories:
-- Spring
-tags:
-- Development
-- Spring
-- AOP
-- Java
----
-
- 앞서 게시한 "[DI와 AOP](https://hychul.github.io/spring/2018/08/16/di-and-aop/)"에서 AOP의 목적과 주요 개념에 대해 알아보았다. 스프링을 통해 사용하여 직접 Custom Aspect를 구현하여 AOP를 적용할 수 있다. 스프링에서 조인트 포인트<sup>Joint Point</sup>는 메서드의 실행시점을 의미하며, 포인트컷 표현을 사용하여 어떤 advise가 조인트 포인트에서 실행될지 필터링할 수 있다. 
+앞서 게시한 "[DI와 AOP](https://hychul.github.io/spring/2018/08/16/di-and-aop/)"에서 AOP의 목적과 주요 개념에 대해 알아보았다. 스프링을 통해 사용하여 직접 Custom Aspect를 구현하여 AOP를 적용할 수 있다. 스프링에서 조인트 포인트<sup>Joint Point</sup>는 메서드의 실행시점을 의미하며, 포인트컷 표현을 사용하여 어떤 advise가 조인트 포인트에서 실행될지 필터링할 수 있다. 
 
 # Pointcut 기술 방법<sup>Description</sup>
 

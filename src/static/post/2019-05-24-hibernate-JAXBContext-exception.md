@@ -1,14 +1,3 @@
----
-title: Hibernate Unable to build hbm.xml JAXBContext Exception 해결
-date: 2019-05-24
-categories:
-- Development
-tags:
-- Development
-- Java
-- Spring
-- JPA
----
 Spring Boot 2.X와 JPA를 사용하는 프로젝트에 `@Audited` 어노테이션을 사용하기 위해서 Hibernate Envers 의존성을 추가하고 빌드를 할 때 아래와 같은 에러가 발생했다.
 
 `org.hibernate.internal.util.config.ConfigurationException: Unable to build hbm.xml JAXBContext`

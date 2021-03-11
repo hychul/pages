@@ -1,15 +1,3 @@
----
-title: 스프링과 MVC
-date: 2018-08-15
-categories:
-- Spring
-tags:
-- Development
-- Spring
-- Server
-- Java
----
-
 ![mvc-0](https://user-images.githubusercontent.com/18159012/44155597-b4ca4fd6-a0e8-11e8-8cf5-861138aa990f.png)
 
  MVC 패턴은 사용자와 상호작용하는 소프트웨어를 Model, View 그리고 Controller의 세가지 컴포넌트로 나눠 디자인하는 것을 말한다. 이 패턴을 사용하면 각 요소들이 서로에게 영향을 주지 않게 개발하여 복잡성을 줄일 수 있다.

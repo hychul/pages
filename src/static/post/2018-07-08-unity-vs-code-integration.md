@@ -1,15 +1,3 @@
----
-title: Unity VSCode 연동
-date: 2018-07-08
-categories:
-- Game
-tags:
-- Development
-- Game
-- Unity
-- VSCode
----
-
 ![unity-vs-code-integration](https://user-images.githubusercontent.com/18159012/42456572-396bab94-83d0-11e8-8a35-b42c4968c50b.png)
 
  유니티를 통해 게임을 개발하기 위해선 C#을 지원하는 IDE를 선택해야한다. 현재 2018.1 버전 기준 유니티에서 Visual Studio의 사용을 권장하고 있다. Visual Studio가 유니티 디버깅에 대한 강력한 기능들을 제공해주지만 프로그램이 너무 무겁게 느껴진다.

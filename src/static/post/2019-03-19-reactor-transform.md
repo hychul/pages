@@ -1,14 +1,3 @@
----
-title: Reactor Stream Transform
-date: 2019-03-19
-categories:
-- Development
-tags:
-- Development
-- Java
-- Reactor
----
-
 # 스트림 변환 / 병합
 
 리액티브 스트림은 Java 8 Stream에서 제공하는 `map()`, `filter()`, `flatMap()`과 같은 기능 뿐만 아니라 `Flux`와 `Mono`를 서로 전환하도록 하는 기능들을 제공한다.

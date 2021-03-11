@@ -1,15 +1,4 @@
----
-title: 토비의 스프링 3.1 vol.1 1장 - 오브젝트와 의존관계
-date: 2018-03-31
-categories:
-- Spring
-tags:
-- Development
-- Spring
-- Book
----
-
- 1장에선 JDBC를 사용하는 UserDao[^Dao]클래스를 구현하고 관심사의 분리<sup>SoC:Separation of Concerns[^SoC]</sup>와 디자인 패턴을 적용하면서 리펙토링해 나가는 방식을 통해 스프링 프레임 워크의 개념과 필요성에 대해 설명한다. 스프링에서 제공해 주는 IoC<sup>Inverse of Control[^IoC]</sup>를 직접 구현해보며 프레임워크의 필요성을 느낄 수 있었다.
+1장에선 JDBC를 사용하는 UserDao[^Dao]클래스를 구현하고 관심사의 분리<sup>SoC:Separation of Concerns[^SoC]</sup>와 디자인 패턴을 적용하면서 리펙토링해 나가는 방식을 통해 스프링 프레임 워크의 개념과 필요성에 대해 설명한다. 스프링에서 제공해 주는 IoC<sup>Inverse of Control[^IoC]</sup>를 직접 구현해보며 프레임워크의 필요성을 느낄 수 있었다.
 
 > 템플릿 메소드 패턴 (Template Method Pattern) : 슈퍼클래스 또는 인터페이스에 기본적인 로직의 흐름을 만들고, 그 기능의 일부를 오버라이딩이 가능한 메소드로 만든 뒤 서브 클래스에서 필요에 맞에 구현해서 사용하는 디자인 패턴
 >

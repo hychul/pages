@@ -1,14 +1,3 @@
----
-title: JPA에 audit 적용하기
-date: 2019-05-24
-categories:
-- Development
-tags:
-- Development
-- Java
-- Spring
-- JPA
----
 audit은 의심가는 데이터베이스의 작업을 모니터링 하고, 기록 정보를 수집 하는 기능 입니다. 어느시간때에 어떤 작업들이 주로 발생하는지, 어떤 작업을 누가 하는지 추적 할 수 있습니다. audit 작업을 하면, audit 로그를 기록해야 하므로 시스템의 속도는 더 느려질 수 있습니다.
 
 # JPA를 사용하기

@@ -1,12 +1,3 @@
----
-title: Jenkins Scheduling Format
-date: 2019-05-24
-categories:
-- Development
-tags:
-- Development
-- Jenkins
----
 Jenkins에서 빌드 스케줄을 설정할 Cron의 포맷을 따라서 설정할 수 있습니다.
 ```
 * * * * *

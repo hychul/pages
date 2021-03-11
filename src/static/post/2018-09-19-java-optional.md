@@ -1,14 +1,4 @@
----
-title: 자바 Optional
-date: 2018-09-18
-categories:
-- Development
-tags:
-- Development
-- Java
----
-
- 자바를 사용해서 개발을 할 때 개발자들이 가장 흔하게 겪는 예외는 NPE<sup>Null Pointer Exception</sup>일 것이다. NPE는 컴파일 타임에서 확인 할 수 없어, 조심하지 않으면 갑자기 런타임에 등장한 NPE에 속수무책으로 당할 수 밖에 없다. null의 개념을 처음으로 고안한 영국의 컴퓨터 과학자인 Tony Hoare도 나중에 자신의 생각이 10억불 짜리 큰 실수[^1]였고,  null 참조를 만든 것을 후회한다고 했다.
+자바를 사용해서 개발을 할 때 개발자들이 가장 흔하게 겪는 예외는 NPE<sup>Null Pointer Exception</sup>일 것이다. NPE는 컴파일 타임에서 확인 할 수 없어, 조심하지 않으면 갑자기 런타임에 등장한 NPE에 속수무책으로 당할 수 밖에 없다. null의 개념을 처음으로 고안한 영국의 컴퓨터 과학자인 Tony Hoare도 나중에 자신의 생각이 10억불 짜리 큰 실수[^1]였고,  null 참조를 만든 것을 후회한다고 했다.
 
 [^1]: https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare 
 

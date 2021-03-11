@@ -1,14 +1,3 @@
----
-title: Reactor Intro
-date: 2019-03-18
-categories:
-- Development
-tags:
-- Development
-- Java
-- Reactor
----
-
 # 리액티브 스트림이란
 
 리액티브 스트림은 그 이름에서 알 수 있듯이 스레그를 사용한 비동기 처리를 지원하는 스트림을 의미한다. 리액티브 스트림은 이벤트들이 비동기적으로 생산<sup>Produce</sup>되고 소비<sup>Comsume</sup>되도록 한다.

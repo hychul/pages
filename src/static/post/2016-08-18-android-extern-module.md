@@ -1,14 +1,4 @@
----
-title: 안드로이드 외부 모듈 참조하기
-date: 2016-08-18
-categories:
-- Android
-tags:
-- Development
-- Android
----
-
- 안드로이드에서 가장 쉽게 외부 라이브러리 모듈을 가져와 사용하는 방법은 'Import Module...' 버튼을 사용하는 것입니다.
+안드로이드에서 가장 쉽게 외부 라이브러리 모듈을 가져와 사용하는 방법은 'Import Module...' 버튼을 사용하는 것입니다.
 
 ![android-extern-module-01](https://user-images.githubusercontent.com/18159012/49137538-16205e80-f330-11e8-9ef5-7e55f2bfffd4.png)
 

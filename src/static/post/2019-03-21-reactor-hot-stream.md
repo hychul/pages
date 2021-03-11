@@ -1,14 +1,3 @@
----
-title: Reactor Hot Stream
-date: 2019-03-21
-categories:
-- Development
-tags:
-- Development
-- Java
-- Reactor
----
-
 # Hot Stream
 
 위에서 언급한 예시들은 모두 Cold 스트림을 기반으로 설명했다. Cold 스트림은 고정된 크기의 데이터를 갖는 스트림을 말하며 사용하기 비교적 쉽다. Cold 스트림의 경우 Subscriber가 구독을 했을 때부터 onNext 이벤트를 발생시키기 때문이다. 하지만 구독을 한때부터 이벤트가 발생한다는 특성 때문에 Cold 스트림의 Subscriber는 하나만 존재할 수 있다.
