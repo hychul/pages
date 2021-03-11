@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/static/js/main.b92aff20.chunk.js",
-    "main.js.map": "/static/js/main.b92aff20.chunk.js.map",
+    "main.js": "/static/js/main.c2f82e67.chunk.js",
+    "main.js.map": "/static/js/main.c2f82e67.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.136aeae9.js",
     "runtime-main.js.map": "/static/js/runtime-main.136aeae9.js.map",
     "static/js/2.24bbab5c.chunk.js": "/static/js/2.24bbab5c.chunk.js",
@@ -71,9 +71,10 @@
     "static/media/2019-08-01-swagger-api-document-file.md": "/static/media/2019-08-01-swagger-api-document-file.e1458329.md",
     "static/media/2020-08-26-unity-vs-code-integration-for-mac.md": "/static/media/2020-08-26-unity-vs-code-integration-for-mac.6d1bf766.md",
     "static/media/2020-09-01-alias-setting-for-mac.md": "/static/media/2020-09-01-alias-setting-for-mac.e0f2e0e6.md",
-    "static/media/logo.6ce24c58.svg": "/static/media/logo.6ce24c58.svg",
+    "static/media/dduggy.a7818b8b.jpg": "/static/media/dduggy.a7818b8b.jpg",
     "static/media/post.meta": "/static/media/post.56abbed7.meta",
     "static/media/react-overflow-child-content.md": "/static/media/react-overflow-child-content.9de49afe.md",
+    "static/media/reactLogo.6ce24c58.svg": "/static/media/reactLogo.6ce24c58.svg",
     "static/media/spring-security-pre-auth.md": "/static/media/spring-security-pre-auth.f29d6c0e.md",
     "static/media/test.md": "/static/media/test.17b0a49e.md"
   },
@@ -81,6 +82,6 @@
     "static/js/runtime-main.136aeae9.js",
     "static/js/2.24bbab5c.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.b92aff20.chunk.js"
+    "static/js/main.c2f82e67.chunk.js"
   ]
 }
