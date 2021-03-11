@@ -158,7 +158,7 @@ function table(props) {
         >
           {it.props.children[0].props.value}
         </th>
-      ))
+      ));
     });
   }
 
@@ -166,6 +166,7 @@ function table(props) {
   let body = props.children[1];
   const bodyRows = [];
   if (typeof body != 'undefined') {
+    let index = 0;
     body.props.children.forEach((it) => {
       const row = [];
       it.props.children.forEach((it) =>{
@@ -175,7 +176,8 @@ function table(props) {
             style={{
             border: '1px solid #DFE2E5',
             padding: '0.3em 0.75em 0.3em 0.75em',
-            textAlign: it.props.align
+            textAlign: it.props.align,
+            backgroundColor: index % 2 == 0 ? 'white' : '#F5F7F9'
             }}
           >
             {it.props.children[0].props.value}
@@ -187,7 +189,9 @@ function table(props) {
         <tr key={it.key}>
           {row}
         </tr>
-      ))
+      ));
+
+      index++;
     });
   }
 
