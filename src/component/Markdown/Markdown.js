@@ -5,17 +5,6 @@ import SyntaxHighlighter from 'react-syntax-highlighter'
 import { githubGist } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 
 function Markdown(props) {
-  const [source, setSource] = useState();
-
-  useEffect(() => {
-    try {
-      const data = require(`static/post/${props.filename}`);
-      fetch(data.default).then(it => it.text()).then(it => setSource(it));
-    } catch (e) {
-      setSource("The file you are looking for does not exist.");
-    }
-  }, [props.filename]);
-
   return (
     <div style={{
       width: '100%',
@@ -37,7 +26,7 @@ function Markdown(props) {
         plugins={[[gfm]]} 
         escapeHtml={false} 
         renderers={markdownRenderers} 
-        source={source} 
+        source={props.source} 
       />
     </div>
   );

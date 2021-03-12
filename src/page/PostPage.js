@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Markdown from 'component/Markdown/Markdown';
 
 function PostPage({match}) {
-  const filename = `${match.params.id}.md`;
+  const [source, setSource] = useState();
+
+  useEffect(() => {
+    try {
+      const data = require(`static/post/${match.params.id}.md`);
+      fetch(data.default).then(it => it.text()).then(it => setSource(it));
+    } catch (e) {
+      setSource("The file you are looking for does not exist.");
+    }
+  }, []);
 
   return (
     <div style={{
@@ -29,7 +38,7 @@ function PostPage({match}) {
         fontSize: '16px',
         color: '#242A2D',
       }}>
-        <Markdown filename={filename}/>
+        <Markdown source={source}/>
       </div>
     </div>
   );
