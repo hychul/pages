@@ -19,16 +19,19 @@ function PostPage({match}) {
       flexDirection: 'column',
       rowGap: '15px',
       justifyContent: 'center',
+      alignItems: 'center',
       width: '100%',
-      padding: '32px'
+      padding: '33px'
     }}>
       <div style={{
         display: 'flex',
         justifyContent: 'center',
+        width: 'calc(100% - 33px * 2)',
+        maxWidth: '1215px',
         margin: '0px',
         border: 'solid 1px #DDE0E4',
         borderRadius: '0.5em',
-        padding: '32px',
+        padding: '33px',
         paddingTop: '14px',
         paddingBottom: '14px',
         backgroundColor: 'white',
