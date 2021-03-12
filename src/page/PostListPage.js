@@ -108,7 +108,6 @@ function PostListPage() {
       }}>
         {viewList}
       </div>
-
       <div style={{
         display: 'flex',
         justifyContent: 'center',
