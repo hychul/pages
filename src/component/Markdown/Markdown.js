@@ -124,8 +124,9 @@ function image(props) {
 function inlineCode(props) {
   return (
     <code style={{
-      backgroundColor: '#F1F2F2',
+      borderRadius: '0.25em',
       padding: '4px',
+      backgroundColor: '#F1F2F2',
       fontSize: '0.875em',
     }}>
       {props.children}
