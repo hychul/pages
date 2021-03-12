@@ -80,13 +80,18 @@ function PostListPage() {
         display: 'flex',
         justifyContent: 'center',
       }}>
-        {pagingNum} 2 3 4 5 6 7 8
+        <button onClick={() => {
+          setPagingNum(() => pagingNum - 1);
+        }}>
+          prev
+        </button>
+        <div style={{margin: '0 10px 0 10px'}}>{pagingNum}</div>
+        <button onClick={() => {
+          setPagingNum(() => pagingNum + 1);
+        }}>
+          next
+        </button>
       </div>
-      <button onClick={() => {
-        setPagingNum(() => pagingNum + 1);
-      }}>
-        increase
-      </button>
     </div>
   )
 }
