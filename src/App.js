@@ -1,5 +1,4 @@
 import React from 'react';
-import { Fragment } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ReactPage from 'page/ReactPage';
 import Navigator from 'component/Navigator/Navigator';
@@ -11,23 +10,24 @@ import Copyright from 'component/Copyright/Copyright';
 
 function App() {
   return (
-    <Fragment>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      overflow: 'hidden',
+      backgroundColor: 'white',
+    }}>
       <Navigator />
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        overflow: 'hidden'
-      }}>
-        <BrowserRouter>
-          <Switch>
-            <Route exact path='/' component={MainPage} />
-            <Route exact path='/posts' component={PostListPage} />
-            <Route exact path='/posts/:id' component={PostPage} />
-            <Route exact path='/react' component={ReactPage} />
-            <Route exact path='/test' component={TestPage} />
-          </Switch>
-        </BrowserRouter>
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path='/' component={MainPage} />
+          <Route exact path='/posts' component={PostListPage} />
+          <Route exact path='/posts/:id' component={PostPage} />
+          <Route exact path='/react' component={ReactPage} />
+          <Route exact path='/test' component={TestPage} />
+        </Switch>
+      </BrowserRouter>
       <div style={{
         marginTop: '10px',
         marginLeft: '2vmin',
@@ -41,7 +41,7 @@ function App() {
       }}>
         <Copyright/>
       </div>
-    </Fragment>
+    </div>
   );
 }
 

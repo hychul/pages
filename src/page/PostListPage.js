@@ -32,7 +32,7 @@ function PostListPage() {
     for (let i = (pagingNum - 1) * pagingSize; i < pagingNum * pagingSize && i < totalList.length; i++) {
       ret.push(totalList[i]);
     }
-    const temp = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+
     return ret.map((it) => (
       <Link 
         key={it.filename}
@@ -95,27 +95,24 @@ function PostListPage() {
       display: 'flex',
       flexDirection: 'column',
       rowGap: '15px',
-      justifyContent: 'center',
-      width: 'calc(100% - 64px)',
-      maxWidth: '1010px',
-      padding: '32px'
+      alignItems: 'center',
+      width: 'calc(100% - 33px * 2)',
+      padding: '33px',
     }}>
       <div style={{
         display: 'flex',
-        justifyContent: 'center',
-      }}>
-        POST LIST
-      </div>
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr',
-        justifyContent: 'center',
+        flexDirection: 'column',
+        width: '100%',
+        maxWidth: '1280px',
+        padding: '0px',
       }}>
         {viewList}
       </div>
+
       <div style={{
         display: 'flex',
         justifyContent: 'center',
+        width: '100%',
       }}>
         <button onClick={() => {
           setPagingNum(() => pagingNum - 1);
