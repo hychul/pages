@@ -15,8 +15,8 @@ function PostPage({match}) {
 
   return (
     <div style={{
-      display: 'grid',
-      gridTemplateColumns: '1fr',
+      display: 'flex',
+      flexDirection: 'column',
       rowGap: '15px',
       justifyContent: 'center',
       width: '100%',
