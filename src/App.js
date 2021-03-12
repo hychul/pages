@@ -1,6 +1,6 @@
 import React from 'react';
 import { Fragment } from 'react';
-import { HashRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ReactPage from 'page/ReactPage';
 import Navigator from 'component/Navigator/Navigator';
 import MainPage from 'page/MainPage';
@@ -18,7 +18,7 @@ function App() {
         justifyContent: 'center',
         overflow: 'hidden'
       }}>
-        <HashRouter>
+        <BrowserRouter>
           <Switch>
             <Route exact path='/' component={MainPage} />
             <Route exact path='/posts' component={PostListPage} />
@@ -26,7 +26,7 @@ function App() {
             <Route exact path='/react' component={ReactPage} />
             <Route exact path='/test' component={TestPage} />
           </Switch>
-        </HashRouter>
+        </BrowserRouter>
       </div>
       <div style={{
         marginTop: '10px',
