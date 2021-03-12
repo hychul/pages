@@ -17,7 +17,7 @@ function PostListPage() {
           filename: it[0],
           date: it[1],
           title: it[2],
-          tag: it[3]?.split(', ')
+          tags: it[3]?.split(', ')
         }))
         .forEach((it) => totalList.push(it));
 
@@ -32,17 +32,52 @@ function PostListPage() {
     for (let i = (pagingNum - 1) * pagingSize; i < pagingNum * pagingSize && i < totalList.length; i++) {
       ret.push(totalList[i]);
     }
-
+    const temp = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     return ret.map((it) => (
       <Link 
         key={it.filename}
         to={`/posts/${it.filename}`} 
         style={{
+          display: 'grid',
+          gridTemplateColumns: '2fr 1fr',
+          gridTemplateRows: '2.5em 1.2em',
+          alignItems: 'center',
+          width: 'calc(100% - 1em)',
+          margin: '0',
+          marginTop: '-1px',
+          border: 'solid 1px #DFE2E5',
+          padding: '0.5em',
           textDecoration: 'none',
-          color: 'red'
+          color: '#242A2D',
         }}
       >
-        {it.title} {it.date} {it.tag}
+        <div style={{
+          gridColumn: '1/3',
+          gridRow: '1',
+          fontSize: '1.5em',
+          fontWeight: 'bold',
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          textOverflow: 'ellipsis',
+        }}>
+          {it.title}
+        </div>
+        <div style={{
+          gridColumn: '1',
+          gridRow: '2',
+          fontSize: '0.75em'
+        }}>
+          {it.date}
+          </div>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          gridColumn: '2',
+          gridRow: '2',
+          fontSize: '0.75em',
+        }}>
+          <div style={{backgroundColor: it.tags?.length > 0 ? '#DFE2E5' : 'white', padding: '2px 4px',}}>{it.tags}</div>
+        </div>
       </Link>
     ));
   };
@@ -57,11 +92,12 @@ function PostListPage() {
 
   return (
     <div style={{
-      display: 'grid',
-      gridTemplateColumns: '1fr',
+      display: 'flex',
+      flexDirection: 'column',
       rowGap: '15px',
       justifyContent: 'center',
-      width: '100%',
+      width: 'calc(100% - 64px)',
+      maxWidth: '1010px',
       padding: '32px'
     }}>
       <div style={{
@@ -72,6 +108,7 @@ function PostListPage() {
       </div>
       <div style={{
         display: 'grid',
+        gridTemplateColumns: '1fr',
         justifyContent: 'center',
       }}>
         {viewList}
