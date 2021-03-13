@@ -5,7 +5,7 @@ import useHistoryState from 'component/Util/UseHistoryState';
 function PostListPage() {
   const pagingSize = 10;
   const [pagingNum, setPagingNum] = useHistoryState('pagingNum', 1);
-  const [totalList, setTotalList] = useState({isLoaded: false, list: []});
+  const [totalList, setTotalList] = useHistoryState('totalList', {isLoaded: false, list: []});
   const [viewList, setViewList] = useState([]);
   
   const loadTotalList = useCallback(() => {
@@ -13,7 +13,6 @@ function PostListPage() {
       return;
     }
 
-    console.log('load');
     const list = [];
     const data = require(`static/post.meta`);
     fetch(data.default).then(it => it.text()).then(it => {
@@ -35,7 +34,7 @@ function PostListPage() {
         return it;  
       });
     });
-  }, [totalList, pagingNum]);
+  }, [totalList, setTotalList, pagingNum]);
   
   const getViewList = (totalList, pagingNum, pagingSize) => {
     let ret = [];
