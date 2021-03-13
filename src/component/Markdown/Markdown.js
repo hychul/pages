@@ -137,7 +137,7 @@ function inlineCode(props) {
 function table(props) {
   let head = props.children[0];
   const headRows = [];
-  if (head != undefined) {
+  if (head !== undefined) {
     head.props.children[0].props.children.forEach((it) => {
       headRows.push((
         <th
@@ -158,7 +158,7 @@ function table(props) {
 
   let body = props.children[1];
   const bodyRows = [];
-  if (body != undefined) {
+  if (body !== undefined) {
     let index = 0;
     body.props.children.forEach((it) => {
       const row = [];
