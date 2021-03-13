@@ -1,13 +1,20 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import useHistoryState from 'component/Util/UseHistoryState';
 
 function PostListPage() {
   const pagingSize = 10;
-  const [pagingNum, setPagingNum] = useState(1);
-  const [totalList, setTotalList] = useState([]);
+  const [pagingNum, setPagingNum] = useHistoryState('pagingNum', 1);
+  const [totalList, setTotalList] = useState({isLoaded: false, list: []});
   const [viewList, setViewList] = useState([]);
   
-  const loadPageList = useCallback(() => {
+  const loadTotalList = useCallback(() => {
+    if (totalList.isLoaded) {
+      return;
+    }
+
+    console.log('load');
+    const list = [];
     const data = require(`static/post.meta`);
     fetch(data.default).then(it => it.text()).then(it => {
       it.split('\n')
@@ -19,12 +26,16 @@ function PostListPage() {
           title: it[2],
           tags: it[3]?.split(', ')
         }))
-        .forEach((it) => totalList.push(it));
+        .forEach((it) => list.push(it));
 
-      setViewList(getViewList(totalList, 1, pagingSize));
-      setTotalList(() => totalList);
+      setViewList(getViewList(list, pagingNum, pagingSize));
+      setTotalList((it) => {
+        it.isLoaded = true;
+        it.list = list;
+        return it;  
+      });
     });
-  }, [totalList]);
+  }, [totalList, pagingNum]);
   
   const getViewList = (totalList, pagingNum, pagingSize) => {
     let ret = [];
@@ -83,11 +94,11 @@ function PostListPage() {
   };
   
   useEffect(() => {
-    loadPageList();
-  }, [loadPageList]);
+    loadTotalList();
+  }, [loadTotalList]);
 
   useEffect(() => {
-    setViewList(getViewList(totalList, pagingNum, pagingSize));
+    setViewList(getViewList(totalList.list, pagingNum, pagingSize));
   }, [totalList, pagingNum]);
 
   return (

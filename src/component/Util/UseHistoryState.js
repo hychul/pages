@@ -6,7 +6,7 @@ const useHistoryState = (key, initialState) => {
   const stateValue = history.location.state?.[key];
 
   const [historyState, setHistoryState] = useState(
-    stateValue === undefined ? initialState : stateValue,
+    stateValue === undefined ? initialState : stateValue
   );
 
   const setState = useCallback((state, replace = false) => {
