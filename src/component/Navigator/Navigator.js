@@ -26,11 +26,9 @@ function Navigator() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            margin: '0.5em',
-            marginLeft: '1rem',
-            marginRight: '0.5rem',
-            width: '2rem', 
-            height: '2rem',
+            margin: '0.75rem',
+            width: 'calc(4rem - 0.75rem * 2)', 
+            height: 'calc(4rem - 0.75rem * 2)', 
             backgroundColor: 'cyan',
           }}
           onMouseOver={() => {
@@ -50,10 +48,9 @@ function Navigator() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '0.5em',
           // font
           color: 'white',
-          fontSize: '16px',
+          fontSize: '21px',
           fontWeight: '700'
         }}>
           hychul.io
