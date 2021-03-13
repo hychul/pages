@@ -5,7 +5,7 @@ import useHistoryState from 'component/Util/UseHistoryState';
 function PostListPage() {
   const pagingSize = 10;
   const [pagingNum, setPagingNum] = useHistoryState('pagingNum', 1);
-  const [totalList, setTotalList] = useHistoryState('totalList', {isLoaded: false, list: []});
+  const [totalList, setTotalList] = useHistoryState('totalList', {isLoaded: false, size: 1, list: []});
   const [viewList, setViewList] = useState([]);
   
   const loadTotalList = useCallback(() => {
@@ -26,10 +26,11 @@ function PostListPage() {
           tags: it[3]?.split(', ')
         }))
         .forEach((it) => list.push(it));
-
+      
       setViewList(getViewList(list, pagingNum, pagingSize));
       setTotalList((it) => {
         it.isLoaded = true;
+        it.size = Math.ceil(list.length / pagingSize);
         it.list = list;
         return it;  
       });
@@ -124,13 +125,13 @@ function PostListPage() {
         width: '100%',
       }}>
         <button onClick={() => {
-          setPagingNum(() => pagingNum - 1);
+          setPagingNum(() => Math.max(pagingNum - 1, 1));
         }}>
           prev
         </button>
         <div style={{margin: '0 10px 0 10px'}}>{pagingNum}</div>
         <button onClick={() => {
-          setPagingNum(() => pagingNum + 1);
+          setPagingNum(() => Math.min(pagingNum + 1, totalList.size));
         }}>
           next
         </button>
