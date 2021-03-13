@@ -76,7 +76,8 @@ function PostListPage() {
         <div style={{
           gridColumn: '1',
           gridRow: '2',
-          fontSize: '0.75em'
+          fontSize: '0.75em',
+          color: '#6A737D',
         }}>
           {it.date}
           </div>
