@@ -7,6 +7,7 @@ import PostListPage from 'page/PostListPage';
 import PostPage from 'page/PostPage';
 import TestPage from 'page/TestPage';
 import Copyright from 'component/Copyright/Copyright';
+import ScrollToTop from 'component/Util/ScrollToTop';
 
 function App() {
   return (
@@ -20,8 +21,10 @@ function App() {
     }}>
       <Navigator />
       <BrowserRouter>
+        <ScrollToTop />
         <Switch>
-          <Route exact path='/' component={MainPage} />
+          {/* <Route exact path='/' component={MainPage} /> */}
+          <Route exact path='/' component={PostListPage} />
           <Route exact path='/posts' component={PostListPage} />
           <Route exact path='/posts/:id' component={PostPage} />
           <Route exact path='/react' component={ReactPage} />
