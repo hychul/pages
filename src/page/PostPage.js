@@ -11,7 +11,7 @@ function PostPage({match}) {
     } catch (e) {
       setSource("The file you are looking for does not exist.");
     }
-  }, []);
+  }, [match.params.id]);
 
   return (
     <div style={{
