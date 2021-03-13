@@ -69,7 +69,7 @@ function PostListPage() {
           overflow: 'hidden',
           whiteSpace: 'nowrap',
           textOverflow: 'ellipsis',
-          fontSize: 'calc(0.5em + 1.5vmin)',
+          fontSize: 'calc(0.75em + 1vmin)',
         }}>
           {it.title}
         </div>
