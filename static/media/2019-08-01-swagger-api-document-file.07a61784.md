@@ -20,7 +20,8 @@ $ pandoc -f docbook -t markdown_strict {result}.xml -o {result}.pdf
 위의 명령어를 통해 Swagger json 혹은 url을 [Asciidoc](https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/) 파일로 변환하고 변환된 Asciidoc 파일을 [DocBook](https://docbook.org/whatis)으로, 그리고 [Pandoc](https://pandoc.org/MANUAL.html)을 통해 다시 Markdown 파일로 변환합니다.
 
 > Asciidoc's no output from filter WARNING message issue  
-`asciidoc -b` 명령어를 통해 문서를 변환할 때 'no output from filter WARNIG message' 라는 메세지가 출력이 될 수 있는데 이는 known issue로 무시하고 진행해도 됩니다.  
+> `asciidoc -b` 명령어를 통해 문서를 변환할 때 'no output from filter WARNIG message' 라는 메세지가 출력이 될 수 있는데 이는 known issue로 무시하고 진행해도 됩니다.  
+
 관련 링크 : http://discuss.asciidoctor.org/Improved-errors-reporting-td356.html  
 
 # Swagger API Document
