@@ -65,11 +65,11 @@ function PostListPage() {
         <div style={{
           gridColumn: '1/3',
           gridRow: '1',
-          fontSize: '1.5em',
           fontWeight: 'bold',
           overflow: 'hidden',
           whiteSpace: 'nowrap',
           textOverflow: 'ellipsis',
+          fontSize: 'calc(0.5em + 1.5vmin)',
         }}>
           {it.title}
         </div>
