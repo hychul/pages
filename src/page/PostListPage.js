@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useHistoryState from 'component/Util/UseHistoryState';
+import 'static/style/App.css';
 
 function PostListPage() {
   const pagingSize = 10;
@@ -48,6 +49,7 @@ function PostListPage() {
       <Link 
         key={it.filename}
         to={`/posts/${it.filename}`} 
+        className="Panel"
         style={{
           display: 'grid',
           gridTemplateColumns: '2fr 1fr',
@@ -55,8 +57,6 @@ function PostListPage() {
           alignItems: 'center',
           width: 'calc(100% - 1em)',
           margin: '0',
-          marginTop: '-1px',
-          border: 'solid 1px #DFE2E5',
           padding: '0.5em',
           textDecoration: 'none',
           color: '#242A2D',
