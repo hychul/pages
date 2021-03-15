@@ -1,0 +1,19 @@
+.Panel {
+  display: flex;
+  justify-content: center;
+  width: calc(100% - 33px * 2);
+  max-width: calc(1280px - 33px * 2);
+  margin: 0px;
+  border: solid 1px #DDE0E4;
+  padding: 14px 33px;
+  background-color: white;
+}
+.Panel:first-child {
+  border-radius: 0.5em 0.5em 0 0;
+}
+.Panel:last-child {
+  border-radius: 0 0 0.5em 0.5em;
+}
+.Panel:only-child {
+  border-radius: 0.5em;
+}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Markdown from 'component/Markdown/Markdown';
+import 'static/style/App.css';
 
 function PostPage({match}) {
   const [source, setSource] = useState();
@@ -22,17 +23,7 @@ function PostPage({match}) {
       width: 'calc(100% - 33px * 2)',
       padding: '33px',
     }}>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        width: 'calc(100% - 33px * 2)',
-        maxWidth: 'calc(1280px - 33px * 2)',
-        margin: '0px',
-        border: 'solid 1px #DDE0E4',
-        borderRadius: '0.5em',
-        padding: '14px 33px',
-        backgroundColor: 'white',
-      }}>
+      <div className="Panel">
         <Markdown source={source}/>
       </div>
     </div>
