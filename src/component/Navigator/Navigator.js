@@ -66,11 +66,38 @@ function Navigator() {
           justifyContent: 'center',
           alignItems: 'center',
           width: '3.5rem',
-          backgroundColor: 'yellow',
+          backgroundColor: '#0049db',
           textAlign: 'center',
-          verticalAlign: 'middle'
+          verticalAlign: 'middle',
+          color: 'white',
         }}>
-          Right
+          L
+        </div>
+        <div style={{
+          // center
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '3.5rem',
+          backgroundColor: 'white',
+          textAlign: 'center',
+          verticalAlign: 'middle',
+          color: '#FFB300',
+        }}>
+          M
+        </div>
+        <div style={{
+          // center
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '3.5rem',
+          backgroundColor: '#FFB300',
+          textAlign: 'center',
+          verticalAlign: 'middle',
+          color: 'white',
+        }}>
+          R
         </div>
       </div>
     </div>
