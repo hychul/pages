@@ -32,11 +32,6 @@ function PostPage({match}) {
         borderRadius: '0.5em',
         padding: '14px 33px',
         backgroundColor: 'white',
-        fontFamily: 'Helvetica, arial, sans-serif',
-        lineHeight: '1.6',
-        fontSmooth: 'auto',
-        fontSize: '16px',
-        color: '#242A2D',
       }}>
         <Markdown source={source}/>
       </div>
