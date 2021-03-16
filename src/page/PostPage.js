@@ -22,9 +22,9 @@ function PostPage({match}) {
       width: 'calc(100% - 33px * 2)',
       padding: '33px',
     }}>
-      {/* <div className="Panel">
-        Title
-      </div> */}
+      <div className="Panel focus">
+        {/* Title */}
+      </div>
       <div className="Panel">
         <Markdown source={source}/>
       </div>

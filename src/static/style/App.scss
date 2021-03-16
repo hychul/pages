@@ -9,6 +9,10 @@
   border: solid 1px $line;
   padding: 14px 33px;
   background-color: white;
+  color: $font;
+  &.focus {
+    background-color: $light-grey;
+  }
 }
 .Panel:nth-child(even) {
   border: solid 0px $line;
