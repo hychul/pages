@@ -7,7 +7,7 @@ import PostListPage from 'page/PostListPage';
 import PostPage from 'page/PostPage';
 import TestPage from 'page/TestPage';
 import Copyright from 'component/Copyright/Copyright';
-import ScrollToTop from 'component/Util/ScrollToTop';
+import ScrollToTop from 'util/ScrollToTop';
 
 function App() {
   return (

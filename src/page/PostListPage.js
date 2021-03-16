@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import useHistoryState from 'component/Util/UseHistoryState';
+import useHistoryState from 'util/UseHistoryState';
 import 'static/style/App.scss';
 
 function PostListPage() {
