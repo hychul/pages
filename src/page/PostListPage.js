@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useHistoryState from 'component/Util/UseHistoryState';
-import 'static/style/App.css';
+import 'static/style/App.scss';
 
 function PostListPage() {
   const pagingSize = 10;

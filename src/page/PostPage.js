@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Markdown from 'component/Markdown/Markdown';
-import 'static/style/App.css';
+import 'static/style/App.scss';
 
 function PostPage({match}) {
   const [source, setSource] = useState();
