@@ -1,13 +1,22 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import useHistoryState from 'util/UseHistoryState';
 import 'static/style/App.scss';
+import { TEST_DECREMENT, TEST_INCREMENT } from 'action/ActionType';
 
 function PostListPage() {
   const pagingSize = 10;
   const [pagingNum, setPagingNum] = useHistoryState('pagingNum', 1);
   const [totalList, setTotalList] = useHistoryState('totalList', {isLoaded: false, size: 1, list: []});
   const [viewList, setViewList] = useState([]);
+
+  const dispatch = useDispatch();
+  const selector = useSelector((state) => state);
+
+  useEffect(() => {
+    console.log(selector);
+  }, [selector]);
   
   const loadTotalList = useCallback(() => {
     if (totalList.isLoaded) {
@@ -127,12 +136,14 @@ function PostListPage() {
       }}>
         <button onClick={() => {
           setPagingNum(() => Math.max(pagingNum - 1, 1));
+          dispatch({type: TEST_DECREMENT})
         }}>
           prev
         </button>
         <div style={{margin: '0 10px 0 10px'}}>{pagingNum}</div>
         <button onClick={() => {
           setPagingNum(() => Math.min(pagingNum + 1, totalList.size));
+          dispatch({type: TEST_INCREMENT});
         }}>
           next
         </button>
