@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ReactPage from 'page/ReactPage';
-import Navigator from 'component/Navigator/Navigator';
+import Navigator from 'component/navigator/Navigator';
 import MainPage from 'page/MainPage';
 import PostListPage from 'page/PostListPage';
 import PostPage from 'page/PostPage';
 import TestPage from 'page/TestPage';
-import Copyright from 'component/Copyright/Copyright';
-import ScrollToTop from 'util/ScrollToTop';
+import Copyright from 'component/copyright/Copyright';
+import ScrollToTop from 'component/ScrollToTop';
 
 function App() {
   return (

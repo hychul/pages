@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Markdown from 'component/Markdown/Markdown';
+import Markdown from 'component/markdown/Markdown';
 import 'static/style/App.scss';
 
 function PostPage({match}) {

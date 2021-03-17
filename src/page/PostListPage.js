@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import useHistoryState from 'util/UseHistoryState';
+import useHistoryState from 'util/useHistoryState';
 import 'static/style/App.scss';
 import { TEST_DECREMENT, TEST_INCREMENT } from 'action/ActionType';
 
