@@ -57,7 +57,15 @@ function PostListPage() {
     return ret.map((it) => (
       <Link 
         key={it.filename}
-        to={`/posts/${it.filename}`} 
+        to={{
+          pathname: `/posts/${it.filename}`,
+          post: {
+            filename: it.filename,
+            title: it.title,
+            date: it.date,
+            tags: it.tags,
+          }
+        }} 
         className="Panel"
         style={{
           display: 'grid',

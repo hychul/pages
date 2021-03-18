@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Markdown from 'component/markdown/Markdown';
 import 'static/style/App.scss';
 
-function PostPage({match}) {
+function PostPage({match, location}) {
   const [source, setSource] = useState();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ function PostPage({match}) {
       padding: '33px',
     }}>
       <div className="Panel focus">
-        {/* Title */}
+        {location.post.title}
       </div>
       <div className="Panel">
         <Markdown source={source}/>
