@@ -22,7 +22,13 @@ function PostPage({match, location}) {
       width: 'calc(100% - 33px * 2)',
       padding: '33px',
     }}>
-      <div className="Panel focus">
+      <div 
+        className="Panel focus"
+        style={{
+          fontWeight: '700',
+          fontSize: '23px'
+        }}
+      >
         {location.post.title}
       </div>
       <div className="Panel">
