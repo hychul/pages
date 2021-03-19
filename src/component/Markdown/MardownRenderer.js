@@ -1,7 +1,7 @@
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { githubGist } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 
-const markdownRenderers = {
+const markdownRenderer = {
   heading: heading,
   code: code,
   image: image,
@@ -202,4 +202,4 @@ function blockquote(props) {
   );
 }
 
-export default markdownRenderers;
+export default markdownRenderer;

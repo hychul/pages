@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
-import markdownRenderers from './GithubRenderer';
+import markdownRenderer from './MardownRenderer';
 
 function Markdown(props) {
   return (
@@ -24,7 +24,7 @@ function Markdown(props) {
       <ReactMarkdown 
         plugins={[[gfm]]} 
         escapeHtml={false} 
-        renderers={markdownRenderers} 
+        renderers={markdownRenderer} 
         source={props.source} 
       />
     </div>
