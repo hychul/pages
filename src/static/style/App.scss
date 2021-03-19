@@ -2,7 +2,8 @@
 
 .Panel {
   display: flex;
-  justify-content: center;
+  justify-content: center; // horizontal
+  align-items: flex-start; // vertical
   width: calc(100% - 33px * 2);
   max-width: calc(1280px - 33px * 2);
   margin: 0px;
