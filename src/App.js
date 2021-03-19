@@ -5,6 +5,7 @@ import Navigator from 'component/navigator/Navigator';
 import MainPage from 'page/MainPage';
 import PostListPage from 'page/PostListPage';
 import PostPage from 'page/PostPage';
+import PortfolioPage from 'page/PortfolioPage';
 import TestPage from 'page/TestPage';
 import Copyright from 'component/copyright/Copyright';
 import ScrollToTop from 'component/ScrollToTop';
@@ -27,6 +28,7 @@ function App() {
           <Route exact path='/' component={PostListPage} />
           <Route exact path='/posts' component={PostListPage} />
           <Route exact path='/posts/:id' component={PostPage} />
+          <Route exact path='/portfolio' component={PortfolioPage} />
           <Route exact path='/react' component={ReactPage} />
           <Route exact path='/test' component={TestPage} />
         </Switch>
