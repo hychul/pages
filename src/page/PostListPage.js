@@ -63,9 +63,10 @@ function PostListPage() {
           gridTemplateColumns: '2fr 1fr',
           gridTemplateRows: '2.5em 1.2em',
           alignItems: 'center',
-          width: 'calc(100% - 1em)',
+          width: 'calc(100% - 1em * 2)',
+          maxWidth: 'calc(1280px - 1em * 2)',
           margin: '0',
-          padding: '0.5em',
+          padding: '0.5em 1em',
           textDecoration: 'none',
           color: '#242A2D',
         }}
@@ -126,6 +127,9 @@ function PostListPage() {
         maxWidth: '1280px',
         padding: '0px',
       }}>
+        <div className="Panel">
+          Post List
+        </div>
         {viewList}
       </div>
       <div style={{
