@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ReactPage from 'page/ReactPage';
 import Navigator from 'component/navigator/Navigator';
-import MainPage from 'page/MainPage';
 import PostListPage from 'page/PostListPage';
 import PostPage from 'page/PostPage';
 import PortfolioPage from 'page/PortfolioPage';
@@ -24,7 +23,6 @@ function App() {
       <BrowserRouter>
         <ScrollToTop />
         <Switch>
-          {/* <Route exact path='/' component={MainPage} /> */}
           <Route exact path='/' component={PostListPage} />
           <Route exact path='/posts' component={PostListPage} />
           <Route exact path='/posts/:id' component={PostPage} />
