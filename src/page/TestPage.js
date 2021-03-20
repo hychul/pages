@@ -1,10 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TEST_DECREMENT, TEST_INCREMENT } from 'action/ActionType';
+import queryStirng from 'query-string';
 
-function TestPage() {
+function TestPage({location}) {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
+
+  const queryObj = queryStirng.parse(location.search);
 
   return (
     <div style={{
@@ -39,6 +42,9 @@ function TestPage() {
             INCREMENT
           </button>
         </div>
+      </div>
+      <div className="Panel">
+        query string : {location.search}, query object : {JSON.stringify(queryObj)}
       </div>
     </div>
   );
