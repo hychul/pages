@@ -24,7 +24,7 @@ function PostPage({match, location}) {
     }}>
       <div style={{
         display: 'grid',
-        gridTemplateColumns: '1fr 90px',
+        gridTemplateColumns: '1fr 96px',
         alignItems: 'end',
         marginBottom: '1em',
         width: '100%',
