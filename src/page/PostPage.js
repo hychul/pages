@@ -22,29 +22,35 @@ function PostPage({match, location}) {
       width: 'calc(100% - 33px * 2)',
       padding: '33px',
     }}>
-      <div className="Panel">
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 90px',
+        alignItems: 'end',
+        marginBottom: '1em',
+        width: '100%',
+        maxWidth: '1010px',
+        maxHeight: '120px',
+        overflow: 'hidden',
+        whiteSpace: 'normal',
+        textOverflow: 'ellipsis',
+      }}>
         <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          rowGap: '10px',
-          width: '100%',
-          maxWidth: '1010px',
+          textAlign: 'start',
+          fontWeight: '700',
+          fontSize: '32px',
         }}>
-          <div style={{
-            fontWeight: '700',
-            fontSize: '23px',
-          }}>
-            {location.post.title}
-          </div>
-          <div style={{
-            color: '#6A737D',
-          }}>
-            {location.post.date}
-          </div>
+          {location.post.title}
+        </div>
+        <div style={{
+          textAlign: 'end'
+        }}>
+          {location.post.date}
         </div>
       </div>
-      <div className="Panel">
-        <Markdown source={source}/>
+      <div id="body">
+        <div className="Panel">
+          <Markdown source={source}/>
+        </div>
       </div>
     </div>
   );
