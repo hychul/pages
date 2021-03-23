@@ -21,7 +21,7 @@ function PageIndice(props) {
               margin: 'none',
               padding: 'none',
               cursor: 'pointer',
-              fontSize: '20px',
+              fontSize: '18px',
               fontWeight: 'bold',
               color: '#242A2D',
             }}
@@ -40,7 +40,7 @@ function PageIndice(props) {
               padding: 'none',
               cursor: 'pointer',
               fontSize: '18px',
-              color: '#242A2D',
+              color: '#6A737D',
             }}
            onClick={()=>{
               onClickIndex(index);
