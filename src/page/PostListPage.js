@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useHistoryState from 'util/useHistoryState';
 import 'static/style/App.scss';
+import PageIndice from 'component/PageIndice';
 
 function PostListPage() {
   const pagingSize = 10;
@@ -127,9 +128,6 @@ function PostListPage() {
         maxWidth: '1280px',
         padding: '0px',
       }}>
-        <div className="Panel">
-          Post List
-        </div>
         {viewList}
       </div>
       <div style={{
@@ -137,17 +135,13 @@ function PostListPage() {
         justifyContent: 'center',
         width: '100%',
       }}>
-        <button onClick={() => {
-          setPagingNum(() => Math.max(pagingNum - 1, 1));
-        }}>
-          prev
-        </button>
-        <div style={{margin: '0 10px 0 10px'}}>{pagingNum}</div>
-        <button onClick={() => {
-          setPagingNum(() => Math.min(pagingNum + 1, totalList.size));
-        }}>
-          next
-        </button>
+        <PageIndice
+          currentIndex={pagingNum}
+          maxIndex={totalList.size}
+          onClickIndex={(index) =>{
+            setPagingNum(index);
+          }}
+        />
       </div>
     </div>
   )
