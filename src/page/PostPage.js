@@ -47,7 +47,15 @@ function PostPage({match, location}) {
           {location.post.date}
         </div>
       </div>
-      <div id="body">
+      <div 
+        id="body"
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%'
+        }}
+      >
         <div className="Panel">
           <Markdown source={source}/>
         </div>
