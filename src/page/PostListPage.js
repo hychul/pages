@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import useHistoryState from 'util/useHistoryState';
+import useHistoryState from 'util/history/useHistoryState';
 import 'static/style/App.scss';
 import PageIndice from 'component/PageIndice';
 
