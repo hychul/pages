@@ -42,7 +42,8 @@ function PostPage({match, location}) {
           {location.post.title}
         </div>
         <div style={{
-          textAlign: 'end'
+          textAlign: 'end',
+          color: '#6A737D'
         }}>
           {location.post.date}
         </div>
