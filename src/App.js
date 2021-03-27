@@ -20,7 +20,7 @@ function App() {
       backgroundColor: 'white',
     }}>
       <Navigator />
-      <BrowserRouter>
+      <BrowserRouter basename="/page">
         <ScrollToTop />
         <Switch>
           <Route exact path='/' component={PostListPage} />
