@@ -1,6 +1,5 @@
 import React from 'react';
-import { HashRouter, Switch, Route } from 'react-router-dom';
-import history from 'util/history/BrowserHistory';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ReactPage from 'page/ReactPage';
 import Navigator from 'component/navigator/Navigator';
 import PostListPage from 'page/PostListPage';
@@ -21,7 +20,7 @@ function App() {
       backgroundColor: 'white',
     }}>
       <Navigator />
-      <HashRouter history={history}>
+      <BrowserRouter>
         <ScrollToTop />
         <Switch>
           <Route exact path='/' component={PostListPage} />
@@ -31,7 +30,7 @@ function App() {
           <Route exact path='/react' component={ReactPage} />
           <Route exact path='/test' component={TestPage} />
         </Switch>
-      </HashRouter>
+      </BrowserRouter>
       <div style={{
         width: 'calc(100% - 2vmin * 2)',
         marginTop: '10px 2vmin',
