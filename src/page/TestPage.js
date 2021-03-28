@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TEST_DECREMENT, TEST_INCREMENT } from 'action/ActionType';
+import { TEST_DECREMENT, TEST_INCREMENT } from 'action';
 import queryStirng from 'query-string';
 
 function TestPage({location}) {

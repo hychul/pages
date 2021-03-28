@@ -1,11 +1,11 @@
 import { createStore } from 'redux';
-import { TEST_DECREMENT, TEST_INCREMENT } from 'action/ActionType';
+import * as ActionType from 'action';
 
 function counter(state = 0, action) {
   switch (action.type) {
-    case TEST_INCREMENT:
+    case ActionType.TEST_INCREMENT:
       return state + 1;
-    case TEST_DECREMENT:
+    case ActionType.TEST_DECREMENT:
       return state - 1;
     default:
       return state;
