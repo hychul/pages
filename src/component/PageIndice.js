@@ -5,13 +5,14 @@ function PageIndice(props) {
 
   const minIndex = props.minIndex ?? 1;
   const maxIndex = props.maxIndex ?? 1;
+  const currentIndex = props.currentIndex;
   const onClickIndex = props.onClickIndex;
 
   useEffect(() => {
     const list = [];
     for (let i = 0; i < maxIndex - minIndex + 1; i++) {
       const index = i + minIndex;
-      if (props.currentIndex === index) {
+      if (currentIndex === index) {
         list.push((
           <button
             key={`page index ${i}`}
@@ -51,7 +52,7 @@ function PageIndice(props) {
       }
     }
     setList(list);
-  }, [props.currentIndex, minIndex, maxIndex, onClickIndex]);
+  }, [currentIndex, minIndex, maxIndex, onClickIndex]);
 
   return (
     <div style={{

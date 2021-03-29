@@ -1,20 +1,19 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import useHistoryState from 'util/history/useHistoryState';
-import 'static/style/App.scss';
+import queryStirng from 'query-string';
 import PageIndice from 'component/PageIndice';
+import 'static/style/App.scss';
 
-function PostListPage() {
+function PostListPage({location, history}) {
   const pagingSize = 10;
-  const [pagingNum, setPagingNum] = useHistoryState('pagingNum', 1);
-  const [totalList, setTotalList] = useHistoryState('totalList', {isLoaded: false, size: 1, list: []});
-  const [viewList, setViewList] = useState([]);
-  
-  const loadTotalList = useCallback(() => {
-    if (totalList.isLoaded) {
-      return;
-    }
 
+  const query = queryStirng.parse(location.search);
+
+  const [pagingNum, setPagingNum] = useState(query.page === undefined ? 1 : query.page);
+  const [totalList, setTotalList] = useState({size: 1, list: []}); // TODO: use redux
+  const [viewList, setViewList] = useState([]);
+
+  const loadTotalList = useCallback(() => {
     const list = [];
     const data = require(`static/post.meta`);
     fetch(data.default).then(it => it.text()).then(it => {
@@ -31,10 +30,9 @@ function PostListPage() {
       
       setViewList(getViewList(list, pagingNum, pagingSize));
       setTotalList((it) => {
-        it.isLoaded = true;
         it.size = Math.ceil(list.length / pagingSize);
         it.list = list;
-        return it;  
+        return it;
       });
     });
   }, [totalList, setTotalList, pagingNum]);
@@ -109,8 +107,11 @@ function PostListPage() {
   }, [loadTotalList]);
 
   useEffect(() => {
-    setViewList(getViewList(totalList.list, pagingNum, pagingSize));
-  }, [totalList, pagingNum]);
+    setPagingNum(query.page === undefined ? 1 : query.page)
+    setViewList(getViewList(totalList.list, query.page === undefined ? 1 : query.page, pagingSize));
+  }, [totalList.list, query.page]);
+
+  console.log(totalList)
 
   return (
     <div style={{
@@ -139,7 +140,10 @@ function PostListPage() {
           currentIndex={pagingNum}
           maxIndex={totalList.size}
           onClickIndex={(index) =>{
-            setPagingNum(index);
+            history.push({
+              pathname: '/posts',
+              search: `?page=${index}`
+            });
           }}
         />
       </div>
