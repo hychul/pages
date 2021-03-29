@@ -1,11 +1,14 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { TEST_DECREMENT, TEST_INCREMENT } from 'action';
+import { useDispatch, useSelector, useStore } from 'react-redux';
+import { TEST_DECREMENT, TEST_INCREMENT } from 'redux/action';
 import queryStirng from 'query-string';
 
 function TestPage({location}) {
   const dispatch = useDispatch();
-  const selector = useSelector((state) => state);
+  const selector = useSelector((state) => state.test);
+  const store = useStore();
+
+  console.log(selector.test);
 
   const query = queryStirng.parse(location.search);
 
@@ -29,7 +32,7 @@ function TestPage({location}) {
         }}
       >
         <div>
-          counter : <b>{selector}</b>
+          counter : <b>{selector.test}</b>
         </div>
         <div style={{
           display: 'flex',
