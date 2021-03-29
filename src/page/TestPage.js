@@ -7,7 +7,7 @@ function TestPage({location}) {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
 
-  const queryObj = queryStirng.parse(location.search);
+  const query = queryStirng.parse(location.search);
 
   return (
     <div style={{
@@ -44,7 +44,7 @@ function TestPage({location}) {
         </div>
       </div>
       <div className="Panel">
-        query string : {location.search}, query object : {JSON.stringify(queryObj)}
+        query string : {location.search}, query object : {JSON.stringify(query)}
       </div>
     </div>
   );
