@@ -2,22 +2,23 @@ import { combineReducers } from 'redux';
 import * as ActionType from 'redux/action';
 
 const initialState = {
-  test: 0
+  count: 0
 }
 
 function testReducer(state = initialState, action) {
+  let ret = {
+    count: 0
+  }
   switch (action.type) {
     case ActionType.TEST_INCREMENT:
-      state.test++;
-      break;
+      ret.count = state.count + 1;
+      return ret;
     case ActionType.TEST_DECREMENT:
-      state.test--;
-      break;
+      ret.count = state.count - 1;
+      return ret;
     default:
-      break;
+      return state;
   }
-
-  return state;
 }
 
 export default combineReducers({

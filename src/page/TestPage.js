@@ -1,15 +1,10 @@
 import React from 'react';
-import { useDispatch, useSelector, useStore } from 'react-redux';
-import { TEST_DECREMENT, TEST_INCREMENT } from 'redux/action';
+import { connect } from 'react-redux';
 import queryStirng from 'query-string';
+import { TEST_DECREMENT, TEST_INCREMENT } from 'redux/action';
+import ReduxTest from 'component/test/ReduxTest';
 
-function TestPage({location}) {
-  const dispatch = useDispatch();
-  const selector = useSelector((state) => state.test);
-  const store = useStore();
-
-  console.log(selector.test);
-
+function TestPage({counter, increment, decrement, location}) {
   const query = queryStirng.parse(location.search);
 
   return (
@@ -23,29 +18,7 @@ function TestPage({location}) {
       <div className="Panel focus">
         TEST
       </div>
-      <div 
-        className="Panel"
-        style={{
-          flexDirection: 'column',
-          rowGap: '10px',
-          alignItems: 'center'
-        }}
-      >
-        <div>
-          counter : <b>{selector.test}</b>
-        </div>
-        <div style={{
-          display: 'flex',
-          gap: '10px'
-        }}>
-          <button onClick={() => dispatch({type: TEST_DECREMENT})}>
-              DECREMENT
-          </button>
-          <button onClick={() => dispatch({type: TEST_INCREMENT})}>
-            INCREMENT
-          </button>
-        </div>
-      </div>
+      <ReduxTest count={counter.count} onDecrement={decrement} onIncrement={increment} />
       <div className="Panel">
         query string : {location.search}, query object : {JSON.stringify(query)}
       </div>
@@ -53,4 +26,16 @@ function TestPage({location}) {
   );
 }
 
-export default TestPage;
+const mapStateToProps = state => ({
+  counter: state.test
+});
+
+const mapDispatchToProps = dispatch => ({
+  increment: () => dispatch({type: TEST_INCREMENT}),
+  decrement: () => dispatch({type: TEST_DECREMENT})
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TestPage);

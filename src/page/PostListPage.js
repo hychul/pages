@@ -35,7 +35,7 @@ function PostListPage({location, history}) {
         return it;
       });
     });
-  }, [totalList, setTotalList, pagingNum]);
+  }, [setTotalList, pagingNum]);
   
   const getViewList = (totalList, pagingNum, pagingSize) => {
     let ret = [];
