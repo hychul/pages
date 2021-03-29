@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+// TODO: Index selector maybe
 function PageIndice(props) {
   const [list, setList] = useState();
 
