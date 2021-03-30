@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import queryStirng from 'query-string';
-import PageIndice from 'component/PageIndice';
+import IndexSelector from 'component/IndexSelector';
 import 'static/style/App.scss';
 
 function PostListPage({location, history}) {
@@ -136,10 +136,10 @@ function PostListPage({location, history}) {
         justifyContent: 'center',
         width: '100%',
       }}>
-        <PageIndice
+        <IndexSelector
           currentIndex={pagingNum}
           maxIndex={totalList.size}
-          onClickIndex={(index) =>{
+          onIndex={(index) =>{
             history.push({
               pathname: '/posts',
               search: `?page=${index}`

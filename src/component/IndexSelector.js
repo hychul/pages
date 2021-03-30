@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-// TODO: Index selector maybe
-function PageIndice(props) {
+function IndexSelector(props) {
   const [list, setList] = useState();
 
   const minIndex = props.minIndex ?? 1;
   const maxIndex = props.maxIndex ?? 1;
-  const currentIndex = props.currentIndex;
-  const onClickIndex = props.onClickIndex;
+  const currentIndex = props.currentIndex ?? 1;
+  const onIndex = props.onIndex;
 
   useEffect(() => {
     const list = [];
@@ -45,7 +44,7 @@ function PageIndice(props) {
               color: '#6A737D',
             }}
            onClick={()=>{
-              onClickIndex(index);
+              onIndex(index);
           }}>
             {index}
           </button>
@@ -53,7 +52,7 @@ function PageIndice(props) {
       }
     }
     setList(list);
-  }, [currentIndex, minIndex, maxIndex, onClickIndex]);
+  }, [currentIndex, minIndex, maxIndex, onIndex]);
 
   return (
     <div style={{
@@ -67,4 +66,4 @@ function PageIndice(props) {
   )
 }
 
-export default PageIndice;
+export default IndexSelector;
