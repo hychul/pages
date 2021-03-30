@@ -12,7 +12,7 @@ function IndexSelector(props) {
     const list = [];
     for (let i = 0; i < maxIndex - minIndex + 1; i++) {
       const index = i + minIndex;
-      if (currentIndex === index) {
+      if (currentIndex == index) {
         list.push((
           <button
             key={`page index ${i}`}

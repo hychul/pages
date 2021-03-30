@@ -140,6 +140,10 @@ function PostList(props) {
           currentIndex={page}
           maxIndex={totalList.size}
           onIndex={(index) =>{
+            if (page == index) {
+              return;
+            }
+
             history.push({
               pathname: '/posts',
               search: `?page=${index}`
