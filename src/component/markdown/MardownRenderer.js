@@ -107,7 +107,7 @@ function table(props) {
   let head = props.children[0];
   const headRows = [];
   if (head !== undefined) {
-    head.props.children[0].props.children.forEach((it) => {
+    head.props.children[0].props.children.forEach(it => {
       headRows.push((
         <th
           key={it.key}
@@ -128,9 +128,9 @@ function table(props) {
   const bodyRows = [];
   if (body !== undefined) {
     let index = 0;
-    body.props.children.forEach((it) => {
+    body.props.children.forEach(it => {
       const row = [];
-      it.props.children.forEach((it) =>{
+      it.props.children.forEach(it =>{
         let key = it.key;
         let align = it.align;
         let value = it.props?.children[0]?.props?.value;
