@@ -1,12 +1,12 @@
 import React from 'react';
 import queryStirng from 'query-string';
-import PostList from 'component/post/PostList';
+import PostListContainer from 'container/post/PostListContainer';
 
 function PostListPage({location, history}) {
   const query = queryStirng.parse(location.search);
 
   return(
-    <PostList page={query.page} history={history} />
+    <PostListContainer page={query.page} history={history} />
   )
 }
 

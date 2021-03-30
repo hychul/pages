@@ -1,4 +1,4 @@
-import * as ActionType from 'redux/action';
+import { TEST_DECREMENT, TEST_INCREMENT } from "redux/action";
 
 const initialState = {
   count: 0
@@ -6,11 +6,11 @@ const initialState = {
 
 function testReducer(state = initialState, action) {
   switch (action.type) {
-    case ActionType.TEST_INCREMENT:
+    case TEST_INCREMENT:
       return {
         count: state.count + 1
       }
-    case ActionType.TEST_DECREMENT:
+    case TEST_DECREMENT:
       return {
         count: state.count - 1
       }

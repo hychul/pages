@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import IndexSelector from 'component/IndexSelector';
 import 'static/style/App.scss';
@@ -6,43 +6,17 @@ import 'static/style/App.scss';
 const pagingSize = 10;
 
 function PostList(props) {
-  const page = props.page ?? 1;
+  const page = props.page;
   const history = props.history;
+  const postList = props.postList;
 
-  // TODO: use redux
-  const [totalList, setTotalList] = useState({size: 1, list: []}); 
   const [viewList, setViewList] = useState([]);
-
-  const loadTotalList = useCallback(() => {
-    const list = [];
-    const data = require(`static/post.meta`);
-    fetch(data.default).then(it => it.text()).then(it => {
-      it.split('\n')
-        .map((it) => it.split(' :: '))
-        .filter((it) => it.length >= 3)
-        .map((it) => ({
-          filename: it[0],
-          date: it[1],
-          title: it[2],
-          tags: it[3]?.split(', ')
-        }))
-        .forEach((it) => list.push(it));
-      
-      setViewList(getViewList(list, page, pagingSize));
-      setTotalList((it) => {
-        return {
-          size: Math.ceil(list.length / pagingSize),
-          list: list
-        };
-      });
-    });
-  }, [setTotalList, page]);
   
-  const getViewList = (totalList, page, pagingSize) => {
+  const getViewList = (postList, page, pagingSize) => {
     let ret = [];
   
-    for (let i = (page - 1) * pagingSize; i < page * pagingSize && i < totalList.length; i++) {
-      ret.push(totalList[i]);
+    for (let i = (page - 1) * pagingSize; i < page * pagingSize && i < postList.length; i++) {
+      ret.push(postList[i]);
     }
 
     return ret.map((it) => (
@@ -102,16 +76,10 @@ function PostList(props) {
       </Link>
     ));
   };
-  
-  useEffect(() => {
-    loadTotalList();
-  }, [loadTotalList]);
 
   useEffect(() => {
-    setViewList(getViewList(totalList.list, page, pagingSize));
-  }, [totalList, page]);
-
-  console.log('render')
+    setViewList(getViewList(postList, page, pagingSize));
+  }, [page, postList]);
 
   return (
     <div style={{
@@ -138,7 +106,7 @@ function PostList(props) {
       }}>
         <IndexSelector
           currentIndex={page}
-          maxIndex={totalList.size}
+          maxIndex={Math.ceil(postList.length / pagingSize)}
           onIndex={(index) =>{
             if (page == index) {
               return;
