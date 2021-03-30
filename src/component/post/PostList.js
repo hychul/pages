@@ -23,13 +23,7 @@ function PostList(props) {
       <Link 
         key={it.filename}
         to={{
-          pathname: `/posts/${it.filename}`,
-          post: {
-            filename: it.filename,
-            title: it.title,
-            date: it.date,
-            tags: it.tags,
-          }
+          pathname: `/posts/${it.filename}`
         }} 
         className="Panel"
         style={{
