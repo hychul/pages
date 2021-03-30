@@ -4,17 +4,13 @@ import Post from 'component/post/Post';
 import { loadPostList } from 'redux/reducer/postList';
 
 function PostContainer(props) {
+  props.loadPosts();
+
   const postId = props.postId
   const postList = props.post.posts;
 
   const [source, setSource] = useState();
   const [meta, setMeta] = useState({title: "", date: ""});
-
-  useEffect(() => {
-    if (postList.length < 1) {
-      props.loadPosts();
-    }
-  }, [props, postList.length])
 
   useEffect(() => {
     postList.forEach(element => {

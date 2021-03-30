@@ -1,10 +1,17 @@
-import { LOAD_POST_LIST } from "redux/action";
+const LOAD_POST_LIST = 'LOAD_POST_LIST';
 
 const initialState = {
+  isLoad: false,
   posts: []
 }
 
-export const loadPostList = () => dispatch => {
+export const loadPostList = () => (dispatch, getState) => {
+  const state = getState().posts;
+
+  if (state.isLoad) {
+    return;
+  }
+
   const data = require(`static/post.meta`);
 
   fetch(data.default).then(it => it.text()).then(it => {
@@ -31,6 +38,7 @@ function postListReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_POST_LIST:
       return {
+        isLoad: true,
         posts: action.list
       }
     default:
