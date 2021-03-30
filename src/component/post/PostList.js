@@ -30,9 +30,10 @@ function PostList(props) {
       
       setViewList(getViewList(list, page, pagingSize));
       setTotalList((it) => {
-        it.size = Math.ceil(list.length / pagingSize);
-        it.list = list;
-        return it;
+        return {
+          size: Math.ceil(list.length / pagingSize),
+          list: list
+        };
       });
     });
   }, [setTotalList, page]);
@@ -107,8 +108,10 @@ function PostList(props) {
   }, [loadTotalList]);
 
   useEffect(() => {
-    setViewList(getViewList(totalList.list, page === undefined ? 1 : page, pagingSize));
-  }, [totalList.list, page]);
+    setViewList(getViewList(totalList.list, page, pagingSize));
+  }, [totalList, page]);
+
+  console.log('render')
 
   return (
     <div style={{
