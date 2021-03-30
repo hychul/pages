@@ -78,15 +78,19 @@ function code(props) {
 
 function image(props) {
   return (
-    <img 
-      style={{
-        width: '100%',
-        marginRight: '-10000vw',
-      }}
-      src={props.src} 
-      alt={props.alt}
-    />
-
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+    }}>
+      <img 
+        style={{
+          width: '100%',
+          maxWidth: '720px',
+        }}
+        src={props.src} 
+        alt={props.alt}
+      />
+    </div>
   )
 }
 
