@@ -1,20 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import 'static/style/App.scss';
+import React from 'react';
 import { connect } from 'react-redux';
-import { loadPostList } from 'redux/reducer/postList';
 import Post from 'component/post/Post';
 
-function PostPage(props) {
-  const match = props.match;
-  const postId = match.params.id;
-
+function PostContainer(props) {
+  const postId = props.postId
   const postList = props.post.posts;
 
-  // TODO: Remove
-  const location = props.location;
-
   const [source, setSource] = useState();
-  const [meta, setMeta] = useState({});
+  const [meta, setMeta] = useState({title: "", date: ""});
+
+
+  useEffect(() => {
+    if (postList.length < 1) {
+      props.loadPosts();
+    } else {
+      postList.array.forEach(element => {
+        if (element.filename == postId) {
+          setMeta({
+            title: element.title,
+            date: element.date
+          })
+        }
+      });
+    }
+  }, [props, postList.length])
 
   useEffect(() => {
     try {
@@ -26,8 +35,8 @@ function PostPage(props) {
   }, [postId]);
 
   return (
-    <Post title={location.post.title} date={location.post.date} source={source} />
-  );
+    <Post title={meta.title} date={meta.date} source={source} />
+  )
 }
 
 const mapStateToProps = state => ({
@@ -41,4 +50,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PostPage);
+)(PostContainer)
