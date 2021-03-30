@@ -6,7 +6,9 @@ function PostListColumn(props) {
   const filename = props.post.filename;
   const title = props.post.title;
   const date = props.post.date;
-  const tags = props.post.tags;
+  const tags = props.post.tags?.map((it) => (
+    <div style={{backgroundColor:'#DFE2E5', padding: '2px 4px',}}>{it}</div>
+  ));
 
   return (
     <Link 
@@ -50,10 +52,10 @@ function PostListColumn(props) {
         justifyContent: 'flex-end',
         gridColumn: '2',
         gridRow: '2',
-        gap: '4px',
+        gap: '6px',
         fontSize: '0.75em',
       }}>
-        <div style={{backgroundColor: tags?.length > 0 ? '#DFE2E5' : 'white', padding: '2px 4px',}}>{tags}</div>
+        {tags}
       </div>
     </Link>
   );
