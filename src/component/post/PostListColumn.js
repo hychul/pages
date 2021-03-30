@@ -7,7 +7,7 @@ function PostListColumn(props) {
   const title = props.post.title;
   const date = props.post.date;
   const tags = props.post.tags?.map((it) => (
-    <div style={{backgroundColor:'#DFE2E5', padding: '2px 4px',}}>{it}</div>
+    <div key={it} style={{backgroundColor:'#DFE2E5', padding: '2px 4px',}}>{it}</div>
   ));
 
   return (

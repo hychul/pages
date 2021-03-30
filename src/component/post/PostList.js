@@ -16,7 +16,8 @@ function PostList(props) {
     let ret = [];
   
     for (let i = (page - 1) * pagingSize; i < page * pagingSize && i < postList.length; i++) {
-      ret.push(<PostListColumn post={postList[i]} />);
+      let post = postList[i];
+      ret.push(<PostListColumn key={post.title} post={post} />);
     }
 
     return ret;
