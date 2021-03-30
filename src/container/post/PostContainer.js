@@ -18,7 +18,7 @@ function PostContainer(props) {
         setMeta({
           title: element.title,
           date: element.date
-        })
+        });
         return;
       }
     })
@@ -49,4 +49,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PostContainer)
+)(PostContainer);
