@@ -56,7 +56,7 @@ function PostListColumn(props) {
         <div style={{backgroundColor: tags?.length > 0 ? '#DFE2E5' : 'white', padding: '2px 4px',}}>{tags}</div>
       </div>
     </Link>
-  )
+  );
 }
 
 export default PostListColumn;
