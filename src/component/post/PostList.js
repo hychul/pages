@@ -120,7 +120,7 @@ function PostList(props) {
         />
       </div>
     </div>
-  )
+  );
 }
 
 export default PostList;

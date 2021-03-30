@@ -25,7 +25,7 @@ function ReduxTest({count, onDecrement, onIncrement}) {
           </button>
         </div>
       </div>
-  )
+  );
 }
 
 export default ReduxTest;

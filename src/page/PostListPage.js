@@ -7,7 +7,7 @@ function PostListPage({location, history}) {
 
   return(
     <PostListContainer page={query.page} history={history} />
-  )
+  );
 }
 
 export default PostListPage;

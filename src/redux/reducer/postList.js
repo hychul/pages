@@ -12,7 +12,7 @@ export const loadPostList = () => (dispatch, getState) => {
     return;
   }
 
-  const data = require(`static/post.meta`);
+  const data = require(`static/post/post.meta`);
 
   fetch(data.default).then(it => it.text()).then(it => {
     const list = [];
@@ -30,7 +30,7 @@ export const loadPostList = () => (dispatch, getState) => {
       dispatch({
         type: LOAD_POST_LIST,
         list: list
-      })
+      });
   });
 }
 

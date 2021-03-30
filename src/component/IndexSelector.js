@@ -63,7 +63,7 @@ function IndexSelector(props) {
     }}>
       {list}
     </div>
-  )
+  );
 }
 
 export default IndexSelector;

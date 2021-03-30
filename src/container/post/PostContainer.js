@@ -22,7 +22,7 @@ function PostContainer(props) {
         return;
       }
     })
-  }, [postList, postId])
+  }, [postList, postId]);
 
   useEffect(() => {
     try {
@@ -44,7 +44,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   loadPosts: () => dispatch(loadPostList())
-})
+});
 
 export default connect(
   mapStateToProps,

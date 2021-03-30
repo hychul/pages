@@ -55,7 +55,7 @@ function Post(props) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Post;

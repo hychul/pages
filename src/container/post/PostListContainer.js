@@ -12,7 +12,7 @@ function PostListContainer(props) {
 
   return (
     <PostList page={page ?? 1} history={history} postList={postList ?? []} />
-  )
+  );
 }
 
 const mapStateToProps = state => ({
@@ -21,7 +21,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   loadPosts: () => dispatch(loadPostList())
-})
+});
 
 export default connect(
   mapStateToProps,
