@@ -8,7 +8,7 @@ function PostListContainer(props) {
   
   const page = props.page;
   const history = props.history;
-  const postList = props.post.posts;
+  const postList = props.state.posts;
 
   return (
     <PostList page={page ?? 1} history={history} postList={postList ?? []} />
@@ -16,7 +16,7 @@ function PostListContainer(props) {
 }
 
 const mapStateToProps = state => ({
-  post: state.posts
+  state: state.posts
 });
 
 const mapDispatchToProps = dispatch => ({

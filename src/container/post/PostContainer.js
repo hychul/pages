@@ -7,7 +7,7 @@ function PostContainer(props) {
   props.loadPosts();
 
   const postId = props.postId
-  const postList = props.post.posts;
+  const postList = props.state.posts;
 
   const [source, setSource] = useState();
   const [meta, setMeta] = useState({title: "", date: ""});
@@ -39,7 +39,7 @@ function PostContainer(props) {
 }
 
 const mapStateToProps = state => ({
-  post: state.posts
+  state: state.posts
 });
 
 const mapDispatchToProps = dispatch => ({
