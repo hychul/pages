@@ -5,12 +5,12 @@ import { TEST_DECREMENT, TEST_INCREMENT } from 'redux/action';
 import ReduxTest from 'component/test/ReduxTest';
 
 function TestPage(props) {
-  const query = queryStirng.parse(location.search);
-
   const counter = props.counter;
   const increment = props.increment;
   const decrement = props.decrement;
   const location = props.location;
+
+  const query = queryStirng.parse(location.search);
 
   return (
     <div style={{
