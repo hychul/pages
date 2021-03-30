@@ -24,7 +24,7 @@ export const loadPostList = () => (dispatch, getState) => {
         filename: it[0],
         date: it[1],
         title: it[2],
-        tags: it[3]?.split(', ').filter((it) => it != "")
+        tags: Array.from(new Set(it[3]?.split(', ').filter((it) => it != "")))
       }))
       .forEach((it) => list.push(it));
 
