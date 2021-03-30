@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Post from 'component/post/Post';
+import { loadPostList } from 'redux/reducer/postList';
 
 function PostContainer(props) {
   const postId = props.postId
@@ -9,21 +10,23 @@ function PostContainer(props) {
   const [source, setSource] = useState();
   const [meta, setMeta] = useState({title: "", date: ""});
 
-
   useEffect(() => {
     if (postList.length < 1) {
       props.loadPosts();
-    } else {
-      postList.array.forEach(element => {
-        if (element.filename == postId) {
-          setMeta({
-            title: element.title,
-            date: element.date
-          })
-        }
-      });
     }
   }, [props, postList.length])
+
+  useEffect(() => {
+    postList.forEach(element => {
+      if (element.filename == postId) {
+        setMeta({
+          title: element.title,
+          date: element.date
+        })
+        return;
+      }
+    })
+  }, [postList, postId])
 
   useEffect(() => {
     try {

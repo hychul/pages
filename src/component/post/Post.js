@@ -1,5 +1,6 @@
 import React from 'react';
 import Markdown from 'component/markdown/Markdown';
+import 'static/style/App.scss';
 
 function Post(props) {
   const title = props.title;
