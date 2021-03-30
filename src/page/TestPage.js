@@ -4,8 +4,13 @@ import queryStirng from 'query-string';
 import { TEST_DECREMENT, TEST_INCREMENT } from 'redux/action';
 import ReduxTest from 'component/test/ReduxTest';
 
-function TestPage({counter, increment, decrement, location}) {
+function TestPage(props) {
   const query = queryStirng.parse(location.search);
+
+  const counter = props.counter;
+  const increment = props.increment;
+  const decrement = props.decrement;
+  const location = props.location;
 
   return (
     <div style={{
@@ -18,7 +23,7 @@ function TestPage({counter, increment, decrement, location}) {
       <div className="Panel focus">
         TEST
       </div>
-      <ReduxTest count={counter.count} onDecrement={decrement} onIncrement={increment} />
+      <ReduxTest count={counter.count} onDecrement={() => decrement()} onIncrement={() => increment()} />
       <div className="Panel">
         query string : {location.search}, query object : {JSON.stringify(query)}
       </div>
