@@ -16,12 +16,10 @@ function PostList(props) {
     let ret = [];
   
     for (let i = (page - 1) * pagingSize; i < page * pagingSize && i < postList.length; i++) {
-      ret.push(postList[i]);
+      ret.push(<PostListColumn post={postList[i]} />);
     }
 
-    return ret.map((it) => (
-      <PostListColumn post={it}/>
-    ));
+    return ret;
   };
 
   useEffect(() => {
