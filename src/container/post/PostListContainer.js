@@ -6,16 +6,16 @@ import { loadPostList } from 'redux/reducer/postList';
 function PostListContainer(props) {
   const page = props.page;
   const history = props.history;
-  const post = props.post;
+  const postList = props.post.posts;
 
   useEffect(() => {
-    if (post.posts.length < 1) {
+    if (postList.length < 1) {
       props.loadPosts();
     }
-  }, [props, post.posts.length])
+  }, [props, postList.length])
 
   return (
-    <PostList page={page ?? 1} history={history} postList={post?.posts ?? []} />
+    <PostList page={page ?? 1} history={history} postList={postList ?? []} />
   )
 }
 
