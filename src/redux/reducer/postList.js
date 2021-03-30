@@ -27,10 +27,10 @@ export const loadPostList = () => (dispatch, getState) => {
       }))
       .forEach((it) => list.push(it));
 
-      dispatch({
-        type: LOAD_POST_LIST,
-        list: list
-      });
+    dispatch({
+      type: LOAD_POST_LIST,
+      list: list
+    });
   });
 }
 
