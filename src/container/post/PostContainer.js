@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Post from 'component/post/Post';
-import { loadPosts } from 'redux/reducer/postList';
+import { loadPosts } from 'redux/reducer/post';
 
 function PostContainer(props) {
   props.loadPosts();

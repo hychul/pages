@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import postListReducer from './postList';
+import postListReducer from './post';
 import testReducer from './test';
 
 export default combineReducers({
