@@ -5,7 +5,7 @@ const initialState = {
   posts: []
 }
 
-export const loadPostList = () => (dispatch, getState) => {
+export const loadPosts = () => (dispatch, getState) => {
   const state = getState().posts;
 
   if (state.isLoad) {

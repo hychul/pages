@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PostList from 'component/post/PostList';
-import { loadPostList } from 'redux/reducer/postList';
+import { loadPosts } from 'redux/reducer/postList';
 
 function PostListContainer(props) {
   props.loadPosts();
@@ -20,7 +20,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadPosts: () => dispatch(loadPostList())
+  loadPosts: () => dispatch(loadPosts())
 });
 
 export default connect(
