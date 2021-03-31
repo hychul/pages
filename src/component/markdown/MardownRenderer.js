@@ -87,7 +87,7 @@ function image(props) {
       src={props.src} 
       alt={props.alt}
     />
-  )
+  );
 }
 
 function inlineCode(props) {
@@ -147,7 +147,7 @@ function table(props) {
             {value}
           </td>
         ))
-      })
+      });
 
       bodyRows.push((
         <tr key={it.key}>
@@ -172,7 +172,7 @@ function table(props) {
         {bodyRows}
       </tbody>
     </table>
-  )
+  );
 }
 
 function link(props) {
@@ -187,7 +187,7 @@ function link(props) {
     >
       {props.children[0].props.children}
     </a>
-  )
+  );
 }
 
 function blockquote(props) {
