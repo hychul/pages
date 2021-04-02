@@ -4,6 +4,7 @@ import ReactPage from 'page/ReactPage';
 import Navigator from 'component/navigator/Navigator';
 import PostListPage from 'page/PostListPage';
 import PostPage from 'page/PostPage';
+import DevgramPage from 'page/DevgramPage';
 import PortfolioPage from 'page/PortfolioPage';
 import TestPage from 'page/TestPage';
 import Copyright from 'component/copyright/Copyright';
@@ -25,6 +26,7 @@ function App() {
         <Route exact path='/' component={PostListPage} />
         <Route exact path='/posts' component={PostListPage} />
         <Route exact path='/posts/:id' component={PostPage} />
+        <Route exact path='/devgram' component={DevgramPage} />
         <Route exact path='/portfolio' component={PortfolioPage} />
         <Route exact path='/react' component={ReactPage} />
         <Route exact path='/test' component={TestPage} />
