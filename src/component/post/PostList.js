@@ -31,7 +31,7 @@ function PostList(props) {
     <div style={{
       display: 'flex',
       flexDirection: 'column',
-      rowGap: '15px',
+      rowGap: '2em',
       alignItems: 'center',
       width: 'calc(100% - 33px * 2)',
       padding: '33px',
