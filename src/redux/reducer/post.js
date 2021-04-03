@@ -28,7 +28,10 @@ export const loadPosts = () => (dispatch, getState) => {
           title: it[2],
           tags: Array.from(new Set(it[3]?.split(', ').filter(it => it != "")))
         }))
-        .forEach(it => list.push(it));
+        .forEach(it => {
+          // TODO: Add tag separator
+          list.push(it)
+        });
 
       dispatch({
         type: LOAD_POST_LIST,
