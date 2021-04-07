@@ -22,15 +22,20 @@ function App() {
     }}>
       <Navigator />
       <ScrollToTop />
-      <Switch>
-        <Route exact path='/' component={PostListPage} />
-        <Route exact path='/posts' component={PostListPage} />
-        <Route exact path='/posts/:id' component={PostPage} />
-        <Route exact path='/devgram' component={DevgramPage} />
-        <Route exact path='/portfolio' component={PortfolioPage} />
-        <Route exact path='/react' component={ReactPage} />
-        <Route exact path='/test' component={TestPage} />
-      </Switch>
+      <div style={{
+        width: '100%',
+        minHeight: 'calc(100vh - 4rem - 10px*2 - 42px*2)'
+      }}>
+        <Switch>
+          <Route exact path='/' component={PostListPage} />
+          <Route exact path='/posts' component={PostListPage} />
+          <Route exact path='/posts/:id' component={PostPage} />
+          <Route exact path='/devgram' component={DevgramPage} />
+          <Route exact path='/portfolio' component={PortfolioPage} />
+          <Route exact path='/react' component={ReactPage} />
+          <Route exact path='/test' component={TestPage} />
+        </Switch>
+      </div>
       <div style={{
         width: 'calc(100% - 2vmin * 2)',
         marginTop: '10px 2vmin',
