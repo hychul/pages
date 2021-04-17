@@ -97,6 +97,7 @@ function inlineCode(props) {
       padding: '4px',
       backgroundColor: '#F1F2F2',
       fontSize: '0.875em',
+      color: '#DA7D21',
     }}>
       {props.children}
     </code>
