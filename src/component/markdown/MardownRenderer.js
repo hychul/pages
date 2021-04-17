@@ -4,7 +4,7 @@ import { githubGist } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 const markdownRenderer = {
   heading: heading,
   code: code,
-  // image: image,
+  image: image,
   inlineCode: inlineCode,
   table: table,
   link: link,
@@ -80,8 +80,8 @@ function image(props) {
   return (
     <img 
       style={{
-        width: '100%',
-        maxWidth: '720px',
+        width: 'auto',
+        maxWidth: 'min(720px, 100%)',
         marginRight: '-10000vw',
       }}
       src={props.src} 
