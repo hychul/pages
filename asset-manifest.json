@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.51dcf2d4.chunk.css",
-    "main.js": "/static/js/main.598ccfdc.chunk.js",
-    "main.js.map": "/static/js/main.598ccfdc.chunk.js.map",
+    "main.js": "/static/js/main.71165ef7.chunk.js",
+    "main.js.map": "/static/js/main.71165ef7.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.9a53dad0.js",
     "runtime-main.js.map": "/static/js/runtime-main.9a53dad0.js.map",
     "static/js/2.f3a14091.chunk.js": "/static/js/2.f3a14091.chunk.js",
@@ -80,13 +80,13 @@
     "static/media/2021-04-17-how-lombok-works.md": "/static/media/2021-04-17-how-lombok-works.a8e776e2.md",
     "static/media/dduggy.a7818b8b.jpg": "/static/media/dduggy.a7818b8b.jpg",
     "static/media/food.md": "/static/media/food.930fe221.md",
-    "static/media/post.meta": "/static/media/post.a349791e.meta",
+    "static/media/post.meta": "/static/media/post.93a3ac99.meta",
     "static/media/reactLogo.6ce24c58.svg": "/static/media/reactLogo.6ce24c58.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.9a53dad0.js",
     "static/js/2.f3a14091.chunk.js",
     "static/css/main.51dcf2d4.chunk.css",
-    "static/js/main.598ccfdc.chunk.js"
+    "static/js/main.71165ef7.chunk.js"
   ]
 }
