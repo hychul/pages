@@ -1,4 +1,5 @@
 // {filename} :: {date} :: {title} :: {tags|optional}
+2021-04-17-how-mybatis-works :: 2021-04-17 :: MyBatis는 어떻게 동작할까? :: java, mybatis, db, jdbc
 2021-04-17-how-jpa-works :: 2021-04-17 :: JPA는 어떻게 동작할까? :: java, jpa, db, jdbc
 2021-04-17-how-lombok-works :: 2021-04-17 :: 롬복이 어떻게 동작할까? :: java, lombok
 2021-03-12-test :: 2021-03-12 :: Test Markdown :: 
