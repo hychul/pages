@@ -1,5 +1,5 @@
 // {filename} :: {date} :: {title} :: {tags|optional}
-
+2021-04-17-how-jpa-works :: 2021-04-17 :: JPA는 어떻게 동작할까? :: java, jpa, db, jdbc
 2021-04-17-how-lombok-works :: 2021-04-17 :: 롬복이 어떻게 동작할까? :: java, lombok
 2021-03-12-test :: 2021-03-12 :: Test Markdown :: 
 2021-03-11-react-overflow-child-content :: 2021-03-11 :: React child 컴포넌트의 이미지가 parent 크기보다 클 때 :: react
