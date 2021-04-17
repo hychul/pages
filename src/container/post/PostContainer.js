@@ -26,7 +26,7 @@ function PostContainer(props) {
 
   useEffect(() => {
     try {
-      const data = require(`static/post/${postId}.md`);
+      const data = require(`static/post/blog/${postId}.md`);
       fetch(data.default).then(it => it.text()).then(it => setSource(it));
     } catch (e) {
       setSource("The file you are looking for does not exist.");
