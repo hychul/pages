@@ -6,7 +6,7 @@
 2021-03-11-spring-security-pre-auth :: 2021-03-11 :: Spring MVC와 Weflux의 Security : PreAuthentication :: java, spring
 2020-09-01-alias-setting-for-mac :: 2020-09-01 :: Mac에서 alias 설정 :: mac, tip
 2020-08-26-unity-vs-code-integration-for-mac :: 2020-08-26 :: Unity VSCode 연동 for Mac OS :: mac, unity
-2019-08-01-swagger-api-document-file :: 2019-08-01 :: Swagger 도큐먼트 파일로 저장하기
+2019-08-01-swagger-api-document-file :: 2019-08-01 :: Swagger 도큐먼트 파일로 저장하기 :: java, swagger
 2019-07-19-markdown-syntax :: 2019-07-19 :: 마크다운 문법 :: markdown
 2019-07-04-intellij-file-type-strange :: 2019-07-04 :: IntelliJ에서 파일 형식에 맞지 않게 인식할 때 :: intellij
 2019-07-02-git-description :: 2019-07-02 :: Git description 편리하게 사용하기 :: git
@@ -15,11 +15,11 @@
 2019-05-24-hibernate-JAXBContext-exception :: 2019-05-24 :: Hibernate Unable to build hbm.xml JAXBContext Exception 해결
 2019-05-24-applying-audit-to-jpa :: 2019-05-24 :: JPA에 audit 적용하기 :: java, spring, jpa
 2019-05-22-set-key-after-insert-by-mybatis :: 2019-05-22 :: Mybatis에서 INSERT 후 key 가져오기 :: java, spring, mybatis
-2019-05-16-mybatis-resulttype-list :: 2019-05-16 :: MyBatis의 resultType 정리 : java, spring, mybatis
+2019-05-16-mybatis-resulttype-list :: 2019-05-16 :: MyBatis의 resultType 정리 :: java, spring, mybatis
 2019-03-23-multiflex-server :: 2019-03-23 :: Multi Flex Server :: java
 2019-03-22-reactor-error :: 2019-03-22 :: Reactor Stream Error :: java, reactor
 2019-03-21-reactor-hot-stream :: 2019-03-21 :: Reactor Hot Stream :: java, reactor
-2019-03-20-reactor-scheduler :: 2019-03-20 :: Reactor Stream Scheduler : java, reactor
+2019-03-20-reactor-scheduler :: 2019-03-20 :: Reactor Stream Scheduler :: java, reactor
 2019-03-19-reactor-transform :: 2019-03-19 :: Reactor Stream Transform :: java, reactor
 2019-03-18-reactor-intro :: 2019-03-18 :: Reactor Intro :: java, reactor
 2019-02-18-webflux-swagger :: 2019-02-18 :: WebFlux Swagger :: java, spring, webflux
