@@ -118,7 +118,7 @@ function table(props) {
           fontWeight: 'bold'
           }}
         >
-          {it.props.children[0].props.value}
+          {it.props.children[0]?.props?.value}
         </th>
       ));
     });
