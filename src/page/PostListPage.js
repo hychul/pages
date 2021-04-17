@@ -6,7 +6,7 @@ function PostListPage({location, history}) {
   const query = queryStirng.parse(location.search);
 
   return(
-    <PostListContainer page={query.page} history={history} />
+    <PostListContainer category={query.category} page={query.page} history={history} />
   );
 }
 
