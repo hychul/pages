@@ -4,7 +4,7 @@ import { githubGist } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 const markdownRenderer = {
   heading: heading,
   code: code,
-  image: image,
+  // image: image,
   inlineCode: inlineCode,
   table: table,
   link: link,
