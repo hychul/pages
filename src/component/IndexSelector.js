@@ -103,7 +103,7 @@ function IndexSelector(props) {
     }
 
     setList(list);
-  }, [currentIndex, minIndex, maxIndex, onIndex]);
+  }, [pageSize, currentIndex, minIndex, maxIndex, onIndex]);
 
   return (
     <div style={{

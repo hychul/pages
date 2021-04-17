@@ -2,7 +2,7 @@ const LOAD_POST_LIST = 'LOAD_POST_LIST';
 
 const initialState = {
   isLoad: false,
-  posts: []
+  map: new Map()
 }
 
 export const loadPosts = () => (dispatch, getState) => {
@@ -17,7 +17,9 @@ export const loadPosts = () => (dispatch, getState) => {
   fetch(data.default)
     .then(it => it.text())
     .then(it => {
-      const list = [];
+      const map = new Map();
+      map.set('all', []);
+
       it.split('\n')
         .filter(it => !it.startsWith('//'))
         .map(it => it.split(' :: '))
@@ -29,13 +31,20 @@ export const loadPosts = () => (dispatch, getState) => {
           tags: Array.from(new Set(it[3]?.split(', ').filter(it => it != "")))
         }))
         .forEach(it => {
-          // TODO: Add tag separator
-          list.push(it)
+          it.tags
+            .forEach(tag => {
+              const list = map.get(tag) ?? [];
+              list.push(it);
+              
+              map.set(tag, list);
+            });
+          
+          map.get('all').push(it);
         });
 
       dispatch({
         type: LOAD_POST_LIST,
-        list: list
+        map: map
       });
     });
 }
@@ -45,7 +54,7 @@ function postListReducer(state = initialState, action) {
     case LOAD_POST_LIST:
       return {
         isLoad: true,
-        posts: action.list
+        map: action.map
       }
     default:
       return state;

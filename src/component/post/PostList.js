@@ -6,7 +6,6 @@ import PostListColumn from './PostListColumn';
 const pagingSize = 10;
 
 function PostList(props) {
-  const category = props.category;
   const page = props.page;
   const history = props.history;
   const postList = props.postList;
