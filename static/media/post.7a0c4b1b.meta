@@ -16,6 +16,7 @@
 2019-05-24-applying-audit-to-jpa :: 2019-05-24 :: JPA에 audit 적용하기 :: java, spring, jpa
 2019-05-22-set-key-after-insert-by-mybatis :: 2019-05-22 :: Mybatis에서 INSERT 후 key 가져오기 :: java, spring, mybatis
 2019-05-16-mybatis-resulttype-list :: 2019-05-16 :: MyBatis의 resultType 정리 :: java, spring, mybatis
+2019-04-22-kill-port-using-process-in-mac :: 2019-04-22 :: 맥에서 사용중인 포트 죽이기 :: terminal, port
 2019-03-23-multiflex-server :: 2019-03-23 :: Multi Flex Server :: java
 2019-03-22-reactor-error :: 2019-03-22 :: Reactor Stream Error :: java, reactor
 2019-03-21-reactor-hot-stream :: 2019-03-21 :: Reactor Hot Stream :: java, reactor
