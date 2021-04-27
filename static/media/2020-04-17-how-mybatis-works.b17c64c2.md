@@ -78,3 +78,6 @@ public interface TestRepository {
     List<Test> getTestList();
 }
 ```
+
+> ### Reference
+> Mybatis 3 : http://www.mybatis.org/mybatis-3/ko/index.html
