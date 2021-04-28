@@ -5,9 +5,9 @@
 2020-10-22-reactive-stream :: 2020-10-22 :: Reactor 스트림 :: java, reactor, spring, webflux
 2020-09-01-alias-setting-for-mac :: 2020-09-01 :: Mac에서 alias 설정 :: mac, tip
 2020-08-26-unity-vs-code-integration-for-mac :: 2020-08-26 :: Unity VSCode 연동 for Mac OS :: mac, unity
-2020-04-17-how-mybatis-works :: 2021-04-17 :: MyBatis는 어떻게 동작할까? :: java, mybatis, db, jdbc
-2020-04-17-how-jpa-works :: 2021-04-17 :: JPA는 어떻게 동작할까? :: java, jpa, db, jdbc
-2020-04-17-how-lombok-works :: 2021-04-17 :: 롬복이 어떻게 동작할까? :: java, lombok
+2020-04-17-how-mybatis-works :: 2020-04-17 :: MyBatis는 어떻게 동작할까? :: java, mybatis, db, jdbc
+2020-04-17-how-jpa-works :: 2020-04-17 :: JPA는 어떻게 동작할까? :: java, jpa, db, jdbc
+2020-04-17-how-lombok-works :: 2020-04-17 :: 롬복이 어떻게 동작할까? :: java, lombok
 2019-08-01-swagger-api-document-file :: 2019-08-01 :: Swagger 도큐먼트 파일로 저장하기 :: java, swagger
 2019-07-19-markdown-syntax :: 2019-07-19 :: 마크다운 문법 :: markdown
 2019-07-04-intellij-file-type-strange :: 2019-07-04 :: IntelliJ에서 파일 형식에 맞지 않게 인식할 때 :: intellij
