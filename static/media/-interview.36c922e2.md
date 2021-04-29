@@ -180,6 +180,7 @@ unreachable: root set으로부터 시작되는 참조 사슬로 참조되지 않
 ## MVC 요청이 처리되는 과정
 
 ## Webflux 요청이 처리되는 과정
+![spring-webflux-0](https://user-images.githubusercontent.com/18159012/116578105-09165800-a94c-11eb-9ca6-eb320be1abec.png)
 
 # DB와 관련된 질문
 
