@@ -1,7 +1,6 @@
 // {filename = date-title} :: {title} :: {tags|optional}
 2021-03-11-react-overflow-child-content :: React child 컴포넌트의 이미지가 parent 크기보다 클 때 :: react
 2021-03-11-spring-security-pre-auth :: Spring MVC와 Weflux의 Security : PreAuthentication :: java, spring
-2020-10-22-java-nio-and-multiplex-server :: Java NIO와 멀티플렉스 서버 :: java, reactor, spring, webflux, multiplex-server, multiplex
 2020-10-22-reactive-stream :: Reactor 스트림 :: java, reactor, spring, webflux
 2020-09-01-alias-setting-for-mac :: Mac에서 alias 설정 :: mac, tip
 2020-08-26-unity-vs-code-integration-for-mac :: Unity VSCode 연동 for Mac OS :: mac, unity
@@ -19,7 +18,7 @@
 2019-05-22-set-key-after-insert-by-mybatis :: Mybatis에서 INSERT 후 key 가져오기 :: java, spring, mybatis
 2019-05-16-mybatis-resulttype-list :: java, spring, mybatis
 2019-04-22-kill-port-using-process-in-mac :: 맥에서 사용중인 포트 죽이기 :: terminal, port
-2019-03-23-multiflex-server :: Multi Flex Server :: java
+2019-03-23-java-nio-and-multiplex-server :: Java NIO와 멀티플렉스 서버 :: java, reactor, spring, webflux, multiplex-server, multiplex
 2019-03-22-reactor-error :: Reactor Stream Error :: java, reactor
 2019-03-21-reactor-hot-stream :: Reactor Hot Stream :: java, reactor
 2019-03-20-reactor-scheduler :: Reactor Stream Scheduler :: java, reactor
