@@ -26,9 +26,9 @@ export const loadPosts = () => (dispatch, getState) => {
         .filter(it => it.length >= 3)
         .map(it => ({
           filename: it[0],
-          date: it[1],
-          title: it[2],
-          tags: Array.from(new Set(it[3]?.split(', ').filter(it => it != "")))
+          date: it[0].substring(0, 10),
+          title: it[1],
+          tags: Array.from(new Set(it[2]?.split(', ').filter(it => it != "")))
         }))
         .forEach(it => {
           it.tags
