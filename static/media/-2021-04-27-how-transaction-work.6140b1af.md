@@ -9,6 +9,9 @@ https://www.javacodegeeks.com/2019/09/should-parallel-streams-transaction-contex
 definitions
 https://sarc.io/index.php/java/1965-transaction
 
+batch insert
+https://cheese10yun.github.io/jpa-batch-insert/
+
 # TransactionManger
 
 Spring 에서 `abstractPlatformTransactionManager` 라는 추상 클래스를 제공한다. 해당 클래스를 상속받아 DataSource(JDBC에서 사용), JPA, JTA 등의 트랜잭션 매니저 구현체가 구현된다.
