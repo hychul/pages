@@ -167,6 +167,7 @@ public class HelloWorld1$jsp extends HttpJspBase {
 
 ### 동작
 
+0. 서블릿 컨테이너는 요청이 들어올 때 마다 새로운 자바 스레드를 생성한다. (톰캣)
 1. 클라이언트의 요청을 DispatcherServlet이 전달받는다.
 2. HandlerMapping을 통해 전달 받은 요청을 매핑한 Controller가 있는지 검색한다.
 3. Controller를 찾은 경우 Controller가 요청을 처리하고 결과를 출력할 View의 이름 혹은 ModelAndView 객체를 리턴한다.
