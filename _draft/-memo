@@ -1,0 +1,16 @@
+MyBatis
+
+MyBatis fetch 사이즈를 통한 성능 향상 팀 : https://oingdaddy.tistory.com/64?category=824438
+          https://stackoverflow.com/questions/37782419/why-mybatis-select-is-slower-than-jdbc/37782628
+MyBatis foreach를 통한 성능 향상 : https://oingdaddy.tistory.com/61?category=824438
+https://gmlwjd9405.github.io/2018/12/25/difference-jdbc-jpa-mybatis.html
+https://jiwontip.tistory.com/57
+JPA : https://terasolunaorg.github.io/guideline/5.1.0.RELEASE/en/ArchitectureInDetail/DataAccessJpa.html
+MyBatis : https://terasolunaorg.github.io/guideline/5.1.0.RELEASE/en/ArchitectureInDetail/DataAccessMyBatis3.html
+MyBatis 개념 및 핵심 구조 : https://khj93.tistory.com/entry/MyBatis-MyBatis%EB%9E%80-%EA%B0%9C%EB%85%90-%EB%B0%8F-%ED%95%B5%EC%8B%AC-%EC%A0%95%EB%A6%AC
+
+Transaction
+
+스프링 트랜젝션 사용시 주의점 : https://suhwan.dev/2020/01/16/spring-transaction-common-mistakes/
+자바 트랜젝션 : https://yimoc.tistory.com/4
+mybatis와 트랜젝션 : https://m.blog.naver.com/khg27_2000/220771958349

@@ -1,23 +1,44 @@
-# POJO, DI, AOP의 개념
-<!-- https://velog.io/@ddh963963/spring-%EC%A3%BC%EC%9A%94%ED%8A%B9%EC%A7%95%EA%B3%BC-%EC%9A%A9%EC%96%B4%EC%A0%95%EB%A6%AC -->
-**POJO**
-<!-- https://j-i-y-u.tistory.com/24 -->
-- Plain Olb Java Object를 의미
-
-**DI<sup>Dependency Injection</sup> : 의존성 주입**
-- 객체간 의존관계를 객체 자신이 아닌 외부에서 수행해주는 것을 의미
-- 스프링 IOC의 핵심 개념이며, 스프링에서는 각 객체를 빈으로 관리한다.
-
-**AOP<sup>Aspect Oriented Programming</sup> : 관점 지향 프로그래밍**
-<!-- https://jojoldu.tistory.com/71 -->
-- 공통의 관심사랑을 적용하여 의존관계의 복잡성과 코드 중복을 해소하는것을 의미
 
 # DB Cardinality
 <!-- https://itholic.github.io/database-cardinality/ -->
+- 중복도가 낮으면 카디널리티가 높고, 중복도가 높으면 카디널리티가 낮다.
+- DB 테이블에서 카디널리티가 낮은 컬럼에 대해서 인덱스를 생성하면 쿼리 결과물이 많아지기 때문에 효율이 적어진다.
+- A, B, C 컬럼에 인덱스를 설정한 후 where 절에 카디널리티가 오름차순인 컬럼을 조건으로 설정한 경우 조건을 순서대로 질의하면서 많은 수의 로우가 검색이 되기 때문에, where 절에 카디널리티가 높은 순서의 조건을 먼저 두는 것이 좋다.
+
+# DB 인덱스는 항상 넣는게 좋을까?
 
 # DB Isolation
 <!-- https://nesoy.github.io/articles/2019-05/Database-Transaction-isolation -->
 
+# 자바 직렬화<sup>Serialization</sup>
+<!-- https://woowabros.github.io/experience/2017/10/17/java-serialize.html -->
+**직렬화**
+- 자바 직렬화란 자바 시스템 내부에서 사용되는 객체 또는 데이터를 외부의 자바 시스템에서도 사용할 수 있도록 바이트(byte) 형태로 데이터 변환하는 기술과 바이트로 변환된 데이터를 다시 객체로 변환하는 기술(역직렬화)을 아울러서 이야기한다.
+- 시스템적으로 이야기하자면 JVM(Java Virtual Machine 이하 JVM)의 메모리에 상주(힙 또는 스택)되어 있는 객체 데이터를 바이트 형태로 변환하는 기술과 직렬화된 바이트 형태의 데이터를 객체로 변환해서 JVM으로 상주시키는 형태를 같이 이야기합니다.
+- JVM 메모리에 존재하던 객체 데이터를 영속화하여 네트워크로 전송하거나 저장할때 사용한다.
+
+**언제 직렬화를 사용할까**
+- 직렬화 수행 시 클래스 정보를 가지고 자동으로 생성되는 클래스의 버전 값
+
+# 자바 SerialVersionUID
+<!-- https://blog.javabom.com/minhee/spring-boot/undefined/serializable-1 -->
+- 필수값은 아니다.
+- 호환 가능한 클래스는 SUID 값이 고정되어 있다.
+- SUID 값이 명시적으로 선언되어있지 않으면 클래스의 기본 해쉬값을 사용한다.
+<!-- 자동생성 SUID는 클래스 구조를 사용 https://docs.oracle.com/javase/6/docs/platform/serialization/spec/class.html#4100 -->
+
+# 자바 직렬화를 사용하는 곳
+서블릿 세션
+- 서블릿 기반의 WAS(톰캑, 웹로직 등)는 대부분 세션의 자바 직렬화를 지원하고 있다.
+- 단순히 메모리에서 운용되면 직렬화가 필요하지 않지만, 파일로 저장하거나 세션 클러스터링, DB를 사용하는 옵션등을 선택하면 세션 자체가 직렬화되어 저장된다.
+
+캐시
+- 자바 시스템에서 퍼포먼스 향상을 위해 DB에서 가져온 엔티티등을 메모리, 외부 저장소, 파일 등의 저장소에 저장한 후 동일한 요청이 오면 DB가 아닌 저장소에서 객체를 찾아 응답한다.
+- 엔티티가 캐시될 때 직렬화를 사용하여 저장한다. (자바 직렬화만 이용해서 캐시를 저장하지는 않지만 가장 간편하기 때문에 많이 사용된다.)
+
+자바 RMI<sup>Remote Method Invocation</sup>
+- 최근에는 많이 사용되지 않지만, 원격 시스템간의 메세지 교환을 위해 자바에서 지원하는 기술
+- 원격의 시스템의 메서드에 메세지(보통 객체)를 전달하기 위해 직렬화를 사용한다.
 
 # 동기 vs 비동기
 호출된 함수의 작업 완료를 누가 신경 쓰느냐가 중점
@@ -53,15 +74,36 @@
 # CORS
 <!-- https://evan-moon.github.io/2020/05/21/about-cors/#%EB%A7%88%EC%B9%98%EB%A9%B0 -->
 
+# MSA vs Monolitic 장단점
+<!-- https://m.blog.naver.com/tkdrns90/221986327039 -->
+**MSA**
+- 장점
+  - 변경이 있는 서비스 부분만 따로 배포가 가능
+  - 특정 서비스에 대해서만 확장이 가능
+  - 협업시 비교적 적은 리스크로 프로젝트를 진행시킬 수 있다.
+- 단점
+  - 기본적으로 API 를 통해 각 서비스가 통신하므로 모놀리틱 아키텍처에 비해 응답 시간이 소요된다.
+  - 중복 배치되는 모듈에 대해서 그만큼 메모리 사용량이 증가한다.
+  - 문제가 발생했을 때 여러 시스템을 동시에 살펴봐야하기 때문에 프로젝트 테스트의 복잡성이 증가한다.
 
-# DB 인덱스는 항상 넣는게 좋을까?
-
-
-# MSA vs Monotilic 장단점
-
+**Monoltic**
+- 장점
+  - 배포가 간편
+  - 테스트의 편의성
+  - 운영관리의 용이
+- 단점
+  - 규모가 커질수록 빌드 및 배포 시간이 길어진다.
+  - 소수인원의 실수가 프로젝트에 치명적인 영향을 끼칠 수 있다.
 
 # Spring filter와 interceptor의 차이점
 <!-- https://goddaehee.tistory.com/154 -->
+스프링에서 request의 실행순서는 Filter - Dispatcher - Interceptor - AOP - Controller 순으로 실행된다.
+
+**filter**
+- dispatcher 이전에 실행되며 // TODO
+
+**interceptor**
+- 
 
 # Spring @Bean vs @Component
 **@Bean**
@@ -74,15 +116,49 @@
 
 # Spring Bean Scope
 
+# Spring 경량 컨테이너, IoC, POJO, DI, DL, AOP
+<!-- https://velog.io/@ddh963963/spring-%EC%A3%BC%EC%9A%94%ED%8A%B9%EC%A7%95%EA%B3%BC-%EC%9A%A9%EC%96%B4%EC%A0%95%EB%A6%AC -->
+**경량 컨테이너**
+- 스프링은 객체를 담고 있는 컨테이너로써 자바 객체의 생성과 소멸과 같은 라이프사이클을 관리하고, 언제든 필요한 객체를 가져다 사용할 수 있도록 한다.
+
+**POJO<sup>Plain Old Java Object</sup> : 평범한 자바 객체**
+<!-- https://limmmee.tistory.com/8 -->
+<!-- http://asuraiv.blogspot.com/2017/07/spring-pojo.html -->
+- 일반적인 자바 객체를 의미한다.
+- 주로 특정 자바 모델이나 기능, 프레임워크를 따르지  않는 Java Object를 지칭한다.
+
+**IoC<sup>Inversion of Control</sup> : 제어의 반전**
+- 기존의 자바의 객체 생성 및 의존관곌에 있어 모든 제어권을 개발자에게 있었지만, 스프링에서는 프로그램의 흐름을 프레임워크가 주도한다.
+- 스프링 프레임워크에서 객체에 대한 생성과 생명주기를 관리할 수 있는 기능을 제공하고 있는데, 이런 이유로 스프링을 스프링 컨테이너 또는 IoC 컨테이너라고 부르기도 한다.  
+- 제어권이 컨테이너로 넘어가게 되었고, 이것을 제어권의 흐름이 바뀌었다고 하여 IoC 라고 부른다.
+- 제어권이 스프링에게 없다면 `@Autowired`와 같은 어노테이션으로 의존성 주입을 할 수 없게된다.
+
+| | 기본 자바 | IoC |
+| - | - | - |
+| | 1. 객체 생성</br>2. 의존성 객체 생성 : 클래스 내부에서 생성<br/>3. 의존성 객체 메서드 호출 | 1. 객체생성</br>2.의존성 객체 주입 : 스스로 객체를 생성하지 않고 제어권을 스프링에 위임하여 스프링이 만들어 놓은 객체(빈)릏 주입한다.</br>3. 의존성 객체 메서드 호출 | 
+
+**DI<sup>Dependency Injection</sup> : 의존성 주입**
+- 객체간 의존관계를 객체 자신이 아닌 외부에서 생성한 후 주입시키는 방식
+- DI를 통해 모듈간의 결합도가 낮아지고 유연성이 높아진다.
+- 스프링 IoC의 핵심 개념이며, 스프링에서는 각 객체를 빈으로 관리한다.
+
+**DL<sup>Dependency Lookup</sup> : 의존성 검색**
+- 의존대상(빈)을 검색을 통해 반환받을 수 있다 : `factory.getBean(id)`
+
+**AOP<sup>Aspect Oriented Programming</sup> : 관점 지향 프로그래밍**
+<!-- https://jojoldu.tistory.com/71 -->
+- 공통의 관심사랑을 적용하여 의존관계의 복잡성과 코드 중복을 해소하는것을 의미
 
 # Spring Framework vs Spring Boot
 <!-- https://ooeunz.tistory.com/56 -->
 **Spring Framework**
-- 
+- EJB를 대체하는 프레임워크로 경량 컨테이너, IoC, DI, AOP의 장점을 지니고 있다.
+- "스프링의 설정이 반이다." 라는 말이 있을 정도로 설정하는 것에 어려움이 있다.
 
 **Spring Boot**
+- Spring Boot는 환경 설정을 최소화하여 개발자가 비즈니스 로직에 집중할 수 있도록 도와 생산성을 크게 향상 시킨다.
+- spring boot starter를 통해 대부분의 dependency를 관리하여 dependency의 버전 관리를 도와준다.
 - Embeded Tomcat을 사용하기 때문에 톰캣을 설치하거나 버전을 따로 관리할 필요가 없다.
-- starter를 통해 대부분의 dependency를 관리하여 dependency의 버전 관리를 도와준다.
 
 ## Spring Boot Starter
 
