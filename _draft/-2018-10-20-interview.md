@@ -1,16 +1,23 @@
+# DB 인덱스는 항상 넣는게 좋을까?
+<!-- daangn -->
 
 # DB Cardinality
+<!-- daangn -->
 <!-- https://itholic.github.io/database-cardinality/ -->
 - 중복도가 낮으면 카디널리티가 높고, 중복도가 높으면 카디널리티가 낮다.
 - DB 테이블에서 카디널리티가 낮은 컬럼에 대해서 인덱스를 생성하면 쿼리 결과물이 많아지기 때문에 효율이 적어진다.
 - A, B, C 컬럼에 인덱스를 설정한 후 where 절에 카디널리티가 오름차순인 컬럼을 조건으로 설정한 경우 조건을 순서대로 질의하면서 많은 수의 로우가 검색이 되기 때문에, where 절에 카디널리티가 높은 순서의 조건을 먼저 두는 것이 좋다.
 
-# DB 인덱스는 항상 넣는게 좋을까?
+</br>
 
 # DB Isolation
+<!-- daangn -->
 <!-- https://nesoy.github.io/articles/2019-05/Database-Transaction-isolation -->
 
+</br>
+
 # 자바 직렬화<sup>Serialization</sup>
+<!-- daangn -->
 <!-- https://woowabros.github.io/experience/2017/10/17/java-serialize.html -->
 **직렬화**
 - 자바 직렬화란 자바 시스템 내부에서 사용되는 객체 또는 데이터를 외부의 자바 시스템에서도 사용할 수 있도록 바이트(byte) 형태로 데이터 변환하는 기술과 바이트로 변환된 데이터를 다시 객체로 변환하는 기술(역직렬화)을 아울러서 이야기한다.
@@ -21,13 +28,17 @@
 - 직렬화 수행 시 클래스 정보를 가지고 자동으로 생성되는 클래스의 버전 값
 
 # 자바 SerialVersionUID
+<!-- daangn -->
 <!-- https://blog.javabom.com/minhee/spring-boot/undefined/serializable-1 -->
 - 필수값은 아니다.
 - 호환 가능한 클래스는 SUID 값이 고정되어 있다.
 - SUID 값이 명시적으로 선언되어있지 않으면 클래스의 기본 해쉬값을 사용한다.
 <!-- 자동생성 SUID는 클래스 구조를 사용 https://docs.oracle.com/javase/6/docs/platform/serialization/spec/class.html#4100 -->
 
+</br>
+
 # 자바 직렬화를 사용하는 곳
+<!-- daangn -->
 서블릿 세션
 - 서블릿 기반의 WAS(톰캑, 웹로직 등)는 대부분 세션의 자바 직렬화를 지원하고 있다.
 - 단순히 메모리에서 운용되면 직렬화가 필요하지 않지만, 파일로 저장하거나 세션 클러스터링, DB를 사용하는 옵션등을 선택하면 세션 자체가 직렬화되어 저장된다.
@@ -40,7 +51,10 @@
 - 최근에는 많이 사용되지 않지만, 원격 시스템간의 메세지 교환을 위해 자바에서 지원하는 기술
 - 원격의 시스템의 메서드에 메세지(보통 객체)를 전달하기 위해 직렬화를 사용한다.
 
+</br>
+
 # 동기 vs 비동기
+<!-- daangn -->
 호출된 함수의 작업 완료를 누가 신경 쓰느냐가 중점
 
 **동기**
@@ -50,6 +64,7 @@
 - 호출된 함수(callback 함수)가 작업 완료를 신경 쓴다.
 
 # 블록킹 vs 논블록킹
+<!-- daangn -->
 호출되는 함수가 바로 리턴하느냐 마느냐가 중점
 
 **블록킹**
@@ -71,10 +86,16 @@
 - 멀티 코어에서 멀티 스레드를 동작시키는 것
 - 물리적인 개념
 
+</br>
+
 # CORS
+<!-- daangn -->
 <!-- https://evan-moon.github.io/2020/05/21/about-cors/#%EB%A7%88%EC%B9%98%EB%A9%B0 -->
 
+</br>
+
 # MSA vs Monolitic 장단점
+<!-- daangn -->
 <!-- https://m.blog.naver.com/tkdrns90/221986327039 -->
 **MSA**
 - 장점
@@ -95,7 +116,15 @@
   - 규모가 커질수록 빌드 및 배포 시간이 길어진다.
   - 소수인원의 실수가 프로젝트에 치명적인 영향을 끼칠 수 있다.
 
+</br>
+
+# Spring MVC request 처리 과정
+<!-- daangn -->
+
+</br>
+
 # Spring filter와 interceptor의 차이점
+<!-- daangn -->
 <!-- https://goddaehee.tistory.com/154 -->
 스프링에서 request의 실행순서는 Filter - Dispatcher - Interceptor - AOP - Controller 순으로 실행된다.
 
@@ -105,7 +134,13 @@
 **interceptor**
 - 
 
+</br>
+
+# Spring Bean Scope
+<!-- daangn -->
+
 # Spring @Bean vs @Component
+<!-- daangn -->
 **@Bean**
 - 메서드에만 사용할 수 있다.
 - 외부 라이브러리를 빈으로 등록하고 싶은 경우 사용한다.
@@ -114,9 +149,10 @@
 - 클래스에만 사용할 수 있다.
 - 개발자가 직접 컨트롤리 가능한 클래스에서 사용할 수 있다.
 
-# Spring Bean Scope
+</br>
 
 # Spring 경량 컨테이너, IoC, POJO, DI, DL, AOP
+<!-- daangn -->
 <!-- https://velog.io/@ddh963963/spring-%EC%A3%BC%EC%9A%94%ED%8A%B9%EC%A7%95%EA%B3%BC-%EC%9A%A9%EC%96%B4%EC%A0%95%EB%A6%AC -->
 **경량 컨테이너**
 - 스프링은 객체를 담고 있는 컨테이너로써 자바 객체의 생성과 소멸과 같은 라이프사이클을 관리하고, 언제든 필요한 객체를 가져다 사용할 수 있도록 한다.
@@ -149,7 +185,10 @@
 <!-- https://jojoldu.tistory.com/71 -->
 - 공통의 관심사랑을 적용하여 의존관계의 복잡성과 코드 중복을 해소하는것을 의미
 
+</br>
+
 # Spring Framework vs Spring Boot
+<!-- daangn -->
 <!-- https://ooeunz.tistory.com/56 -->
 **Spring Framework**
 - EJB를 대체하는 프레임워크로 경량 컨테이너, IoC, DI, AOP의 장점을 지니고 있다.
@@ -162,8 +201,10 @@
 
 ## Spring Boot Starter
 
+</br>
 
 # Java equals() vs hashcode()
+<!-- daangn -->
 **equals()**
 - 두 객체가 동일한지 검사하기 위해 사용
 - 기본적으로 2개의 객체가 가리키는 곳이 동일한 메모리 주소일 경우에만 동일한 객체가 된다
@@ -193,11 +234,15 @@
 - 같은 값을 가진 객체가 서로 다른 해시값을 갖게 될 수 있다.
 - 특히 HashMap의 key 값으로 해당 객체를 사용할 경우 문제가 발생한다.
 
+</br>
+
 # StringBuilder를 사용해야하는 이유
 - String 객체와 다른 String 객체를 더할 때 새로운 String 객체가 만들어지면서 메모리 할당하게 되어 쓰레기 값을 생성하게 된다.
 - JDK 1.5 이상부턴 String의 `+` 오퍼레이터를 사용하면 StringBuilder를 사용한 코드로 바꿔주지만, 각 줄마다 StringBuilder를 생성하기 때문에 주의해야한다.
 - 한줄에서 상수 String을 더하는 것은 모두 합쳐진 문자열로 바꿔준다. `String a = "1" + "2" + "3";` -> `String a = "123";`
 - 한줄에서 String과 상수를 더하면 StringBuffer의 append, toString 메서드를 사용하는 코드로 바꿔준다. `String a = "a" + 4 + "c";` -> `String a = new StringBuffer().append("a").append(4).append("c").toString()`
+
+</br>
 
 # 객체지향의 특징
 **캡슐화**
@@ -271,6 +316,8 @@
 - 메서드 : 객체에 의존적이지 않은 작업을 수행 → 멤버변수 사용 불가
 - 변수 : 객체와 관계 없이 클래스당 하나만 존재
 
+</br>
+
 # 싱글톤과 statis class 차이
 **싱글톤**
 - 클래스가 사용될 때에 새로운 객체를 생성하는 것이 아니라, 동일 객체를 사용
@@ -280,6 +327,8 @@
 **Static Class**
 - 클래스의 객체를 만들 필요 없이, static 한 클래스에 접근하여 사용
 - 초기화가 어려움
+
+</br>
 
 # JVM
 
@@ -400,6 +449,8 @@ Java 8
 - JIT 컴파일러는 런타임중에 가상 기계에서만 돌아가는 자바 바이트 코드를 해당 플랫폼에 맞는 기계어로 컴파일한다.
 - 기계어로 컴파일된 코드는 인터프리터가 자바 바이트 코드에서 다시 번역하지 않고 바로 실행된다.
 
+</br>
+
 # GC란?
 - 힙 영역에서 가비지를 찾아내 힙의 메모리를 회수하는 것 
 - GC 대상인 객체를 처리하여 메모리를 회수하는 작업은 즉각적인 연속 작업이 아니며, GC 대상 객체의 메모리를 한 번에 모두 회수하지도 않는다
@@ -464,6 +515,7 @@ Mark-Sweep-Compaction 알고리즘
 - Strop the world 시간이 줄어듬
 
 ## G1GC (Java 9 이후 deafult 7에 추가)
+<!-- daangn -->
 - 하드웨어가 발전하면서 메모리의 크기가 커졌지만 기존 GC 알고리즘으로 큰 메모리에서 좋은 성능을 내지 못해 등장
   => 큰 메모리에서 짧은 GC 시간 (stop-the-world)를 보장
 - G1 GC는 바둑판의 각 영역에 객체를 할당하고 GC를 실행한다. 그러다가, 해당 영역이 꽉 차면 다른 영역에서 객체를 할당하고 GC를 실행한다. 즉, 지금까지 설명한 Young의 세가지 영역에서 데이터가 Old 영역으로 이동하는 단계가 사라진 GC 방식이라고 이해하면 된다. 
@@ -500,21 +552,23 @@ Cleanup
 Copy
 - GC 대상 Region이었지만 Cleanup 과정에서 완전히 비워지지 않은 Region의 살아남은 객체들을 새로운(Available/Unused) Region 에 복사하여 Compaction 작업을 수행한다.
 
+</br>
+
 # Multiplex Server의 동작
-
-# Spring AOP
-
-# MVC 요청이 처리되는 과정
 
 # Spring Webflux 요청이 처리되는 과정
 ![spring-webflux-0](https://user-images.githubusercontent.com/18159012/116578105-09165800-a94c-11eb-9ca6-eb320be1abec.png)
 
+</br>
+
 # DB 인덱싱의 특징
+<!-- MySQL B+tree https://zorba91.tistory.com/293 -->
+<!-- daangn -->
 - 인덱스 목적이 질의 결과를 빠르게 찾는 데 목적이 있다.
 - 데이터베이스에 레코드가 삽입, 삭제될 때마다 인덱스가 변경되어야 한다.
 - 데이터베이스에서 인덱스는 별도의 자료 구조인 B-Tree와 같은 형태로 관리하게 된다. 인덱스 자료 구조도 디스크에 저장하여, 질의가 있을 경우 읽어와 사용하게 된다.
 
-<!-- MySQL B+tree https://zorba91.tistory.com/293 -->
+</br>
 
 # 트랜잭션 ACID
 원자성<sup>Atomicity</sup>
@@ -587,6 +641,8 @@ try {
 ```
 
 - 다음의 코드에서 매번 커넥션 객체를 생성하고 사용후에 종료하는 방식은 비효율 적이기 때문에 커넥션 풀을 만들어 사용한 다음 풀링하여 사용하도록 한다.
+
+# 네트워크 브로드캐스트 vs 멀티캐스트
 
 # 알고리즘
 
