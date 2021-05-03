@@ -187,9 +187,7 @@ handlerMAppings에서 기본적인 controller나 router function 들에 대한 �
 ### NettyRoutingFilter
 `ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR` 에 저장된 리퀘스트 uri를 가져와 스키마가 요청 가능한 'http' 혹은 'https'인지 확인 한 후, 요청이 처리 가능하다면 처리하데 된다.
 
-</br>
-<!-- 
-GatewayDiscoveryClientAutoConfiguration  
+<!-- GatewayDiscoveryClientAutoConfiguration  
 ReactiveDiscoveryClientRouteDefinitionLocatorConfiguration  
 discoveryClientRouteDefinitionLocator()
 
@@ -197,9 +195,9 @@ discoveryClientRouteDefinitionLocator()
 SCG 에서 디스커버리 클라이언트는 기본적으로 활성화 상태이지만, 디스커버리 클라이언트를 사용하는 `RouteDefinitionLocator`는 기본적으로 빈으로 등록되지 않기 때문에 다음의 프로퍼티를 사용하여 빈을 등록해야한다. 
 
 
-> 디스커버리 클라이언트를 사용하는 라우트 로케이터를 등록하는 빈은 리액티브와 블록킹 두가지로 나눠지지만, 블록킹 빈의 경우 빈을 등록하는 메서드에서 사용하는 생성자가 `@Deprecated` 어노테이션이 달려있기 때문에 잘 확인하고 사용하는게 좋을 것 같다.
+> 디스커버리 클라이언트를 사용하는 라우트 로케이터를 등록하는 빈은 리액티브와 블록킹 두가지로 나눠지지만, 블록킹 빈의 경우 빈을 등록하는 메서드에서 사용하는 생성자가 `@Deprecated` 어노테이션이 달려있기 때문에 잘 확인하고 사용하는게 좋을 것 같다. -->
 
-```yml
+<!-- ```yml
 spring:
   cloud:
     gateway:
@@ -217,15 +215,11 @@ public class DiscoveryLocatorProperties {
     ...
     private String urlExpression = "'lb://'+serviceId";
     ...
-``` 
+```  -->
 
-해당 설정을 하지 않고 DiscoveryClientRouteDefinitionLocator를 등록하지 않아도 서비스 이름으로 라우팅이 가능한데, 해당 DefinitionLocator는 eureka 등을 통한 DiscoveryClient 서비스 인스턴스를 찾아 라우트 데피니션을 추가하는 역할이기 때문에, 직접 RouteLocator를 빈으로 등록하고 서비스 이름을 명시적으로 추가된 서비스 인스턴스의 경우 해당 DefinitionLocator를 통해서 과정을 거쳐 최종적으로 RouteLocator를 등록한 것과 같이 동작하기 때문에 동일하게 동작한다.
+<!-- 해당 설정을 하지 않고 DiscoveryClientRouteDefinitionLocator를 등록하지 않아도 서비스 이름으로 라우팅이 가능한데, 해당 DefinitionLocator는 eureka 등을 통한 DiscoveryClient 서비스 인스턴스를 찾아 라우트 데피니션을 추가하는 역할이기 때문에, 직접 RouteLocator를 빈으로 등록하고 서비스 이름을 명시적으로 추가된 서비스 인스턴스의 경우 해당 DefinitionLocator를 통해서 과정을 거쳐 최종적으로 RouteLocator를 등록한 것과 같이 동작하기 때문에 동일하게 동작한다.
 
-다만 해당 DefinitionLocator를 사용하는 경우 연결된 모든 서비스에 대한 RouteDefinition, 즉 Route가 생성될 수 있으니 직접 RouteLocator를 직접 등록하여 사용하는게 보안적인 측면에서 더 나을 것 같다.
-
----
-
--->
+다만 해당 DefinitionLocator를 사용하는 경우 연결된 모든 서비스에 대한 RouteDefinition, 즉 Route가 생성될 수 있으니 직접 RouteLocator를 직접 등록하여 사용하는게 보안적인 측면에서 더 나을 것 같다. -->
 
 <!-- 
 
