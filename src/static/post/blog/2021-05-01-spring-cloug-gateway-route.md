@@ -93,7 +93,7 @@ Zuul의 경우 `shouldFilter()`와 같은 메서드를 오버라이딩 하여 �
 @FunctionalInterface
 public interface GatewayFilterFactory<C> extends ShortcutConfigurable, Configurable<C> {
     ...
-	GatewayFilter apply(C config);
+    GatewayFilter apply(C config);
     ...
 ```
 
