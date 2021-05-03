@@ -1,4 +1,5 @@
 // {filename = date-title} :: {title} :: {tags|optional}
+2021-05-01-spring-cloug-gateway-route :: Spring Cloud Gateway 라우팅 :: java, spring, spring-cloud-gateway, scg
 2021-04-27-n-plus-one-problem :: N+1 문제 :: java, jpa, db
 2021-03-11-react-overflow-child-content :: React child 컴포넌트의 이미지가 parent 크기보다 클 때 :: react
 2021-03-11-spring-security-pre-auth :: Spring MVC와 Weflux의 Security : PreAuthentication :: java, spring

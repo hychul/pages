@@ -91,6 +91,7 @@
 # CORS
 <!-- daangn -->
 <!-- https://evan-moon.github.io/2020/05/21/about-cors/#%EB%A7%88%EC%B9%98%EB%A9%B0 -->
+<!-- AdsctractHandlerMappings.getHandler() -->
 
 </br>
 
@@ -125,6 +126,7 @@
 
 # Spring filter와 interceptor의 차이점
 <!-- daangn -->
+<!-- https://yzlosmik.tistory.com/24 -->
 <!-- https://goddaehee.tistory.com/154 -->
 스프링에서 request의 실행순서는 Filter - Dispatcher - Interceptor - AOP - Controller 순으로 실행된다.
 
@@ -592,6 +594,8 @@ Copy
 - 로컬 트랜잭션과 달리 여러 DB 커넥션에 대해 트랜잭션을 관리하는 방식이다.
 
 # JTA<sup>Java Transaction API</sup>
+
+# JPA 생성자가 필요한 이유
 
 # JPA persistence context
 https://stackoverflow.com/questions/23984968/jpa-without-transaction
