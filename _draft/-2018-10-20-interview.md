@@ -1,5 +1,19 @@
+# DB 인덱싱의 특징
+<!-- MySQL B+tree https://zorba91.tistory.com/293 -->
+<!-- daangn -->
+- 인덱스 목적이 질의 결과를 빠르게 찾는 데 목적이 있다.
+- 데이터베이스에 레코드가 삽입, 삭제될 때마다 인덱스가 변경되어야 한다.
+- 데이터베이스에서 인덱스는 별도의 자료 구조인 B-Tree와 같은 형태로 관리하게 된다. 인덱스 자료 구조도 디스크에 저장하여, 질의가 있을 경우 읽어와 사용하게 된다.
+
+<!-- 
+# DB 인덱스가 동작하지 않는 경우
+- 컬럼에 인덱스가 설정된 경우에도, WHERE 절에 해당 컬럼에 대한 가공이 있는 경우,
+ -->
+
 # DB 인덱스는 항상 넣는게 좋을까?
 <!-- daangn -->
+- DB의 인덱스는 따로 저장공간을 사용하고, 추가/삭제 시에 B+Tree의 특성상 인덱스 트리를 재구성 해야되는 작업이 필요하기 때문에 모든 컬럼에 대해서 인덱스를 추가하는 것은 지양해야한다.
+- 또한 특정 컬럼에 인덱스를 추가할 때 해당 컬럼이 얼마나 중복되는지, 카디널리티<sup>Cardinality</sup>를 고려해야 한다.
 
 # DB Cardinality
 <!-- daangn -->
@@ -10,9 +24,60 @@
 
 </br>
 
-# DB Isolation
+# DB Isolation Level
 <!-- daangn -->
 <!-- https://nesoy.github.io/articles/2019-05/Database-Transaction-isolation -->
+동시에 여러 트랜젝션이 처리될 때, 특정 트랜젝션이 다른 트랜잭션에서 변경하거나 조회하는 데이터를 볼 수 잇도록 허용할지 말지 결정하는 레벨
+
+**READ UNCOMMITED**
+- SELECT 쿼리 시 다른 트랜잭션에서 COMMMIT 되지 않은 데이터를 읽어올 수 있다.
+- COMMIT 되지 않은 데이터를 읽는 것을 Dirty Read라고 한다.
+- ROLLBACK 될 수 있는 데이터를 읽을 수 있기 때문에 주의해야하니다.
+
+**READ COMMITED**
+- COMMIT이 완료된 데이터만 SELECT 시에 보이는 수준을 보장
+- 대부분의 RDB에서 기본적으로 사용되는 격리수준
+- Dirty Read가 발생ㅇ하지 않도록 보장한다.
+- 한 트랜잭션에서 SELECT를 수행할 때 동일한 데이터를 보장하지 않는다. 다른 트랜잭션에서 해당 데이터를 COMMIT 한 경우 데이터가 변경될 수 있기 때문이다. 
+- 트랜잭션에서 COMMIT을 수행하지 않더라도 DB에 이미 값이 반영되어 있는 상태인 경우. COMMIT 이전 데이터를 보장하기 위해 Consistent Read를 수행해야한다.
+- READ COMMITED를 Non-repeatable Read라고도 한다.
+
+> **Consistent Read**
+> Consistent read란 read(=SELECT) operation을 수행할 때 현재 DB의 값이 아닌 특정 시점의 DB snapshot을 읽어오는 것이다. 물론 이 snapshot은 commit 된 변화만이 적용된 상태를 의미한다.
+
+**REPREATABLE READ**
+- READ CONNITED와 다르게 트랜잭션 안에서 반복해서 SELECT 를 수행하더라도 동일한 값을 보장한다.
+- 처음 SELECT 를 수행한 시간을 기록한 뒤, 이후에는 모든 SELECT마다 해당 시점을 기준으로 Consistent Read를 수행한다.
+- 트랜잭션 도중 다른 트랜잭션이 COMMIT 되더라도 첫 SELECT 시에 생성된 Snapshot을 기준으로 하기에 새롭게 COMMIT 된 데이터는 보이지 않는다.
+
+**SERIALIZABLE**
+- 모든 작업을 하나의 트랜잭션에서 처리하는 ㄴ것과 같은 가장 높은 고립수준을 제공한다.
+- READ COMMITED와 REPEATABLE READ 에서 발생하는 공통적인 이슈는 Phantom Read 가 발생한다는 것이다.
+
+> **Phantom Read**
+> 하나의 트랜잭션에서 UPDATE 명령이 유실되거나 덮어써질수 있는 즉, UPDATE후 COMMIT하고 다시 조회를 했을때 예상과는 다른 값이 보이거나 데이터가 유실된 경우를 Phantom Read라고 한다.
+
+- SERIALIZABLE 의 경우 읽기 작업에도 공유 잠금<sup>S Lock</sup>을 설정하며 동작하여, 동시에 다른 트랜잭션에서 레코드를 변경하지 못하게 된다.
+- 하지만 두개의 트랜잭션에서 (1-S Lock) - (2-S Lock) - (2-X Lock) - (1-X Lock) 순서로, 같은 레코드에 접근하는 경우 데드락이 발생할 수 있기 때문에 유의 해야한다.
+
+> **공유 잠금<sup>S Lock : Shared Lock</sup>**
+> 읽기 잠금<sup>Read Lock</sup>이라고도 불리며, 어떤 트랜잭션에서 데이터를 접근하고자 할 때, 다른 S Lock은 가능하지만 X Lock은 불가능하다.
+> 쉽게 말해 릴소스를 다른 트랜잭션이 동시에 읽을 수는 일지만, 변경은 불가능하게 한다.
+>
+> **베타적 잠금<sup>X Lock : Exclusive Lock</sup>**
+> 쓰기 잠금<sup>Write Lock</sup>이라고도 불린며, 트랜잭션에서 데이티를 변경하고자 할 때, 해당 트랜잭션이 완료 될 때까지 해당 테이블 혹은 레코드를 다른 트랜잭션에서 읽거나 쓰지 못하게 하기 위해 사용한다.
+
+| Isolataion Level | Dirty Read | Non-Repeatable Read | Phantom Read |
+| - | - | - | - |
+| READ UNCOMMITED | 가능 | 가능 | 가능 |
+| READ COMMITED | 불가능 | 가능 | 가능 |
+| REPEATABLE READ| 불가능 | 불가능 | 가능 |
+| SERIALIZABLE READ | 불가능 | 불가능 | 불가능 |
+<!-- https://velog.io/@lsb156/Transaction-Isolation-Level#read-uncommitted -->
+
+# CRUD에 적합한 DB Isolation Level
+- Read시에 REPEATABLE READ
+- Create, Update, Delete 시에 SERIALIZABLE
 
 </br>
 
@@ -24,16 +89,23 @@
 - 시스템적으로 이야기하자면 JVM(Java Virtual Machine 이하 JVM)의 메모리에 상주(힙 또는 스택)되어 있는 객체 데이터를 바이트 형태로 변환하는 기술과 직렬화된 바이트 형태의 데이터를 객체로 변환해서 JVM으로 상주시키는 형태를 같이 이야기합니다.
 - JVM 메모리에 존재하던 객체 데이터를 영속화하여 네트워크로 전송하거나 저장할때 사용한다.
 
-**언제 직렬화를 사용할까**
-- 직렬화 수행 시 클래스 정보를 가지고 자동으로 생성되는 클래스의 버전 값
-
 # 자바 SerialVersionUID
 <!-- daangn -->
 <!-- https://blog.javabom.com/minhee/spring-boot/undefined/serializable-1 -->
+- 직렬화에 사용되는 클래스의 직렬화 버전이다.
 - 필수값은 아니다.
-- 호환 가능한 클래스는 SUID 값이 고정되어 있다.
+- 호환 가능한 클래스는 SUID 값이 동일하다.
 - SUID 값이 명시적으로 선언되어있지 않으면 클래스의 기본 해쉬값을 사용한다.
 <!-- 자동생성 SUID는 클래스 구조를 사용 https://docs.oracle.com/javase/6/docs/platform/serialization/spec/class.html#4100 -->
+
+**SUID 버전을 체크하는 이유**
+- 버전이 바뀌면 객체ㅔ의 상태가 조금이라도 바뀌었다는 것을 의미하기 때문에 역직렬화 과정에서 오류가 발생할 수 있다.
+- SUID를 직접 설정하여 관리해야 클래스의 변경이 있을 때, 혼란을 줄일 수 있다.
+
+**SUID 저번이 같을 때 문제가 발생하는 경우**
+- 멤버 변수명은 같은데 멤버 변수 타입이 변경된 경우. ex) String -> StringBuilder
+- 멤버 변수의 프리미티브 타입을 변경하는 경우. ex) int -> long
+- SUID 값이 동이리하면 멤버 변수 추가는 문제되지 않지만, 변수명 변경/변수 삭제는 오류를 발생키지 않고 데이터가 누락된다.
 
 </br>
 
@@ -560,15 +632,6 @@ Copy
 
 # Spring Webflux 요청이 처리되는 과정
 ![spring-webflux-0](https://user-images.githubusercontent.com/18159012/116578105-09165800-a94c-11eb-9ca6-eb320be1abec.png)
-
-</br>
-
-# DB 인덱싱의 특징
-<!-- MySQL B+tree https://zorba91.tistory.com/293 -->
-<!-- daangn -->
-- 인덱스 목적이 질의 결과를 빠르게 찾는 데 목적이 있다.
-- 데이터베이스에 레코드가 삽입, 삭제될 때마다 인덱스가 변경되어야 한다.
-- 데이터베이스에서 인덱스는 별도의 자료 구조인 B-Tree와 같은 형태로 관리하게 된다. 인덱스 자료 구조도 디스크에 저장하여, 질의가 있을 경우 읽어와 사용하게 된다.
 
 </br>
 
