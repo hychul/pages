@@ -184,6 +184,8 @@ handlerMAppings에서 기본적인 controller나 router function 들에 대한 �
 ### ReactiveLoadBalancerClientFilter
 `RouteToRequestUrlFilter` 에서 저장된 새로운 URI에 대한 어트리뷰트인, `ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR`의 scheme이 'lb' 이거나, `ServerWebExchangeUtils.GATEWAY_SCHEME_PREFIX_ATTR`이 'lb'인 경우 `ReactorLoadBalancer`를 통해 서비스에 맞는 실제 호스트와 포트를 찾아 `ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR` 어트리뷰트에 URI를 업데이트한다. 그리고 수정되지 않은 원본 URL은 `GATEWAY_ORIGINAL_REQUEST_URL_ATTR`에 저장된디.
 
+스키마가 'lb'가 아닌 경우엔 바로 다음 필터로 넘어가게 된다.
+
 ### NettyRoutingFilter
 `ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR` 에 저장된 리퀘스트 uri를 가져와 스키마가 요청 가능한 'http' 혹은 'https'인지 확인 한 후, 요청이 처리 가능하다면 처리하데 된다.
 
