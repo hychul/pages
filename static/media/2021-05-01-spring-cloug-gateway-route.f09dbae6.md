@@ -144,7 +144,7 @@ handlerMAppings에서 기본적인 controller나 router function 들에 대한 �
 -->
 
 ## 라우트 필터의 동작
-라우트를 설정 할 때 uri에 'http-' 혹은 'https-'로 시작하는 일반적인 호스트 뿐만 아니라 다양한 스키마<sup>Scheme</sup>를 등록할 수 있는데 여기서는 'lb' 스키마를 사용하여 로드밸런서를 사용하여 라우팅되는 것을 예시로 라우트 필터의 동작을 확인한다.
+라우트를 설정 할 때 SCG에서 기본적으로 uri에 'http-' 혹은 'https-'로 시작하는 uri 뿐만 아니라 'lb' 스키마<sup>Scheme</sup>를 등록할 수 있는데, 여기서는 'lb' 스키마를 사용하여 로드밸런서를 사용하여 라우팅되는 것을 예시로 라우트 필터의 동작을 확인한다.
 
 ```java
     @Bean
@@ -173,7 +173,7 @@ handlerMAppings에서 기본적인 controller나 router function 들에 대한 �
 `ForwardRoutingFilter` : 2147483647
 ```
 
-앞서 설명한 것과 같이 필터들은 순서<sup>Order</sup>에 의해 체이닝 되어 동작한다. 이중 로드 밸런스를 사용한 라우팅에서 사용되는 필터에는 이름 앞에 '*'로 표시를 해두었다.
+앞서 설명한 것과 같이 필터들은 순서<sup>Order</sup>에 의해 체이닝되어 순서대로 동작한다. 이중 로드 밸런스를 사용한 라우팅에서 사용되는 필터에는 이름 앞에 '*'로 표시를 해두었다.
 
 ### RouteToRequestUrlFilter
 앞서 `RoutePredicateHandlerMapping`에서 추가했던 `ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR` 에 `Route` 오브젝트가 존재하면, 필터에서 리퀘스트의 URI 를 기반으로 `Route` 오브젝트를 통해 새로운 URI를 생성하여 `ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR` 에 저장한다.
