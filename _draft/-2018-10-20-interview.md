@@ -209,11 +209,6 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 **비동기 + 논블록킹**  
 ![sync-blocking-4](https://user-images.githubusercontent.com/18159012/117162994-33f62580-adfe-11eb-8b9d-deb18301bac1.png)
 
-| | 블록킹 | 논블록킹 |
-| - | - | - |
-| 동기 |  | |
-| 비동기 | | |
-
 # 동시성 vs 병렬성
 **동시성**
 - 동시에 실행되는 것 같이 보이는 것
@@ -232,6 +227,26 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 <!-- daangn -->
 <!-- https://evan-moon.github.io/2020/05/21/about-cors/#%EB%A7%88%EC%B9%98%EB%A9%B0 -->
 <!-- AdsctractHandlerMappings.getHandler() -->
+- CORS는 Cross-Origin Resource Sharing의 줄임말로 직역하면 교차(다른) 출처 리소스 공유하고 해석할 수 있다.
+- 도메인 또는 포트가 다른 서버의 자원을 요청하는 메커니즘
+- CORS는 추가 HTTP 헤더를 사용하여, 한 출처에서 실행 중인 웹 애플리케이션이 다른 출처의 선택한 자원에 접근할 수 있는 권한을 부여하도록 브라우저에 알려주는 체제
+- CORS는 브라우저의 구현 스펙에 포함되는 정책이기 때문에, 브라우저를 통하지 않고 서버 간 통신을 할 때는 이 정책이 적용되지 않는다.
+
+**출처<sup>Origin</sup>**
+- 서버의 위치를 의미하는 URL들은 하나의 문자열 같아보여도 여러개의 구성요소로 이뤄져있다.
+```
+ https:// www.test.com /users ?sort=asc&page=1 #fee
+|        |            |      |                |    |
+ protocal     host      path    query string   fragment
+```
+- 여기서 출처는 Protocal과 Host 그리고 위의 예시에서 보이진 않지만 포트 번호까지 모두 합친것을 의미한다.
+- 포트 번호의 경우 생략이 가능한데, 웹에서 사용하는 HTTP, HTTPS 프로토콜의 기본 포트 번호가 정해져있기 때문이다.
+<!-- TODO -->
+**SOP<sup>Same-Origin Policy</sup>**
+
+**Spring CORS 설정**
+<!-- https://dev-pengun.tistory.com/entry/Spring-Boot-CORS-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0 -->
+- 
 
 </br>
 
@@ -360,6 +375,7 @@ Global Session
 ![spring-webflux-0](https://user-images.githubusercontent.com/18159012/116578105-09165800-a94c-11eb-9ca6-eb320be1abec.png)
 
 # Multiplex Server의 동작
+<!-- TODO -->
 
 </br>
 
@@ -550,15 +566,12 @@ Global Session
 </br>
 
 # JVM
-
 <!-- https://hoonmaro.tistory.com/19 -->
-
-## JVM의 기능
+**JVM의 기능**
 - 어느 운영체제 상에서도 실행될 수 있게 하는것 (한 번 작성해, 어디에서나 실행한다)
 - 프로그램 메모리를 관리하고 최적화 하는 것
 
-## JVM의 구조
-
+**JVM의 구조**
 ![2021-10-30-jvm-0](https://user-images.githubusercontent.com/18159012/116645954-ea4aac80-a9b1-11eb-8aaf-95b7e5fde975.png)
 
 - Class Loader : 런타임시 동적으로 JVM 내로 클래스를 로드한다.
@@ -566,8 +579,7 @@ Global Session
 - Garbage Collector : JVM 내의 메모리 관리 기능을 자동으로 수핸한다.
 - Runtime Data Area : JVM이 운영체제 위에서 실행되면서 할당받는 메모리 영역이다. Class Loader에서 준비한 데이터들을 보관하는 장소이다.
 
-## JVM 메모리
-
+# JVM 메모리
 ![2021-10-30-jvm-1](https://user-images.githubusercontent.com/18159012/116646670-9e990280-a9b3-11eb-95db-0656ad62a0e3.png)
 
 **Method (Static) Area**
@@ -615,12 +627,12 @@ Global Session
 - 즉, JNI(Java Native Interface)를 통해 호출되는 C/C++ 등의 코드를 수행하기 위한 스택이다.
 - 네이티브 메소드의 매개변수, 지역변수 등을 바이트 코드로 저장한다.
 
-## JVM 스레드별로 갖는 메모리
+# JVM 스레드별로 갖는 메모리
 - PC register
 - Stack
 - Native method stack
 
-## JVM의 Heap vs Non-heap
+# JVM의 Heap vs Non-heap
 ![2021-10-30-jvm-2](https://user-images.githubusercontent.com/18159012/116727341-629b8700-aa1f-11eb-8117-7f7d9461facf.png)
 
 **Heap**
@@ -662,7 +674,7 @@ Java 8
 +------+----+----+-----+-----------+--------+--------------+
 ```
 
-## JIT 컴파일러
+# JIT 컴파일러
 - 자바 코드가 자바 바이트 코드(.class)로 컴파일된 후 가상 머신에서 기계어로 해석하여 코드를 인터프리터 형식으로 실행한다.
 - 자바 바이트 코드 한줄을 해석하고 실행하는 방식은 기계어로 컴파일 되는 C/C++ 과 같은 언어보다 느리기 때문에 JIT 컴파일러가 이를 보완하기 위해 존재한다.
 - JIT 컴파일러는 런타임중에 가상 기계에서만 돌아가는 자바 바이트 코드를 해당 플랫폼에 맞는 기계어로 컴파일한다.
@@ -722,18 +734,18 @@ unreachable: root set으로부터 시작되는 참조 사슬로 참조되지 않
 https://lazymankook.tistory.com/83
 https://mirinae312.github.io/develop/2018/06/04/jvm_gc.html
 
-## Serial GC
+# Serial GC
 - Mark-Sweep-Compaction 알고리즘을 통해 단일 스레드에서 순차적으로 동작
 Mark-Sweep-Compaction 알고리즘
   - 사용되지 않는 객체를 식별하는 작업 (Mark)
   - 사용되지 않는 객체를 제거하는 작업 (Sweep)
   - 파편화된 메모리 영역을 앞에서부터 채워나가는 작업 (Compaction)
 
-## Parallel GC (Java 8, 7)
+# Parallel GC (Java 8, 7)
 - GC를 멀티스레드로 실행
 - Strop the world 시간이 줄어듬
 
-## G1GC (Java 9 이후 deafult 7에 추가)
+# G1GC (Java 9 이후 deafult 7에 추가)
 <!-- daangn -->
 - 하드웨어가 발전하면서 메모리의 크기가 커졌지만 기존 GC 알고리즘으로 큰 메모리에서 좋은 성능을 내지 못해 등장
   => 큰 메모리에서 짧은 GC 시간 (stop-the-world)를 보장
@@ -771,6 +783,8 @@ Cleanup
 Copy
 - GC 대상 Region이었지만 Cleanup 과정에서 완전히 비워지지 않은 Region의 살아남은 객체들을 새로운(Available/Unused) Region 에 복사하여 Compaction 작업을 수행한다.
 
+<!-- TODO: Add G1GC process image -->
+
 </br>
 
 # 트랜잭션 ACID
@@ -795,8 +809,10 @@ Copy
 - 로컬 트랜잭션과 달리 여러 DB 커넥션에 대해 트랜잭션을 관리하는 방식이다.
 
 # JTA<sup>Java Transaction API</sup>
+<!-- TODO -->
 
 # JPA 생성자가 필요한 이유
+<!-- TODO -->
 
 # JPA persistence context
 https://stackoverflow.com/questions/23984968/jpa-without-transaction
