@@ -81,6 +81,55 @@
 
 </br>
 
+# MySQL 
+MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
+
+**서버 엔진**
+- 쿼리 요청이 왔을 때 쿼리 파싱(Query parsing)을 하여 스토리지 엔진에 데이터를 요청하는 작업을 한다.
+
+**스토리지 엔진**
+- 물리적 저장장치에서 데이터를 읽어오는 작업을 한다.
+
+# MySQL Storage Engine
+<!-- http://asuraiv.blogspot.com/2017/07/mysql-storage-engine.html -->
+- 스토리지 엔진은 물리 저장장치에서 데이터를 읽어오는 역할을 담당한다.  
+- MySQL의 스토리지 엔진을 플러그인 방식이며, 기본적으로 8가지의 스토리지 엔진이 탑재되어있다.
+
+**InnoDB**
+- 따로 스토리지 엔진을 명시하지 않으면 default 로 설정되는 스토리지 엔진이다. InnoDB는 transaction-safe 하며, 커밋과 롤백, 그리고 데이터 복구 기능을 제공하므로 데이터를 효과적으로 보호 할 수 있다.
+- InnoDB는 기본적으로 row-level locking 제공하며, 또한 데이터를 clustered index에 저장하여 PK 기반의 query의 I/O 비용을 줄인다. 또한 FK 제약을 제공하여 데이터 무결성을 보장한다.
+- 트랜잭션을 지원한다.
+- MyISAM이 테이블 단위의 Lock을 지원하는 것과 달리 InnoDB는 로우(행) 단위 Lock을 사용하기 때문에 INSERT, UPDATE, DELETE 에 대한 속도가 빠르다.
+- 시스템 자원을 많이 사용한다.
+
+**MyISAM**
+- 트랜잭션을 지원하지 않고 table-level locking을 제공한다. 따라서 multi-thread 환경에서 성능이 저하 될 수 있다. 특정 세션이 테이블을 변경하는 동안 테이블 단위로 lock이 잡히기 때문이다.
+- 텍스트 전문 검색(Fulltext Searching)과 지리정보 처리 기능도 지원되는데, 이를 사용할 시에는 파티셔닝을 사용할 수 없다는 단점이 있다.
+- 엔진이 기본적인 기능만 제공하기 때문에 SELECT가 빠르다.
+- 쓰기 작업시 Table level locking이 걸리기 때문에 상당히 속도가 느리다.
+- 외래키의 생성이 불가능하다.
+
+|  | MyISAM | InnoDB |
+| - | - | - |
+| 최대용량 | 256TB | 64TB |
+| 트랜잭션 | 미지원 | 지원 |
+| B-Tree 인덱스 | 지원 | 지원 |
+| Hash 인덱스 | 미지원 | 미지원 |
+| Full text search index | 지원 | 미지원 |
+| 외래키 | 미지원 | 지원 |
+| 모델 복잡도 | 단순 | 복잡 |
+| 무결성 | 미지원 | 지원 |
+| 시스템 자원 사용 | 적음 | 많음 |
+| 복구 | 미지원 | 지원 |
+| Lock | Table Level Locking | Row Level Locking |
+
+> **Full-text Index**  
+> 한 컬럼안에 많은 형태의 데이터가 담겨있어(한글, 영어, 숫자 등이 섞여있거나, 그 길이가 긴 경우) 효율적으로 데이터를 찾는 경우에 사용한다. 컬럼을 토큰으로 나눠 인덱스 데이터를 생성한다. 
+> 컬럼을 토큰으로 나누기 위해, 구분 문자<sup>Stop-word</sup>를 사용하는 Stop-word 파서와 토큰의 크기 N만큼씩 인덱스로 파싱해두었다가 사용하는 N-gram 파서를 사용한다.
+<!-- https://www.mssqltips.com/sqlservertutorial/9136/sql-server-full-text-indexes/ -->
+
+</br>
+
 # 자바 직렬화<sup>Serialization</sup>
 <!-- daangn -->
 <!-- https://woowabros.github.io/experience/2017/10/17/java-serialize.html -->
@@ -274,6 +323,13 @@
 - Embeded Tomcat을 사용하기 때문에 톰캣을 설치하거나 버전을 따로 관리할 필요가 없다.
 
 ## Spring Boot Starter
+<!-- http://dveamer.github.io/backend/SpringBootStater.html -->
+- Spring Boot의 spring-boot-starter란 의존성과 설정을 자동화해주는 모듈을 말한다.
+- spring-boot-starter-parent 를 설정했다면 버전 태그는 필요없다.
+
+## Spring Boot Starter Parent
+- spring-boot-starter가 의존성 조합을 제공한다면, starter-parent는 의존성 조합간의 충돌 문제가 없는 검증 된 버전 정보 조합을 제공한다.
+- 버전을 오버라이딩하기 위해선 dependency 내부에서 다른 버전을 지정하여 사용하면 된다.
 
 </br>
 
