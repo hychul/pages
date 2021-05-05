@@ -209,6 +209,7 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 
 </br>
 
+<a name="cors"></a>
 # CORS
 <!-- daangn -->
 <!-- https://evan-moon.github.io/2020/05/21/about-cors/#%EB%A7%88%EC%B9%98%EB%A9%B0 -->
@@ -243,24 +244,88 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 # Spring MVC request 처리 과정
 <!-- daangn -->
 
-</br>
-
-# Spring filter와 interceptor의 차이점
+# Spring filter, interceptor, AOP 차이점
 <!-- daangn -->
 <!-- https://yzlosmik.tistory.com/24 -->
 <!-- https://goddaehee.tistory.com/154 -->
 스프링에서 request의 실행순서는 Filter - Dispatcher - Interceptor - AOP - Controller 순으로 실행된다.
 
-**filter**
-- dispatcher 이전에 실행되며 // TODO
+**Filter**
+- dispatcher 이전에 실행된다.
+- 요청이나 응답에 대한 변경 처리가 가능하다.
+- 스프링 컨텍스트 외부에 존배하여 스프링과 무관한 자원에 대해서 동작한다.
+- 일반적으로 인코딩, [CORS](#cors), XSS, LOG, 인증, 권한 등의 요청에 대한 처리에 사용된다.
 
-**interceptor**
-- 
+**Interceptor**
+<!-- https://velog.io/@ette9844/Spring-HandlerInterceptor-%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%B2%98%EB%A6%AC -->
+- dispatcher 이후에 실행된다.
+- 스프링에서 관리되어 스프링 내의 객체(빈)에 대해서 접근이 가능하다.
+- 인터셉터를 구현하기 위해 `HandlerInterceptor` 인터페이스나 `HandlerInterceptorAdaptor` 추상 클래스를 상속받는다. 
+- 일반적으로 로그인처리에서 많이 사용되는데, 인터셉터를 사용하지 않고 로그인 처리를 하기 위해선 Controller의 핸들러 메서드 마다 세션을 확인하려 로그인 정보를 확인하는 코드를 중복으로 작성해야 한다.
 
-</br>
+**AOP**
+- OOP를 보완하기 위해 종단면 관점으로 중복된 코드를 줄일 때 사용한다.
+- Filter와 Interceptor와 달리 메서드 전/후 지점에 자유롭게 설정이 가능하다.
+- Filter와 Interceptor는 주소로 대상을 구분해서 걸러내야하는 반면, AOP는 주소, 파라미터, 애노테이션 등 다양한 방법으로 대상을 지정할 수 있다.
+- AOP의 포인트 컷
+  - `@Before` : 대상 메서드의 수행 전
+  - `@After` : 대상 메서드의 수행 후
+  - `@AfterReturning` : 대상 메서드의 정상적인 수행 후
+  - `@AfterThrowing` : 예외 발생 후
+  - `@Around`: 대상 메서드의 수행 전/후
 
 # Spring Bean Scope
 <!-- daangn -->
+**Singleton**
+- ConfigurableBeanFactory.SCOPE_SINGLETON
+- Spring 컨테이너에 의해 한 번만 생성된다.
+- 컨테이너가 사라질 때 함께 빈도 제거된다.
+- 기본 스코프
+
+**Prototype**
+- ConfigurableBeanFactory.SCOPE_PROTOTYPE
+- 모든 요청(getBean()이 호출될 때)에서 새로운 객체를 생성된다.
+
+**Request**
+- WebApplicationContext.SCOPE_REQUEST
+- HTTP 요청별로 인스턴스화 되며 요청이 끝나면 소멸
+
+**Session**
+- WebApplicationContext.SCOPE_SESSION
+- HTTP 세션별로 인스턴스화되며 세션이 끝나며 소멸
+
+**Application**
+- 웹의 서블릿 컨텍스트와 같은 범위로 유지되는 스코프
+- Singleton과 비슷해보이지만 두가지 차이점이 존재한다.
+  - Application Scope는 서블릿 컨텍스트 단위로 싱글톤을 관리하지만, Singleton Scope은 어플리케이션 컨텍스트 단위로 싱글톤을 관리한다. 한 어플리케이션 내에서 여러개의 어플리케이션 컨텍스트가 존재할 수 있다.
+  - Application Scope 빈은 서블릿 `ServletContext`의 attribute로 접근이 가능하다.
+
+Global Session
+- 웹의 포틀릿 컨텍스트와 같은 범위로 유지되는 스코프
+
+> 포틀릿 웹 응용 프로그램  
+> 서블릿 기반의 앱에선 한 요청에 대해 응답을 하는 것에 반해, 포틀릿에선 랜더와 요청, 두가지에 대한 응답을 한다.
+
+# Spring Application Context vs Servlet Context
+**Application Context**
+- Web Application 최상단에 위치하고 있는 Context
+- Spring에서 ApplicationContext란 BeanFactory를 상속받고 있는 Context
+- Spring에서 root-context.xml, applicationContext.xml 파일은 ApplicationContext 생성 시 필요한 설정정보를 담은 파일 (Bean 선언 등..)
+- Spring에서 생성되는 Bean에 대한 IoC Container (또는 Bean Container)
+- 특정 Servlet설정과 관계 없는 설정을 한다 (@Service, @Repository, @Configuration, @Component)
+- 서로 다른 여러 Servlet에서 공통적으로 공유해서 사용할 수 있는 Bean을 선언한다.
+- Application Context에 정의된 Bean은 Servlet Context에 정의 된 Bean을 사용할 수 없다.
+
+**Servlet Context**
+- Servlet 단위로 생성되는 context
+- Spring에서 servlet-context.xml 파일은 DispatcherServlet 생성 시에 필요한 설정 정보를 담은 파일 (Interceptor, Bean생성, ViewResolver등..)
+- URL설정이 있는 Bean을 생성 (@Controller, Interceptor)
+- Application Context를 자신의 부모 Context로 사용한다.
+- Application Context와 Servlet Context에 같은 id로 된 Bean이 등록 되는 경우, Servlet Context에 선언된 Bean을 사용한다.
+- Bean 찾는 순서
+  - Servlet Context에서 먼저 찾는다.
+  - 만약 Servlet Context에서 bean을 못찾는 경우 Application Context에 정의된 bean을 찾는다.
+- Servlet Context에 정의된 Bean은 Application Context의 Bean을 사용할 수 있다.
 
 # Spring @Bean vs @Component
 <!-- daangn -->
@@ -271,6 +336,11 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 **@Component**
 - 클래스에만 사용할 수 있다.
 - 개발자가 직접 컨트롤리 가능한 클래스에서 사용할 수 있다.
+
+# Spring Webflux 요청이 처리되는 과정
+![spring-webflux-0](https://user-images.githubusercontent.com/18159012/116578105-09165800-a94c-11eb-9ca6-eb320be1abec.png)
+
+# Multiplex Server의 동작
 
 </br>
 
@@ -681,13 +751,6 @@ Cleanup
 
 Copy
 - GC 대상 Region이었지만 Cleanup 과정에서 완전히 비워지지 않은 Region의 살아남은 객체들을 새로운(Available/Unused) Region 에 복사하여 Compaction 작업을 수행한다.
-
-</br>
-
-# Multiplex Server의 동작
-
-# Spring Webflux 요청이 처리되는 과정
-![spring-webflux-0](https://user-images.githubusercontent.com/18159012/116578105-09165800-a94c-11eb-9ca6-eb320be1abec.png)
 
 </br>
 
