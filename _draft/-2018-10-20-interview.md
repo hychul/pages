@@ -190,11 +190,29 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 
 **블록킹**
 - 호출된 함수가 자신의 작업을 모두 끝낼때까지 제어권을 가지고 있어 호출한 함수가 대기하도록 만듦
-- 스레드의 관점에서, 요청한 작업을 완료할 때까지 계속 대기하며 return 받을 때까지 한 스레드를 계속 사용한다.
+- 스레드의 관점에서, 요청한 작업을 완료할 때까지 계속 대기하며 return 받을 때까지 block 되어 한 스레드를 계속 사용한다.
 
 **논블록킹**
 - 호출된 함수가 바로 return 해서 호출한 함수에게 제어권을 주어 다른 일을 할 수 있게 함
 - 스레드의 관점으로 본다면, 하나의 스레드가 여러 IO를 처리 가능하다.
+
+# 동기/비동기 + 블록킹/논블록킹
+**동기 + 블록킹**  
+![sync-blocking-1](https://user-images.githubusercontent.com/18159012/117162983-3193cb80-adfe-11eb-816b-bd84c8f80578.png)
+
+**비동기 + 블록킹**  
+![sync-blocking-2](https://user-images.githubusercontent.com/18159012/117162987-32c4f880-adfe-11eb-890b-7f34da4d88b6.png)
+
+**동기 + 논블록킹**  
+![sync-blocking-3](https://user-images.githubusercontent.com/18159012/117162991-335d8f00-adfe-11eb-9f32-da701c060f06.png)
+
+**비동기 + 논블록킹**  
+![sync-blocking-4](https://user-images.githubusercontent.com/18159012/117162994-33f62580-adfe-11eb-8b9d-deb18301bac1.png)
+
+| | 블록킹 | 논블록킹 |
+| - | - | - |
+| 동기 |  | |
+| 비동기 | | |
 
 # 동시성 vs 병렬성
 **동시성**
