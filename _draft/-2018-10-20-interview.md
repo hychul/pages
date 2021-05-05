@@ -261,6 +261,7 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 
 # Spring MVC request 처리 과정
 <!-- daangn -->
+![spring-mvs-process-1](https://user-images.githubusercontent.com/18159012/117173061-593b6180-ae07-11eb-8b9c-8660289bb117.png)
 
 # Spring filter, interceptor, AOP 차이점
 <!-- daangn -->
