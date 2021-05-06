@@ -349,6 +349,9 @@ Global Session
 > 포틀릿 웹 응용 프로그램  
 > 서블릿 기반의 앱에선 한 요청에 대해 응답을 하는 것에 반해, 포틀릿에선 랜더와 요청, 두가지에 대한 응답을 한다.
 
+# Spring Bean Lifecycle
+<!-- TODO -->
+
 # Spring Application Context vs Servlet Context
 **Application Context**
 - Web Application 최상단에 위치하고 있는 Context
@@ -401,7 +404,7 @@ Global Session
 - 주로 특정 자바 모델이나 기능, 프레임워크를 따르지  않는 Java Object를 지칭한다.
 
 **IoC<sup>Inversion of Control</sup> : 제어의 반전**
-- 기존의 자바의 객체 생성 및 의존관곌에 있어 모든 제어권을 개발자에게 있었지만, 스프링에서는 프로그램의 흐름을 프레임워크가 주도한다.
+- 기존의 자바의 객체 생성 및 의존관계에 있어 모든 제어권을 개발자에게 있었지만, 스프링에서는 프로그램의 흐름을 프레임워크가 주도한다.
 - 스프링 프레임워크에서 객체에 대한 생성과 생명주기를 관리할 수 있는 기능을 제공하고 있는데, 이런 이유로 스프링을 스프링 컨테이너 또는 IoC 컨테이너라고 부르기도 한다.  
 - 제어권이 컨테이너로 넘어가게 되었고, 이것을 제어권의 흐름이 바뀌었다고 하여 IoC 라고 부른다.
 - 제어권이 스프링에게 없다면 `@Autowired`와 같은 어노테이션으로 의존성 주입을 할 수 없게된다.
@@ -816,6 +819,7 @@ Copy
 # JTA<sup>Java Transaction API</sup>
 <!-- TODO -->
 
+<a id="jpa"></a>
 # JPA 생성자가 필요한 이유
 <!-- TODO -->
 
@@ -836,10 +840,10 @@ Extended Persistence Context
 
 Benefit: Perfect to implement a conversation style interaction with clients. Your client call several bean methods to tell your bean all the information you need to know and at the end of the conversation you persist everything to your DB.
 ## QueryDSL
-https://ict-nroo.tistory.com/117
+<!-- https://ict-nroo.tistory.com/117 -->
+<!-- TODO -->
 
 ## DBCP<sup>DB 커넥션 풀<sup>
-
 ```java
 Connection conn = null;
 PreparedStatement  pstmt = null;
@@ -866,16 +870,35 @@ try {
 }
 ```
 
+# JPA save() vs saveAndFlush()
+<!-- https://happyer16.tistory.com/entry/Spring-jpa-save-saveAndFlush-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%95%8C%EA%B3%A0-%EC%93%B0%EA%B8%B0 -->
+<!-- https://ramees.tistory.com/36 -->
+
 <a id="cache"></a>
 # 레디스 캐시 vs In memory cache
 
 - 다음의 코드에서 매번 커넥션 객체를 생성하고 사용후에 종료하는 방식은 비효율 적이기 때문에 커넥션 풀을 만들어 사용한 다음 풀링하여 사용하도록 한다.
 
+<a id="network"></a>
+# 아파치 톰캣
+**아파치**
+- 결국 아파치서버란 클라이언트에서 요청하는 HTTP요청을 처리하는 웹서버를 의미한다.
+- 정적타입(HTML, CSS, 이미지 등)의 데이터만을 처리하기 때문에 톰캣이란 것이 등장한 것 같다.
+
+**톰캣**
+- 컨테이너, 웹 컨테이너, 서블릿 컨테이너로도 불림
+- 
+
+**아파치 톰캣으로 부르는 이유**
+- 기본적으로 아파치와 톰캣의 기능이 나뉘어 있지만, 톰캣 안에 있는 컨테이너를 통해 일부 아파치의 기능을 수행하기에 아파치 톰캣으로 부른다.
+
+# 톰캣의 서블릿 컨텍스트
+<!-- TODO -->
+
 # 네트워크 브로드캐스트 vs 멀티캐스트
+<!-- TODO -->
 
-# 알고리즘
-
-## 정렬
+# 정렬
 
 # 프로젝트와 관련된 질문
 
