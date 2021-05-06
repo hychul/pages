@@ -8,18 +8,18 @@
 2020-04-17-how-mybatis-works :: MyBatis는 어떻게 동작할까? :: java, mybatis, db, jdbc
 2020-04-17-how-jpa-works :: JPA는 어떻게 동작할까? :: java, jpa, db, jdbc
 2020-04-17-how-lombok-works :: 롬복이 어떻게 동작할까? :: java, lombok
-2020-03-29-git-submodule-conflict :: Git submodule conflict 해결 :: git, tip
+2020-03-29-git-submodule-conflict :: Git submodule conflict 해결 :: git, terminal
 2019-08-01-swagger-api-document-file :: Swagger 도큐먼트 파일로 저장하기 :: java, swagger
 2019-07-19-markdown-syntax :: 마크다운 문법 :: markdown
 2019-07-04-intellij-file-type-strange :: IntelliJ에서 파일 형식에 맞지 않게 인식할 때 :: intellij
 2019-07-02-git-description :: Git description 편리하게 사용하기 :: git
 2019-05-24-using-kotlin-in-android :: Using Kotlin in Android :: kotlin, android
-2019-05-24-jenkins-scheduling-format :: Jenkins Scheduling Format
+2019-05-24-jenkins-scheduling-format :: Jenkins Scheduling Format :: jenkins
 2019-05-24-hibernate-JAXBContext-exception :: Hibernate Unable to build hbm.xml JAXBContext Exception 해결
 2019-05-24-applying-audit-to-jpa :: JPA에 audit 적용하기 :: java, spring, jpa
 2019-05-22-set-key-after-insert-by-mybatis :: Mybatis에서 INSERT 후 key 가져오기 :: java, spring, mybatis
 2019-05-16-mybatis-resulttype-list :: java, spring, mybatis
-2019-04-22-kill-port-using-process-in-mac :: 맥에서 사용중인 포트 죽이기 :: terminal, port
+2019-04-22-kill-port-using-process-in-mac :: 맥에서 사용중인 포트 죽이기 :: terminal, port, mac
 2019-03-23-java-nio-and-multiplex-server :: Java NIO와 멀티플렉스 서버 :: java, reactor, spring, webflux, multiplex-server, multiplex
 2019-03-22-reactor-error :: Reactor Stream Error :: java, reactor
 2019-03-21-reactor-hot-stream :: Reactor Hot Stream :: java, reactor
