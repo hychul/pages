@@ -11,8 +11,8 @@ Error has been observed at the following site(s):
     |_ checkpoint ⇢ org.springframework.security.web.server.header.HttpHeaderWriterWebFilter [DefaultWebFilterChain]
     |_ checkpoint ⇢ org.springframework.security.config.web.server.ServerHttpSecurity$ServerWebExchangeReactorContextWebFilter [DefaultWebFilterChain]
     |_ checkpoint ⇢ org.springframework.security.web.server.WebFilterChainProxy [DefaultWebFilterChain]
-    |_ checkpoint ⇢ com.linecorp.lad.manager.webgw.filter.web.RequestBodyCacheFilter [DefaultWebFilterChain]
-    |_ checkpoint ⇢ com.linecorp.lad.manager.webgw.filter.web.RequestContextWebFilter [DefaultWebFilterChain]
+    |_ checkpoint ⇢ com.linecorp.admanager.webgateway.filter.web.RequestBodyCacheFilter [DefaultWebFilterChain]
+    |_ checkpoint ⇢ com.linecorp.admanager.webgateway.filter.web.RequestContextWebFilter [DefaultWebFilterChain]
     |_ checkpoint ⇢ org.springframework.cloud.sleuth.instrument.web.TraceWebFilter [DefaultWebFilterChain]
     |_ checkpoint ⇢ HTTP GET "/!@#$%" [ExceptionHandlingWebHandler]
 Stack trace:
