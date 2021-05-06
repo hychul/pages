@@ -2,6 +2,8 @@
 2021-05-04-compiler-message-file-broken :: compiler message file broken 이슈 :: java, issue
 2021-05-01-spring-cloug-gateway-route :: Spring Cloud Gateway 라우팅 :: java, spring, spring-cloud-gateway, scg
 2021-04-27-n-plus-one-problem :: N+1 문제 :: java, jpa, db
+2021-04-21-webclient-route-load-balancer-sertting :: WebClient에서 LoadBalacner 클라이언트 사용하기 :: java, webflux, webclient, issue
+2021-04-21-web-client-override-base-url-issue :: WebClient base url 오버라이딩 이슈 :: java, webflux, webclient, issue
 2021-03-11-react-overflow-child-content :: React child 컴포넌트의 이미지가 parent 크기보다 클 때 :: react
 2021-03-11-spring-security-pre-auth :: Spring MVC와 Weflux의 Security : PreAuthentication :: java, spring
 2020-09-01-alias-setting-for-mac :: Mac에서 alias 설정 :: mac, tip
