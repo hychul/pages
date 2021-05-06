@@ -5,5 +5,5 @@
 이럴 땐 서브모듈을 베이스 브랜치의 것으로 reset하면 간단하게 해결 할 수 있다.
 
 ```terminal
-git reset master path/to/submodule
+$ git reset [base branch name] [path/to/submodule]
 ```
