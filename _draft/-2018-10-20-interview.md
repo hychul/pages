@@ -1,3 +1,18 @@
+
+[JAVA](#java)
+[JDK](#jdk)
+[JVM](#jvm)
+[GC](#gc)
+[Spring](#spring)
+[Serailization](#serialization)
+[CORS](#cors)
+[DB](#db)
+[JPA](#jpa)
+[Cache](#cache)
+[Transaction](#transaction)
+[MSA](#msa)
+
+<a id="db"></a>
 # DB 인덱싱의 특징
 <!-- MySQL B+tree https://zorba91.tistory.com/293 -->
 <!-- daangn -->
@@ -21,8 +36,6 @@
 - 중복도가 낮으면 카디널리티가 높고, 중복도가 높으면 카디널리티가 낮다.
 - DB 테이블에서 카디널리티가 낮은 컬럼에 대해서 인덱스를 생성하면 쿼리 결과물이 많아지기 때문에 효율이 적어진다.
 - A, B, C 컬럼에 인덱스를 설정한 후 where 절에 카디널리티가 오름차순인 컬럼을 조건으로 설정한 경우 조건을 순서대로 질의하면서 많은 수의 로우가 검색이 되기 때문에, where 절에 카디널리티가 높은 순서의 조건을 먼저 두는 것이 좋다.
-
-</br>
 
 # DB Isolation Level
 <!-- daangn -->
@@ -128,8 +141,7 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 > 컬럼을 토큰으로 나누기 위해, 구분 문자<sup>Stop-word</sup>를 사용하는 Stop-word 파서와 토큰의 크기 N만큼씩 인덱스로 파싱해두었다가 사용하는 N-gram 파서를 사용한다.
 <!-- https://www.mssqltips.com/sqlservertutorial/9136/sql-server-full-text-indexes/ -->
 
-</br>
-
+<a id="serialization"></a>
 # 자바 직렬화<sup>Serialization</sup>
 <!-- daangn -->
 <!-- https://woowabros.github.io/experience/2017/10/17/java-serialize.html -->
@@ -155,8 +167,6 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 - 멤버 변수명은 같은데 멤버 변수 타입이 변경된 경우. ex) String -> StringBuilder
 - 멤버 변수의 프리미티브 타입을 변경하는 경우. ex) int -> long
 - SUID 값이 동이리하면 멤버 변수 추가는 문제되지 않지만, 변수명 변경/변수 삭제는 오류를 발생키지 않고 데이터가 누락된다.
-
-</br>
 
 # 자바 직렬화를 사용하는 곳
 <!-- daangn -->
@@ -222,7 +232,7 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 
 </br>
 
-<a name="cors"></a>
+<a id="cors"></a>
 # CORS
 <!-- daangn -->
 <!-- https://evan-moon.github.io/2020/05/21/about-cors/#%EB%A7%88%EC%B9%98%EB%A9%B0 -->
@@ -248,8 +258,7 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 <!-- https://dev-pengun.tistory.com/entry/Spring-Boot-CORS-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0 -->
 - 
 
-</br>
-
+<a id="msa"></a>
 # MSA vs Monolitic 장단점
 <!-- daangn -->
 <!-- https://m.blog.naver.com/tkdrns90/221986327039 -->
@@ -436,8 +445,7 @@ Global Session
 - spring-boot-starter가 의존성 조합을 제공한다면, starter-parent는 의존성 조합간의 충돌 문제가 없는 검증 된 버전 정보 조합을 제공한다.
 - 버전을 오버라이딩하기 위해선 dependency 내부에서 다른 버전을 지정하여 사용하면 된다.
 
-</br>
-
+<a id="java"></a>
 # Java equals() vs hashcode()
 <!-- daangn -->
 **equals()**
@@ -563,8 +571,7 @@ Global Session
 - 클래스의 객체를 만들 필요 없이, static 한 클래스에 접근하여 사용
 - 초기화가 어려움
 
-</br>
-
+<a id="jvm"></a>
 # JVM
 <!-- https://hoonmaro.tistory.com/19 -->
 **JVM의 기능**
@@ -680,8 +687,7 @@ Java 8
 - JIT 컴파일러는 런타임중에 가상 기계에서만 돌아가는 자바 바이트 코드를 해당 플랫폼에 맞는 기계어로 컴파일한다.
 - 기계어로 컴파일된 코드는 인터프리터가 자바 바이트 코드에서 다시 번역하지 않고 바로 실행된다.
 
-</br>
-
+<a id="GC"></a>
 # GC란?
 - 힙 영역에서 가비지를 찾아내 힙의 메모리를 회수하는 것 
 - GC 대상인 객체를 처리하여 메모리를 회수하는 작업은 즉각적인 연속 작업이 아니며, GC 대상 객체의 메모리를 한 번에 모두 회수하지도 않는다
@@ -785,8 +791,7 @@ Copy
 
 <!-- TODO: Add G1GC process image -->
 
-</br>
-
+<a id="transaction"></a>
 # 트랜잭션 ACID
 원자성<sup>Atomicity</sup>
 - 트랜잭션과 관련된 작업들이 부분적으로 실행되다가 중단되지 않는 것을 보장하는 것을 의미
@@ -860,6 +865,9 @@ try {
     }
 }
 ```
+
+<a id="cache"></a>
+# 레디스 캐시 vs In memory cache
 
 - 다음의 코드에서 매번 커넥션 객체를 생성하고 사용후에 종료하는 방식은 비효율 적이기 때문에 커넥션 풀을 만들어 사용한 다음 풀링하여 사용하도록 한다.
 
