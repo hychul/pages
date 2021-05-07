@@ -319,6 +319,7 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 
 # Spring Bean Scope
 <!-- daangn -->
+빈 팩토리에서 관리
 **Singleton**
 - ConfigurableBeanFactory.SCOPE_SINGLETON
 - Spring 컨테이너에 의해 한 번만 생성된다.
@@ -329,16 +330,20 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 - ConfigurableBeanFactory.SCOPE_PROTOTYPE
 - 모든 요청(getBean()이 호출될 때)에서 새로운 객체를 생성된다.
 
+커스텀 스코프
 **Request**
 - WebApplicationContext.SCOPE_REQUEST
+- 커스텀 스코프로 해당 빈은 request의 attribute로 관리한다.
 - HTTP 요청별로 인스턴스화 되며 요청이 끝나면 소멸
 
 **Session**
 - WebApplicationContext.SCOPE_SESSION
+- 커스텀 스코프로 해당 빈은 session의 attribute로 관리한다.
 - HTTP 세션별로 인스턴스화되며 세션이 끝나며 소멸
 
 **Application**
 - 웹의 서블릿 컨텍스트와 같은 범위로 유지되는 스코프
+- 커스텀 스코프로 해당 빈은 servlet context의 attribute로 관리한다.
 - Singleton과 비슷해보이지만 두가지 차이점이 존재한다.
   - Application Scope는 서블릿 컨텍스트 단위로 싱글톤을 관리하지만, Singleton Scope은 어플리케이션 컨텍스트 단위로 싱글톤을 관리한다. 한 어플리케이션 내에서 여러개의 어플리케이션 컨텍스트가 존재할 수 있다.
   - Application Scope 빈은 서블릿 `ServletContext`의 attribute로 접근이 가능하다.
@@ -652,20 +657,19 @@ Global Session
 - GC의 대상
 - JVM Xms, Xmx 옵션과 연관
 - Permanent 영역은 8부터 없어짐 <!-- https://johngrib.github.io/wiki/java8-why-permgen-removed/ -->
+  - Perm 영역은 보통 Class의 Meta 정보나 Method의 Meta 정보, Static 변수와 상수 정보들이 저장되는 공간으로 흔히 메타데이터 저장 영역이라고도 한다.
 - Java 8에서 Metaspace(non-heap)가 도입되면서 Static Object 및 상수화된 String Object를 heap 영역으로 옮김
   - 인스턴스는 heap에 저장되고 인스턴스가 저장된 포인터 주소는 Metaspace에 저장된다.
 
 **Non-heap**
-- Class메타정보
-- Method메타정보
 - Static Object, 상수화된 String Object, Class의 함수가 실행되는 영역
+  - (Java 8 이후) 실제 객체 메모리는 힙에 있고, 해당 포인터를 metaspace에서 관리
 - (Java 8 이후) 런타임에 동적으로 사이즈 조정 가능 -> MetaspaceSize 및 MaxMEtaspaceSize 옵션
-<!--  
-Non-Heap 영역은 Heap 이외의 영역을 말한다.(당연한 말을 ^^;)
-2.1. Method Area : 메소드와 클래스 변수를 저장하기 위한 영역이다.
-2.2. Stack Area : 메소드 호출 시 메소드의 매개변수, 지역변수, 임시변수등을 저장하기 위한 스택 구조의 영역이다.
-2.3. 기타 : JVM이 현재 수행할 명령어의 주소를 저장하는 PC 레지스터, native 메소드의 매개변수, 지역변수 등을 저장 native 메소드 스택등이 있다.
--->
+- Method Area : Class, Method 메타정보를 저장하기 위한 영역이다.
+- Stack Area : 메소드 호출 시 메소드의 매개변수, 지역변수, 임시변수등을 저장하기 위한 스택 구조의 영역이다.
+- 기타 : JVM이 현재 수행할 명령어의 주소를 저장하는 PC 레지스터, native 메소드의 매개변수, 지역변수 등을 저장 native 메소드 스택등이 있다.
+<!-- https://johngrib.github.io/wiki/java8-why-permgen-removed/ -->
+
 ```
 Java7
 <----- Java Heap ----->             <- Native(OS) Memory -->
@@ -823,8 +827,41 @@ Copy
 # JPA 생성자가 필요한 이유
 <!-- TODO -->
 
+# N+1 문제
+<!-- https://joosjuliet.github.io/n+1/ -->
+
 # JPA persistence context
-https://stackoverflow.com/questions/23984968/jpa-without-transaction
+<!-- https://stackoverflow.com/questions/23984968/jpa-without-transaction -->
+- 영속성 컨텍스트와 식별자 값
+  - 엔티티를 식별자 값(@id로 테이블의 기본 키와 매핑한 값)으로 구분
+  - 영속 상태는 식별자 값이 반드시 있어야 한다.
+  - 식별자 값이 없으면 예외 발생.
+- 영속성 컨텍스트와 데이터베이스 저장
+  - JPA는 보통 트랜잭션을 커밋하는 순간 영속성 컨텍스트에 새로 저장된 엔티티를 데이터베이스에 반영
+  - 플러시(flush)
+- 영속성 컨텍스트가 엔티티를 관리하는 것의 장점
+  - 1차 캐시
+  - 동일성 보장
+  - 트랜잭션을 지원하는 쓰기 지연
+  - 변경 감지
+  - 지연 로딩
+
+<!-- https://ultrakain.gitbooks.io/jpa/content/chapter3/chapter3.4.html -->
+**엔티티 조회**
+- 영속성 컨텍스트는 내부에 캐시를 가지고 있음 => 1차 캐시
+- 영속 상태의 엔티티는 모두 이곳에 저장
+- 1차 캐시의 엔티티가 없는 경우 데이터베이스를 조회해서 엔티티를 영속성 컨텍스트에 생성
+
+**엔티티 등록**
+- 엔티티 매니저는 데이터 변경 시 트랜잭션을 시작해야 한다.
+- 트랜잭션 시작 -> persist() -> commit() -> 트랜잭션 종료 순으 동작
+
+**엔티티 수정**
+- 트랜잭션 커밋 -> 엔티티 매니저 내부에서 먼저 플러시 호출
+- 엔티티와 스냅샷을 비교해서 변경된 엔티티 찾는다.
+- 변경된 엔티티가 있으면 수정 쿼리를 생성해서 쓰기 지연 SQL 저장소로 보낸다.
+- 쓰기 지연 저장소의 SQL을 데이터베이스로 보낸다.
+- 데이터베이스 트랜잭션을 커밋
 
 ## Transaction Persistence Context vs Extended Persistence Context
 <!-- https://www.baeldung.com/jpa-hibernate-persistence-context -->
@@ -870,14 +907,32 @@ try {
 }
 ```
 
+- 다음의 코드에서 매번 커넥션 객체를 생성하고 사용후에 종료하는 방식은 비효율 적이기 때문에 커넥션 풀을 만들어 사용한 다음 풀링하여 사용하도록 한다.
+
 # JPA save() vs saveAndFlush()
 <!-- https://happyer16.tistory.com/entry/Spring-jpa-save-saveAndFlush-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%95%8C%EA%B3%A0-%EC%93%B0%EA%B8%B0 -->
 <!-- https://ramees.tistory.com/36 -->
 
 <a id="cache"></a>
-# 레디스 캐시 vs In memory cache
+# 레디스 캐시 vs In memcache
+**memcache**
+- 데이터 형식으로 문자열만 지원한다.
+- 작고 변하지 않는 데이타 예를들어 HTML 코드의 부분을 캐싱할때 내부 메모리 관리가 Redis 만큼 복잡하지 않아 능률적이기 떄문에 Memcached 는 메타 데이타에 있어 비교적 작은 메모리를 사용한다.
+- 모든 key-value 쌍을 메모리에만 저장하므로 서버 장애시 데이터가 모두 손실된다.
 
-- 다음의 코드에서 매번 커넥션 객체를 생성하고 사용후에 종료하는 방식은 비효율 적이기 때문에 커넥션 풀을 만들어 사용한 다음 풀링하여 사용하도록 한다.
+**레디스**
+<!-- https://kimdubi.github.io/nosql/redis_persistent/ -->
+- 모든 데이터를 메모리에 저장하고 조회한다.
+- 다른 인메모리 솔루션과 달리 다양한 자료구조를 지원한다.
+- AOF<sup>Append Only File</sup> 혹은 RDB<sup>Redix Database</sup> 통해 영속성을 지원한다.
+  - AOF : 명령이 실행될 떄 마다 파일(ex. appendonly.aof)에 기록한다.
+    - 서버 장애가 발생하더라도 데이터 유실이 거의 없다.
+    - 텍스트 파일로 제공되어 쉽게 복구가 가능하다.
+    - 모든 명령을 저장하기 때문에 파일이 크고, 로딩이 느리며, OS 파일 크기 제한으로 장애가 발생할 수 있다.
+  - RDB : 특정한 간격으로 메모리에 있는 레디스 데이터 전체를 disk레 바이너리 형태로 기록한다.
+    - AOF 보다 size 가 작고, 로딩 속도가 빠르다.
+    - 바이너리 파일로 제공되어 손상이 발생했을 때 식별이 어렵다.
+    - 서버장애 시점에 따라 데이터가 유실될 수 있다.
 
 <a id="network"></a>
 # 아파치 톰캣
@@ -897,6 +952,23 @@ try {
 
 # 네트워크 브로드캐스트 vs 멀티캐스트
 <!-- TODO -->
+
+<a id='deply'></a>
+# JAR vs WAR
+<!-- https://goodgid.github.io/Jar-vs-War/ -->
+
+**Spring 에서 jar 혹은 war 설정하기**
+<!-- https://hue9010.github.io/spring/springboot-war/ -->
+<!-- https://gigas-blog.tistory.com/115 -->
+
+<a id="kafka"></a>
+# 카프카 컨슈머 그룹
+갯수가 많으면 
+
+# 카프카 키
+
+# 동시성 문제
+동시에 두 서비스에 동일한 카프카 이벤트가 도착하는 경우
 
 # 정렬
 
