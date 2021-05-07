@@ -71,7 +71,9 @@ public class ContextPathWebFilter implements WebFilter {
                             .request(request.mutate().contextPath(contextPath).build())
                             .build());
         }
-        return chain.filter(exchange);
+        
+        exchange.getResponse().setStatusCode(HttpStatus.NOT_FOUND);
+        return exchange.getResponse().setComplete();
     }
 }
 ```
