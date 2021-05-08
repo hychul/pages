@@ -11,6 +11,7 @@
 [Cache](#cache)
 [Transaction](#transaction)
 [MSA](#msa)
+[Kafka](#kafka)
 
 <a id="db"></a>
 # DB 인덱싱의 특징
@@ -953,6 +954,12 @@ try {
 # 네트워크 브로드캐스트 vs 멀티캐스트
 <!-- TODO -->
 
+# 리퀘스트 동시성 문제
+동시에 두 서비스에 동일한 카프카 이벤트가 도착하는 경우
+
+# 다른 서비스에서 리드 타임아웃 발생했을때 자동화 방법
+<!-- TODO -->
+
 <a id='deply'></a>
 # JAR vs WAR
 <!-- https://goodgid.github.io/Jar-vs-War/ -->
@@ -962,13 +969,136 @@ try {
 <!-- https://gigas-blog.tistory.com/115 -->
 
 <a id="kafka"></a>
-# 카프카 컨슈머 그룹
-갯수가 많으면 
+# 카프카<sup>Kafka</sup>
+<!-- https://medium.com/@umanking/%EC%B9%B4%ED%94%84%EC%B9%B4%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0-%ED%95%98%EA%B8%B0%EC%A0%84%EC%97%90-%EB%A8%BC%EC%A0%80-data%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0%ED%95%B4%EB%B3%B4%EC%9E%90-d2e3ca2f3c2 -->
+- 링크드인에서 개발된 분사나 메세징 시스템
+- Producer가 생성한 메세지를 카프카 broker에게 전달하면, broker가 전달 받은 메세지를 토픽 별로 분류하여 쌓아놓으면, 해당 토픽을 구독하는 Consumer들이 메세지를 가뎌가 처리한다.
+- 확장성<sup>sacel out</sup>과 고가용성<sup>high avilabilty</sup>을 위해 broker들은 cluster로 구성되어 동작하도록 설계되어있다.
 
-# 카프카 키
+**pub-sub 모델**
+- 발행/구독 모델이라고 하며 메세지를 특정 수신자에게 직접 보내주는 시스템이 아니다.
+- 퍼블리셔는 메세지를 **topic**을 통해 카테고리화 한다.
+- 리시버는 해당 **topic**을 구독함으로써 메세지를 읽을 수 있다.
+- 퍼블리셔와 리시버를 서로를 모르는 상태에서 topic을 통해 메세지를 전달하고 받아서 처리한다.
 
-# 동시성 문제
-동시에 두 서비스에 동일한 카프카 이벤트가 도착하는 경우
+**카프카의 구성요소 및 특징**
+- broker, zookeepr, cluster [<sup>link</sup>](#카프카-broker-zookeepr-cluster)
+- topic, partiton [<sup>link</sup>](#카프카-topic과-partition)
+- offset, commit [<sup>link</sup>](#카프카-offset과-commit)
+- Producer, Consumer [<sup>link</sup>](#카프카-Producer-Consumer)
+- consumer group [<sup>link</sup>](#카프카-consumer-group)
+- rebalance [<sup>link</sup>](#카프카-rebalance)
+- replication [<sup>link</sup>](#카프카-replication)
+
+# 카프카 broker, zookeepr, cluster
+![kafka-broker-zookeeper-0](https://user-images.githubusercontent.com/18159012/117541004-c1c75000-b04c-11eb-9243-fe284cab73fe.jpg)
+
+**broker**
+- 카프카 서버라고도 불린다.
+- Priducer가 생성한 메세지를 받아서 오프셋을 관리하고 Consumer오부터 메세지를 읽으려는 요청에 응답하는 역할을 한다.
+- 하나의 클러스터에 여러 개의 브로커를 가질 수 있습니다. 브로커의 숫자가 많아질 수록 단위 시간내의 처리량이 올라갈 수 있으므로 대용량의 데이터에도 대응할 수 있게된다.
+
+**zookeeper**
+<!-- TODO: -->
+- brokers, topics, users 등의 상태를 저장한다.
+- cluster 내에서 zookeeper는 3이상의 홀수개의 노드로 구성되어야 한다.
+  권장하는 것는 3-5의 홀수로 유지하여 항상 과반수를 유지하고 오버헤드 리소스를 가능한 한 낮게 유지하는 것이다.
+  7 이상의 노드는 노드간의 latency 오버헤드와 over-communication 때문에 권장하지 않는다.
+- Kafka uses ZooKeeper to elect a leader partition
+
+**cluster**
+<!-- https://www.cloudkarafka.com/blog/part1-kafka-for-beginners-what-is-apache-kafka.html -->
+- 하나의 카프카 cluster는 하나 이상의 카프카 broker로 구성된다.
+- 하나의 cluster 안에 여러개의 zookeeper가 존재할 수 있다.
+  <!-- zookeeper cluter of more than 7 nodes is not recommended for issues with overhead of latency and over-communication between those nodes. -->
+- pub / sub 모델 패턴에서 메시지 관리를 담당한다.
+
+# 카프카 topic과 partition
+![kafka-topic-partition](https://user-images.githubusercontent.com/18159012/117531898-c9243480-b01f-11eb-82f8-93dff0f156d3.jpg)
+
+**topic**
+- 카프카 안에는 여러 레코드 스트림이 있을 수 있고 각 스트림을 topic이라고 부른다.
+- 하나의 topic에 대해 여러 Subscriber가 붙을 수 있다.
+
+**prtition**
+- 메세지는 topic으로 분류되고, topic은 여러개의 partition으로 나눠질 수 있다.
+- topic을 파티셔닝하는 이유는 프로듀서로부터 도착한 메시지의 순서가 보장되어야 하면서 동시에 성능을 향상하기 위해서 이다.
+- 키값을 지정하여 해당 키를 가진 모든 메세지를 동일한 파티션으로 전송할 수 있다.
+  덕분에 키갑을 지정하는 경우, 메세지의 순서를 보장 받을 수 있다.
+- 키값을 지정하지 않을 경우, 메세지가 Round-robin 방식으로 파티션에 나뉘어 쓰여진다.
+  때문에 여러 파티션을 쓰는 경우, 순차적으로 메세지가 쓰여지지 않기 때문에 순서차적으로 메세지가 소비어야할 때 유의해야 한다.
+- offset은 그림처럼 각 partition에서 따로 관리된다.
+- topic 이름, partition 번호, offset 번호의 조합을 통해 각 **레코드의 고유 ID**를 만들 수 있게 된다.
+- 한 번 늘린 파티션은 절대로 줄일 수 없기 때문에 운영중에, 파티션을 늘려야 하는건 충분히 고려해봐야한다.
+
+> **Round-robin**  
+> 가장 먼저 들어온 프로세스가 할당받은 시간(Time Slice, QuanTum)에만 실행 후 다음 프로세스가 시간을 할당받음.  
+> 할당되는 시간이 클 경우 FCFS와 비슷하게 된다.  
+> 시간이 작을 경우 문맥 교환 및 오버헤드 자주 발생하게 된다.  
+
+# 카프카 offset과 commit
+**offset**
+- 하나의 메시지 단위를 레코드(Record)라고 하고, 이 레코드들의 ID가 **offset**이다. 
+- offset은 정수형 숫자로 이루어져있고 프로듀서로부터 메시지가 생성되면 오프셋 숫자는 하나씩 늘어나게 된다.
+- Producer가 세 개의 메시지를 만들었고 broker가 이를 제대로 받으면 topic의 offset 상태는 다음과 같이 됩니다.
+
+**commit**
+![kafka-offset-commit](https://user-images.githubusercontent.com/18159012/117533480-0ee4fb00-b028-11eb-8d28-cb037e242b55.jpg)
+
+- 컨슈머는 토픽에서 메시지를 읽은 후에 읽었다는 표시를 하는데, 이를 commit이라고 한다.
+- commit을 통해 마지막까지 처리한 메시지의 위치를 알 수 있고 아직 안 읽은 메시지들을 이어서 처리할 수 있게 된다. 
+<!-- TODO: 커밋의 주체 -->
+
+# 카프카 Producer, Consumer
+**Producer**
+- 메세지를 생산하는 주체이다.
+
+**Consumer**
+- 메세지를 소비하는 주체로 하나의 프로세스 혹은 서버라고 할 수 있다.
+- topic을 구독하여 메세지를 처리한다.
+- 각각의 파티션에서 자신이 가져간 메시지의 위치 정보인 offset을 기록(=commit)하기 때문에, 메세지 처리를 실패해도 fail-over가 가능하다.
+  - 0.9 버전 전엔 zookeeper에만 offset을 저장했지만 최신 버전의 경우 **__consumer_offsets**라는 topic에 consumer group 리스트가 저장됨 (zookeeper에도 여전히 커밋할 수 있음)
+  - Consumer가 zookeeper에 의존하지 않고 외부 DB에 저장할 수도 있다.
+
+<!-- TODO: offset 과 커밋을 관리하는 주체가 누구인지? -->
+
+# 카프카 consumer group
+<!-- https://www.popit.kr/kafka-consumer-group/ -->
+- Consumer들의 묶음이다.
+- topic와 consumer group의 consumer는 1:n 매칭을 해야한다.
+  - partition 3, consumer 2 : consumer 중 하나는 2개의 파티션을 소비
+  - partition 3, consumer 3 : 모든 consumer가 1:1 매칭
+  - partition 2, consumer 3 : 한 comsumer가 아무것도 하지 않음
+  - 때문에 파티션을 늘릴때는 consumer의 갯수를 고려해야한다.
+- 만약 consumer가 다운되거나 새롭게 조인한다면 consumer group 내에서 [rebalance](#카프카-rebalance)가 일어난다.
+
+# 카프카 rebalance
+<!-- https://joooootopia.tistory.com/30 -->
+- consumer가 다운되거나 새롭게 조인한다면 consumer group 내에서 rebalance가 일어난다.
+- rebalance가 일어난 후 각각의 consumer는 이전에 처리했던 topic의 partition이 아닌 새로운 partition에 할당된다.
+
+# 카프카 replication
+<!-- https://www.popit.kr/kafka-%EC%9A%B4%EC%98%81%EC%9E%90%EA%B0%80-%EB%A7%90%ED%95%98%EB%8A%94-topic-replication/ -->
+![kafka-replication-1](https://user-images.githubusercontent.com/18159012/117544497-baa83e00-b05c-11eb-9e4e-d35d975f853f.jpg)
+
+- kafka에서는 replication 수를 임의로 지정하여 topic를 만들 수 있다.
+- 복제는 수평적으로 스케일 아웃이다. broker 3대에서 하나의 서버만 leader가 되고 나머지 둘은 follower 가 된다.
+
+**partition leader**
+- producer가 메세지를 쓰고, consumer가 메세지를 읽는 건 오로지 leader인 partition이 전적으로 역할을 담당한다.
+
+**partition follower**
+- follower들은 레플리카<sup>replica</sup>로 동작하며, leader와 싱크를 항상 맞춘다.
+- 혹시나 leader가 죽었을 경우, 나머지 follower중에 하나가 leader로 선출되어서 메세지의 쓰고/읽는 것을 처리한다.
+
+**ISR<sup>In Sync Replica</sup>**
+- 각각의 replication group을 의미한다.
+- ISR 내의 모든 follower들은 누구라도 leader가 될 수 있다.
+- leader는 follower 중에서 자신보다 일정기간 동안 뒤쳐지면 leader가 될 자격이 없다고 판단하여 뒤쳐지는 follower를 ISR에서 제외시킨다. 
+- follower는 leader와 동일한 데이터 내용을 유지하기 위해서 짧은 주기로 leader로부터 데이터를 가져온다.
+
+<a id="spring-batch"></a>
+# 스프링 batch
 
 # 정렬
 
