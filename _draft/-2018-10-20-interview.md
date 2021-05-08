@@ -1098,7 +1098,14 @@ try {
 - follower는 leader와 동일한 데이터 내용을 유지하기 위해서 짧은 주기로 leader로부터 데이터를 가져온다.
 
 <a id="spring-batch"></a>
-# 스프링 batch
+# 스프링 Batch
+<!-- https://cheese10yun.github.io/spring-batch-basic/ -->
+<!-- https://freedeveloper.tistory.com/18 -->
+
+#스프링 배치 tasklet
+<!-- https://recordsoflife.tistory.com/54 -->
+
+# 스프링 배치 chunk
 
 # 정렬
 
