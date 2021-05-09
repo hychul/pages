@@ -7,11 +7,13 @@
 [Serailization](#serialization)
 [CORS](#cors)
 [DB](#db)
+[MySQL](#mysql)
 [JPA](#jpa)
 [Cache](#cache)
 [Transaction](#transaction)
 [MSA](#msa)
 [Kafka](#kafka)
+[Spring Batch](#spring-batch)
 
 <a id="db"></a>
 # DB 인덱싱의 특징
@@ -95,6 +97,7 @@
 
 </br>
 
+<a id="mysql"></a>
 # MySQL 
 MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 
