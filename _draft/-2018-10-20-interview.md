@@ -1302,6 +1302,4 @@ try {
 > StepExecutionSplitter
 > Partitioner
 
-# 정렬
-
 # 프로젝트와 관련된 질문
