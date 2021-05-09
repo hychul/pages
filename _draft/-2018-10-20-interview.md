@@ -356,7 +356,10 @@ Global Session
 > 서블릿 기반의 앱에선 한 요청에 대해 응답을 하는 것에 반해, 포틀릿에선 랜더와 요청, 두가지에 대한 응답을 한다.
 
 # Spring Bean Lifecycle
+<!-- https://sehun-kim.github.io/sehun/springbean-lifecycle/#4 -->
 <!-- TODO -->
+- 각 Bean 객체들이 순서대로 생성, 초기화 되다가, 의존하고 있는 Bean을 가진 Bean이 초기화 될 때, 의존하는 Bean이 없는 경우 먼저 해당 Bean을 생성,초기화 해준다.
+- 각 Bean 객체들이 초기화 된 순서의 역순으로 destroy()된다.
 
 # Spring Application Context vs Servlet Context
 **Application Context**
@@ -779,22 +782,22 @@ Mark-Sweep-Compaction 알고리즘
 ### G1 Full GC
 - Full GC 가 수행될 때는 Initial Mark -> Root Region Scan -> Concurrent Mark -> Remark -> Cleanup -> Copy 단계를 거치게된다.
 
-Initial Mark
+**Initial Mark**
 - Old Region 에 존재하는 객체들이 참조하는 Survivor Region 을 찾는다. 이 과정에서는 STW 현상이 발생하게 된ㄷ.
 
-Root Region Scan
+**Root Region Scan**
 - Initial Mark 에서 찾은 Survivor Region에 대한 GC 대상 객체 스캔 작업을 진행한다.
 
-Concurrent Mark
+**Concurrent Mark**
 - 전체 힙의 Region에 대해 스캔 작업을 진행하며, GC 대상 객체가 발견되지 않은 Region 은 이후 단계를 처리하는데 제외되도록 한다.
 
-Remark
+**Remark**
 - 애플리케이션을 멈추고(STW) 최종적으로 GC 대상에서 제외될 객체(살아남을 객체)를 식별해낸다.
 
-Cleanup
+**Cleanup**
 - 애플리케이션을 멈추고(STW) 살아있는 객체가 가장 적은 Region 에 대한 미사용 객체 제거 수행한다. 이후 STW를 끝내고, 앞선 GC 과정에서 완전히 비워진 Region 을 Freelist에 추가하여 재사용될 수 있게 한다.
 
-Copy
+**Copy**
 - GC 대상 Region이었지만 Cleanup 과정에서 완전히 비워지지 않은 Region의 살아남은 객체들을 새로운(Available/Unused) Region 에 복사하여 Compaction 작업을 수행한다.
 
 <!-- TODO: Add G1GC process image -->
@@ -825,8 +828,10 @@ Copy
 <!-- TODO -->
 
 <a id="jpa"></a>
-# JPA 생성자가 필요한 이유
-<!-- TODO -->
+# JPA 기본 생성자가 필요한 이유
+<!-- https://goodyhlee.wordpress.com/2016/06/20/177/ -->
+- 하이버네이트 등의 프레임워크에서 리플렉션을 이용해 엔티티를 생성할 때 기본 생성자가 필요한데, 개발자가 생성자를 따로 정의하여 사용하는 경우 기본 생성자를 사용할 수 없게 된다.
+- id와 같은 필요한 생성자를 개발자가 재정의 하더라도 `@PersistenceConstructor` 어노테이션을 생성에자 붙이면 굳이 비어있는 생성자를 따로 작성하지 않아도 된다.
 
 # N+1 문제
 <!-- https://joosjuliet.github.io/n+1/ -->
@@ -866,17 +871,18 @@ Copy
 
 ## Transaction Persistence Context vs Extended Persistence Context
 <!-- https://www.baeldung.com/jpa-hibernate-persistence-context -->
-Transaction Persistence Context  
+**Transaction Persistence Context**  
 - 메서드가 트랜젝션 스코프에서 호출될 때, 트랜잭션이 실행되며 새로운 persistence context를 생성한다. 이후 트랜잭션이 종료될 때 persistence context가 닫히고 엔티티의 persist 상태가 종료된다.
 <!-- In short: When a method on a transaction-scoped bean is called, a transaction will automatically be started by the container and a new persistence context will be created for you. When the method ends the transactions ends and the persistence context will be closed, your entities will become detached. -->
 
-Benefit: This behaviour is stateless, doesn't need much maintenance in the code by you and makes your EntityManager threadsafe.
+- Benefit: This behaviour is stateless, doesn't need much maintenance in the code by you and makes your EntityManager threadsafe.
 
-Extended Persistence Context
+**Extended Persistence Context**  
 - 여러 트랙젝션들 에서도 하나의 persistence context를 사용할 수 있다. 이는 여러 메서드에서 동일한 persistence context를 공유할 수 있는 것을 의미한다.
 <!-- In short: Can be used for a stateful session bean only and is tied to the lifecycle of the bean. The persistence context can spawn accross multiple transactions, which means the methods in your extended bean share the same persistence context. -->
 
-Benefit: Perfect to implement a conversation style interaction with clients. Your client call several bean methods to tell your bean all the information you need to know and at the end of the conversation you persist everything to your DB.
+- Benefit: Perfect to implement a conversation style interaction with clients. Your client call several bean methods to tell your bean all the information you need to know and at the end of the conversation you persist everything to your DB.
+
 ## QueryDSL
 <!-- https://ict-nroo.tistory.com/117 -->
 <!-- TODO -->
@@ -1047,7 +1053,6 @@ try {
 
 - 컨슈머는 토픽에서 메시지를 읽은 후에 읽었다는 표시를 하는데, 이를 commit이라고 한다.
 - commit을 통해 마지막까지 처리한 메시지의 위치를 알 수 있고 아직 안 읽은 메시지들을 이어서 처리할 수 있게 된다. 
-<!-- TODO: 커밋의 주체 -->
 
 # 카프카 Producer, Consumer
 **Producer**
@@ -1059,8 +1064,6 @@ try {
 - 각각의 파티션에서 자신이 가져간 메시지의 위치 정보인 offset을 기록(=commit)하기 때문에, 메세지 처리를 실패해도 fail-over가 가능하다.
   - 0.9 버전 전엔 zookeeper에만 offset을 저장했지만 최신 버전의 경우 **__consumer_offsets**라는 topic에 consumer group 리스트가 저장됨 (zookeeper에도 여전히 커밋할 수 있음)
   - Consumer가 zookeeper에 의존하지 않고 외부 DB에 저장할 수도 있다.
-
-<!-- TODO: offset 과 커밋을 관리하는 주체가 누구인지? -->
 
 # 카프카 consumer group
 <!-- https://www.popit.kr/kafka-consumer-group/ -->
@@ -1101,20 +1104,204 @@ try {
 # 스프링 Batch
 <!-- https://cheese10yun.github.io/spring-batch-basic/ -->
 <!-- https://freedeveloper.tistory.com/18 -->
+![spring-batch-job-1](https://user-images.githubusercontent.com/18159012/117576179-ca3c8b00-b11f-11eb-9447-0f564b3e19b7.jpg)
 
-#스프링 배치 tasklet
-<!-- https://recordsoflife.tistory.com/54 -->
+**장점**
+- 대용량 데이터 처리에 최적화되어 고성능을 발휘합니다.
+- 효과적인 로깅, 통계 처리, 트랜잭션 관리 등 재사용 가능한 필수 기능을 지원합니다.
+- 수동으로 처리하지 않도록 자동화되어 있습니다.
+- 예외사항과 비정상 동작에 대한 방어 기능이 있습니다.
+- 스프링 부트 배치는 반복적인 작업 프로세스를 이해하면 비니지스로직에 집중할 수 있습니다.
 
-# 스프링 배치 chunk
+**유의점**
+- 가능하면 단순화해서 복잡한 구조와 로직을 피해야합니다.
+- 데이터를 직접 사용하는 편이 빈번하게 일어나므로 데이터 무결성을 우지하는데 유효성 검사 등의 방어책이 있어야합니다.
+- 배치 처리 시스템 I/O 사용을 최소화해야합니다. 잦은 I/O로 데이터베이스 컨넥션과 네트워크 비용이 커지면 성능에 영향을 줄 수 있기 때문입니다. 따라서 **가능하면 한번에 데이터를 조회하여 메모리에 저장해두고 처리를 한 다음. 그결과를 한번에 데이터베이스에 저장하는것이 좋습니다.**
+일반적으로 같은 서비스에 사용되는 웹 API, 배치, 기타 프로젝트들을 서로 영향을 줍니다. 따라서 배치 처리가 진행되는 동안 다른 프로젝트 요소에 영향을 주는 경우가 없는지 주의를 기울여야합니다.
+- 스프링 부트는 배치 스케쥴러를 제공하지 않습니다. 따라서 배치 처리 기능만 제공하여 스케쥴링 기능은 스프링에서 제공하는 쿼치 프레임워크 등을 이용해야합니다. 리눅스 crontab 명령은 가장 간단히 사용 할 수 있지만 이는 추천하지 않습니다. crontab의 경우 각 서버마다 따로 스케쥴러를 관리해야 하며 무엇보다 클러스터링 기능이 제공되지 않습니다. 반면에 쿼츠 같은 스케쥴링은 프레임워크를 사용한다면 클러스터링뿐만 아니라 다양한 스케쥴링 기능, 실행 이력 관리 등 여러 이점을 얻을 수 있습니다.
+
+**동작의 단계**
+- 읽기 : 데이터 저장소에서 특정 데이터 레코드를 읽는다.
+- 처리 : 원하는 방식으로 데이터를 가공/처리한다.
+- 쓰기 : 처리된 데이터를 저장소에 저장한다.
+
+**스프링 배치 구성요소**
+- Job
+- Step
+- JobRepository
+- JobLauncher
+- Tasklet vs Chunk
+- ItemReader
+- ItemProcessor
+- ItemWrtier
+- Parallels
+
+# 스프링 배치 Job
+**Job**
+- 배치 처리 과정을 하나의 단위로 만들어 포현한 객체이다.
+- 하나의 Job에는 여러 Step이 존재하며, Step을 포함하는 컨테이너이다.
+- 스프링에서 제공하는 빌더들을 통해 Job을 만들 수 있다.
+
+**JobInstance**
+- 배치 처리에서 Job이 실행될 때 하나의 Job의 실행 단위이다.
+- 매일 동작하는 배티에서 Job이 실패한 경우 다음날 같은 JobInstance를 통해 다시 실행한다.
+- JobInstance는 여러개의 JobExecution을 가질 수 있다. (재실행 한 경우)
+
+**JobExecution**
+- JobExecution은 JobInstance 한번의 실행을 나타내는 객체이다.
+- 실패한 JobInstance를 재실행하는 경우 JobInstance는 동일하지만 JobExecution은 다르다.
+- JobExecution 인터페이스를 보면 Job 실행에 대한 JobInstance, 배치 실행 상태, 시작 시간, 끝난 시간, 실패했을 때 메시지 등의 정보를 담고있는 도메인 객체가 있다.
+
+**JobParameter**
+- Job이 실행될 때 필요한 파라메터들을 Map 타입으로 지정하는 객체이다.
+- JobInstance를 구분하는 기준이 되기도 한다.
+- JobParameter와 JobInstance는 1:1 관계이다.
+
+# 스프링 배치 Step
+**Step**
+- Job은 하나 이상의 Step으로 구성되다.
+- Job을 처리하는 실질적인 단위이다.
+- 일반적인 경우 Step은 하나씩 차례대로 동작한다.
+
+**StepExecution**
+- Job과 JobExecution의 관계처럼 StepExecution은 Step 실행에 대한 정보를 담는 객체이다.
+
+# JobRepository
+- 어떤 Job이 실행되었으면 몇 번 실행되었고 언제 끝났는지 등 배치 처리에 대한 메타데이터를 저장한다.
+- 예를들어 Job 하나가 실행되면 JobRepository에서는 배치 실행에 관련된 정보를 담고 있는 도메인 JobExecution을 생성한다.
+- Step의 실행 정보를 담고 있는 StepExecution도 저장소에 저장하여 전체 메타데이터를 저장/관리하는 역할을 수행한다.
+
+# JobLauncher
+-  Job, JobParameter와 함께 배치를 실행하는 인터페이스이다.
+
+# 스프링 배치 tasklet vs chunk
+<!-- https://www.baeldung.com/spring-batch-tasklet-chunk -->
+**tasklet**
+- Step으로 동작하는 하나의 단계를 의미한다.
+- Step을 tasklet으로 구성할 때, 단 하나의 tasklet으로만 구성된다.
+  (TaskletStepBuilder에서도 tasklet 멤버변수를 하나만 들고있도록 하여 여러번 설정하는 경우 오버라이딩 되게 되어있다)
+- 단점
+  - 배치 작업중에 하나의 데이터에 예외가 발생하여 롤백이 되는 경우, 전체 데이터가 롤백이 되게 된다.
+
+**chunk**
+![spring-batch-chunk-1](https://user-images.githubusercontent.com/18159012/117567825-eda00f80-b0f8-11eb-82de-4e594160c3eb.jpg)
+
+- 모든 데이터 레코드를 한번에 처리하는 것이 아닌, 고정된 양의 레코드(chunk) 씩 읽고 처리하고 쓰는 세 단계로 나눠 처리하며, 더 이상 데이터가 없을 떄 까지 반복한다.
+- Chunk 단위로 트랜잭션을 수행하기 때문에 실패할 경우엔 해당 Chunk 만큼만 롤백이 되고, 이전에 커밋된 트랜잭션 범위까지는 반영이 된다.
+- `ChunkOrientedTasklet`이 Step의 tasklet으로 사용된다.
+
+# 스프링 배치 ItemReader
+<!-- https://jojoldu.tistory.com/336 -->
+- 데이터를 읽어들이는 단계로 DB뿐만 아니라 파일, XML, Json등 다른 데이터 소스를 입력으로 사용할 수 있다.
+- **ItemReader 인터페이스**
+  - `read()` 메서드만 갖고있으며 읽는 것을 담당한다.
+- **ItemStream 인티페이스**
+  - `open()`, `update()`, `close()` 메서드를 갖는 인터페이스.
+    - `open()`, `close()` : 스트림을 열고 닫는다.
+    - `update()` : 배치 처리의 상태를 업데이트할 수 있다.
+
+**DB reader**
+- 모든 데이터를 전부 읽어 메모리에 적재하는 것을 피하기 위해 read() 메서드가 동작 할 때마다, 적절한 크기의 데이터를 읽어야 한다.
+- Cursor 기반 ItemReader 구현체
+  - cursor 방식은 DB와 커넥션을 맺은 후 cursor를 한칸씩 옮기면서 지속적으로 데이터를 가져온다.
+  - `String` 타입으로 쿼리를 생성한다.
+  - () 스레드 세이프하지 않아 멀티 스레드에서 권장되지 않는 것 같다.
+  - `JdbcCursorItemReader`, `HibernateCursorItemReader`, `StoredProcedureItemReader`
+- Paging 기반 ItemReader 구현체
+  - 개발자가 지정한 paging 크기만큼씩 DB로 부터 데이터를 가져온다.
+  - cursor 방식과 달리 `QueryProvider` 타입으로 쿼리를 생성한다. 각 DB에 맞는 페이징 전략을 사용하기 위해.
+  - paging 크기에 따라 limit을 사용하여 조회되기 때문에 순서를 보장하는 order by 등의 구문을 사용해야 한다.
+  - `JdbcPagingItemReader`, `HibernatePagingItemReader`, `JpaPagingItemReader`
+
+# 스프링 배치 병렬처리
+- 배치는 대용량 환경에서 사용되는 경우가 많기 때문에 많은 데이터를 빠르게 처리하는 것이 관건이다.
+- process와 write에서 무거운 작업이 동작한다면 병렬처리를 통해 동작 시간을 줄일 수 있다.
+
+**Single-threaded**
+- TaskExecutor를 설정하지 않거나 테스트 환경을 위해 구현 되어 있는 `SyncTaskExecutor`를 설정하면 된다.
+- 동기적으로 동작하며, chunk가 가지는 순차적인 아이템을 가지고 동작한다.
+
+**Multi-threaded Step** (싱글 프로세스)
+- 병렬처리를 시작하는 가장 쉬운 방법은 `StepBuilder` 에서 비동기 `TaskExecutor`를 설정하는 것이다.
+- 단일 스레드와 달리 청크에 연속적이 아이템이 들어있지 않다.
+- tasklet에 디폴트로 4인 throttle limit이 존재하기 때문에 스레드 풀을 충분히 사용하고 싶을 경우 이 값을 변경해야한다.
+
+> **throttle limit**  
+> 해당 값은 tasklet이 비동기로 동작할 때, tasklet이 몇개의 스레드에서 동작할지 결정한다.
+> 각각의 tasklet에서 read와 write가 동작하기 때문에 데이터 소스 커넥션 풀보다 적게 설정되어야 한다.
+
+**Parallel Steps** (싱글 프로세스)
+- 배치 잡을 각 역할별로 여러 step으로 나눌 수 있으면 싱글 프로세스에서도 병렬와하여 처리할 수 있다.
+- step을 `Flow`를 통해 step들을 병렬로 처리할 수 있다.
+- flow는 step을 순차적으로 실행하고, flow들을 순차적 혹은 동시에 실행할 수 있다.
+  여러 flow를 동시에 실행하기 위해선 비동기 `TaskExecutor`를 설정해야한다. (디폴트 동기)
+
+```java
+    @Bean
+    public Job job() {
+        return jobBuilderFactory.get("job")
+            .start(splitFlow())
+            .next(step4())
+            .build() // builds FlowJobBuilder instance
+            .build(); // builds Job instance
+    }
+
+    @Bean
+    public Flow splitFlow() {
+        return new FlowBuilder<SimpleFlow>("splitFlow")
+            .split(taskExecutor())
+            .add(flow1(), flow2())
+            .build();
+    }
+
+    @Bean
+    public Flow flow1() {
+        return new FlowBuilder<SimpleFlow>("flow1")
+            .start(step1())
+            .next(step2())
+            .build();
+    }
+
+    @Bean
+    public Flow flow2() {
+        return new FlowBuilder<SimpleFlow>("flow2")
+            .start(step3())
+            .build();
+    }
+
+    @Bean
+    public TaskExecutor taskExecutor(){
+        return new SimpleAsyncTaskExecutor("spring_batch");
+    }
+```
+
+- `Flow`를 통해서 병렬처리 뿐만 아니라 조건에 따라 다음 step리 선택되도록 할 수 있다.
+
+**Remote Chunk** (멀티 프로세스)
+<!-- https://docs.spring.io/spring-batch/docs/current/reference/html/scalability.html#remoteChunking -->
+![spring-batch-remote-chunk-1](https://user-images.githubusercontent.com/18159012/117574922-86935280-b11a-11eb-99a5-1b52f34f4cde.jpg)
+
+- step을 여러 프로세스로 나눠서 미들웨어를 통해서 프로세스끼리 통신한다.
+- 매니커 컴포넌트는 싱글 프로세스이고, 워커는 여러 리모트 프로세스로 구성된다.
+- 매니저는 아이템 chunk를 미들웨어에 전송하는 `ItemWriter`로 만든 스프링 배치 `Step`이다.
+- 이 방식의 장점은 이미 있는 reader, processor, writeer를 사용할 수 있다는 것이다.
+- 미들웨어를 통해 작업을 공유할때 워커가 바쁘다면 로드 밸런싱된다.
+
+**Partitioning** (멀티 프로세스)
+<!-- https://docs.spring.io/spring-batch/docs/current/reference/html/scalability.html#partitioning -->
+![spring-batch-partitioning-1](https://user-images.githubusercontent.com/18159012/117575620-982a2980-b11d-11eb-8978-26dba6fbd3bd.jpg)
+
+- Step 을 파티셔닝하기 위해, 그리고 리모트 환경에서 동작하기 위한 SPI를 제공한다.
+- Job은 일련의 Step으로 동작하며 그중 하나는 manager로 동작한다.
+- 모든 worker는 사실상 manager를 대신해 동작하는 `Step`이다.
+- 전형적인 worker는 원셧 서비스지만 로컬 스레드로 실행할 수도 있다.
+- partitioner 에서 데이터를 나누고 각 스텝에 분배를 하며, 스텝에서는 분배받은 데이터를 가지고 프로그램을 수행한다.
+
+> **Partitioning SPI<sup>Service Provider Interface</sup>**  
+> PartitionHandler
+> StepExecutionSplitter
+> Partitioner
 
 # 정렬
 
 # 프로젝트와 관련된 질문
-
-## 노티가 동작하는 과정
-
-## 과금이 이뤄지는 과정
-
-## 정산이 이뤄지는 과정
-
-## 결제가 이뤄지는 과정
