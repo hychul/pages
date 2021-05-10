@@ -1,18 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.25031920.chunk.css",
-    "main.js": "/static/js/main.6e0f9994.chunk.js",
-    "main.js.map": "/static/js/main.6e0f9994.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.80796807.js",
-    "runtime-main.js.map": "/static/js/runtime-main.80796807.js.map",
-    "static/js/2.ac68f89c.chunk.js": "/static/js/2.ac68f89c.chunk.js",
-    "static/js/2.ac68f89c.chunk.js.map": "/static/js/2.ac68f89c.chunk.js.map",
-    "static/js/3.a6056dae.chunk.js": "/static/js/3.a6056dae.chunk.js",
-    "static/js/3.a6056dae.chunk.js.map": "/static/js/3.a6056dae.chunk.js.map",
+    "main.css": "/static/css/main.51dcf2d4.chunk.css",
+    "main.js": "/static/js/main.e0a4be3c.chunk.js",
+    "main.js.map": "/static/js/main.e0a4be3c.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.b2261401.js",
+    "runtime-main.js.map": "/static/js/runtime-main.b2261401.js.map",
+    "static/js/2.0002dfe8.chunk.js": "/static/js/2.0002dfe8.chunk.js",
+    "static/js/2.0002dfe8.chunk.js.map": "/static/js/2.0002dfe8.chunk.js.map",
+    "static/js/3.130cb615.chunk.js": "/static/js/3.130cb615.chunk.js",
+    "static/js/3.130cb615.chunk.js.map": "/static/js/3.130cb615.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.25031920.chunk.css.map": "/static/css/main.25031920.chunk.css.map",
-    "static/js/2.ac68f89c.chunk.js.LICENSE.txt": "/static/js/2.ac68f89c.chunk.js.LICENSE.txt",
+    "static/css/main.51dcf2d4.chunk.css.map": "/static/css/main.51dcf2d4.chunk.css.map",
+    "static/js/2.0002dfe8.chunk.js.LICENSE.txt": "/static/js/2.0002dfe8.chunk.js.LICENSE.txt",
+    "static/media/-2021-04-06-kotlin-coroutine.md": "/static/media/-2021-04-06-kotlin-coroutine.f31fb2a8.md",
     "static/media/-2021-05-06-zgc.md": "/static/media/-2021-05-06-zgc.007769be.md",
+    "static/media/-2021-05-07-spring-webflux-kotlin-coroutine.md": "/static/media/-2021-05-07-spring-webflux-kotlin-coroutine.94512910.md",
     "static/media/2015-08-29-window-hard-disk-analyze.md": "/static/media/2015-08-29-window-hard-disk-analyze.f5a4fc51.md",
     "static/media/2015-08-29-window-off-fast-user-change.md": "/static/media/2015-08-29-window-off-fast-user-change.bfba2728.md",
     "static/media/2015-08-29-window-storage-optimize.md": "/static/media/2015-08-29-window-storage-optimize.6c5e440c.md",
@@ -92,9 +94,9 @@
     "static/media/reactLogo.6ce24c58.svg": "/static/media/reactLogo.6ce24c58.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.80796807.js",
-    "static/js/2.ac68f89c.chunk.js",
-    "static/css/main.25031920.chunk.css",
-    "static/js/main.6e0f9994.chunk.js"
+    "static/js/runtime-main.b2261401.js",
+    "static/js/2.0002dfe8.chunk.js",
+    "static/css/main.51dcf2d4.chunk.css",
+    "static/js/main.e0a4be3c.chunk.js"
   ]
 }
