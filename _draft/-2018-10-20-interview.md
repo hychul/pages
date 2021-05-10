@@ -360,16 +360,100 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 <a id="di"></a>
 # 스프링 DI와 Reflection
 <!-- https://kellis.tistory.com/70 -->
-<!-- TODO -->
 
 **Reflection**
 - Reflection은 이처럼 클래스타입의 인스턴스를 생성하여 클래스의 필드, 생성자, 메서드, 상속된 부모들을 다룰 수 있다.
 
+**주입 방식**
+- 생성자 주입
+  - 스프링 4.3 부터 단일 생성자의 경우 `@Autowired` 어노테이션이 불필요하다
+- 필드 주입
+- Setter 주입
+
+
+**가장 좋은 방식은?**
+<!-- https://webdevtechblog.com/%EC%8A%A4%ED%94%84%EB%A7%81-%EC%88%9C%ED%99%98-%EC%B0%B8%EC%A1%B0-circular-reference-d01c6beee7e6 -->
+- 스프링 소스에선 생성자 주입을 사용한다.
+- 생성자 주입의 장점
+  - 테스트 작성시 리플렉션을 이용하지 않고 주입이 가능하다.
+  - 객체 생성 시점에 순환 참조가 일어나기 때문에 다른 방식들과 달리 스프링 어플리케이션이 실행되지 않는다.
+  - 의존성 주입이 필요한 필드를 final 로 선언하여 Immutable 하게 사용할 수 있다.
+  - 의존관계가 설정되지 않으면 객체 생성이 불가능하기 때문에 NullPointError 를 방지할 수 있다.
+
+**생성자 주입 방법**
+```java
+@Component
+public class BeanA {
+    private Properties properties;
+
+    @Autowired
+    public BeanA(Properties properties) {
+        this.properties = properties;
+    }
+    ...
+```
+- `@Autowired` 어노테이션과 생성자의 파라메터로 등록할 경우 스프링이 주입 해준다.
+```java
+@Component
+@RequiredArgsConstructor
+public class BeanA {
+    private final Properties properties;
+
+    @Autowired
+    public BeanA(Properties properties) {
+        this.properties = properties;
+    }
+    ...
+```
+- Lombok을 사용하면 더 간편하게 생성자 주입을 사용할 수 있다.
+
 # Spring Bean Lifecycle
 <!-- https://sehun-kim.github.io/sehun/springbean-lifecycle/#4 -->
-<!-- TODO -->
-- 각 Bean 객체들이 순서대로 [생성, 초기화] 되다가, 의존하고 있는 Bean을 가진 Bean이 초기화 될 때, 의존하는 Bean이 없는 경우 먼저 해당 Bean을 생성,초기화 해준다.
+**생성**
+```java
+@Autowired
+private Properties properties;
+
+public BeanA() {} // 기본생성자
+```
+- 생성자를 호출하여 인스턴스를 만들어 Bean 등록
+
+**초기화**
+```java
+// @Component를 사용할 경우
+@PostConstruct
+public void init() {
+  System.out.println("init");
+}
+
+// @Bean을 사용할 경우 어노테이션에서 메서드를 명시
+@Bean(initMethod = "init")
+public BeanA beanA() {
+  return new BeanA();
+}
+```
+
+**소멸**
+```java
+// @Component를 사용할 경우
+@PreDestroy
+public void destroy() {
+  System.out.println("destroy");
+}
+
+// @Bean을 사용할 경우 어노테이션에서 메서드를 명시
+@Bean(destroyMethod = "destroy")
+public BeanA beanA() {
+  return new BeanA();
+}
+```
+
+**동작**
+- 각 Bean 객체들이 순서대로 [생성, 등록, 초기화] 되다가, 의존하고 있는 Bean을 가진 Bean이 초기화 될 때, 의존하는 Bean이 없는 경우 먼저 해당 Bean을 생성,초기화 해준다.
 - 각 Bean 객체들이 초기화 된 순서의 역순으로 destroy()된다.
+
+> **초기화 전에 빈 등록이 먼저 되는 이유**
+> 초기화나 소멸 메서드는 모두 IoC 컨테이너에서 관리된다. 때문에 해당 메서드들을 호출하기 위해선 먼저 IoC 컨테이너에 빈을 등록해야한다.
 
 # 스프링 서비스 추상화 : PSA<sup>Portable Service Abstraction</sup>
 <!-- TODO -->
@@ -953,7 +1037,7 @@ try {
 
 <a id="distributed-lock"></a>
 # Distributed Lock
-<!-- TODO -->
+<!-- toss -->
 <!-- https://sg-choi.tistory.com/292 -->
 - 여러 독립된 프로세스에서 하나의 자원을 공유해야 할 때, 데이터에 결함이 발생하지 않도록 하기 위해서 distributed lock을 활용할 수 있다.
 - redis에서는 분산 락을 구현한 알고리즘으로 redlock이라는 것을 제공하고 있는데, 자바에서의 redlock 구현체는 redisson이라고 한다.
@@ -1038,6 +1122,7 @@ lockMono.doOnNext(res -> {
 
 <a id="kafka"></a>
 # 카프카<sup>Kafka</sup>
+<!-- toss -->
 <!-- https://medium.com/@umanking/%EC%B9%B4%ED%94%84%EC%B9%B4%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0-%ED%95%98%EA%B8%B0%EC%A0%84%EC%97%90-%EB%A8%BC%EC%A0%80-data%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0%ED%95%B4%EB%B3%B4%EC%9E%90-d2e3ca2f3c2 -->
 - 링크드인에서 개발된 분사나 메세징 시스템
 - Producer가 생성한 메세지를 카프카 broker에게 전달하면, broker가 전달 받은 메세지를 토픽 별로 분류하여 쌓아놓으면, 해당 토픽을 구독하는 Consumer들이 메세지를 가뎌가 처리한다.
