@@ -361,12 +361,6 @@ Global Session
 > 포틀릿 웹 응용 프로그램  
 > 서블릿 기반의 앱에선 한 요청에 대해 응답을 하는 것에 반해, 포틀릿에선 랜더와 요청, 두가지에 대한 응답을 한다.
 
-# Spring Bean Lifecycle
-<!-- https://sehun-kim.github.io/sehun/springbean-lifecycle/#4 -->
-<!-- TODO -->
-- 각 Bean 객체들이 순서대로 생성, 초기화 되다가, 의존하고 있는 Bean을 가진 Bean이 초기화 될 때, 의존하는 Bean이 없는 경우 먼저 해당 Bean을 생성,초기화 해준다.
-- 각 Bean 객체들이 초기화 된 순서의 역순으로 destroy()된다.
-
 # Spring Application Context vs Servlet Context
 **Application Context**
 - Web Application 최상단에 위치하고 있는 Context
@@ -409,6 +403,8 @@ Global Session
 # Spring 경량 컨테이너, IoC, POJO, DI, DL, AOP
 <!-- daangn -->
 <!-- https://velog.io/@ddh963963/spring-%EC%A3%BC%EC%9A%94%ED%8A%B9%EC%A7%95%EA%B3%BC-%EC%9A%A9%EC%96%B4%EC%A0%95%EB%A6%AC -->
+![spring-1](https://user-images.githubusercontent.com/18159012/117638253-99ab2e80-b1bd-11eb-910f-c2d7decfd6da.jpg)
+
 **경량 컨테이너**
 - 스프링은 객체를 담고 있는 컨테이너로써 자바 객체의 생성과 소멸과 같은 라이프사이클을 관리하고, 언제든 필요한 객체를 가져다 사용할 수 있도록 한다.
 
@@ -428,7 +424,7 @@ Global Session
 | - | - | - |
 | | 1. 객체 생성</br>2. 의존성 객체 생성 : 클래스 내부에서 생성<br/>3. 의존성 객체 메서드 호출 | 1. 객체생성</br>2.의존성 객체 주입 : 스스로 객체를 생성하지 않고 제어권을 스프링에 위임하여 스프링이 만들어 놓은 객체(빈)릏 주입한다.</br>3. 의존성 객체 메서드 호출 | 
 
-**DI<sup>Dependency Injection</sup> : 의존성 주입**
+**DI<sup>Dependency Injection</sup> : 의존성 주입** <sup>[link](#di)</sup>
 - 객체간 의존관계를 객체 자신이 아닌 외부에서 생성한 후 주입시키는 방식
 - DI를 통해 모듈간의 결합도가 낮아지고 유연성이 높아진다.
 - 스프링 IoC의 핵심 개념이며, 스프링에서는 각 객체를 빈으로 관리한다.
@@ -457,9 +453,40 @@ Global Session
   - Argument가 없는(no-argument) 생성자가 존재한다. (오브젝트 생성과 get/set을 편하게 하기 위해)
   - java.io.Serializable 인터페이스를 구현한다. (오브젝트를 담아 전송하거나 저장하기 위해)
 
+| POJO | JAVA BEAN |
+| - | - |
+| Java laguage 에 의한 특별한 restrictions 이 없습니다. | POJO 보다 restrictions 합니다. |
+| Fields 에 대한 통제를 제공하지 않습니다. | Fields에 대한 통제를 가집니다. |
+| SErializable 에 대한 interface 를 구현할 수 있습니다. | Serializable 에 대한 interface 를 구현해야만 합니다. |
+| Fields 는 이름으로 접근할 수 있습니다. | Fields 는 getter 와 setter 로만 접근할 수 있습니다. |
+| Fields 에 대한 접근제어자 규칙이 자유롭습니다. | Fields 는 접근제어자를 private 로만 가질 수 있습니다. |
+| constructor 에 argument를 가질 수 있습니다. | constructor 에 argument를 가질 수 없습니다. |
+| member와 field에 대해 restriction 한 접근 규칙을 정하고 싶지 않을 때 사용됩니다. | member와 restriction 한 접근 규칙을 정하고자 할 때 사용됩니다. |
+
 **Spring에서의 POJO**
 - 스프링은 POJO를 이용한 엔터프라이즈 어플리케이션 개발을 목적으로 한다.
 - 스프링의 핵심인 IoC, DI, AOP등을 POJO를 이용해서 유연하게 확장할 수 있도록 한다.
+
+<a id="di"></a>
+# 스프링 DI와 Reflection
+<!-- https://kellis.tistory.com/70 -->
+<!-- TODO -->
+
+**Reflection**
+- Reflection은 이처럼 클래스타입의 인스턴스를 생성하여 클래스의 필드, 생성자, 메서드, 상속된 부모들을 다룰 수 있다.
+
+# Spring Bean Lifecycle
+<!-- https://sehun-kim.github.io/sehun/springbean-lifecycle/#4 -->
+<!-- TODO -->
+- 각 Bean 객체들이 순서대로 [생성, 초기화] 되다가, 의존하고 있는 Bean을 가진 Bean이 초기화 될 때, 의존하는 Bean이 없는 경우 먼저 해당 Bean을 생성,초기화 해준다.
+- 각 Bean 객체들이 초기화 된 순서의 역순으로 destroy()된다.
+
+# 스프링 서비스 추상화 : PSA<sup>Portable Service Abstraction</sup>
+<!-- TODO -->
+- 환경의 변화와 관계없이 일관된 방식의 기술로의 접근 환경을 제공하려는 추상화 구조를 말한다. 
+  e.g. JPA의 구현체가 무엇이든 상관 없이 **동일한 인터페이스로 구동이 가능**하다.
+- Spring 에서 동작할 수 있는 Library 들은 POJO 원칙을 지키게끔 PSA 형태의 추상화가 되어있음을 의미한다. 
+- Spring 은 특정 기술에 직접적 영향을 받지 않게끔 객체를 POJO 기반으로 한번씩 더 추상화한 Layer 를 갖고 있으며 이를통해 일관성있는 서비스 추상화를 만들어낸다. 
 
 </br>
 
