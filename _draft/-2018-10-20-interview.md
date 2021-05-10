@@ -541,8 +541,6 @@ Global Session
 - 같은 값을 가진 객체가 서로 다른 해시값을 갖게 될 수 있다.
 - 특히 HashMap의 key 값으로 해당 객체를 사용할 경우 문제가 발생한다.
 
-</br>
-
 # StringBuilder를 사용해야하는 이유
 - String 객체와 다른 String 객체를 더할 때 새로운 String 객체가 만들어지면서 메모리 할당하게 되어 쓰레기 값을 생성하게 된다.
 - JDK 1.5 이상부턴 String의 `+` 오퍼레이터를 사용하면 StringBuilder를 사용한 코드로 바꿔주지만, 각 줄마다 StringBuilder를 생성하기 때문에 주의해야한다.
@@ -643,89 +641,34 @@ Global Session
 - 프로그램 메모리를 관리하고 최적화 하는 것
 
 **JVM의 구조**
-![2021-10-30-jvm-0](https://user-images.githubusercontent.com/18159012/116645954-ea4aac80-a9b1-11eb-8aaf-95b7e5fde975.png)
+![jvm-structure-1](https://user-images.githubusercontent.com/18159012/117658166-62e11280-b1d5-11eb-8823-f235685a9e31.jpg)
 
 - Class Loader : 런타임시 동적으로 JVM 내로 클래스를 로드한다.
 - Execution Engine : Class Loader를 통해 JVM의 런타임 영역에 배치된 바이트 코드를 명령어 단위로 읽어서 싱핸한다.
 - Garbage Collector : JVM 내의 메모리 관리 기능을 자동으로 수핸한다.
 - Runtime Data Area : JVM이 운영체제 위에서 실행되면서 할당받는 메모리 영역이다. Class Loader에서 준비한 데이터들을 보관하는 장소이다.
 
-# JVM 메모리
-![2021-10-30-jvm-1](https://user-images.githubusercontent.com/18159012/116646670-9e990280-a9b3-11eb-95db-0656ad62a0e3.png)
+# JIT 컴파일러
+- 자바 코드가 자바 바이트 코드(.class)로 컴파일된 후 가상 머신에서 기계어로 해석하여 코드를 인터프리터 형식으로 실행한다.
+- 자바 바이트 코드 한줄을 해석하고 실행하는 방식은 기계어로 컴파일 되는 C/C++ 과 같은 언어보다 느리기 때문에 JIT 컴파일러가 이를 보완하기 위해 존재한다.
+- JIT 컴파일러는 런타임중에 가상 기계에서만 돌아가는 자바 바이트 코드를 해당 플랫폼에 맞는 기계어로 컴파일한다.
+- 기계어로 컴파일된 코드는 인터프리터가 자바 바이트 코드에서 다시 번역하지 않고 바로 실행된다.
 
-**Method (Static) Area**
-- JVM이 읽어들인 클래스와 인터페이스 대한 런타임 상수 풀, 멤버 변수(필드), 클래스 변수(Static 변수), 생성자와 메소드를 저장하는 공간이다.  
-**Runtime Constant Pool**
-  - 메소드 영역에 포함되지만 독자적 중요성이 있다.
-  - 클래스 파일 constant_pool 테이블에 해당하는 영역이다.
-  - 클래스와 인터페이스 상수, 메소드와 필드에 대한 모든 레퍼런스를 저장한다.
-  - JVM은 런타임 상수 풀을 통해 해당 메소드나 필드의 실제 메모리 상 주소를 찾아 참조한다
-  - 메소드 영역/런타임 상수 풀의 사용기간 및 스레드 공유 범위
-  - JVM 시작시 생성
-  - 프로그램 종료 시까지
-  - 명시적으로 null 선언 시
-  - 구성 방식이나 GC 방법은 JVM 벤더마다 다를 수 있다.
-  - 모든 스레드에서 공유한다.
+# JVM 메모리<sup>Runtime Data Area</sup>
+![jvm-runtime-data-areas-1](https://user-images.githubusercontent.com/18159012/117649570-a3875e80-b1ca-11eb-80ca-07e1ec4bf479.jpg)
+ - Method Area: 클래스, 변수, Method, static변수, 상수 정보 등이 저장되는 영역 (모든 Thread가 공유)
+ - Heap Area: new 명령어로 생성된 인스턴스와 객체가 저장되는 구역 (GC 이슈는 이 영역에서 일어나며, 모든 Thread가 공유)
+ - Stack Area: Method 내에서 사용되는 값들(매개변수, 지역변수, 리턴값 등)이 저장되는 구역으로 메소드가 호출될때 LIFO로 하나씩 생성되고, 메소드 실행이 완료되면 LIFO로 하나씩 지워진다.
+ - PC Register: CPU의 Register와 역할이 비슷하다. 현재 수행중인 JVM 명령의 주소값이 저장된다.
+ - Native Method Stack: 다른 언어(C/C++ 등)의 메소드 호출을 위해 할당되는 구역으로 언어에 맞게 Stack이 형성되는 구역이다.
 
-**Heap Area**
-- JVM이 관리하는 프로그램 상에서 데이터를 저장하기 위해 런타임 시 동적으로 할당하여 사용하는 영역이다.
-- New 연산자로 생성된 객체 또는 객체(인스턴스)와 배열을 저장한다.
-- 힙 영역에 생성된 객체와 배열은 스택 영역의 변수나 다른 객체의 필드에서 참조한다.
-- 참조하는 변수나 필드가 없다면 의미 없는 객체가 되어 GC의 대상이 된다.
-- 힙 영역의 사용기간 및 스레드 공유 범위
-- 객체가 더 이상 사용되지 않거나 명시적으로 null 선언 시
-- GC(Garbage Collection) 대상
-- 구성 방식이나 GC 방법은 JVM 벤더마다 다를 수 있다.
-- 모든 스레드에서 공유한다.
+![jvm-runtime-data-areas-2](https://user-images.githubusercontent.com/18159012/117657191-3c6ea780-b1d4-11eb-8cda-5d5a532245c0.jpg)
 
-**Stack Area**
-- 각 스레드마다 하나씩 존재하며, 스레드가 시작될 때 할당된다.
-- 메소드를 호출할 때마다 프레임(Frame)을 추가(push)하고 메소드가 종료되면 해당 프레임을 제거(pop)하는 동작을 수행한다.
-- 선입후출(FILO, First In Last Out) 구조로 push와 pop 기능 사용
-- 메소드 호출 시 생성되는 스레드 수행정보를 기록하는 Frame을 저장
-- 메소드 정보, 지역변수, 매개변수, 연산 중 발생하는 임시 데이터 저장
-- 기본(원시)타입 변수는 스택 영역에 직접 값을 가진다.
-- 참조타임 변수는 힙 영역이나 메소드 영역의 객체 주소를 가진다.
-
-**PC Register**
-- 현재 수행 중인 JVM 명령 주소를 갖는다.
-- 프로그램 실행은 CPU에서 인스트럭션(Instruction)을 수행.
-- CPU는 인스트럭션을 수행하는 동안 필요한 정보를 CPU 내 기억장치인 레지스터에 저장한다.
-- 연산 결곽값을 메모리에 전달하기 전 저장하는 CPU 내의 기억장치
-
-**Native Method Stack Area**
-- 자바 외 언어로 작성된 네이티브 코드를 위한 Stack이다.
-- 즉, JNI(Java Native Interface)를 통해 호출되는 C/C++ 등의 코드를 수행하기 위한 스택이다.
-- 네이티브 메소드의 매개변수, 지역변수 등을 바이트 코드로 저장한다.
-
-# JVM 스레드별로 갖는 메모리
-- PC register
-- Stack
-- Native method stack
+- Code Cache : JIT에 의해 bytecode로 전환되어 저장되어 있는 코드
+- Interned String : String이 사용될 때 JVM 해당 메모리를 string pool에 저장하여 String에 의해 메모리가 많이 사용되는 것을 막는다.
 
 # JVM의 Heap vs Non-heap
-![2021-10-30-jvm-2](https://user-images.githubusercontent.com/18159012/116727341-629b8700-aa1f-11eb-8117-7f7d9461facf.png)
-
-**Heap**
-- new 연산자로 생성된 객체와 배열을 저장하는 영역
-- **동적으로 할당해서 사용할 수 있는 메모리영역**
-- Stack영역이 Heap, LIFO로 처리됨 (Last Input - First Out )
-- GC의 대상
-- JVM Xms, Xmx 옵션과 연관
-- Permanent 영역은 8부터 없어짐 <!-- https://johngrib.github.io/wiki/java8-why-permgen-removed/ -->
-  - Perm 영역은 보통 Class의 Meta 정보나 Method의 Meta 정보, Static 변수와 상수 정보들이 저장되는 공간으로 흔히 메타데이터 저장 영역이라고도 한다.
-- Java 8에서 Metaspace(non-heap)가 도입되면서 Static Object 및 상수화된 String Object를 heap 영역으로 옮김
-  - 인스턴스는 heap에 저장되고 인스턴스가 저장된 포인터 주소는 Metaspace에 저장된다.
-
-**Non-heap**
-- Static Object, 상수화된 String Object, Class의 함수가 실행되는 영역
-  - (Java 8 이후) 실제 객체 메모리는 힙에 있고, 해당 포인터를 metaspace에서 관리
-- (Java 8 이후) 런타임에 동적으로 사이즈 조정 가능 -> MetaspaceSize 및 MaxMEtaspaceSize 옵션
-- Method Area : Class, Method 메타정보를 저장하기 위한 영역이다.
-- Stack Area : 메소드 호출 시 메소드의 매개변수, 지역변수, 임시변수등을 저장하기 위한 스택 구조의 영역이다.
-- 기타 : JVM이 현재 수행할 명령어의 주소를 저장하는 PC 레지스터, native 메소드의 매개변수, 지역변수 등을 저장 native 메소드 스택등이 있다.
-<!-- https://johngrib.github.io/wiki/java8-why-permgen-removed/ -->
-
+**Java 8 전**
 ```
 Java7
 <----- Java Heap ----->             <- Native(OS) Memory -->
@@ -736,19 +679,33 @@ Java7
                        Permanent Heap
 S0: Survivor 0
 S1: Survivor 1
+```
+- Heap
+  - 모든 클래스 인스턴스의 메모리가 적재되는 공간.
+- Native Memory
+  - Native Code로 시스템 콜을 호출하고 OS가 메모리를 어플리케이션에 할당하는 공간.
+    - C Heap : jdk내부적으로 C라이브러리를 사용하거나 jni를 통해서 c프로그램을 호출할 시 Data 영역을 사용
+    - Thread Stack : 각 스레드 고유의 메모리 공간
+- Permanent Heap
+  - Class의 Meta정보, Method의 Meta정보, Static 변수와 상수 정보(메모리 포함)를 저장하는 공간.
+  - 런타임에서 크기의 수정이 불가능 하여, PermGen 설정으로 적절한 크기를 설정해야했다.
+<!-- https://stackoverflow.com/questions/50163218/is-method-area-still-present-in-java-8 -->
 
+**Java 8 이후**
+```
 Java 8
 <----- Java Heap -----> <------- Native(OS) Memory -------->
 +------+----+----+-----+-----------+--------+--------------+
 | Eden | S0 | S1 | Old | Metaspace | C Heap | Thread Stack |
 +------+----+----+-----+-----------+--------+--------------+
+S0: Survivor 0
+S1: Survivor 1
 ```
-
-# JIT 컴파일러
-- 자바 코드가 자바 바이트 코드(.class)로 컴파일된 후 가상 머신에서 기계어로 해석하여 코드를 인터프리터 형식으로 실행한다.
-- 자바 바이트 코드 한줄을 해석하고 실행하는 방식은 기계어로 컴파일 되는 C/C++ 과 같은 언어보다 느리기 때문에 JIT 컴파일러가 이를 보완하기 위해 존재한다.
-- JIT 컴파일러는 런타임중에 가상 기계에서만 돌아가는 자바 바이트 코드를 해당 플랫폼에 맞는 기계어로 컴파일한다.
-- 기계어로 컴파일된 코드는 인터프리터가 자바 바이트 코드에서 다시 번역하지 않고 바로 실행된다.
+- Heap : Java 8 전과 동일
+- Native Memory : Java 8 전과 동일
+- Metaspace
+  - Heap 영역에 메타 정보가와 상수 정보를 모두 Heap(Permanant)에 저장되던 것을 메타 정보를 위한 공간으로 분리했다.
+  - 상수는 실제론 Heap에 적재되고, Metaspace에선 Heap에 적재된 주소값만 가진다.
 
 <a id="GC"></a>
 # GC란?
