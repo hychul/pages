@@ -1354,10 +1354,13 @@ lockMono.doOnNext(res -> {
 ![spring-batch-partitioning-1](https://user-images.githubusercontent.com/18159012/117575620-982a2980-b11d-11eb-8978-26dba6fbd3bd.jpg)
 
 - Step 을 파티셔닝하기 위해, 그리고 리모트 환경에서 동작하기 위한 SPI를 제공한다.
-- Job은 일련의 Step으로 동작하며 그중 하나는 manager로 동작한다.
-- 모든 worker는 사실상 manager를 대신해 동작하는 `Step`이다.
+- Job은 일련의 Step으로 동작하며 그중 하나는 master(manager)로 동작한다.
+- 모든 worker는 사실상 master를 대신해 동작하는 `Step`이다.
+- master는 실제 데이터를 건네는 것이 아닌 처리할 데이터의 description(`StepExecution`)을 전달한다.
 - 전형적인 worker는 원셧 서비스지만 로컬 스레드로 실행할 수도 있다.
-- partitioner 에서 데이터를 나누고 각 스텝에 분배를 하며, 스텝에서는 분배받은 데이터를 가지고 프로그램을 수행한다.
+- 동작
+  - `PartitionStep` 에서 `TaskletStep`과 달리 tasklet이 아닌 `PartitionHandler.handle()`을 통해 master의 `StepExecution`을 핸들링한다.
+  - master의 `StepExecution`을 `StepExecutionSplitter` 안에서 `Partitioner`를 통해 woker의 `StepExecution`으로 나눠진다.
 
 > **Partitioning SPI<sup>Service Provider Interface</sup>**  
 > PartitionHandler
