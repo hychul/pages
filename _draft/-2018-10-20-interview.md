@@ -51,7 +51,7 @@
 **READ UNCOMMITED**
 - SELECT 쿼리 시 다른 트랜잭션에서 COMMMIT 되지 않은 데이터를 읽어올 수 있다.
 - COMMIT 되지 않은 데이터를 읽는 것을 Dirty Read라고 한다.
-- ROLLBACK 될 수 있는 데이터를 읽을 수 있기 때문에 주의해야하니다.
+- ROLLBACK 될 수 있는 데이터를 읽을 수 있기 때문에 주의 해야한다.
 
 **READ COMMITED**
 - COMMIT이 완료된 데이터만 SELECT 시에 보이는 수준을 보장
@@ -154,7 +154,7 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 <!-- https://woowabros.github.io/experience/2017/10/17/java-serialize.html -->
 **직렬화**
 - 자바 직렬화란 자바 시스템 내부에서 사용되는 객체 또는 데이터를 외부의 자바 시스템에서도 사용할 수 있도록 바이트(byte) 형태로 데이터 변환하는 기술과 바이트로 변환된 데이터를 다시 객체로 변환하는 기술(역직렬화)을 아울러서 이야기한다.
-- 시스템적으로 이야기하자면 JVM(Java Virtual Machine 이하 JVM)의 메모리에 상주(힙 또는 스택)되어 있는 객체 데이터를 바이트 형태로 변환하는 기술과 직렬화된 바이트 형태의 데이터를 객체로 변환해서 JVM으로 상주시키는 형태를 같이 이야기합니다.
+- 시스템적으로 이야기하자면 JVM(Java Virtual Machine 이하 JVM)의 메모리에 상주(힙 또는 스택)되어 있는 객체 데이터를 바이트 형태로 변환하는 기술과 직렬화된 바이트 형태의 데이터를 객체로 변환해서 JVM으로 상주시키는 형태를 같이 이야기한다.
 - JVM 메모리에 존재하던 객체 데이터를 영속화하여 네트워크로 전송하거나 저장할때 사용한다.
 
 # 자바 SerialVersionUID
@@ -290,6 +290,94 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 
 </br>
 
+# Spring 경량 컨테이너, IoC, POJO, DI, DL, AOP
+<!-- daangn -->
+<!-- https://velog.io/@ddh963963/spring-%EC%A3%BC%EC%9A%94%ED%8A%B9%EC%A7%95%EA%B3%BC-%EC%9A%A9%EC%96%B4%EC%A0%95%EB%A6%AC -->
+![spring-1](https://user-images.githubusercontent.com/18159012/117638253-99ab2e80-b1bd-11eb-910f-c2d7decfd6da.jpg)
+
+**경량 컨테이너**
+- 스프링은 객체를 담고 있는 컨테이너로써 자바 객체의 생성과 소멸과 같은 라이프사이클을 관리하고, 언제든 필요한 객체를 가져다 사용할 수 있도록 한다.
+
+**POJO<sup>Plain Old Java Object</sup> : 평범한 자바 객체** <sup>[link](#pojo)</sup>
+<!-- https://limmmee.tistory.com/8 -->
+<!-- http://asuraiv.blogspot.com/2017/07/spring-pojo.html -->
+- 일반적인 자바 객체를 의미한다.
+- 주로 특정 자바 모델이나 기능, 프레임워크를 따르지  않는 Java Object를 지칭한다.
+
+**IoC<sup>Inversion of Control</sup> : 제어의 반전**
+- 기존의 자바의 객체 생성 및 의존관계에 있어 모든 제어권을 개발자에게 있었지만, 스프링에서는 프로그램의 흐름을 프레임워크가 주도한다.
+- 스프링 프레임워크에서 객체에 대한 생성과 생명주기를 관리할 수 있는 기능을 제공하고 있는데, 이런 이유로 스프링을 스프링 컨테이너 또는 IoC 컨테이너라고 부르기도 한다.  
+- 제어권이 컨테이너로 넘어가게 되었고, 이것을 제어권의 흐름이 바뀌었다고 하여 IoC 라고 부른다.
+- 제어권이 스프링에게 없다면 `@Autowired`와 같은 어노테이션으로 의존성 주입을 할 수 없게된다.
+
+| | 기본 자바 | IoC |
+| - | - | - |
+| | 1. 객체 생성</br>2. 의존성 객체 생성 : 클래스 내부에서 생성<br/>3. 의존성 객체 메서드 호출 | 1. 객체생성</br>2.의존성 객체 주입 : 스스로 객체를 생성하지 않고 제어권을 스프링에 위임하여 스프링이 만들어 놓은 객체(빈)릏 주입한다.</br>3. 의존성 객체 메서드 호출 | 
+
+**DI<sup>Dependency Injection</sup> : 의존성 주입** <sup>[link](#di)</sup>
+- 객체간 의존관계를 객체 자신이 아닌 외부에서 생성한 후 주입시키는 방식
+- DI를 통해 모듈간의 결합도가 낮아지고 유연성이 높아진다.
+- 스프링 IoC의 핵심 개념이며, 스프링에서는 각 객체를 빈으로 관리한다.
+
+**DL<sup>Dependency Lookup</sup> : 의존성 검색**
+- 의존대상(빈)을 검색을 통해 반환받을 수 있다 : `factory.getBean(id)`
+
+**AOP<sup>Aspect Oriented Programming</sup> : 관점 지향 프로그래밍**
+<!-- https://jojoldu.tistory.com/71 -->
+- 공통의 관심사랑을 적용하여 의존관계의 복잡성과 코드 중복을 해소하는것을 의미
+
+<a id="pojo"></a>
+# POJO vs JavaBean
+**POJO**
+- 일반적인 자바 객체를 의미한다.
+- POJO가 JavaBean을 포함하는 더 큰 개념이다.
+- 조건
+  - 특정 규약에 종속되지 않는다.
+  - 특정 환경에 종속되지 않는다.
+
+**JavaBeans**
+- JavaBean API Specification에 따른 Standard이다.
+- 여러가지 오브젝트들을 하나의 오브젝트에 담기 위한 규직(소프트웨어 프로토콜)을 따른다.
+- 조건
+  - 모든 필드는 private이며, getter/setter메서드를 통해서만 접근이 가능하다. (for encapsulation)
+  - Argument가 없는(no-argument) 생성자가 존재한다. (오브젝트 생성과 get/set을 편하게 하기 위해)
+  - java.io.Serializable 인터페이스를 구현한다. (오브젝트를 담아 전송하거나 저장하기 위해)
+
+| POJO | JAVA BEAN |
+| - | - |
+| Java laguage 에 의한 특별한 restrictions 이 없다. | POJO 보다 restrictions 이 많다. |
+| Fields 에 대한 통제를 제공하지 않는다. | Fields에 대한 통제를 가진다. |
+| SErializable 에 대한 interface 를 구현할 수 있다. | Serializable 에 대한 interface 를 구현해야만 한다. |
+| Fields 는 이름으로 접근할 수 있다. | Fields 는 getter 와 setter 로만 접근할 수 있다. |
+| Fields 에 대한 접근제어자 규칙이 자유롭다. | Fields 는 접근제어자를 private 로만 가질 수 있다. |
+| constructor 에 argument를 가질 수 있다. | constructor 에 argument를 가질 수 없다. |
+| member와 field에 대해 restriction 한 접근 규칙을 정하고 싶지 않을 때 사용된다. | member와 restriction 한 접근 규칙을 정하고자 할 때 사용된다. |
+
+**Spring에서의 POJO**
+- 스프링은 POJO를 이용한 엔터프라이즈 어플리케이션 개발을 목적으로 한다.
+- 스프링의 핵심인 IoC, DI, AOP등을 POJO를 이용해서 유연하게 확장할 수 있도록 한다.
+
+<a id="di"></a>
+# 스프링 DI와 Reflection
+<!-- https://kellis.tistory.com/70 -->
+<!-- TODO -->
+
+**Reflection**
+- Reflection은 이처럼 클래스타입의 인스턴스를 생성하여 클래스의 필드, 생성자, 메서드, 상속된 부모들을 다룰 수 있다.
+
+# Spring Bean Lifecycle
+<!-- https://sehun-kim.github.io/sehun/springbean-lifecycle/#4 -->
+<!-- TODO -->
+- 각 Bean 객체들이 순서대로 [생성, 초기화] 되다가, 의존하고 있는 Bean을 가진 Bean이 초기화 될 때, 의존하는 Bean이 없는 경우 먼저 해당 Bean을 생성,초기화 해준다.
+- 각 Bean 객체들이 초기화 된 순서의 역순으로 destroy()된다.
+
+# 스프링 서비스 추상화 : PSA<sup>Portable Service Abstraction</sup>
+<!-- TODO -->
+- 환경의 변화와 관계없이 일관된 방식의 기술로의 접근 환경을 제공하려는 추상화 구조를 말한다. 
+  e.g. JPA의 구현체가 무엇이든 상관 없이 **동일한 인터페이스로 구동이 가능**하다.
+- Spring 에서 동작할 수 있는 Library 들은 POJO 원칙을 지키게끔 PSA 형태의 추상화가 되어있음을 의미한다. 
+- Spring 은 특정 기술에 직접적 영향을 받지 않게끔 객체를 POJO 기반으로 한번씩 더 추상화한 Layer 를 갖고 있으며 이를통해 일관성있는 서비스 추상화를 만들어낸다. 
+
 # Spring MVC request 처리 과정
 <!-- daangn -->
 ![spring-mvs-process-1](https://user-images.githubusercontent.com/18159012/117173061-593b6180-ae07-11eb-8b9c-8660289bb117.png)
@@ -397,96 +485,6 @@ Global Session
 
 # Multiplex Server의 동작
 <!-- TODO -->
-
-</br>
-
-# Spring 경량 컨테이너, IoC, POJO, DI, DL, AOP
-<!-- daangn -->
-<!-- https://velog.io/@ddh963963/spring-%EC%A3%BC%EC%9A%94%ED%8A%B9%EC%A7%95%EA%B3%BC-%EC%9A%A9%EC%96%B4%EC%A0%95%EB%A6%AC -->
-![spring-1](https://user-images.githubusercontent.com/18159012/117638253-99ab2e80-b1bd-11eb-910f-c2d7decfd6da.jpg)
-
-**경량 컨테이너**
-- 스프링은 객체를 담고 있는 컨테이너로써 자바 객체의 생성과 소멸과 같은 라이프사이클을 관리하고, 언제든 필요한 객체를 가져다 사용할 수 있도록 한다.
-
-**POJO<sup>Plain Old Java Object</sup> : 평범한 자바 객체** <sup>[link](#pojo)</sup>
-<!-- https://limmmee.tistory.com/8 -->
-<!-- http://asuraiv.blogspot.com/2017/07/spring-pojo.html -->
-- 일반적인 자바 객체를 의미한다.
-- 주로 특정 자바 모델이나 기능, 프레임워크를 따르지  않는 Java Object를 지칭한다.
-
-**IoC<sup>Inversion of Control</sup> : 제어의 반전**
-- 기존의 자바의 객체 생성 및 의존관계에 있어 모든 제어권을 개발자에게 있었지만, 스프링에서는 프로그램의 흐름을 프레임워크가 주도한다.
-- 스프링 프레임워크에서 객체에 대한 생성과 생명주기를 관리할 수 있는 기능을 제공하고 있는데, 이런 이유로 스프링을 스프링 컨테이너 또는 IoC 컨테이너라고 부르기도 한다.  
-- 제어권이 컨테이너로 넘어가게 되었고, 이것을 제어권의 흐름이 바뀌었다고 하여 IoC 라고 부른다.
-- 제어권이 스프링에게 없다면 `@Autowired`와 같은 어노테이션으로 의존성 주입을 할 수 없게된다.
-
-| | 기본 자바 | IoC |
-| - | - | - |
-| | 1. 객체 생성</br>2. 의존성 객체 생성 : 클래스 내부에서 생성<br/>3. 의존성 객체 메서드 호출 | 1. 객체생성</br>2.의존성 객체 주입 : 스스로 객체를 생성하지 않고 제어권을 스프링에 위임하여 스프링이 만들어 놓은 객체(빈)릏 주입한다.</br>3. 의존성 객체 메서드 호출 | 
-
-**DI<sup>Dependency Injection</sup> : 의존성 주입** <sup>[link](#di)</sup>
-- 객체간 의존관계를 객체 자신이 아닌 외부에서 생성한 후 주입시키는 방식
-- DI를 통해 모듈간의 결합도가 낮아지고 유연성이 높아진다.
-- 스프링 IoC의 핵심 개념이며, 스프링에서는 각 객체를 빈으로 관리한다.
-
-**DL<sup>Dependency Lookup</sup> : 의존성 검색**
-- 의존대상(빈)을 검색을 통해 반환받을 수 있다 : `factory.getBean(id)`
-
-**AOP<sup>Aspect Oriented Programming</sup> : 관점 지향 프로그래밍**
-<!-- https://jojoldu.tistory.com/71 -->
-- 공통의 관심사랑을 적용하여 의존관계의 복잡성과 코드 중복을 해소하는것을 의미
-
-<a id="pojo"></a>
-# POJO vs JavaBean
-**POJO**
-- 일반적인 자바 객체를 의미한다.
-- POJO가 JavaBean을 포함하는 더 큰 개념이다.
-- 조건
-  - 특정 규약에 종속되지 않는다.
-  - 특정 환경에 종속되지 않는다.
-
-**JavaBeans**
-- JavaBean API Specification에 따른 Standard이다.
-- 여러가지 오브젝트들을 하나의 오브젝트에 담기 위한 규직(소프트웨어 프로토콜)을 따른다.
-- 조건
-  - 모든 필드는 private이며, getter/setter메서드를 통해서만 접근이 가능하다. (for encapsulation)
-  - Argument가 없는(no-argument) 생성자가 존재한다. (오브젝트 생성과 get/set을 편하게 하기 위해)
-  - java.io.Serializable 인터페이스를 구현한다. (오브젝트를 담아 전송하거나 저장하기 위해)
-
-| POJO | JAVA BEAN |
-| - | - |
-| Java laguage 에 의한 특별한 restrictions 이 없습니다. | POJO 보다 restrictions 합니다. |
-| Fields 에 대한 통제를 제공하지 않습니다. | Fields에 대한 통제를 가집니다. |
-| SErializable 에 대한 interface 를 구현할 수 있습니다. | Serializable 에 대한 interface 를 구현해야만 합니다. |
-| Fields 는 이름으로 접근할 수 있습니다. | Fields 는 getter 와 setter 로만 접근할 수 있습니다. |
-| Fields 에 대한 접근제어자 규칙이 자유롭습니다. | Fields 는 접근제어자를 private 로만 가질 수 있습니다. |
-| constructor 에 argument를 가질 수 있습니다. | constructor 에 argument를 가질 수 없습니다. |
-| member와 field에 대해 restriction 한 접근 규칙을 정하고 싶지 않을 때 사용됩니다. | member와 restriction 한 접근 규칙을 정하고자 할 때 사용됩니다. |
-
-**Spring에서의 POJO**
-- 스프링은 POJO를 이용한 엔터프라이즈 어플리케이션 개발을 목적으로 한다.
-- 스프링의 핵심인 IoC, DI, AOP등을 POJO를 이용해서 유연하게 확장할 수 있도록 한다.
-
-<a id="di"></a>
-# 스프링 DI와 Reflection
-<!-- https://kellis.tistory.com/70 -->
-<!-- TODO -->
-
-**Reflection**
-- Reflection은 이처럼 클래스타입의 인스턴스를 생성하여 클래스의 필드, 생성자, 메서드, 상속된 부모들을 다룰 수 있다.
-
-# Spring Bean Lifecycle
-<!-- https://sehun-kim.github.io/sehun/springbean-lifecycle/#4 -->
-<!-- TODO -->
-- 각 Bean 객체들이 순서대로 [생성, 초기화] 되다가, 의존하고 있는 Bean을 가진 Bean이 초기화 될 때, 의존하는 Bean이 없는 경우 먼저 해당 Bean을 생성,초기화 해준다.
-- 각 Bean 객체들이 초기화 된 순서의 역순으로 destroy()된다.
-
-# 스프링 서비스 추상화 : PSA<sup>Portable Service Abstraction</sup>
-<!-- TODO -->
-- 환경의 변화와 관계없이 일관된 방식의 기술로의 접근 환경을 제공하려는 추상화 구조를 말한다. 
-  e.g. JPA의 구현체가 무엇이든 상관 없이 **동일한 인터페이스로 구동이 가능**하다.
-- Spring 에서 동작할 수 있는 Library 들은 POJO 원칙을 지키게끔 PSA 형태의 추상화가 되어있음을 의미한다. 
-- Spring 은 특정 기술에 직접적 영향을 받지 않게끔 객체를 POJO 기반으로 한번씩 더 추상화한 Layer 를 갖고 있으며 이를통해 일관성있는 서비스 추상화를 만들어낸다. 
 
 </br>
 
@@ -1111,7 +1109,7 @@ lockMono.doOnNext(res -> {
 **broker**
 - 카프카 서버라고도 불린다.
 - Priducer가 생성한 메세지를 받아서 오프셋을 관리하고 Consumer오부터 메세지를 읽으려는 요청에 응답하는 역할을 한다.
-- 하나의 클러스터에 여러 개의 브로커를 가질 수 있습니다. 브로커의 숫자가 많아질 수록 단위 시간내의 처리량이 올라갈 수 있으므로 대용량의 데이터에도 대응할 수 있게된다.
+- 하나의 클러스터에 여러 개의 브로커를 가질 수 있다. 브로커의 숫자가 많아질 수록 단위 시간내의 처리량이 올라갈 수 있으므로 대용량의 데이터에도 대응할 수 있게된다.
 
 **zookeeper**
 <!-- TODO: -->
@@ -1155,7 +1153,7 @@ lockMono.doOnNext(res -> {
 **offset**
 - 하나의 메시지 단위를 레코드(Record)라고 하고, 이 레코드들의 ID가 **offset**이다. 
 - offset은 정수형 숫자로 이루어져있고 프로듀서로부터 메시지가 생성되면 오프셋 숫자는 하나씩 늘어나게 된다.
-- Producer가 세 개의 메시지를 만들었고 broker가 이를 제대로 받으면 topic의 offset 상태는 다음과 같이 됩니다.
+- Producer가 세 개의 메시지를 만들었고 broker가 이를 제대로 받으면 topic의 offset 상태는 다음과 같이 된다.
 
 **commit**
 ![kafka-offset-commit](https://user-images.githubusercontent.com/18159012/117533480-0ee4fb00-b028-11eb-8d28-cb037e242b55.jpg)
@@ -1216,18 +1214,18 @@ lockMono.doOnNext(res -> {
 ![spring-batch-job-1](https://user-images.githubusercontent.com/18159012/117576179-ca3c8b00-b11f-11eb-9447-0f564b3e19b7.jpg)
 
 **장점**
-- 대용량 데이터 처리에 최적화되어 고성능을 발휘합니다.
-- 효과적인 로깅, 통계 처리, 트랜잭션 관리 등 재사용 가능한 필수 기능을 지원합니다.
-- 수동으로 처리하지 않도록 자동화되어 있습니다.
-- 예외사항과 비정상 동작에 대한 방어 기능이 있습니다.
-- 스프링 부트 배치는 반복적인 작업 프로세스를 이해하면 비니지스로직에 집중할 수 있습니다.
+- 대용량 데이터 처리에 최적화되어 고성능을 발휘한다.
+- 효과적인 로깅, 통계 처리, 트랜잭션 관리 등 재사용 가능한 필수 기능을 지원한다.
+- 수동으로 처리하지 않도록 자동화되어 있다.
+- 예외사항과 비정상 동작에 대한 방어 기능이 있다.
+- 스프링 부트 배치는 반복적인 작업 프로세스를 이해하면 비니지스로직에 집중할 수 있다.
 
 **유의점**
-- 가능하면 단순화해서 복잡한 구조와 로직을 피해야합니다.
-- 데이터를 직접 사용하는 편이 빈번하게 일어나므로 데이터 무결성을 우지하는데 유효성 검사 등의 방어책이 있어야합니다.
-- 배치 처리 시스템 I/O 사용을 최소화해야합니다. 잦은 I/O로 데이터베이스 컨넥션과 네트워크 비용이 커지면 성능에 영향을 줄 수 있기 때문입니다. 따라서 **가능하면 한번에 데이터를 조회하여 메모리에 저장해두고 처리를 한 다음. 그결과를 한번에 데이터베이스에 저장하는것이 좋습니다.**
-일반적으로 같은 서비스에 사용되는 웹 API, 배치, 기타 프로젝트들을 서로 영향을 줍니다. 따라서 배치 처리가 진행되는 동안 다른 프로젝트 요소에 영향을 주는 경우가 없는지 주의를 기울여야합니다.
-- 스프링 부트는 배치 스케쥴러를 제공하지 않습니다. 따라서 배치 처리 기능만 제공하여 스케쥴링 기능은 스프링에서 제공하는 쿼치 프레임워크 등을 이용해야합니다. 리눅스 crontab 명령은 가장 간단히 사용 할 수 있지만 이는 추천하지 않습니다. crontab의 경우 각 서버마다 따로 스케쥴러를 관리해야 하며 무엇보다 클러스터링 기능이 제공되지 않습니다. 반면에 쿼츠 같은 스케쥴링은 프레임워크를 사용한다면 클러스터링뿐만 아니라 다양한 스케쥴링 기능, 실행 이력 관리 등 여러 이점을 얻을 수 있습니다.
+- 가능하면 단순화해서 복잡한 구조와 로직을 피해야한다.
+- 데이터를 직접 사용하는 편이 빈번하게 일어나므로 데이터 무결성을 우지하는데 유효성 검사 등의 방어책이 있어야한다.
+- 배치 처리 시스템 I/O 사용을 최소화해야한다. 잦은 I/O로 데이터베이스 컨넥션과 네트워크 비용이 커지면 성능에 영향을 줄 수 있기 때문이다. 따라서 **가능하면 한번에 데이터를 조회하여 메모리에 저장해두고 처리를 한 다음. 그결과를 한번에 데이터베이스에 저장하는것이 좋다.**
+일반적으로 같은 서비스에 사용되는 웹 API, 배치, 기타 프로젝트들을 서로 영향을 준다. 따라서 배치 처리가 진행되는 동안 다른 프로젝트 요소에 영향을 주는 경우가 없는지 주의를 기울여야한다.
+- 스프링 부트는 배치 스케쥴러를 제공하지 않는다. 따라서 배치 처리 기능만 제공하여 스케쥴링 기능은 스프링에서 제공하는 쿼치 프레임워크 등을 이용해야한다. 리눅스 crontab 명령은 가장 간단히 사용 할 수 있지만 이는 추천하지 않는다. crontab의 경우 각 서버마다 따로 스케쥴러를 관리해야 하며 무엇보다 클러스터링 기능이 제공되지 않는다. 반면에 쿼츠 같은 스케쥴링은 프레임워크를 사용한다면 클러스터링뿐만 아니라 다양한 스케쥴링 기능, 실행 이력 관리 등 여러 이점을 얻을 수 있다.
 
 **동작의 단계**
 - 읽기 : 데이터 저장소에서 특정 데이터 레코드를 읽는다.
