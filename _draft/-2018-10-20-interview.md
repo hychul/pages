@@ -1,5 +1,5 @@
 솔직히 면접 같은데서 이런 개념 같은 것을 '알고있는지' 확인하는 것은 공감한다만, 정의를 줄줄이 '외웠는지' 확인하는 것은 실효성이 없다고 생각한다. 
-~~그러면 기억력 테스트를 하면 되지 왜 면접을 왜 보는거여, 어차피 레퍼런스 문서 보면서 개발해야될 텐데..?~~
+~~그럴거면 기억력 테스트를 하면 되지 왜 면접을 왜 보는거여, 어차피 레퍼런스 문서 보면서 개발해야될 텐데..?~~
 
 [JAVA](#java)
 [JDK](#jdk)
@@ -69,7 +69,7 @@
 - 처음 SELECT 를 수행한 시간을 기록한 뒤, 이후에는 모든 SELECT마다 해당 시점을 기준으로 Consistent Read를 수행한다.
 - 트랜잭션 도중 다른 트랜잭션이 COMMIT 되더라도 첫 SELECT 시에 생성된 Snapshot을 기준으로 하기에 새롭게 COMMIT 된 데이터는 보이지 않는다.
 
-**SERIALIZABLE**
+**SERIALIZABLE**  
 - 모든 작업을 하나의 트랜잭션에서 처리하는 ㄴ것과 같은 가장 높은 고립수준을 제공한다.
 - READ COMMITED와 REPEATABLE READ 에서 발생하는 공통적인 이슈는 Phantom Read 가 발생한다는 것이다.
 
@@ -412,7 +412,7 @@ Global Session
 **경량 컨테이너**
 - 스프링은 객체를 담고 있는 컨테이너로써 자바 객체의 생성과 소멸과 같은 라이프사이클을 관리하고, 언제든 필요한 객체를 가져다 사용할 수 있도록 한다.
 
-**POJO<sup>Plain Old Java Object</sup> : 평범한 자바 객체**
+**POJO<sup>Plain Old Java Object</sup> : 평범한 자바 객체** <sup>[link](#pojo)</sup>
 <!-- https://limmmee.tistory.com/8 -->
 <!-- http://asuraiv.blogspot.com/2017/07/spring-pojo.html -->
 - 일반적인 자바 객체를 의미한다.
@@ -439,6 +439,27 @@ Global Session
 **AOP<sup>Aspect Oriented Programming</sup> : 관점 지향 프로그래밍**
 <!-- https://jojoldu.tistory.com/71 -->
 - 공통의 관심사랑을 적용하여 의존관계의 복잡성과 코드 중복을 해소하는것을 의미
+
+<a id="pojo"></a>
+# POJO vs JavaBean
+**POJO**
+- 일반적인 자바 객체를 의미한다.
+- POJO가 JavaBean을 포함하는 더 큰 개념이다.
+- 조건
+  - 특정 규약에 종속되지 않는다.
+  - 특정 환경에 종속되지 않는다.
+
+**JavaBeans**
+- JavaBean API Specification에 따른 Standard이다.
+- 여러가지 오브젝트들을 하나의 오브젝트에 담기 위한 규직(소프트웨어 프로토콜)을 따른다.
+- 조건
+  - 모든 필드는 private이며, getter/setter메서드를 통해서만 접근이 가능하다. (for encapsulation)
+  - Argument가 없는(no-argument) 생성자가 존재한다. (오브젝트 생성과 get/set을 편하게 하기 위해)
+  - java.io.Serializable 인터페이스를 구현한다. (오브젝트를 담아 전송하거나 저장하기 위해)
+
+**Spring에서의 POJO**
+- 스프링은 POJO를 이용한 엔터프라이즈 어플리케이션 개발을 목적으로 한다.
+- 스프링의 핵심인 IoC, DI, AOP등을 POJO를 이용해서 유연하게 확장할 수 있도록 한다.
 
 </br>
 
