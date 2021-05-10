@@ -10,6 +10,7 @@
 [DB](#db)
 [MySQL](#mysql)
 [JPA](#jpa)
+[Distributed Lock](#distributed-lock)
 [Cache](#cache)
 [Transaction](#transaction)
 [MSA](#msa)
@@ -924,18 +925,73 @@ try {
 <!-- https://happyer16.tistory.com/entry/Spring-jpa-save-saveAndFlush-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%95%8C%EA%B3%A0-%EC%93%B0%EA%B8%B0 -->
 <!-- https://ramees.tistory.com/36 -->
 
+<a id="distributed-lock"></a>
+# Distributed Lock
+<!-- TODO -->
+<!-- https://sg-choi.tistory.com/292 -->
+- 여러 독립된 프로세스에서 하나의 자원을 공유해야 할 때, 데이터에 결함이 발생하지 않도록 하기 위해서 distributed lock을 활용할 수 있다.
+- redis에서는 분산 락을 구현한 알고리즘으로 redlock이라는 것을 제공하고 있는데, 자바에서의 redlock 구현체는 redisson이라고 한다.
+
+**Redission**
+<!-- https://github.com/redisson/redisson/wiki/8.-distributed-locks-and-synchronizers -->
+<!-- https://redis.io/topics/distlock -->
+- Redission은 레디스 서버를 사용하여 `RLock` 객체를 얻고 `lock.tryLock()`을 통해 타임아웃등을 설정하여 동기화를 사용할 수 있다.
+```java
+RLock lock = redisson.getLock("myLock");
+
+// traditional lock method
+lock.lock();
+
+// or acquire lock and automatically unlock it after 10 seconds
+lock.lock(10, TimeUnit.SECONDS);
+
+// or wait for lock aquisition up to 100 seconds 
+// and automatically unlock it after 10 seconds
+boolean res = lock.tryLock(100, 10, TimeUnit.SECONDS);
+if (res) {
+   try {
+     ...
+   } finally {
+       lock.unlock();
+   }
+}
+```
+- 리액티브 환경에서의 락도 제공한다.
+```java
+RedissonReactiveClient redisson = redissonClient.reactive();
+RLockReactive lock = redisson.getLock("myLock");
+
+Mono<Void> lockMono = lock.lock();
+
+// or acquire lock and automatically unlock it after 10 seconds
+Mono<Void> lockMono = lock.lock(10, TimeUnit.SECONDS);
+
+// or wait for lock aquisition up to 100 seconds 
+// and automatically unlock it after 10 seconds
+Mono<Boolean> lockMono = lock.tryLock(100, 10, TimeUnit.SECONDS);
+
+lockMono.doOnNext(res -> {
+   // ...
+})
+.doFinally(lock.unlock())
+.subscribe();
+```
+
 <a id="cache"></a>
 # 레디스 캐시 vs In memcache
+<!-- https://hyuntaeknote.tistory.com/8 -->
 **memcache**
 - 데이터 형식으로 문자열만 지원한다.
 - 작고 변하지 않는 데이타 예를들어 HTML 코드의 부분을 캐싱할때 내부 메모리 관리가 Redis 만큼 복잡하지 않아 능률적이기 떄문에 Memcached 는 메타 데이타에 있어 비교적 작은 메모리를 사용한다.
 - 모든 key-value 쌍을 메모리에만 저장하므로 서버 장애시 데이터가 모두 손실된다.
+- Replication을 지원하지 않는다. (다른 솔루션을 통해 적용은 할 수 있다.)
 
 **레디스**
 <!-- https://kimdubi.github.io/nosql/redis_persistent/ -->
 - 모든 데이터를 메모리에 저장하고 조회한다.
 - 다른 인메모리 솔루션과 달리 다양한 자료구조를 지원한다.
-- AOF<sup>Append Only File</sup> 혹은 RDB<sup>Redix Database</sup> 통해 영속성을 지원한다.
+- 자체에서 Replication을 지원하기 때문에 장애가 발생하더라도 Slave 서버를 Master로 승격시켜 서비스 중단 없이 운영할 수 있다.
+- AOF<sup>Append Only File</sup> 혹은 RDB<sup>Redis Database</sup> 통해 영속성을 지원한다.
   - AOF : 명령이 실행될 떄 마다 파일(ex. appendonly.aof)에 기록한다.
     - 서버 장애가 발생하더라도 데이터 유실이 거의 없다.
     - 텍스트 파일로 제공되어 쉽게 복구가 가능하다.
