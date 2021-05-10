@@ -456,7 +456,6 @@ public BeanA beanA() {
 > 초기화나 소멸 메서드는 모두 IoC 컨테이너에서 관리된다. 때문에 해당 메서드들을 호출하기 위해선 먼저 IoC 컨테이너에 빈을 등록해야한다.
 
 # 스프링 서비스 추상화 : PSA<sup>Portable Service Abstraction</sup>
-<!-- TODO -->
 - 환경의 변화와 관계없이 일관된 방식의 기술로의 접근 환경을 제공하려는 추상화 구조를 말한다. 
   e.g. JPA의 구현체가 무엇이든 상관 없이 **동일한 인터페이스로 구동이 가능**하다.
 - Spring 에서 동작할 수 있는 Library 들은 POJO 원칙을 지키게끔 PSA 형태의 추상화가 되어있음을 의미한다. 
@@ -1012,6 +1011,21 @@ try {
 <!-- https://ramees.tistory.com/36 -->
 
 <a id="cache"></a>
+# Cache
+한번 읽은(처리한) 데이타를 임시로 저장하고 필요에 따라 전송,갱신,삭제하는 기술로
+보통은 데이타의 보관장소로 서버의 메모리를 사용하는 경우가 많다
+
+**캐시의 대상이 되는 정보들**
+- 단순하거나 단순한 구조의 정보
+- 반복적으로 동일하게 제공되는 정보
+- 정보의 변경주기가 빈번하지 않고 단위처리의 시간이 오래걸리는 정보
+- 정보의 최신화가 반드시 실시간으로 이뤄지지 않아도 되는 정보
+
+**캐싱 전략 : 캐시 사용시 유의해야할 것**
+- 캐싱할 정보의 선택
+- 캐싱할 정보의 유효기간
+- 캐싱한 정보의 갱신시점
+
 # 레디스 캐시 vs In memcache
 <!-- https://hyuntaeknote.tistory.com/8 -->
 **memcache**
@@ -1035,8 +1049,25 @@ try {
     - 바이너리 파일로 제공되어 손상이 발생했을 때 식별이 어렵다.
     - 서버장애 시점에 따라 데이터가 유실될 수 있다.
 
+# 스프링 Redis 어노테이션
+<!-- https://daddyprogrammer.org/post/3217/redis-springboot2-spring-data-redis-cacheable-cacheput-cacheevict/ -->
+**`@Cacheable`**
+- 저장된 캐시가 있는 경우 캐시를 반환하고, 없으면 리턴값을 Redis에 캐시한다.
+
+**`@CachePut`**
+- 저장된 캐시 정보를 갱신한다.
+- 저장된 캐시가 없는 경우 생성한다.
+
+**`@CacheEvict`**
+- 저장된 캐시를 삭제한다.
+
+**`@RedisHash`**
+- Redis를 통해 JPA의 엔티티를 사용하는 것처럼 만들어주는 어노테이션
+<!--  -->
+<!-- TODO -->
+
 <a id="distributed-lock"></a>
-# Distributed Lock
+# Redis Distributed Lock
 <!-- toss -->
 <!-- https://sg-choi.tistory.com/292 -->
 - 여러 독립된 프로세스에서 하나의 자원을 공유해야 할 때, 데이터에 결함이 발생하지 않도록 하기 위해서 distributed lock을 활용할 수 있다.
