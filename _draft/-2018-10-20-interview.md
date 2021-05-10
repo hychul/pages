@@ -1285,7 +1285,7 @@ lockMono.doOnNext(res -> {
 
 **Multi-threaded Step** (싱글 프로세스)
 - 병렬처리를 시작하는 가장 쉬운 방법은 `StepBuilder` 에서 비동기 `TaskExecutor`를 설정하는 것이다.
-- 단일 스레드와 달리 청크에 연속적이 아이템이 들어있지 않다.
+- 청크 단위로 각 스레드에서 처리하기 때문에 단일 스레드와 달리 처리되는 각 청크는 연속적이지 않다.
 - tasklet에 디폴트로 4인 throttle limit이 존재하기 때문에 스레드 풀을 충분히 사용하고 싶을 경우 이 값을 변경해야한다.
 
 > **throttle limit**  
