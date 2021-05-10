@@ -10,8 +10,8 @@
 [DB](#db)
 [MySQL](#mysql)
 [JPA](#jpa)
-[Distributed Lock](#distributed-lock)
 [Cache](#cache)
+[Distributed Lock](#distributed-lock)
 [Transaction](#transaction)
 [MSA](#msa)
 [Kafka](#kafka)
@@ -925,6 +925,30 @@ try {
 <!-- https://happyer16.tistory.com/entry/Spring-jpa-save-saveAndFlush-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%95%8C%EA%B3%A0-%EC%93%B0%EA%B8%B0 -->
 <!-- https://ramees.tistory.com/36 -->
 
+<a id="cache"></a>
+# 레디스 캐시 vs In memcache
+<!-- https://hyuntaeknote.tistory.com/8 -->
+**memcache**
+- 데이터 형식으로 문자열만 지원한다.
+- 작고 변하지 않는 데이타 예를들어 HTML 코드의 부분을 캐싱할때 내부 메모리 관리가 Redis 만큼 복잡하지 않아 능률적이기 떄문에 Memcached 는 메타 데이타에 있어 비교적 작은 메모리를 사용한다.
+- 모든 key-value 쌍을 메모리에만 저장하므로 서버 장애시 데이터가 모두 손실된다.
+- Replication을 지원하지 않는다. (다른 솔루션을 통해 적용은 할 수 있다.)
+
+**레디스**
+<!-- https://kimdubi.github.io/nosql/redis_persistent/ -->
+- 모든 데이터를 메모리에 저장하고 조회한다.
+- 다른 인메모리 솔루션과 달리 다양한 자료구조를 지원한다.
+- 자체에서 Replication을 지원하기 때문에 장애가 발생하더라도 Slave 서버를 Master로 승격시켜 서비스 중단 없이 운영할 수 있다.
+- AOF<sup>Append Only File</sup> 혹은 RDB<sup>Redis Database</sup> 통해 영속성을 지원한다.
+  - AOF : 명령이 실행될 떄 마다 파일(ex. appendonly.aof)에 기록한다.
+    - 서버 장애가 발생하더라도 데이터 유실이 거의 없다.
+    - 텍스트 파일로 제공되어 쉽게 복구가 가능하다.
+    - 모든 명령을 저장하기 때문에 파일이 크고, 로딩이 느리며, OS 파일 크기 제한으로 장애가 발생할 수 있다.
+  - RDB : 특정한 간격으로 메모리에 있는 레디스 데이터 전체를 disk레 바이너리 형태로 기록한다.
+    - AOF 보다 size 가 작고, 로딩 속도가 빠르다.
+    - 바이너리 파일로 제공되어 손상이 발생했을 때 식별이 어렵다.
+    - 서버장애 시점에 따라 데이터가 유실될 수 있다.
+
 <a id="distributed-lock"></a>
 # Distributed Lock
 <!-- TODO -->
@@ -976,30 +1000,6 @@ lockMono.doOnNext(res -> {
 .doFinally(lock.unlock())
 .subscribe();
 ```
-
-<a id="cache"></a>
-# 레디스 캐시 vs In memcache
-<!-- https://hyuntaeknote.tistory.com/8 -->
-**memcache**
-- 데이터 형식으로 문자열만 지원한다.
-- 작고 변하지 않는 데이타 예를들어 HTML 코드의 부분을 캐싱할때 내부 메모리 관리가 Redis 만큼 복잡하지 않아 능률적이기 떄문에 Memcached 는 메타 데이타에 있어 비교적 작은 메모리를 사용한다.
-- 모든 key-value 쌍을 메모리에만 저장하므로 서버 장애시 데이터가 모두 손실된다.
-- Replication을 지원하지 않는다. (다른 솔루션을 통해 적용은 할 수 있다.)
-
-**레디스**
-<!-- https://kimdubi.github.io/nosql/redis_persistent/ -->
-- 모든 데이터를 메모리에 저장하고 조회한다.
-- 다른 인메모리 솔루션과 달리 다양한 자료구조를 지원한다.
-- 자체에서 Replication을 지원하기 때문에 장애가 발생하더라도 Slave 서버를 Master로 승격시켜 서비스 중단 없이 운영할 수 있다.
-- AOF<sup>Append Only File</sup> 혹은 RDB<sup>Redis Database</sup> 통해 영속성을 지원한다.
-  - AOF : 명령이 실행될 떄 마다 파일(ex. appendonly.aof)에 기록한다.
-    - 서버 장애가 발생하더라도 데이터 유실이 거의 없다.
-    - 텍스트 파일로 제공되어 쉽게 복구가 가능하다.
-    - 모든 명령을 저장하기 때문에 파일이 크고, 로딩이 느리며, OS 파일 크기 제한으로 장애가 발생할 수 있다.
-  - RDB : 특정한 간격으로 메모리에 있는 레디스 데이터 전체를 disk레 바이너리 형태로 기록한다.
-    - AOF 보다 size 가 작고, 로딩 속도가 빠르다.
-    - 바이너리 파일로 제공되어 손상이 발생했을 때 식별이 어렵다.
-    - 서버장애 시점에 따라 데이터가 유실될 수 있다.
 
 <a id="network"></a>
 # 아파치 톰캣
