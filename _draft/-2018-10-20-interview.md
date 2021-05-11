@@ -261,6 +261,7 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 <a id="cors"></a>
 # CORS
 <!-- daangn -->
+<!-- https://blog.naver.com/dnvld1/222039760747 -->
 <!-- https://evan-moon.github.io/2020/05/21/about-cors/#%EB%A7%88%EC%B9%98%EB%A9%B0 -->
 <!-- AdsctractHandlerMappings.getHandler() -->
 - CORS는 Cross-Origin Resource Sharing의 줄임말로 직역하면 교차(다른) 출처 리소스 공유하고 해석할 수 있다.
