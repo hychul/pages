@@ -1011,6 +1011,12 @@ Mark-Sweep-Compaction 알고리즘
 <!-- woowahan -->
 만약 mysql을 사용한다면 REPEATABLE_READ level을 택하지만 @Transactional(readOnly = true)을 설정하면 Isolation level이 READE_UNCOMMITED으로 변경되서 성능상의 이점이 있다는 것으로 이해했습니다. 제가 이해한것이 맞을까요?
 
+# 여러 컬럼에 인덱스를 설정하면 인덱스가 동작안하는데 이유는
+<!-- TODO -->
+
+# DB 인덱스가 안타는 경우
+<!-- TODO -->
+
 ## QueryDSL
 <!-- https://ict-nroo.tistory.com/117 -->
 <!-- TODO -->
