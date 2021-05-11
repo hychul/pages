@@ -1,22 +1,22 @@
 솔직히 면접 같은데서 이런 개념 같은 것을 '알고있는지' 확인하는 것은 공감한다만, 정의를 줄줄이 '외웠는지' 확인하는 것은 실효성이 없다고 생각한다. 
 ~~그럴거면 기억력 테스트를 하면 되지 왜 면접을 왜 보는거여, 어차피 레퍼런스 문서 보면서 개발해야될 텐데..?~~
 
-[JAVA](#java)
-[JDK](#jdk)
-[JVM](#jvm)
-[GC](#gc)
-[Spring](#spring)
-[Serailization](#serialization)
-[CORS](#cors)
-[DB](#db)
-[MySQL](#mysql)
-[JPA](#jpa)
-[Cache](#cache)
-[Distributed Lock](#distributed-lock)
-[Transaction](#transaction)
-[MSA](#msa)
-[Kafka](#kafka)
-[Spring Batch](#spring-batch)
+[JAVA](#java)  
+[JDK](#jdk)  
+[JVM](#jvm)  
+[GC](#gc)  
+[Spring](#spring)  
+[Serailization](#serialization)  
+[CORS](#cors)  
+[DB](#db)  
+[Transaction](#transaction)  
+[MySQL](#mysql)  
+[JPA](#jpa)  
+[Cache](#cache)  
+[Distributed Lock](#distributed-lock)  
+[MSA](#msa)  
+[Kafka](#kafka)  
+[Spring Batch](#spring-batch)  
 
 <a id="db"></a>
 # DB 인덱싱의 특징
@@ -43,7 +43,34 @@
 - DB 테이블에서 카디널리티가 낮은 컬럼에 대해서 인덱스를 생성하면 쿼리 결과물이 많아지기 때문에 효율이 적어진다.
 - A, B, C 컬럼에 인덱스를 설정한 후 where 절에 카디널리티가 오름차순인 컬럼을 조건으로 설정한 경우 조건을 순서대로 질의하면서 많은 수의 로우가 검색이 되기 때문에, where 절에 카디널리티가 높은 순서의 조건을 먼저 두는 것이 좋다.
 
-# DB Isolation Level
+</br>
+
+<a id="transaction"></a>
+# 트랜잭션 ACID
+원자성<sup>Atomicity</sup>
+- 트랜잭션과 관련된 작업들이 부분적으로 실행되다가 중단되지 않는 것을 보장하는 것을 의미
+
+일관성<sup>Consistency</sup>
+- 트랜잭션이 실행을 성공적으로 완료하면 언제나 일관성 있는 데이터베이스의 제약등을 지킨 상태로 유지하는 것을 의미
+
+독립성<sup>Isolation</sup>
+- 트랜잭션을 수행 시 다른 트랜잭션의 연산 작업이 끼어들지 못하도록 보장하는 것을 의미
+
+영속성<sup>Durability</sup>
+- 성공적으로 수행된 트랜잭션은 영원히 반영되어야 함을 의미
+
+# 로컬 트랜젝션과 글로벌 트랜젝션
+로컬 트랜젝션
+- 트랜젝션은 Connection 오브젝트 안에서 만들어지기 때문에 일련의 작업이 하나의 트랜잭션으로 묶이려면 작업이 진행되는 동안 DB 커넥션도 하나만 사용돼야 한다.
+- 스프링에선 이를 위해 Connection을 특별한 저장소에 보관하고 DAO의 메소드에서 이를 가져다 사용하게 하여 트랜젝션을 동기화한다.
+
+글로벌 트랜젝션
+- 로컬 트랜잭션과 달리 여러 DB 커넥션에 대해 트랜잭션을 관리하는 방식이다.
+
+# JTA<sup>Java Transaction API</sup>
+<!-- TODO -->
+
+# 트랜잭션 Isolation Level
 <!-- daangn -->
 <!-- https://nesoy.github.io/articles/2019-05/Database-Transaction-isolation -->
 동시에 여러 트랜젝션이 처리될 때, 특정 트랜젝션이 다른 트랜잭션에서 변경하거나 조회하는 데이터를 볼 수 잇도록 허용할지 말지 결정하는 레벨
@@ -56,7 +83,7 @@
 **READ COMMITED**
 - COMMIT이 완료된 데이터만 SELECT 시에 보이는 수준을 보장
 - 대부분의 RDB에서 기본적으로 사용되는 격리수준
-- Dirty Read가 발생ㅇ하지 않도록 보장한다.
+- Dirty Read가 발생하지 않도록 보장한다.
 - 한 트랜잭션에서 SELECT를 수행할 때 동일한 데이터를 보장하지 않는다. 다른 트랜잭션에서 해당 데이터를 COMMIT 한 경우 데이터가 변경될 수 있기 때문이다. 
 - 트랜잭션에서 COMMIT을 수행하지 않더라도 DB에 이미 값이 반영되어 있는 상태인 경우. COMMIT 이전 데이터를 보장하기 위해 Consistent Read를 수행해야한다.
 - READ COMMITED를 Non-repeatable Read라고도 한다.
@@ -70,7 +97,7 @@
 - 트랜잭션 도중 다른 트랜잭션이 COMMIT 되더라도 첫 SELECT 시에 생성된 Snapshot을 기준으로 하기에 새롭게 COMMIT 된 데이터는 보이지 않는다.
 
 **SERIALIZABLE**  
-- 모든 작업을 하나의 트랜잭션에서 처리하는 ㄴ것과 같은 가장 높은 고립수준을 제공한다.
+- 모든 작업을 하나의 트랜잭션에서 처리하는 것과 같은 가장 높은 고립수준을 제공한다.
 - READ COMMITED와 REPEATABLE READ 에서 발생하는 공통적인 이슈는 Phantom Read 가 발생한다는 것이다.
 
 > **Phantom Read**
@@ -895,31 +922,6 @@ Mark-Sweep-Compaction 알고리즘
 
 <!-- TODO: Add G1GC process image -->
 
-<a id="transaction"></a>
-# 트랜잭션 ACID
-원자성<sup>Atomicity</sup>
-- 트랜잭션과 관련된 작업들이 부분적으로 실행되다가 중단되지 않는 것을 보장하는 것을 의미
-
-일관성<sup>Consistency</sup>
-- 트랜잭션이 실행을 성공적으로 완료하면 언제나 일관성 있는 데이터베이스 상태로 유지하는 것을 의미
-
-독립성<sup>Isolation</sup>
-- 트랜잭션을 수행 시 다른 트랜잭션의 연산 작업이 끼어들지 못하도록 보장하는 것을 의미
-
-영속성<sup>Durability</sup>
-- 성공적으로 수행된 트랜잭션은 영원히 반영되어야 함을 의미
-
-# 로컬 트랜젝션과 글로벌 트랜젝션
-로컬 트랜젝션
-- 트랜젝션은 Connection 오브젝트 안에서 만들어지기 때문에 일련의 작업이 하나의 트랜잭션으로 묶이려면 작업이 진행되는 동안 DB 커넥션도 하나만 사용돼야 한다.
-- 스프링에선 이를 위해 Connection을 특별한 저장소에 보관하고 DAO의 메소드에서 이를 가져다 사용하게 하여 트랜젝션을 동기화한다.
-
-글로벌 트랜젝션
-- 로컬 트랜잭션과 달리 여러 DB 커넥션에 대해 트랜잭션을 관리하는 방식이다.
-
-# JTA<sup>Java Transaction API</sup>
-<!-- TODO -->
-
 <a id="jpa"></a>
 # JPA 기본 생성자가 필요한 이유
 <!-- https://goodyhlee.wordpress.com/2016/06/20/177/ -->
@@ -1129,7 +1131,9 @@ lockMono.doOnNext(res -> {
 
 **톰캣**
 - 컨테이너, 웹 컨테이너, 서블릿 컨테이너로도 불림
-- 
+
+> **서블릿이란**
+> 클라이언트의 요청을 처리하고, 그 결과를 반환하는 Servlet 클래스의 구현 규칙을 지킨 자바 웹 프로그래밍 기술
 
 **아파치 톰캣으로 부르는 이유**
 - 기본적으로 아파치와 톰캣의 기능이 나뉘어 있지만, 톰캣 안에 있는 컨테이너를 통해 일부 아파치의 기능을 수행하기에 아파치 톰캣으로 부른다.
