@@ -53,19 +53,11 @@
 일관성<sup>Consistency</sup>
 - 트랜잭션이 실행을 성공적으로 완료하면 언제나 일관성 있는 데이터베이스의 제약등을 지킨 상태로 유지하는 것을 의미
 
+영속성<sup>Durability</sup>
+- 성공적으로 수행된 트랜잭션은 DB에 영원히 반영되어야 함을 의미
+
 독립성<sup>Isolation</sup>
 - 트랜잭션을 수행 시 다른 트랜잭션의 연산 작업이 끼어들지 못하도록 보장하는 것을 의미
-
-영속성<sup>Durability</sup>
-- 성공적으로 수행된 트랜잭션은 영원히 반영되어야 함을 의미
-
-# 로컬 트랜젝션과 글로벌 트랜젝션
-로컬 트랜젝션
-- 트랜젝션은 Connection 오브젝트 안에서 만들어지기 때문에 일련의 작업이 하나의 트랜잭션으로 묶이려면 작업이 진행되는 동안 DB 커넥션도 하나만 사용돼야 한다.
-- 스프링에선 이를 위해 Connection을 특별한 저장소에 보관하고 DAO의 메소드에서 이를 가져다 사용하게 하여 트랜젝션을 동기화한다.
-
-글로벌 트랜젝션
-- 로컬 트랜잭션과 달리 여러 DB 커넥션에 대해 트랜잭션을 관리하는 방식이다.
 
 # JTA<sup>Java Transaction API</sup>
 <!-- TODO -->
@@ -190,14 +182,14 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 - 직렬화에 사용되는 클래스의 직렬화 버전이다.
 - 필수값은 아니다.
 - 호환 가능한 클래스는 SUID 값이 동일하다.
-- SUID 값이 명시적으로 선언되어있지 않으면 클래스의 기본 해쉬값을 사용한다.
+- SUID 값이 명시적으로 선언되어있지 않으면 클래스의 정보들을 통해 생성한다.
 <!-- 자동생성 SUID는 클래스 구조를 사용 https://docs.oracle.com/javase/6/docs/platform/serialization/spec/class.html#4100 -->
 
 **SUID 버전을 체크하는 이유**
-- 버전이 바뀌면 객체ㅔ의 상태가 조금이라도 바뀌었다는 것을 의미하기 때문에 역직렬화 과정에서 오류가 발생할 수 있다.
+- 버전이 바뀌면 객체의 상태가 조금이라도 바뀌었다는 것을 의미하기 때문에 역직렬화 과정에서 오류가 발생할 수 있다.
 - SUID를 직접 설정하여 관리해야 클래스의 변경이 있을 때, 혼란을 줄일 수 있다.
 
-**SUID 저번이 같을 때 문제가 발생하는 경우**
+**변경된 클래스에서 SUID가 같을 때 문제가 발생하는 경우**
 - 멤버 변수명은 같은데 멤버 변수 타입이 변경된 경우. ex) String -> StringBuilder
 - 멤버 변수의 프리미티브 타입을 변경하는 경우. ex) int -> long
 - SUID 값이 동이리하면 멤버 변수 추가는 문제되지 않지만, 변수명 변경/변수 삭제는 오류를 발생키지 않고 데이터가 누락된다.
@@ -374,7 +366,7 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
 | - | - |
 | Java laguage 에 의한 특별한 restrictions 이 없다. | POJO 보다 restrictions 이 많다. |
 | Fields 에 대한 통제를 제공하지 않는다. | Fields에 대한 통제를 가진다. |
-| SErializable 에 대한 interface 를 구현할 수 있다. | Serializable 에 대한 interface 를 구현해야만 한다. |
+| Serializable 에 대한 interface 를 구현할 수 있다. | Serializable 에 대한 interface 를 구현해야만 한다. |
 | Fields 는 이름으로 접근할 수 있다. | Fields 는 getter 와 setter 로만 접근할 수 있다. |
 | Fields 에 대한 접근제어자 규칙이 자유롭다. | Fields 는 접근제어자를 private 로만 가질 수 있다. |
 | constructor 에 argument를 가질 수 있다. | constructor 에 argument를 가질 수 없다. |
@@ -406,6 +398,10 @@ MySQL은 크게 서버 엔진과 스토리지 엔진으로 구성되어 있다.
   - 객체 생성 시점에 순환 참조가 일어나기 때문에 다른 방식들과 달리 스프링 어플리케이션이 실행되지 않는다.
   - 의존성 주입이 필요한 필드를 final 로 선언하여 Immutable 하게 사용할 수 있다.
   - 의존관계가 설정되지 않으면 객체 생성이 불가능하기 때문에 NullPointError 를 방지할 수 있다.
+
+> **순환 참조**
+> @Bean을 통해 직접 스프링 빈으로 등록했을 때, 서로 다른 두 개의 빈이 서로를 참조하고 있는 상태를 말한다.
+> 순환 참조하는 빈에서 다른 빈의 메서드를 호출하고, 해당 빈의 메서드도 마찬가지로 다른 빈의 메서드를 호출하게 된다면 StackOverFlow가 발생할 수 있다.
 
 **생성자 주입 방법**
 ```java
@@ -488,6 +484,16 @@ public BeanA beanA() {
 - Spring 에서 동작할 수 있는 Library 들은 POJO 원칙을 지키게끔 PSA 형태의 추상화가 되어있음을 의미한다. 
 - Spring 은 특정 기술에 직접적 영향을 받지 않게끔 객체를 POJO 기반으로 한번씩 더 추상화한 Layer 를 갖고 있으며 이를통해 일관성있는 서비스 추상화를 만들어낸다. 
 
+# AOP
+<!-- https://devbox.tistory.com/entry/spring-AOP-%EC%9A%A9%EC%96%B4-%EC%84%A4%EB%AA%85 -->
+<!-- TODO -->
+- AOP의 포인트 컷
+  - `@Before` : 대상 메서드의 수행 전
+  - `@After` : 대상 메서드의 수행 후
+  - `@AfterReturning` : 대상 메서드의 정상적인 수행 후
+  - `@AfterThrowing` : 예외 발생 후
+  - `@Around`: 대상 메서드의 수행 전/후
+
 # Spring MVC request 처리 과정
 <!-- daangn -->
 ![spring-mvs-process-1](https://user-images.githubusercontent.com/18159012/117173061-593b6180-ae07-11eb-8b9c-8660289bb117.png)
@@ -499,28 +505,25 @@ public BeanA beanA() {
 스프링에서 request의 실행순서는 Filter - Dispatcher - Interceptor - AOP - Controller 순으로 실행된다.
 
 **Filter**
+<!-- DelegatingFilterProxy -->
 - dispatcher 이전에 실행된다.
 - 요청이나 응답에 대한 변경 처리가 가능하다.
-- 스프링 컨텍스트 외부에 존배하여 스프링과 무관한 자원에 대해서 동작한다.
+- 스프링 컨텍스트 외부에 존재하여 스프링과 무관한 자원에 대해서 동작한다.
 - 일반적으로 인코딩, [CORS](#cors), XSS, LOG, 인증, 권한 등의 요청에 대한 처리에 사용된다.
+- Filter에서 예외가 발생하면 WAS에서 처리해야 되기 때문에 tomcat의 <error-page> 등을 잘 선언해야 한다.
 
 **Interceptor**
 <!-- https://velog.io/@ette9844/Spring-HandlerInterceptor-%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%B2%98%EB%A6%AC -->
 - dispatcher 이후에 실행된다.
-- 스프링에서 관리되어 스프링 내의 객체(빈)에 대해서 접근이 가능하다.
+- 스프링에서 관리되어 스프링 내의 객체(빈)에 대해서 접근이 가능하다. (사실 Spring Filter에서도 접근은 가능)
 - 인터셉터를 구현하기 위해 `HandlerInterceptor` 인터페이스나 `HandlerInterceptorAdaptor` 추상 클래스를 상속받는다. 
 - 일반적으로 로그인처리에서 많이 사용되는데, 인터셉터를 사용하지 않고 로그인 처리를 하기 위해선 Controller의 핸들러 메서드 마다 세션을 확인하려 로그인 정보를 확인하는 코드를 중복으로 작성해야 한다.
+- Interceptor에서 예외가 발생한다면 Spring 내부에 있기 때문에 `@ControllerAdvice`에서 `@ExceptionHandler` 등의 어노테이션으로 관리할 수 있다.
 
 **AOP**
 - OOP를 보완하기 위해 종단면 관점으로 중복된 코드를 줄일 때 사용한다.
 - Filter와 Interceptor와 달리 메서드 전/후 지점에 자유롭게 설정이 가능하다.
 - Filter와 Interceptor는 주소로 대상을 구분해서 걸러내야하는 반면, AOP는 주소, 파라미터, 애노테이션 등 다양한 방법으로 대상을 지정할 수 있다.
-- AOP의 포인트 컷
-  - `@Before` : 대상 메서드의 수행 전
-  - `@After` : 대상 메서드의 수행 후
-  - `@AfterReturning` : 대상 메서드의 정상적인 수행 후
-  - `@AfterThrowing` : 예외 발생 후
-  - `@Around`: 대상 메서드의 수행 전/후
 
 # Spring Bean Scope
 <!-- daangn -->
@@ -932,6 +935,8 @@ Mark-Sweep-Compaction 알고리즘
 <!-- https://joosjuliet.github.io/n+1/ -->
 
 # JPA persistence context
+<!-- https://kihoonkim.github.io/2017/01/27/JPA(Java%20ORM)/2.%20JPA-%EC%98%81%EC%86%8D%EC%84%B1%20%EA%B4%80%EB%A6%AC/ -->
+<!-- https://gmlwjd9405.github.io/2019/08/06/persistence-context.html -->
 <!-- https://stackoverflow.com/questions/23984968/jpa-without-transaction -->
 - 영속성 컨텍스트와 식별자 값
   - 엔티티를 식별자 값(@id로 테이블의 기본 키와 매핑한 값)으로 구분
@@ -941,7 +946,7 @@ Mark-Sweep-Compaction 알고리즘
   - JPA는 보통 트랜잭션을 커밋하는 순간 영속성 컨텍스트에 새로 저장된 엔티티를 데이터베이스에 반영
   - 플러시(flush)
 - 영속성 컨텍스트가 엔티티를 관리하는 것의 장점
-  - 1차 캐시
+  - 1차 캐시 (일반적인 웹 애플리케이션 환경은 트랜잭션이 시작하고 종료할 때 까지만 1차 캐시가 유효하다.)
   - 동일성 보장
   - 트랜잭션을 지원하는 쓰기 지연
   - 변경 감지
@@ -954,7 +959,7 @@ Mark-Sweep-Compaction 알고리즘
 - 1차 캐시의 엔티티가 없는 경우 데이터베이스를 조회해서 엔티티를 영속성 컨텍스트에 생성
 
 **엔티티 등록**
-- 엔티티 매니저는 데이터 변경 시 트랜잭션을 시작해야 한다.
+- **엔티티 매니저는 데이터 변경 시 트랜잭션을 시작해야 한다.**
 - 트랜잭션 시작 -> persist() -> commit() -> 트랜잭션 종료 순으 동작
 
 **엔티티 수정**
@@ -977,6 +982,34 @@ Mark-Sweep-Compaction 알고리즘
 <!-- In short: Can be used for a stateful session bean only and is tied to the lifecycle of the bean. The persistence context can spawn accross multiple transactions, which means the methods in your extended bean share the same persistence context. -->
 
 - Benefit: Perfect to implement a conversation style interaction with clients. Your client call several bean methods to tell your bean all the information you need to know and at the end of the conversation you persist everything to your DB.
+
+# JPA 엔티티 생명주기
+<!-- https://kihoonkim.github.io/2017/01/27/JPA(Java%20ORM)/2.%20JPA-%EC%98%81%EC%86%8D%EC%84%B1%20%EA%B4%80%EB%A6%AC/ -->
+<!-- TODO -->
+
+# 스프링 트랜잭션의 동작
+<!-- https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/transaction.html -->
+- 스프링의 트랜잭션을 사용하면 DB의 트랜잭션을 통해 다른 서버에서 해당 레코드에 접근하는 것을 막는것 같다.
+
+# 스프링의 로컬 트랜젝션과 글로벌 트랜젝션
+<!-- https://stackoverflow.com/questions/22221741/spring-global-transaction-vs-local-transaction -->
+<!-- https://www.tutorialspoint.com/spring/spring_transaction_management.htm -->
+<!-- TODO -->
+**글로벌 트랜젝션**
+- 로컬 트랜잭션과 달리 여러 DB 커넥션에 대해 트랜잭션을 관리하는 방식이다.
+
+**로컬 트랜젝션**
+- 트랜젝션은 Connection 오브젝트 안에서 만들어지기 때문에 일련의 작업이 하나의 트랜잭션으로 묶이려면 작업이 진행되는 동안 DB 커넥션도 하나만 사용돼야 한다.
+- 스프링에선 이를 위해 Connection을 특별한 저장소에 보관하고 DAO의 메소드에서 이를 가져다 사용하게 하여 트랜젝션을 동기화한다.
+
+**스프링의 트랜잭션 관리**
+<!-- https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/transaction.html#transaction-programming-model -->
+- 스프링은 글로벌과 로컬 두개의 단점을 보완한다.
+- 
+
+# @Transactional readonly 설정을 true로 하면 뭐가 달라질까 (기본 false)
+<!-- woowahan -->
+만약 mysql을 사용한다면 REPEATABLE_READ level을 택하지만 @Transactional(readOnly = true)을 설정하면 Isolation level이 READE_UNCOMMITED으로 변경되서 성능상의 이점이 있다는 것으로 이해했습니다. 제가 이해한것이 맞을까요?
 
 ## QueryDSL
 <!-- https://ict-nroo.tistory.com/117 -->
@@ -1014,6 +1047,76 @@ try {
 # JPA save() vs saveAndFlush()
 <!-- https://happyer16.tistory.com/entry/Spring-jpa-save-saveAndFlush-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%95%8C%EA%B3%A0-%EC%93%B0%EA%B8%B0 -->
 <!-- https://ramees.tistory.com/36 -->
+
+**트랜잭션이 없는 경우**
+```java
+public Member saveMember(MemberDTO memberDTO){
+	Member member = Member.create(memberDTO);
+    member = memberRepository.save(member);
+    member.setName("changeName");
+    return member;
+}
+
+public Member saveMemberFlush(MemberDTO memberDTO){
+	Member member = Member.create(memberDTO);
+    member = memberRepository.saveAndFlush(member);
+    member.setName("changeNameFlush");
+    return member;
+}
+```
+- 두 방식 모두 name은 업데이트 되지 않는다.
+- `setName()`이 호출되는 메서드가 트랜잭션 영역에 있지 않기 때문에 
+
+**트랜잭션이 있는 경우**
+```java
+@Transactional
+public Member saveMember(MemberDTO memberDTO){
+	Member member = Member.create(memberDTO);
+    member = memberRepository.save(member);
+    member.setName("changeName");
+    return member;
+}
+
+@Transactional
+public Member saveMemberFlush(MemberDTO memberDTO){
+	Member member = Member.create(memberDTO);
+    member = memberRepository.saveAndFlush(member);
+    member.setName("changeNameFlush");
+    return member;
+}
+```
+- 두 방식 모두 함수가 종료된 후에 name은 업데이트 된다.
+
+**트랜잭션이 있을 때, set을 여러번 하는 경우**
+```java
+@Transactional
+public Member saveMember(MemberDTO memberDTO){
+	Member member = Member.create(memberDTO);
+    member = memberRepository.save(member);
+    member.setName("changeName0");
+    member = memberRepository.save(member);
+    member.setName("changeName1");
+    return member;
+}
+
+@Transactional
+public Member saveMemberFlush(MemberDTO memberDTO){
+	Member member = Member.create(memberDTO);
+    member = memberRepository.save(member);
+    member.setName("changeNameFlush0");
+    member = memberRepository.save(member);
+    member.setName("changeNameFlush1");
+    return member;
+}
+```
+- `save()`의 경우엔 콘솔에 메서드가 끝난 후 한번 쿼리가 노출된다.
+- `saveAndFlush()`의 경우엔 각 메서드가 호출 될 때 콘솔에 쿼리가 노출된다.
+- 실제 이름은 마지만 `setName()`의 값으로 저장된다.
+
+**saveAndFlush()의 flush**
+- 바로 db에 업데이트를 하는 flush가 아니라 쓰기 지연 SQL 저장소 내로 flush를 하는 과정인거 같다.
+- 효율성 측면에서는 saveAndFlush() 보다는 save()를 권장하는 것 같다.
+![jpa-save-vs-save-and-flush-1](https://user-images.githubusercontent.com/18159012/117751556-41713c80-b250-11eb-9439-fe528f3e4679.jpg)
 
 <a id="cache"></a>
 # Cache
@@ -1145,6 +1248,7 @@ lockMono.doOnNext(res -> {
 <!-- TODO -->
 
 # 다른 서비스에서 리드 타임아웃 발생했을때 자동화 방법
+<!-- toss -->
 <!-- TODO -->
 
 <a id='deply'></a>
@@ -1346,7 +1450,7 @@ lockMono.doOnNext(res -> {
 - 일반적인 경우 Step은 하나씩 차례대로 동작한다.
 
 **StepExecution**
-- Job과 JobExecution의 관계처럼 StepExecution은 Step 실행에 대한 정보를 담는 객체이다.
+- Job과 JobExecution의 관계처럼 StepExecution은 한번의 Step 실행에 대한 정보를 담는 객체이다.
 
 # JobRepository
 - 어떤 Job이 실행되었으면 몇 번 실행되었고 언제 끝났는지 등 배치 처리에 대한 메타데이터를 저장한다.
