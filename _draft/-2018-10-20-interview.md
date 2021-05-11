@@ -788,12 +788,15 @@ S1: Survivor 1
   - Heap 영역에 메타 정보가와 상수 정보를 모두 Heap(Permanant)에 저장되던 것을 메타 정보를 위한 공간으로 분리했다.
   - 상수는 실제론 Heap에 적재되고, Metaspace에선 Heap에 적재된 주소값만 가진다.
 
+**JVM 메모리 옵션**
+![jvm-options-1](https://user-images.githubusercontent.com/18159012/117740907-6065d380-b23c-11eb-97ce-44ab40857ace.jpg)
+
+
 <a id="GC"></a>
 # GC란?
 - 힙 영역에서 가비지를 찾아내 힙의 메모리를 회수하는 것 
 - GC 대상인 객체를 처리하여 메모리를 회수하는 작업은 즉각적인 연속 작업이 아니며, GC 대상 객체의 메모리를 한 번에 모두 회수하지도 않는다
 - 실행중인 JVM 내부에서 GC 프로세스를 통해 메모리를 관리한다.
-
 <!-- ### Reachability
 - reachable : 어떤 객체에 유효한 참조가 있는 경우
 - unreachable : 어떤 객체에 유효한 참조가 없는 경우 → 가비지로 간주해 GC를 수행함
