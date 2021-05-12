@@ -11,7 +11,7 @@ FE 화면과 같이 호출된 api는 크롬에선 다음과 같이 표시된다.
 
 ![curl-transfer-closed-1](https://user-images.githubusercontent.com/18159012/117801284-1528e080-b28f-11eb-880a-cedb76a4b79c.png)
 
-해당 원인은 리스폰스 바디를 통해서 보내는 content length의 길이가 헤더의 content length보다 길어서 헤더만큼 읽었음 에도 바디가 끝나지 않아 문제가 되는 것이었다.
+해당 이슈의 일반적인 원인은 리스폰스 바디를 통해서 보내는 content length의 길이가 헤더의 content length보다 길어서 헤더만큼 읽었음 에도 바디가 끝나지 않아 문제가 되는 것이었다. 하지만 프로젝트에서 사용하는 transfer-encoding을 chunk로 사용하기 때문에 content-length를 제대로 설정하는 것으로 해결이 될 문제는 아니었다.
 
 문제는 게이트웨이에서 헤더를 잘못 설정한 부분에서 발생했는데, GW -> Service로 요청을 라우팅하여 보낼때 헤더에 추가적으로 헤더를 더해 보내도록 하는 부분이 존재했다. 문제는 response의 헤더를 설정하는 부분이었다.
 
