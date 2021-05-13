@@ -56,6 +56,8 @@ public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 }
 ```
 
+# 해결
+
 <!-- https://www.baeldung.com/spring-cloud-custom-gateway-filters -->
 위의 방법으로도 처리가 가능했지만, 해당 필터가 요청과 응답에 대해서 필터가 의도와 다르게 두번 동작하는 것이 궁금햇다. 확인한 결과 global filter의 동작이 서비스에 요청을 전달하기 전<sup>Pre</sup>의 로직과 후<sup>Post</sup>의 동작을 나눠서 처리하도록 되어있는데, 이는 `filter.chain()` 스트림의 동작을 기준으로 설정되어 있는 형태였다.
 
