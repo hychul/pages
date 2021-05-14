@@ -1,3 +1,4 @@
+MVC 리다이렉트
 ```java
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -51,3 +52,5 @@ public class ExRedirectController {
    }
 }
 ```
+리다이렉트 vs 포워드
+http://jonggs.blogspot.com/2018/11/spring-redirect-forward.html
