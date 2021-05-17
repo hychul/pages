@@ -61,7 +61,6 @@ function PostListColumn(props) {
         gridColumn: '2',
         gridRow: '2',
         gap: '6px',
-        backgroundColor: 'red',
         overflow: 'hidden',
         fontSize: '0.75em',
       }}>
