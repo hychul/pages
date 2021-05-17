@@ -7,7 +7,16 @@ function PostListColumn(props) {
   const title = props.post.title;
   const date = props.post.date;
   const tags = props.post.tags?.map(it => (
-    <div key={it} style={{backgroundColor:'#DFE2E5', padding: '2px 4px',}}>{it}</div>
+    <div 
+      key={it} 
+      style={{
+        backgroundColor:'#DFE2E5', 
+        padding: '2px 4px',
+        overflow: 'visible',
+        whiteSpace: 'nowrap'
+      }}>
+        {it}
+      </div>
   ));
 
   return (
@@ -49,12 +58,18 @@ function PostListColumn(props) {
         </div>
       <div style={{
         display: 'flex',
-        justifyContent: 'flex-end',
         gridColumn: '2',
         gridRow: '2',
         gap: '6px',
+        backgroundColor: 'red',
+        overflow: 'hidden',
         fontSize: '0.75em',
       }}>
+        <div style={{
+          width: '100%'
+        }}>
+          {/* empty */}
+        </div>
         {tags}
       </div>
     </Link>
