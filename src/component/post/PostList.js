@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import IndexSelector from 'component/IndexSelector';
 import 'static/style/App.scss';
-import PostListColumn from './PostListColumn';
+import PostListColumn from './PostListElement';
 
 const pagingSize = 10;
 
