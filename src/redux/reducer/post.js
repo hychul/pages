@@ -30,16 +30,16 @@ export const loadPosts = () => (dispatch, getState) => {
           title: it[1],
           tags: Array.from(new Set(it[2]?.split(', ').filter(it => it != "")))
         }))
-        .forEach(it => {
-          it.tags
+        .forEach(post => {
+          post.tags
             .forEach(tag => {
               const list = map.get(tag) ?? [];
-              list.push(it);
+              list.push(post);
               
               map.set(tag, list);
             });
           
-          map.get('all').push(it);
+          map.get('all').push(post);
         });
 
       dispatch({
@@ -49,7 +49,7 @@ export const loadPosts = () => (dispatch, getState) => {
     });
 }
 
-function postListReducer(state = initialState, action) {
+function postReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_POST_LIST:
       return {
@@ -61,4 +61,4 @@ function postListReducer(state = initialState, action) {
   }
 }
 
-export default postListReducer;
+export default postReducer;
