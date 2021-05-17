@@ -49,7 +49,7 @@ function Navigator() {
           justifyContent: 'center',
           alignItems: 'center',
           // font
-          color: 'white',
+          color: '#49C5B1', // Pantone
           fontSize: '21px',
           fontWeight: '700'
         }}>
