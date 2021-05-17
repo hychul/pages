@@ -1,4 +1,6 @@
-const LOAD_POST_LIST = 'LOAD_POST_LIST';
+import { UPDATE_TAG } from "./tag";
+
+const UPDATE_POST_LIST = 'UPDATE_POST_LIST';
 
 const initialState = {
   isLoad: false,
@@ -17,8 +19,9 @@ export const loadPosts = () => (dispatch, getState) => {
   fetch(data.default)
     .then(it => it.text())
     .then(it => {
-      const map = new Map();
-      map.set('all', []);
+      const postMap = new Map();
+      postMap.set('all', []);
+      const tagMap = new Map();
 
       it.split('\n')
         .filter(it => !it.startsWith('//'))
@@ -32,26 +35,33 @@ export const loadPosts = () => (dispatch, getState) => {
         }))
         .forEach(post => {
           post.tags
-            .forEach(tag => {
-              const list = map.get(tag) ?? [];
-              list.push(post);
-              
-              map.set(tag, list);
-            });
+              .forEach(tag => {
+                const list = postMap.get(tag) ?? [];
+                list.push(post);
+                postMap.set(tag, list);
+
+                const count = tagMap.get(tag) ?? 0;
+                tagMap.set(tag, count + 1);
+              });
           
-          map.get('all').push(post);
+          postMap.get('all').push(post);
         });
 
       dispatch({
-        type: LOAD_POST_LIST,
-        map: map
+        type: UPDATE_TAG,
+        map: tagMap
+      })
+
+      dispatch({
+        type: UPDATE_POST_LIST,
+        map: postMap
       });
     });
 }
 
 function postReducer(state = initialState, action) {
   switch (action.type) {
-    case LOAD_POST_LIST:
+    case UPDATE_POST_LIST:
       return {
         isLoad: true,
         map: action.map
