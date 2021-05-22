@@ -9879,6 +9879,11 @@ randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5, randombytes@^2.1.0:
   dependencies:
     safe-buffer "^5.1.0"
 
+randomcolor@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/randomcolor/-/randomcolor-0.5.4.tgz#df615b13f25b89ea58c5f8f72647f0a6f07adcc3"
+  integrity sha512-nYd4nmTuuwMFzHL6W+UWR5fNERGZeVauho8mrJDUSXdNDbao4rbrUwhuLgKC/j8VCS5+34Ria8CsTDuBjrIrQA==
+
 randomfill@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/randomfill/-/randomfill-1.0.4.tgz#c92196fc86ab42be983f1bf31778224931d61458"
@@ -10106,6 +10111,15 @@ react-syntax-highlighter@^15.4.3:
     lowlight "^1.17.0"
     prismjs "^1.22.0"
     refractor "^3.2.0"
+
+react-tagcloud@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-tagcloud/-/react-tagcloud-2.1.1.tgz#b8883634f76b5681c91a178689070efa0d442657"
+  integrity sha512-cM96jzUOKQqu2qlzwcO91r239MSDbFiAslFNk4Hja3MaZ4Y89goIzbTyXZwonkeJck1zY5wkNhJYeJ8YSdOwXg==
+  dependencies:
+    prop-types "^15.6.2"
+    randomcolor "^0.5.4"
+    shuffle-array "^1.0.1"
 
 react@^17.0.1:
   version "17.0.2"
@@ -10931,6 +10945,11 @@ shellwords@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
   integrity sha512-vFwSUfQvqybiICwZY5+DAWIPLKsWO31Q91JSKl3UYv+K5c2QRPzn0qzec6QPu1Qc9eHYItiP3NdJqNVqetYAww==
+
+shuffle-array@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/shuffle-array/-/shuffle-array-1.0.1.tgz#c4ff3cfe74d16f93730592301b25e6577b12898b"
+  integrity sha1-xP88/nTRb5NzBZIwGyXmV3sSiYs=
 
 side-channel@^1.0.4:
   version "1.0.4"
