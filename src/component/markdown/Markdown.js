@@ -8,8 +8,8 @@ function Markdown(props) {
     <div style={{
       width: '100%',
       maxWidth: '1010px',
-      border: '0px',
       margin: '0px',
+      border: '0px',
       padding: '0px',
       backgroundColor: 'white',
       fontFamily: 'Helvetica, arial, sans-serif',
