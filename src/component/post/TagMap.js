@@ -65,7 +65,7 @@ function TagMap(props) {
           maxSize={75}
           tags={tags}
           shuffle={false}
-          // disableRandomColor={true}
+          disableRandomColor={false}
           colorOptions={{
             luminosity: 'dark',
             hue: '#49C5B1',
