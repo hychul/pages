@@ -14,8 +14,6 @@ const nav = {
 }
 
 function Navigator(props) {
-  const history = props.history;
-  
   return (
     <div style={nav}>
       {/* Left */}
