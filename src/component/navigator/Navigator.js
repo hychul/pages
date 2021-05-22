@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import dduggy from 'static/image/dduggy.jpg';
 
 const nav = {
@@ -12,24 +14,33 @@ const nav = {
   backgroundColor: '#242A2D'
 }
 
-function Navigator() {
+function Navigator(props) {
+  const history = props.history;
+  
   return (
     <div style={nav}>
       {/* Left */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
+      <Link 
+        style={{
+          display: 'flex',
+          gap: '0.5rem',
+          justifyContent: 'center',
+          alignItems: 'center',
+          margin: '0.5rem',
+          padding: '0rem 0.5rem 0rem 0rem',
+          textDecoration: 'none',
+        }}
+        onClick={() => {
+          history.push({
+            pathname: '/posts'
+          });
+        }}
+      >
         <img 
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: '0.75rem',
-            width: 'calc(4rem - 0.75rem * 2)', 
-            height: 'calc(4rem - 0.75rem * 2)', 
-            backgroundColor: 'cyan',
+            width: '3rem', 
+            height: '3rem', 
+            backgroundColor: '#49C5B1',
           }}
           onMouseOver={() => {
             console.log("over");
@@ -49,13 +60,13 @@ function Navigator() {
           justifyContent: 'center',
           alignItems: 'center',
           // font
-          color: '#49C5B1', // Pantone
-          fontSize: '21px',
+          color: '#49C5B1',
+          fontSize: '25px',
           fontWeight: '700'
         }}>
           hychul.io
         </div>
-      </div>
+      </Link>
       {/* Right */}
       <div style={{
         display: 'flex',
@@ -104,4 +115,4 @@ function Navigator() {
   );
 }
 
-export default Navigator;
+export default withRouter(Navigator);
