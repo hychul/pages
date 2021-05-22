@@ -7,12 +7,12 @@ function PostContainer(props) {
   props.loadPosts();
 
   const postId = props.postId
-  const postList = props.state.map.get('all') ?? [];
 
   const [source, setSource] = useState();
   const [meta, setMeta] = useState({title: "", date: ""});
 
   useEffect(() => {
+    const postList = props.state.map.get('all') ?? [];
     postList.forEach(element => {
       if (element.filename == postId) {
         setMeta({
@@ -22,7 +22,7 @@ function PostContainer(props) {
         return;
       }
     })
-  }, [postList, postId]);
+  }, [props.state.map, postId]);
 
   useEffect(() => {
     try {
