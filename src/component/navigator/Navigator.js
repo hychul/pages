@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
 import dduggy from 'static/image/dduggy.jpg';
 
 const nav = {
@@ -30,11 +29,7 @@ function Navigator(props) {
           padding: '0rem 0.5rem 0rem 0rem',
           textDecoration: 'none',
         }}
-        onClick={() => {
-          history.push({
-            pathname: '/posts'
-          });
-        }}
+        to={{pathname: `/`}}
       >
         <img 
           style={{
@@ -115,4 +110,4 @@ function Navigator(props) {
   );
 }
 
-export default withRouter(Navigator);
+export default Navigator;
