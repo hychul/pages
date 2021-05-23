@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
 import { TagCloud } from 'react-tagcloud'
 
 const customRenderer = (tag, count, color) => {
@@ -29,7 +28,6 @@ const customRenderer = (tag, count, color) => {
 
 function TagMap(props) {
   const tagMap = props.tagMap;
-  const history = props.history;
 
   const [tags, setTags] = useState([]);
 
@@ -87,4 +85,4 @@ function TagMap(props) {
   )
 }
 
-export default withRouter(TagMap);
+export default TagMap;
