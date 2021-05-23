@@ -17,7 +17,7 @@ function Navigator(props) {
   return (
     <div style={nav}>
       {/* Left */}
-      <Link 
+      <Link
         style={{
           display: 'flex',
           gap: '0.5rem',
@@ -62,17 +62,23 @@ function Navigator(props) {
       </Link>
       {/* Right */}
       <div style={{
-        display: 'flex',
+        display: 'grid',
+        gridTemplateColumns: '1fr',
+        gridTemplateRows: '1fr 1fr',
+        margin: '0.5rem',
       }}>
         <Link
           to={{
             pathname: `/tags`,
           }}
           style={{
+            gridRow: '2',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            width: '3.5rem',
+            width: '4rem',
+            height: '100%',
+            borderRadius: '0.25em',
             textDecoration: 'none',
             backgroundColor: '#49C5B1',
             textAlign: 'center',
