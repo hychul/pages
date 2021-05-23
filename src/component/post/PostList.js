@@ -7,6 +7,7 @@ const pagingSize = 10;
 
 function PostList(props) {
   const page = props.page;
+  const tag = props.tag;
   const history = props.history;
   const postList = props.postList;
 
@@ -60,7 +61,7 @@ function PostList(props) {
 
             history.push({
               pathname: '/posts',
-              search: `?page=${index}`
+              search: `?page=${index}&tag=${tag}`
             });
           }}
         />
