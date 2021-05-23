@@ -7,16 +7,23 @@ function PostListElement(props) {
   const title = props.post.title;
   const date = props.post.date;
   const tags = props.post.tags?.map(it => (
-    <div 
-      key={it} 
+    <Link 
+      key={it}
+      to={{
+        pathname: `/posts`,
+        search: `?tag=${it}`
+      }}
       style={{
         backgroundColor:'#DFE2E5', 
         padding: '2px 4px',
+        textDecoration: 'none',
         overflow: 'visible',
-        whiteSpace: 'nowrap'
-      }}>
-        {it}
-      </div>
+        whiteSpace: 'nowrap',
+        color: '#242A2D'
+      }}
+    >
+      {it}
+    </Link>
   ));
 
   return (
