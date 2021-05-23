@@ -1,3 +1,5 @@
+![git-version](https://img.shields.io/badge/Swagger2Markup-1.3.3-green.svg?style=flat-square)  
+
 # Quick Usage
 
 [Homebrea](https://brew.sh/)를 통해 필요한 모듈을 설치할 수 있습니다.

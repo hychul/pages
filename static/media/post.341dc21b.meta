@@ -31,7 +31,7 @@
 2019-03-20-reactor-scheduler :: Reactor Stream Scheduler :: java, reactor
 2019-03-19-reactor-transform :: Reactor Stream Transform :: java, reactor
 2019-03-18-reactor-intro :: Reactor Intro :: java, reactor
-2019-02-18-webflux-swagger :: spring-webflux Swagger :: java, spring, spring-webflux
+2019-02-18-webflux-swagger :: Spring Webflux Swagger :: java, spring, spring-webflux
 2019-01-18-junit5 :: JUnit 5 :: java, junit
 2019-01-14-spring-webflux :: Spring spring-webflux 동작 과정 :: java, spring, spring-webflux
 2019-01-11-reactive-stream :: Reactor 스트림 :: java, reactor, spring, spring-webflux

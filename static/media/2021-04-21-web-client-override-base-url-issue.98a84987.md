@@ -1,3 +1,5 @@
+![spring-version](https://img.shields.io/badge/Spring_Boot-2.2.4-green.svg?style=flat-square)  
+
 게이트 웨이 인증을 위해서 IDP<sup>Identity Provider</sup>에서 제공한 session id를 가지고 프로젝트의 서비스에 User 정보를 가져오려고 api를 호출할 때 다음과 같은 에러가 발생했다.
 
 ```terminal
