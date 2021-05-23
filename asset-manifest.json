@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.51dcf2d4.chunk.css",
-    "main.js": "/static/js/main.0c02e785.chunk.js",
-    "main.js.map": "/static/js/main.0c02e785.chunk.js.map",
+    "main.js": "/static/js/main.616ce538.chunk.js",
+    "main.js.map": "/static/js/main.616ce538.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.fd14fd23.js",
     "runtime-main.js.map": "/static/js/runtime-main.fd14fd23.js.map",
-    "static/js/2.7d665109.chunk.js": "/static/js/2.7d665109.chunk.js",
-    "static/js/2.7d665109.chunk.js.map": "/static/js/2.7d665109.chunk.js.map",
+    "static/js/2.02b09aea.chunk.js": "/static/js/2.02b09aea.chunk.js",
+    "static/js/2.02b09aea.chunk.js.map": "/static/js/2.02b09aea.chunk.js.map",
     "static/js/3.5596980b.chunk.js": "/static/js/3.5596980b.chunk.js",
     "static/js/3.5596980b.chunk.js.map": "/static/js/3.5596980b.chunk.js.map",
     "index.html": "/index.html",
     "static/css/main.51dcf2d4.chunk.css.map": "/static/css/main.51dcf2d4.chunk.css.map",
-    "static/js/2.7d665109.chunk.js.LICENSE.txt": "/static/js/2.7d665109.chunk.js.LICENSE.txt",
+    "static/js/2.02b09aea.chunk.js.LICENSE.txt": "/static/js/2.02b09aea.chunk.js.LICENSE.txt",
     "static/media/-2021-03-11-spring-security-pre-auth.md": "/static/media/-2021-03-11-spring-security-pre-auth.5bf3a321.md",
     "static/media/-2021-04-06-kotlin-coroutine.md": "/static/media/-2021-04-06-kotlin-coroutine.f31fb2a8.md",
     "static/media/-2021-05-06-zgc.md": "/static/media/-2021-05-06-zgc.007769be.md",
@@ -100,8 +100,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.fd14fd23.js",
-    "static/js/2.7d665109.chunk.js",
+    "static/js/2.02b09aea.chunk.js",
     "static/css/main.51dcf2d4.chunk.css",
-    "static/js/main.0c02e785.chunk.js"
+    "static/js/main.616ce538.chunk.js"
   ]
 }
