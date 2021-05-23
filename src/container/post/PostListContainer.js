@@ -8,11 +8,10 @@ function PostListContainer(props) {
   
   const page = props.page ?? 1;
   const tag = props.tag ?? 'all';
-  const history = props.history;
   const postList = props.state.map.get(tag) ?? [];
 
   return (
-    <PostList page={page} tag={tag} postList={postList} history={history} />
+    <PostList page={page} tag={tag} postList={postList} />
   );
 }
 

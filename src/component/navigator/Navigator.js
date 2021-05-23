@@ -27,7 +27,7 @@ function Navigator(props) {
           padding: '0rem 0.5rem 0rem 0rem',
           textDecoration: 'none',
         }}
-        to={{pathname: `/`}}
+        to={{pathname: `/`}} replace
       >
         <img 
           style={{

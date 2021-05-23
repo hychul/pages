@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router';
 import IndexSelector from 'component/IndexSelector';
 import 'static/style/App.scss';
 import PostListColumn from './PostListElement';
@@ -70,4 +71,4 @@ function PostList(props) {
   );
 }
 
-export default PostList;
+export default withRouter(PostList);
