@@ -54,14 +54,14 @@
 2018-05-28-blizzard-game-philosophy :: 블리자드의 12가지 게임 철학
 2018-04-18-ecs :: ECS Model
 2018-04-11-astar :: A*(A Star) 알고리즘
-2018-04-10-tobis-spring-3.1-vol1-chapter5 :: 토비의 스프링 3.1 vol.1 5장 - 서비스 추상화 :: java, spring
-2018-04-09-tobis-spring-3.1-vol1-chapter4 :: 토비의 스프링 3.1 vol.1 4장 - 예외 :: java, spring
+2018-04-10-tobis-spring-3.1-vol1-chapter5 :: 토비의 스프링 3.1 vol.1 5장 - 서비스 추상화 :: java, spring, tobys-spring-3.1
+2018-04-09-tobis-spring-3.1-vol1-chapter4 :: 토비의 스프링 3.1 vol.1 4장 - 예외 :: java, spring, tobys-spring-3.1
 2018-04-08-git-text-color :: Git Text Color 설정 :: git
-2018-04-04-tobis-spring-3.1-vol1-chapter3 :: 토비의 스프링 3.1 vol.1 3장 - 템플릿 :: java, spring
-2018-04-03-tobis-spring-3.1-vol1-chapter2 :: 토비의 스프링 3.1 vol.1 2장 - 테스트 :: java, spring
+2018-04-04-tobis-spring-3.1-vol1-chapter3 :: 토비의 스프링 3.1 vol.1 3장 - 템플릿 :: java, spring, tobys-spring-3.1
+2018-04-03-tobis-spring-3.1-vol1-chapter2 :: 토비의 스프링 3.1 vol.1 2장 - 테스트 :: java, spring, tobys-spring-3.1
 2018-04-02-game-resource-management :: 게임 리소스 관리
 2018-04-01-object-pooling :: 오브젝트 풀링
-2018-03-31-tobis-spring-3.1-vol1-chapter1 :: 토비의 스프링 3.1 vol.1 1장 - 오브젝트와 의존관계 :: java, spring
+2018-03-31-tobis-spring-3.1-vol1-chapter1 :: 토비의 스프링 3.1 vol.1 1장 - 오브젝트와 의존관계 :: java, spring, tobys-spring-3.1
 2017-09-01-git-update-credential :: Git 계정 재설정 :: git
 2016-08-18-android-extern-module :: 안드로이드 외부 모듈 참조하기 :: android
 2015-10-31-window-disk-error :: 윈도우 설치 에러 - gpt 디스크에만 Windows를 설치할 수 있습니다.

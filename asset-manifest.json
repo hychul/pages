@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.51dcf2d4.chunk.css",
-    "main.js": "/static/js/main.616ce538.chunk.js",
-    "main.js.map": "/static/js/main.616ce538.chunk.js.map",
+    "main.js": "/static/js/main.6aa4a57b.chunk.js",
+    "main.js.map": "/static/js/main.6aa4a57b.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.fd14fd23.js",
     "runtime-main.js.map": "/static/js/runtime-main.fd14fd23.js.map",
-    "static/js/2.02b09aea.chunk.js": "/static/js/2.02b09aea.chunk.js",
-    "static/js/2.02b09aea.chunk.js.map": "/static/js/2.02b09aea.chunk.js.map",
+    "static/js/2.fb1956c7.chunk.js": "/static/js/2.fb1956c7.chunk.js",
+    "static/js/2.fb1956c7.chunk.js.map": "/static/js/2.fb1956c7.chunk.js.map",
     "static/js/3.5596980b.chunk.js": "/static/js/3.5596980b.chunk.js",
     "static/js/3.5596980b.chunk.js.map": "/static/js/3.5596980b.chunk.js.map",
     "index.html": "/index.html",
     "static/css/main.51dcf2d4.chunk.css.map": "/static/css/main.51dcf2d4.chunk.css.map",
-    "static/js/2.02b09aea.chunk.js.LICENSE.txt": "/static/js/2.02b09aea.chunk.js.LICENSE.txt",
+    "static/js/2.fb1956c7.chunk.js.LICENSE.txt": "/static/js/2.fb1956c7.chunk.js.LICENSE.txt",
     "static/media/-2021-03-11-spring-security-pre-auth.md": "/static/media/-2021-03-11-spring-security-pre-auth.5bf3a321.md",
     "static/media/-2021-04-06-kotlin-coroutine.md": "/static/media/-2021-04-06-kotlin-coroutine.f31fb2a8.md",
     "static/media/-2021-05-06-zgc.md": "/static/media/-2021-05-06-zgc.007769be.md",
@@ -55,9 +55,9 @@
     "static/media/2018-08-24-custom-aop.md": "/static/media/2018-08-24-custom-aop.d3d9da73.md",
     "static/media/2018-09-19-java-optional.md": "/static/media/2018-09-19-java-optional.08409b2e.md",
     "static/media/2018-10-14-spring-json-response.md": "/static/media/2018-10-14-spring-json-response.680d2a1b.md",
-    "static/media/2018-10-20-game-loop.md": "/static/media/2018-10-20-game-loop.ddcff742.md",
-    "static/media/2018-11-27-multicore-game-loop.md": "/static/media/2018-11-27-multicore-game-loop.d7eb94fd.md",
-    "static/media/2018-11-29-rendering-optimization.md": "/static/media/2018-11-29-rendering-optimization.d1b3c8ec.md",
+    "static/media/2018-10-20-game-loop.md": "/static/media/2018-10-20-game-loop.066c1192.md",
+    "static/media/2018-11-27-multicore-game-loop.md": "/static/media/2018-11-27-multicore-game-loop.f7b7326f.md",
+    "static/media/2018-11-29-rendering-optimization.md": "/static/media/2018-11-29-rendering-optimization.6b6712d6.md",
     "static/media/2018-12-08-unity-vscode-error-fix.md": "/static/media/2018-12-08-unity-vscode-error-fix.a9bb3300.md",
     "static/media/2019-01-11-reactive-stream.md": "/static/media/2019-01-11-reactive-stream.11b48ae6.md",
     "static/media/2019-01-14-spring-webflux.md": "/static/media/2019-01-14-spring-webflux.4f597a22.md",
@@ -95,13 +95,13 @@
     "static/media/2021-05-06-context-path-webflux.md": "/static/media/2021-05-06-context-path-webflux.2a51c0c0.md",
     "static/media/2021-05-11-transfer-encoding-chunk-incompleted.md": "/static/media/2021-05-11-transfer-encoding-chunk-incompleted.00143c59.md",
     "static/media/dduggy.a7818b8b.jpg": "/static/media/dduggy.a7818b8b.jpg",
-    "static/media/post.meta": "/static/media/post.c958a996.meta",
+    "static/media/post.meta": "/static/media/post.efcf5842.meta",
     "static/media/reactLogo.6ce24c58.svg": "/static/media/reactLogo.6ce24c58.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.fd14fd23.js",
-    "static/js/2.02b09aea.chunk.js",
+    "static/js/2.fb1956c7.chunk.js",
     "static/css/main.51dcf2d4.chunk.css",
-    "static/js/main.616ce538.chunk.js"
+    "static/js/main.6aa4a57b.chunk.js"
   ]
 }
