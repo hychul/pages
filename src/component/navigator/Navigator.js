@@ -64,45 +64,25 @@ function Navigator(props) {
       <div style={{
         display: 'flex',
       }}>
-        <div style={{
-          // center
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '3.5rem',
-          backgroundColor: '#0049db',
-          textAlign: 'center',
-          verticalAlign: 'middle',
-          color: 'white',
+        <Link
+          to={{
+            pathname: `/tags`,
+          }}
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '3.5rem',
+            textDecoration: 'none',
+            backgroundColor: '#49C5B1',
+            textAlign: 'center',
+            verticalAlign: 'middle',
+            fontWeight: 'bold',
+            color: 'white',
+            fontSize: '12px'
         }}>
-          L
-        </div>
-        <div style={{
-          // center
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '3.5rem',
-          backgroundColor: 'white',
-          textAlign: 'center',
-          verticalAlign: 'middle',
-          color: '#FFB300',
-        }}>
-          M
-        </div>
-        <div style={{
-          // center
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '3.5rem',
-          backgroundColor: '#FFB300',
-          textAlign: 'center',
-          verticalAlign: 'middle',
-          color: 'white',
-        }}>
-          R
-        </div>
+          TAGS
+        </Link>
       </div>
     </div>
   );
