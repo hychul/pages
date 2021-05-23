@@ -1,3 +1,5 @@
+![spring-version](https://img.shields.io/badge/Spring_Boot-2.2.4-green.svg?style=flat-square)  
+
 회사에서 Zuul을 기반으로 작성되어 있는 게이트웨이를 SCG<sup>Spring Cloud Gateway</sup>로 변경하는 작업을 하고 있다. 이번 글에선 SCG의 라우트가 어떻게 동작하는지 알아보도록 한다.
 
 > 기존에도 Reactor를 기반으로 동작하는 Spring Webflux로 노티 서비스를 만들어 보았지만, RDBMS를 위한 R2DBC의 정식 버전을 기대하고 구축했다가 아직도 1.0 버전이 나오지 않은 것을 한탄하며 RDBMS를 사용하지 않는 서비스에 NIO + 비동기를 사용하는게 좋을 것 같다고 생각을 했는데 다행히 해당 조건에 맞아 떨어지는 게이트웨이를 전환하는 작업을 맡게 되었다.

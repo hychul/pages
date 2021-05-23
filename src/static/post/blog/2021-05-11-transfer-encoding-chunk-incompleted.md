@@ -1,3 +1,5 @@
+![spring-version](https://img.shields.io/badge/Spring_Boot-2.2.4-green.svg?style=flat-square)  
+
 ```terminal
 X* TLSv1.2 (IN), TLS alert, close notify (256):
 X* transfer closed with outstanding read data remaining

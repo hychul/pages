@@ -1,3 +1,5 @@
+![spring-version](https://img.shields.io/badge/Spring_Boot-2.2.4-green.svg?style=flat-square)  
+
 기존 Spring Zuul 기반의 게이트 웨이를 Spring Cloud Gateway로 변경하는 작업중에 api 호출을 할 때, 다음과 같은 에러가 발생했다.
 
 ```terminal

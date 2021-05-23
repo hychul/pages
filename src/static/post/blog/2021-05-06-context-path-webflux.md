@@ -1,3 +1,5 @@
+![spring-version](https://img.shields.io/badge/Spring_Boot-2.2.4-green.svg?style=flat-square)  
+
 Zuul 게이트웨이를 SCG<sup>Spring Cloud Gateway</sup>로 변경하는 작업을 진행중인데, 기존에 톰캣 설정이 되어있는 부분 중 context path 설정이 되어있는 부분이 있어 이를 Webflux에서 동일하게 설정해줘야 했다.
 
 > Context Path
