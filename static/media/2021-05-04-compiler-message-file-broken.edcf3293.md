@@ -1,6 +1,8 @@
 <!-- https://reiphiel.tistory.com/entry/anonymous-class-instantiate-error-type-inference -->
 <!-- https://www.python2.net/questions-580980.htm -->
 
+![jdk-version](https://img.shields.io/badge/JDK-11-red.svg?style=flat-square)  
+
 ```terminal
 > Task :compileJava
 ...
