@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { TagCloud } from 'react-tagcloud'
 
 const customRenderer = (tag, count, color) => {
   return (
-    <span
+    <Link
       key={tag.value}
+      to={{
+        pathname: '/posts',
+        search: `?tag=${tag.value}`
+      }}
       style={{
         display: 'inline-block',
         margin: `${count / 10}px`,
         borderRadius: '0.25em',
         padding: `0.05em 0.25em`,
+        textDecoration: 'none',
         backgroundColor: '#F1F2F2',
         fontSize: `${count / 15}em`,
         color: `${color}`,
       }}
     >
-      {tag.value}
-    </span>
+      #{tag.value}
+    </Link>
   )
 }
 
@@ -73,10 +79,7 @@ function TagMap(props) {
           }}
           renderer={customRenderer}
           onClick={it => {
-            history.push({
-              pathname: '/posts',
-              search: `?tag=${it.value}`
-            });
+            // do nothing
           }}
         />
       </div>

@@ -22,7 +22,7 @@ function PostListElement(props) {
         color: '#242A2D'
       }}
     >
-      {it}
+      #{it}
     </Link>
   ));
 
