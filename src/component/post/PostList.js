@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import IndexSelector from 'component/IndexSelector';
 import 'static/style/App.scss';
-import PostListColumn from './PostListElement';
+import PostListElement from './PostListElement';
 
 const pagingSize = 10;
 
@@ -19,7 +19,7 @@ function PostList(props) {
   
     for (let i = (page - 1) * pagingSize; i < page * pagingSize && i < postList.length; i++) {
       let post = postList[i];
-      ret.push(<PostListColumn key={post.title} post={post} />);
+      ret.push(<PostListElement key={post.title} post={post} />);
     }
 
     return ret;

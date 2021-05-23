@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import 'static/style/App.scss';
 
-function PostListColumn(props) {
+function PostListElement(props) {
   const filename = props.post.filename;
   const title = props.post.title;
   const date = props.post.date;
@@ -75,4 +75,4 @@ function PostListColumn(props) {
   );
 }
 
-export default PostListColumn;
+export default PostListElement;
