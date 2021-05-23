@@ -8,6 +8,7 @@ const markdownRenderer = {
   inlineCode: inlineCode,
   table: table,
   link: link,
+  linkReference: linkReference,
   blockquote: blockquote
 }
 
@@ -187,6 +188,23 @@ function link(props) {
       href={props.href}
     >
       {props.children[0].props.children}
+    </a>
+  );
+}
+
+function linkReference(props) {
+  return (
+    <a 
+      style={{
+        wordBreak: 'break-all',
+        textDecoration: 'none',
+        color: '#115dcb'
+      }}
+      href={props.href}
+    >
+      <sup>
+          [{props.children[0].props.children}]
+      </sup>
     </a>
   );
 }
