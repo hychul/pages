@@ -15,3 +15,6 @@ disable 대신 httpBasic에 대한 `ServerAuthenticationEntryPoint`를 설정해
 ```
 
 <!-- https://stackoverflow.com/questions/63614553/spring-webflux-disabling-login -->
+
+
+<!-- https://stackoverflow.com/questions/47354171/spring-webflux-custom-authentication-for-api -->

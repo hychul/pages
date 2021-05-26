@@ -50,3 +50,6 @@ public class AuthenticationWebFilter implements WebFilter {
 ```
 
 converter에서 exchange로 부터 authentication 객체를 생성하고 이를 authentication() 메서드에서 처리.
+
+<!-- web security mvc vs webflux -->
+<!-- https://velog.io/@tlatldms/%EC%84%9C%EB%B2%84%EA%B0%9C%EB%B0%9C%EC%BA%A0%ED%94%84-JWT-%EC%9D%B8%EC%A6%9D-%EC%84%9C%EB%B2%84%EC%99%80-Spring-Cloud-Gateway-Spring-Security-%EC%A0%81%EC%9A%A9%ED%95%B4%EC%84%9C-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0-0%ED%8E%B8 -->
