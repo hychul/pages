@@ -33,7 +33,7 @@ function Navigator(props) {
           style={{
             width: '3rem', 
             height: '3rem', 
-            backgroundColor: '#49C5B1',
+            backgroundColor: '#00B992',
           }}
           onMouseOver={() => {
             console.log("over");
