@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.51dcf2d4.chunk.css",
-    "main.js": "/static/js/main.0cd73736.chunk.js",
-    "main.js.map": "/static/js/main.0cd73736.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.684d02db.js",
-    "runtime-main.js.map": "/static/js/runtime-main.684d02db.js.map",
-    "static/js/2.7b73cf7f.chunk.js": "/static/js/2.7b73cf7f.chunk.js",
-    "static/js/2.7b73cf7f.chunk.js.map": "/static/js/2.7b73cf7f.chunk.js.map",
-    "static/js/3.697dfb40.chunk.js": "/static/js/3.697dfb40.chunk.js",
-    "static/js/3.697dfb40.chunk.js.map": "/static/js/3.697dfb40.chunk.js.map",
+    "main.js": "/static/js/main.ad1ca548.chunk.js",
+    "main.js.map": "/static/js/main.ad1ca548.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.346f6ad0.js",
+    "runtime-main.js.map": "/static/js/runtime-main.346f6ad0.js.map",
+    "static/js/2.dde09b5e.chunk.js": "/static/js/2.dde09b5e.chunk.js",
+    "static/js/2.dde09b5e.chunk.js.map": "/static/js/2.dde09b5e.chunk.js.map",
+    "static/js/3.3013e968.chunk.js": "/static/js/3.3013e968.chunk.js",
+    "static/js/3.3013e968.chunk.js.map": "/static/js/3.3013e968.chunk.js.map",
     "index.html": "/index.html",
     "static/css/main.51dcf2d4.chunk.css.map": "/static/css/main.51dcf2d4.chunk.css.map",
-    "static/js/2.7b73cf7f.chunk.js.LICENSE.txt": "/static/js/2.7b73cf7f.chunk.js.LICENSE.txt",
+    "static/js/2.dde09b5e.chunk.js.LICENSE.txt": "/static/js/2.dde09b5e.chunk.js.LICENSE.txt",
     "static/media/-2021-03-11-spring-security-pre-auth.md": "/static/media/-2021-03-11-spring-security-pre-auth.b70e7534.md",
     "static/media/-2021-04-06-kotlin-coroutine.md": "/static/media/-2021-04-06-kotlin-coroutine.f31fb2a8.md",
     "static/media/-2021-05-06-zgc.md": "/static/media/-2021-05-06-zgc.007769be.md",
@@ -23,9 +23,9 @@
     "static/media/-2021-05-18-spring-cloud-gateway-with-ribbon.md": "/static/media/-2021-05-18-spring-cloud-gateway-with-ribbon.6c6da809.md",
     "static/media/-2021-05-27-request-body-cache-in-webfluix.md": "/static/media/-2021-05-27-request-body-cache-in-webfluix.b23b7543.md",
     "static/media/-2021-05-28-spring-cloud-gateway-data-buffer-issue.md": "/static/media/-2021-05-28-spring-cloud-gateway-data-buffer-issue.f9646921.md",
-    "static/media/-2021-06-03-mac-terminal-auto-complete.md": "/static/media/-2021-06-03-mac-terminal-auto-complete.130bf170.md",
     "static/media/-2021-06-03-respond-in-scg-filter.md": "/static/media/-2021-06-03-respond-in-scg-filter.579ff80a.md",
     "static/media/-2021-06-03-webclient-flux-string-empty.md": "/static/media/-2021-06-03-webclient-flux-string-empty.9bdc3e2d.md",
+    "static/media/-2021-06-05-webflux-delegating-authentication-manager.md": "/static/media/-2021-06-05-webflux-delegating-authentication-manager.84d6d2de.md",
     "static/media/2015-08-29-window-hard-disk-analyze.md": "/static/media/2015-08-29-window-hard-disk-analyze.f5a4fc51.md",
     "static/media/2015-08-29-window-off-fast-user-change.md": "/static/media/2015-08-29-window-off-fast-user-change.bfba2728.md",
     "static/media/2015-08-29-window-storage-optimize.md": "/static/media/2015-08-29-window-storage-optimize.6c5e440c.md",
@@ -100,14 +100,16 @@
     "static/media/2021-05-04-compiler-message-file-broken.md": "/static/media/2021-05-04-compiler-message-file-broken.edcf3293.md",
     "static/media/2021-05-06-context-path-webflux.md": "/static/media/2021-05-06-context-path-webflux.b54c4f23.md",
     "static/media/2021-05-11-transfer-encoding-chunk-incompleted.md": "/static/media/2021-05-11-transfer-encoding-chunk-incompleted.94998fda.md",
+    "static/media/2021-06-03-mac-terminal-auto-complete.md": "/static/media/2021-06-03-mac-terminal-auto-complete.2297e64d.md",
+    "static/media/2021-06-06-webflux-security-disable-login-form.md": "/static/media/2021-06-06-webflux-security-disable-login-form.d587c613.md",
     "static/media/dduggy.a7818b8b.jpg": "/static/media/dduggy.a7818b8b.jpg",
-    "static/media/post.meta": "/static/media/post.341dc21b.meta",
+    "static/media/post.meta": "/static/media/post.2440f550.meta",
     "static/media/reactLogo.6ce24c58.svg": "/static/media/reactLogo.6ce24c58.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.684d02db.js",
-    "static/js/2.7b73cf7f.chunk.js",
+    "static/js/runtime-main.346f6ad0.js",
+    "static/js/2.dde09b5e.chunk.js",
     "static/css/main.51dcf2d4.chunk.css",
-    "static/js/main.0cd73736.chunk.js"
+    "static/js/main.ad1ca548.chunk.js"
   ]
 }
