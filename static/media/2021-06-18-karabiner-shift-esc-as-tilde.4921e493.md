@@ -40,12 +40,12 @@ $ vi ~/.config/karabiner/assets/complex_modifications/tilde.json
 }
 ```
 
-위와같이 json 파일을 추가하고 나면, Karabiner-Elements 에서 'Complex modifications' / 'Add rule' 에서 추가한 json 파일의 이름을 확인할 수 있다. 해당 rule을 적용하면 설정한 키조합이 동작하게 된다.
+위와같이 json 파일을 추가하고 나면, Karabiner-Elements에서 'Complex modifications' / 'Add rule' 에서 추가한 json 파일의 이름을 확인할 수 있다. 해당 rule을 적용하면 설정한 키조합이 동작하게 된다.
 
 <img width="1004" alt="2021-06-18-karabiner-shift-esc-as-tilde-1" src="https://user-images.githubusercontent.com/18159012/122512929-93259780-d044-11eb-9e1e-8f0adfa5db12.png">
 <img width="1003" alt="2021-06-18-karabiner-shift-esc-as-tilde-2" src="https://user-images.githubusercontent.com/18159012/122512968-a6386780-d044-11eb-96b2-76da380d585a.png">
 
 
-해당 룰을 적용하더라도 동작하지 않는다면 Karabiner-Elements 의 Devices 탭에서 사용하는 키보드가 설정이 동작하도록 체크가 되어있는지 확인하고 적용하면 된다.
+해당 룰을 적용하더라도 동작하지 않는다면 Karabiner-Elements의 Devices 탭의 사용하는 키보드에서 설정이 동작하도록 체크가 되어있는지 확인하고 적용하면 된다.
 
 <img width="1003" alt="2021-06-18-karabiner-shift-esc-as-tilde-3" src="https://user-images.githubusercontent.com/18159012/122512996-b2bcc000-d044-11eb-8b18-abd21e0bcb2f.png">
