@@ -3,7 +3,6 @@
 이를 간단한 카라비너 설정을 통해서 Fn 키 없이 사용할 수 있도록 수정할 수 있다.
 
 # 카라비너에서 키조합 설정하기
-
 카라비너에 키 조합에 대한 설정을 추가하려면 '~/.config/karabiner/assets/complex_modifications/' 디렉토리 안에 json 형식의 파일을 추가해줘야한다.
 
 ```terminal
