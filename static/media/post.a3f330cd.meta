@@ -1,5 +1,6 @@
 // {filename = date-title} :: {title} :: {tags|optional}
 2021-06-23-webflux-client-load-balancer-connection-refused :: Webflux 클라이언트 로드 밸런서에서 Connection Refused 이슈 :: java, spring, webflux, issue
+2021-06-22-mysql-function :: MySQL의 내장 함수 :: db, mysql
 2021-06-18-karabiner-shift-esc-as-tilde :: Karabiner에서 Shift + ESC 를 ~ 로 동작하도록 설정하기 :: mac, keyboard
 2021-06-06-webflux-security-disable-login-form :: Webflux에서 브라우저 로그인 폼 비활성화 하기 :: java, spring, spring-security, webflux
 2021-06-03-mac-terminal-auto-complete :: Mac 터미널에서 자동완성 사용하기 :: mac, tip
