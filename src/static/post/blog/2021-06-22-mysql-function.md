@@ -25,13 +25,13 @@ MySQL의 함수는 기본적으로 제공되는 내장함수와 사용자가 직
 
 포맷을 사용하여 TEXT - DATE 간의 변환을 지원한다.
 
-# 날짜와 시간 연상 : DATE_ADD, DATE_SUB
-특정 날짜나 시간의 연상에서 사용된다.  
+# 날짜와 시간 연산 : DATE_ADD, DATE_SUB
+특정 날짜나 시간의 연산에서 사용된다.  
 DATE_ADD 만으로도 파라메터를 통해 빼기가 가능하기 때문에 DATE_SUB 가 크게 필요하지 않다.
 
 두번째 파라메터로 숫자 이외에 단위를 `INTERVAL n [YEAR, MONTH...]` 형태로 입력해야한다.
 
-| 키워드 | 설명 |
+| 단위 키워드 | 설명 |
 | - | - |
 | YAER | 년도 |
 | MONTH | 월 |
@@ -41,6 +41,14 @@ DATE_ADD 만으로도 파라메터를 통해 빼기가 가능하기 때문에 DA
 | SECOND | 초 |
 | QUARTER | 분기 |
 | WEEK | 주 |
+
+# 날짜와 시간의 차 : DATEDIFF, TIMESTAMPDIFF
+DATE_ADD와 DATE_SUB가 일정 기간만큼 계산하여 DATE를 반환한다면, DATEDIFF의 경우 두 DATE에 대한 차이를 지정한 단위에 대해서 차이값을 얻을 수 있다.
+
+```sql
+DATEDIFF(date1, date2);
+TIMESTAMPDIFF(SECOND, ts1, ts2);
+```
 
 # 타임 스탬프 연산 : UNIX_TIMESTAMP, FROM_UNIXTIME
 - UNIX_TIMESTAMP : '1970-01-01 00:00:00'을 기준으로 현재까지 경과된 초의 수를 반환한다.
