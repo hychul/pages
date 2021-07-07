@@ -52,7 +52,7 @@
 2018-08-16-di-and-aop :: DI와 AOP :: java, spring
 2018-08-15-spring-mvc :: 스프링과 MVC :: java, spring, mvc
 2018-08-14-sprite-batch :: Sprite Batch :: java, spring, batch, spring-batch
-2018-07-16-rest-api :: REST API
+2018-07-16-rest-api :: REST API :: network
 2018-07-08-unity-vs-code-integration :: Unity VSCode 연동 :: unity
 2018-06-14-java-lambda :: 자바 람다 (Lambda) :: java, lambda
 2018-06-04-zelda-breaking-convention :: 젤다의 전설 - 야생의 숨결, 관습의 탈피 :: 
@@ -77,6 +77,6 @@
 2015-10-09-window-bluetooth-keyboard-issue :: 윈도우10 블루투스 키보드 입력이 안될 때
 2015-10-08-c-realtime-input :: C 실시간 키보드 입력 받기 :: c
 2015-09-21-linux-compile :: 리눅스 커널 컴파일하기 :: c, linux
-2015-08-29-window-storage-optimize :: 윈도우 저장 공간 늘리기
-2015-08-29-window-off-fast-user-change :: 윈도우 최적화 빠른 사용자 전환 끄기
-2015-08-29-window-hard-disk-analyze :: 윈도우 하드디스크 검사 및 복구
+2015-08-29-window-storage-optimize :: 윈도우 저장 공간 늘리기 :: tip, window
+2015-08-29-window-off-fast-user-change :: 윈도우 최적화 빠른 사용자 전환 끄기 :: tip, window
+2015-08-29-window-hard-disk-analyze :: 윈도우 하드디스크 검사 및 복구 :: tip, window
