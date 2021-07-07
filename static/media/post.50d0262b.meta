@@ -48,18 +48,18 @@
 2018-10-14-spring-json-response :: 스프링 Json Response :: java, spring
 2018-09-19-java-optional :: 자바 Optional :: java
 2018-08-24-custom-aop :: Custom AOP :: java, spring
-2018-08-20-huffman-coding :: 허프만 코딩
+2018-08-20-huffman-coding :: 허프만 코딩 :: algorithm
 2018-08-16-di-and-aop :: DI와 AOP :: java, spring
 2018-08-15-spring-mvc :: 스프링과 MVC :: java, spring, mvc
 2018-08-14-sprite-batch :: Sprite Batch :: java, spring, batch, spring-batch
 2018-07-16-rest-api :: REST API
 2018-07-08-unity-vs-code-integration :: Unity VSCode 연동 :: unity
 2018-06-14-java-lambda :: 자바 람다 (Lambda) :: java, lambda
-2018-06-04-zelda-breaking-convention :: 젤다의 전설 - 야생의 숨결, 관습의 탈피
-2018-06-01-supercell-dev-culture :: 슈퍼셀의 개발 문화
-2018-05-28-blizzard-game-philosophy :: 블리자드의 12가지 게임 철학
-2018-04-18-ecs :: ECS Model
-2018-04-11-astar :: A*(A Star) 알고리즘
+2018-06-04-zelda-breaking-convention :: 젤다의 전설 - 야생의 숨결, 관습의 탈피 :: 
+2018-06-01-supercell-dev-culture :: 슈퍼셀의 개발 문화 :: 
+2018-05-28-blizzard-game-philosophy :: 블리자드의 12가지 게임 철학 :: 
+2018-04-18-ecs :: ECS Model :: game
+2018-04-11-astar :: A*(A Star) 알고리즘 :: algorithm
 2018-04-10-tobis-spring-3.1-vol1-chapter5 :: 토비의 스프링 3.1 vol.1 5장 - 서비스 추상화 :: java, spring, tobys-spring-3.1
 2018-04-09-tobis-spring-3.1-vol1-chapter4 :: 토비의 스프링 3.1 vol.1 4장 - 예외 :: java, spring, tobys-spring-3.1
 2018-04-08-git-text-color :: Git Text Color 설정 :: git
