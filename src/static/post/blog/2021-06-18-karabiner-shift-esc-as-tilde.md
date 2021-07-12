@@ -14,7 +14,7 @@ $ vi ~/.config/karabiner/assets/complex_modifications/tilde.json
     "title": "tilde",
     "rules": [
         {
-            "description": "shift + escape = tilde",
+            "description": "right shift + escape = tilde",
             "manipulators": [
                 {
                     "type": "basic",
@@ -22,14 +22,14 @@ $ vi ~/.config/karabiner/assets/complex_modifications/tilde.json
                         "key_code": "escape",
                         "modifiers": {
                             "mandatory": [
-                                "shift"
+                                "right_shift"
                             ]
                         }
                     },
                     "to": [
                         {
                             "key_code": "grave_accent_and_tilde",
-                            "modifiers": ["shift"]
+                            "modifiers": ["right_shift"]
                         }
                     ]
                 }
@@ -40,6 +40,8 @@ $ vi ~/.config/karabiner/assets/complex_modifications/tilde.json
 ```
 
 위와같이 json 파일을 추가하고 나면, Karabiner-Elements에서 'Complex modifications' / 'Add rule' 에서 추가한 json 파일의 이름을 확인할 수 있다. 해당 rule을 적용하면 설정한 키조합이 동작하게 된다.
+
+> 그냥 shift가 아닌 right_shift를 키코드로 사용한 이유는 shift + esc의 조합을 갖는 단축키도 존재할 수 있기 때문에, 일반적인 타이핑 방식의 양손으로 shift와 esc를 입력하는 경우엔 물결로, 왼손만을 사용한 입력에선 단축키가 동작하도록 하기 위해서 이다.
 
 <img width="1004" alt="2021-06-18-karabiner-shift-esc-as-tilde-1" src="https://user-images.githubusercontent.com/18159012/122512929-93259780-d044-11eb-9e1e-8f0adfa5db12.png">
 <img width="1003" alt="2021-06-18-karabiner-shift-esc-as-tilde-2" src="https://user-images.githubusercontent.com/18159012/122512968-a6386780-d044-11eb-96b2-76da380d585a.png">
